@@ -3,12 +3,12 @@ using System;
 
 public class Ice : MonoBehaviour
 {
-    public float DistanceAboveParent;
-    public float DistanceBetweenPoints;
+    public float ActualDistanceBetweenPoints;
     public float RelativeCentre;
+    public float RelativeDistanceAboveParent;
     public float RelativeSize;
 
-	void Start ()
+	void Start()
     {
         SetPositionToCentreOfAndDistanceAboveParent();
         SetRelativeSize();
@@ -19,7 +19,7 @@ public class Ice : MonoBehaviour
     {
         gameObject.transform.position = new Vector2(
             gameObject.transform.parent.transform.position.x + RelativeCentre,
-            gameObject.transform.parent.transform.position.y + DistanceAboveParent);
+            gameObject.transform.parent.transform.position.y + RelativeDistanceAboveParent);
     }
 
     private void SetRelativeSize()
@@ -32,7 +32,7 @@ public class Ice : MonoBehaviour
         var polyCollider = GetComponent<PolygonCollider2D>();
 
         float boundaryWidth = polyCollider.bounds.size.x;
-        float relativeDistanceBetweenPoints = DistanceBetweenPoints / boundaryWidth;
+        float relativeDistanceBetweenPoints = ActualDistanceBetweenPoints / boundaryWidth;
         int pointCount = Convert.ToInt32(1 / relativeDistanceBetweenPoints) + 3;
 
         polyCollider.points = GetPointsEvenlySpacedOnNorthOfRectangle(relativeDistanceBetweenPoints, pointCount);
@@ -56,7 +56,20 @@ public class Ice : MonoBehaviour
         return points;
     }
 
-    void Update ()
+    void Update()
     {
-	}
+    }
+
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        OnCollisionLowerNearestPoint(coll);
+    }
+
+    private void OnCollisionLowerNearestPoint(Collider2D coll)
+    {
+        if (coll.gameObject.tag == "Player")
+        {
+            Debug.Log("touched!");
+        }
+    }
 }
