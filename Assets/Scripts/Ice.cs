@@ -1,36 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace fireperson.Assets.Scripts
 {
 	public class Ice : MonoBehaviour
 	{
-		public float ActualDistanceBetweenPoints;
-		public float MinimumDistanceToTriggerPointsOnCollision;
-		public float DistanceToLowerPoints;
+		public float ActualDistanceBetweenPoints = 0.5f;
+        public float MinimumDistanceToTriggerPointsOnCollision = 0.85f;
+		public float DistanceToLowerPoints = 0.1f;
 	
 		public float RelativeCentre;
 		public float RelativeDistanceAboveParent;
 		public float RelativeSize;
 	
 		private PolygonCollider2D _polyCollider;
+        private Mesh _mesh;
 
-		void Start()
+
+        void Start()
 		{
 			_polyCollider = GetComponent<PolygonCollider2D>();
-	
-			SetPositionToCentreOfAndDistanceAboveParent();
+            _mesh = GetComponent<MeshFilter>().mesh;
+
+            SetPositionToCentreAboveInFrontOfParent();
 			SetRelativeSize();
 			SetPolyColliderPoints();
+            SetMeshFilterToPolyColliderPoints();
 		}
 	
-		private void SetPositionToCentreOfAndDistanceAboveParent()
+		private void SetPositionToCentreAboveInFrontOfParent()
 		{
-			gameObject.transform.position = new Vector2(
+			gameObject.transform.position = new Vector3(
 				gameObject.transform.parent.transform.position.x + RelativeCentre,
-				gameObject.transform.parent.transform.position.y + RelativeDistanceAboveParent);
+				gameObject.transform.parent.transform.position.y + RelativeDistanceAboveParent,
+                -0.1f);
 		}
 
 		private void SetRelativeSize()
@@ -69,26 +72,63 @@ namespace fireperson.Assets.Scripts
 		{
 		}
 
-		void OnTriggerEnter2D(Collider2D coll)
-		{
-			OnCollisionLowerPointsWithinDistance(coll);
-		}
+        void OnTriggerStay2D(Collider2D coll)
+        {
+            OnCollisionLowerPointsWithinDistance(coll);
+            SetMeshFilterToPolyColliderPoints();
+        }
 
-		private void OnCollisionLowerPointsWithinDistance(Collider2D coll)
+        private void OnCollisionLowerPointsWithinDistance(Collider2D coll)
 		{
-			List<Vector2> nearestPoints = GetNearestPointsToCentre(coll);	
-			nearestPoints.ForEach(point => point.y -= DistanceToLowerPoints);
-		}
-	
-		private List<Vector2> GetNearestPointsToCentre(Collider2D coll)
-		{
-			var pcCentre = new Vector2(coll.bounds.center.x, coll.bounds.center.y);
+			Vector2[] newPoints = LowerNearestPointsToCentre(coll);
+            _polyCollider.points = newPoints;
+        }
 
-			return (from point in _polyCollider.points
-				let worldPoint = coll.transform.TransformPoint(point)
-				let distance = Vector2.Distance(worldPoint, pcCentre)
-				where distance < MinimumDistanceToTriggerPointsOnCollision
-				select point).ToList();
-		}
+        private Vector2[] LowerNearestPointsToCentre(Collider2D coll)
+        {
+            var pcCentre = new Vector2(coll.transform.position.x, coll.transform.position.y);
+            Vector2[] newPoints = _polyCollider.points;
+
+            for (int i = 0; i < _polyCollider.points.Length; i++)
+            {
+                Vector2 point = _polyCollider.points[i];
+                if (point.y <= 0)
+                    continue;
+
+                Vector2 worldPoint = transform.TransformPoint(point);
+                float distance = Vector2.Distance(worldPoint, pcCentre);
+                if (distance < MinimumDistanceToTriggerPointsOnCollision)
+                {
+                    newPoints[i] = new Vector2(point.x, point.y - DistanceToLowerPoints);
+                }
+            }
+            return newPoints;
+        }
+
+        private void SetMeshFilterToPolyColliderPoints()
+        {
+            _mesh.Clear();
+            _mesh.vertices = GetNewMeshFilterVertices();
+            _mesh.triangles = GetNewMeshFilterTriangles();
+        }
+
+        private Vector3[] GetNewMeshFilterVertices()
+        {
+            Vector3[] vertices = new Vector3[_polyCollider.GetTotalPointCount()];
+            for (int j = 0; j < vertices.Length; j++)
+            {
+                vertices[j] = new Vector3(
+                    _polyCollider.points[j].x,
+                    _polyCollider.points[j].y,
+                    0);
+            }
+            return vertices;
+        }
+
+        private int[] GetNewMeshFilterTriangles()
+        {
+            Triangulator tr = new Triangulator(_polyCollider.points);
+            return tr.Triangulate();
+        }
 	}
 }
