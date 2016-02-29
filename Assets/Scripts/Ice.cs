@@ -3,17 +3,21 @@ using UnityEngine;
 
 namespace fireperson.Assets.Scripts
 {
-	public class Ice : MonoBehaviour
+    [RequireComponent(typeof(PolygonCollider2D), typeof(MeshFilter), typeof(MeshRenderer))]
+    public class Ice : MonoBehaviour
 	{
 		public float ActualDistanceBetweenPoints = 0.5f;
         public float MinimumDistanceToTriggerPointsOnCollision = 0.85f;
 		public float DistanceToLowerPoints = 0.1f;
+        public float DistanceInFrontOfParent = -2f;
 	
 		public float RelativeCentre;
 		public float RelativeDistanceAboveParent;
 		public float RelativeSize;
-	
-		private PolygonCollider2D _polyCollider;
+
+        public float NinetyDegreeOffsetDistance = 0;
+
+        private PolygonCollider2D _polyCollider;
         private Mesh _mesh;
 
 
@@ -33,7 +37,7 @@ namespace fireperson.Assets.Scripts
 			gameObject.transform.position = new Vector3(
 				gameObject.transform.parent.transform.position.x + RelativeCentre,
 				gameObject.transform.parent.transform.position.y + RelativeDistanceAboveParent,
-                -0.1f);
+                DistanceInFrontOfParent);
 		}
 
 		private void SetRelativeSize()
@@ -43,7 +47,9 @@ namespace fireperson.Assets.Scripts
 
 		private void SetPolyColliderPoints()
 		{
-			float boundaryWidth = _polyCollider.bounds.size.x;
+            float boundaryWidth = _polyCollider.bounds.size.x > _polyCollider.bounds.size.y
+                ? _polyCollider.bounds.size.x
+                : _polyCollider.bounds.size.y;
 			float relativeDistanceBetweenPoints = ActualDistanceBetweenPoints / boundaryWidth;
 			int pointCount = Convert.ToInt32(1 / relativeDistanceBetweenPoints) + 3;
 
@@ -86,18 +92,37 @@ namespace fireperson.Assets.Scripts
 
         private Vector2[] LowerNearestPointsToCentre(Collider2D coll)
         {
-            var pcCentre = new Vector2(coll.transform.position.x, coll.transform.position.y);
+            int rotation = (int)Mathf.Round(transform.rotation.eulerAngles.z);
+
+            Vector2 pcCentre;
+            if (rotation < 90 || rotation > 270)
+            {
+                pcCentre = new Vector2(coll.bounds.center.x, coll.bounds.min.y);
+            }
+            else if (rotation == 90)
+            {
+                pcCentre = new Vector2(coll.bounds.center.x - NinetyDegreeOffsetDistance, coll.bounds.center.y);
+            }
+            else if (rotation == 270)
+            {
+                pcCentre = new Vector2(coll.bounds.center.x + NinetyDegreeOffsetDistance, coll.bounds.center.y);
+            }
+            else
+            {
+                pcCentre = new Vector2(coll.bounds.center.x, coll.bounds.max.y);
+            }
+
             Vector2[] newPoints = _polyCollider.points;
 
             for (int i = 0; i < _polyCollider.points.Length; i++)
             {
                 Vector2 point = _polyCollider.points[i];
-                if (point.y <= 0)
+                if (point.y <= -0.4f)
                     continue;
 
                 Vector2 worldPoint = transform.TransformPoint(point);
                 float distance = Vector2.Distance(worldPoint, pcCentre);
-                if (distance < MinimumDistanceToTriggerPointsOnCollision)
+                if (distance < MinimumDistanceToTriggerPointsOnCollision + NinetyDegreeOffsetDistance)
                 {
                     newPoints[i] = new Vector2(point.x, point.y - DistanceToLowerPoints);
                 }
