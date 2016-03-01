@@ -7,5 +7,6 @@ namespace Assets.Scripts.Fire
 {
     public class Fire
     {
+        //done?
     }
 }
