@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace fireperson.Assets.Scripts.Player
+namespace Assets.Scripts.Player
 {
     public class PlayerMotor : MonoBehaviour
     {

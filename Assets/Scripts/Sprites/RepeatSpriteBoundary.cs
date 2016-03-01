@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace fireperson.Assets.Scripts.Sprites
+namespace Assets.Scripts.Sprites
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public class RepeatSpriteBoundary : MonoBehaviour

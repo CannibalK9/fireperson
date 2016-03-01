@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace fireperson.Assets.Scripts.Movement
+namespace Assets.Scripts.Movement
 {
     public interface IController
     {

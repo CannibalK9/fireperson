@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace fireperson.Assets.Scripts.Ice
+namespace Assets.Scripts.Ice
 {
     [RequireComponent(typeof(PolygonCollider2D), typeof(MeshFilter), typeof(MeshRenderer))]
     public class Ice : MonoBehaviour

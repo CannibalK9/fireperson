@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace fireperson.Assets.Scripts.Ice
+namespace Assets.Scripts.Ice
 {
     public class Triangulator
     {

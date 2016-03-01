@@ -2,7 +2,7 @@
 using fireperson.Assets.Scripts.Movement;
 using UnityEngine;
 
-namespace fireperson.Assets.Scripts.Movement
+namespace Assets.Scripts.Movement
 {
     public class MovementHandler
     {

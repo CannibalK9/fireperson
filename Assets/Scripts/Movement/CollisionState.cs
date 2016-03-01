@@ -1,4 +1,4 @@
-﻿namespace fireperson.Assets.Scripts.Movement
+﻿namespace Assets.Scripts.Movement
 {
     public class CollisionState
     {

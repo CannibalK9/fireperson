@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace fireperson.Assets.Scripts.Player
+namespace Assets.Scripts.Player
 {
     [RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
     public class PlayerController : MonoBehaviour, IController

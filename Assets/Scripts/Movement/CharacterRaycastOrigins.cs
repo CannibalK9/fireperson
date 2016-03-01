@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace fireperson.Assets.Scripts.Movement
+namespace Assets.Scripts.Movement
 {
     public struct CharacterRaycastOrigins
     {
