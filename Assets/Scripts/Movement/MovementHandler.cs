@@ -1,5 +1,4 @@
 ﻿#define DEBUG_CC2D_RAYS
-using fireperson.Assets.Scripts.Movement;
 using UnityEngine;
 
 namespace Assets.Scripts.Movement
@@ -67,12 +66,7 @@ namespace Assets.Scripts.Movement
 
                 DrawRay(ray, rayDirection * rayDistance, Color.red);
 
-                // if we are grounded we will include oneWayPlatforms only on the first ray (the bottom one). this will allow us to
-                // walk up sloped oneWayPlatforms
-                if (i == 0 && _controller.CollisionState.wasGroundedLastFrame)
-                    _raycastHit = Physics2D.Raycast(ray, rayDirection, rayDistance, _controller.PlatformMask);
-                else
-                    _raycastHit = Physics2D.Raycast(ray, rayDirection, rayDistance, _controller.PlatformMask);
+                _raycastHit = Physics2D.Raycast(ray, rayDirection, rayDistance, _controller.PlatformMask);
 
                 if (_raycastHit)
                 {
@@ -143,11 +137,7 @@ namespace Assets.Scripts.Movement
                     // safety check. we fire a ray in the direction of movement just in case the diagonal we calculated above ends up
                     // going through a wall. if the ray hits, we back off the horizontal movement to stay in bounds.
                     var ray = isGoingRight ? _raycastOrigins.bottomRight : _raycastOrigins.bottomLeft;
-                    RaycastHit2D raycastHit;
-                    if (_controller.CollisionState.wasGroundedLastFrame)
-                        raycastHit = Physics2D.Raycast(ray, deltaMovement.normalized, deltaMovement.magnitude, _controller.PlatformMask);
-                    else
-                        raycastHit = Physics2D.Raycast(ray, deltaMovement.normalized, deltaMovement.magnitude, _controller.PlatformMask);
+                    RaycastHit2D raycastHit = Physics2D.Raycast(ray, deltaMovement.normalized, deltaMovement.magnitude, _controller.PlatformMask);
 
                     if (raycastHit)
                     {

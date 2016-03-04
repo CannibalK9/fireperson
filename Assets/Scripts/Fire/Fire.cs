@@ -1,12 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace Assets.Scripts.Fire
 {
-    public class Fire
+    [RequireComponent(typeof(SpriteRenderer))]
+    public class Fire : MonoBehaviour
     {
-        //done???
+        public bool createFire;
+
+        void OnGUI()
+        {
+            createFire = EditorGUILayout.Toggle("Create fire", false);
+        }
+
+        void Update()
+        {
+            if (createFire)
+                CreateFire();
+        }
+
+        public void CreateFire()
+        {
+            var fire = new GameObject();
+            var light = fire.AddComponent<Light>();
+            var halo = light.GetComponent("Halo");
+            //var haloEnabledProperty = halo.GetType().GetProperty("enabled");
+            //haloEnabledProperty.SetValue(halo, true, null);
+            var woo = Instantiate(fire) as GameObject;
+            woo.transform.parent = transform;
+        }
     }
 }

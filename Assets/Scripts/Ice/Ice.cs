@@ -7,13 +7,14 @@ namespace Assets.Scripts.Ice
     public class Ice : MonoBehaviour
 	{
 		public float ActualDistanceBetweenPoints = 0.5f;
-        public float MinimumDistanceToTriggerPointsOnCollision = 0.85f;
+        public float MinimumDistanceToTriggerPointsOnCollision = 1.8f;
 		public float DistanceToLowerPoints = 0.1f;
         public float DistanceInFrontOfParent = -2f;
+        public float DistanceFromSurface = 1.6f;
 	
 		public float RelativeCentre;
-		public float RelativeDistanceAboveParent;
-		public float RelativeSize;
+		public float RelativeDistanceAboveParent = 0.2f;
+		public float RelativeSize = 0.5f;
 
         public float NinetyDegreeOffsetDistance = 0;
 
@@ -98,6 +99,9 @@ namespace Assets.Scripts.Ice
             if (rotation < 90 || rotation > 270)
             {
                 pcCentre = new Vector2(coll.bounds.center.x, coll.bounds.min.y);
+                Vector2 normalPoint = transform.InverseTransformPoint(pcCentre);
+                normalPoint.y += DistanceFromSurface;
+                pcCentre = transform.TransformPoint(normalPoint);
             }
             else if (rotation == 90)
             {
@@ -110,6 +114,9 @@ namespace Assets.Scripts.Ice
             else
             {
                 pcCentre = new Vector2(coll.bounds.center.x, coll.bounds.max.y);
+                Vector2 normalPoint = transform.InverseTransformPoint(pcCentre);
+                normalPoint.y -= DistanceFromSurface;
+                pcCentre = transform.TransformPoint(normalPoint);
             }
 
             Vector2[] newPoints = _polyCollider.points;
@@ -122,7 +129,7 @@ namespace Assets.Scripts.Ice
 
                 Vector2 worldPoint = transform.TransformPoint(point);
                 float distance = Vector2.Distance(worldPoint, pcCentre);
-                if (distance < MinimumDistanceToTriggerPointsOnCollision + NinetyDegreeOffsetDistance)
+                if (distance < MinimumDistanceToTriggerPointsOnCollision)
                 {
                     newPoints[i] = new Vector2(point.x, point.y - DistanceToLowerPoints);
                 }

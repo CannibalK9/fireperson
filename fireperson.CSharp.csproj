@@ -65,39 +65,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\CC\CharacterController2D\CharacterController2D.cs" />
-    <Compile Include="Assets\CC\demo\scripts\DemoScene.cs" />
-    <Compile Include="Assets\CC\demo\scripts\SmoothFollow.cs" />
-    <Compile Include="Assets\PC2D\Example\CameraFollow.cs" />
-    <Compile Include="Assets\PC2D\Example\DifferentSpeeds\DifferentSpeeds.cs" />
-    <Compile Include="Assets\PC2D\Example\LadderBody.cs" />
-    <Compile Include="Assets\PC2D\Example\LadderZone.cs" />
-    <Compile Include="Assets\PC2D\Example\MotorMonitor.cs" />
-    <Compile Include="Assets\PC2D\Example\Moving Platforms\SimpleBoost.cs" />
-    <Compile Include="Assets\PC2D\Example\Moving Platforms\SimpleCollapsable.cs" />
-    <Compile Include="Assets\PC2D\Example\Moving Platforms\SimpleLeftRight.cs" />
-    <Compile Include="Assets\PC2D\Example\Moving Platforms\SimpleUpDown.cs" />
-    <Compile Include="Assets\PC2D\Example\RestrictedArea.cs" />
-    <Compile Include="Assets\PC2D\Example\Simple AI\SimpleAI.cs" />
-    <Compile Include="Assets\PC2D\Example\SpriteDebug.cs" />
-    <Compile Include="Assets\PC2D\Example\Triggers\MessageOnCollision.cs" />
-    <Compile Include="Assets\PC2D\Scripts\EasingFunctions.cs" />
-    <Compile Include="Assets\PC2D\Scripts\Globals.cs" />
-    <Compile Include="Assets\PC2D\Scripts\MovingPlatformMotor2D.cs" />
-    <Compile Include="Assets\PC2D\Scripts\PlatformerAnimation2D.cs" />
-    <Compile Include="Assets\PC2D\Scripts\PlatformerMotor2D.cs" />
-    <Compile Include="Assets\PC2D\Scripts\PlayerController2D.cs" />
     <Compile Include="Assets\Scripts\Fire\Fire.cs" />
+    <Compile Include="Assets\Scripts\Heat\IVariableHeater.cs" />
     <Compile Include="Assets\Scripts\Ice\Ice.cs" />
-    <Compile Include="Assets\Scripts\Movement\IController.cs" />
-    <Compile Include="Assets\Scripts\Movement\MovementHandler.cs" />
+    <Compile Include="Assets\Scripts\Ice\Triangulator.cs" />
     <Compile Include="Assets\Scripts\Movement\CharacterRaycastOrigins.cs" />
     <Compile Include="Assets\Scripts\Movement\CollisionState.cs" />
+    <Compile Include="Assets\Scripts\Movement\IController.cs" />
+    <Compile Include="Assets\Scripts\Movement\MovementHandler.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMotor.cs" />
     <Compile Include="Assets\Scripts\Sprites\RepeatSpriteBoundary.cs" />
-    <Compile Include="Assets\Scripts\Ice\Triangulator.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

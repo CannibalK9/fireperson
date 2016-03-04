@@ -1,4 +1,4 @@
-﻿using fireperson.Assets.Scripts.Movement;
+﻿using Assets.Scripts.Movement;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

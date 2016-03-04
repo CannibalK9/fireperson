@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Assets.Scripts.Heat;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
-    public class PlayerMotor : MonoBehaviour
+    public class PlayerMotor : MonoBehaviour, IVariableHeater
     {
         public float Gravity = -25f;
         public float RunSpeed = 8f;
@@ -31,7 +32,7 @@ namespace Assets.Scripts.Player
         void onControllerCollider(RaycastHit2D hit)
         {
             if (hit.normal.y == 1f)
-                return;
+            return;
 
             //Debug.Log( "flags: " + _controller.collisionState + ", hit.normal: " + hit.normal );
         }
@@ -67,6 +68,8 @@ namespace Assets.Scripts.Player
             }
 
             _velocity = _controller.Velocity;
+
+            SendRayCastsToMeltIce();
         }
 
         private void HandleMovementInputs()
@@ -127,6 +130,22 @@ namespace Assets.Scripts.Player
                 directionFacing = DirectionFacing.Left;
 
             return directionFacing;
+        }
+
+        private void SendRayCastsToMeltIce()
+        {
+            var rayDistance = Mathf.Abs(deltaMovement.x) + _controller.SkinWidth;
+            var rayDirection = isGoingRight ? Vector2.right : -Vector2.right;
+            var initialRayOrigin = isGoingRight ? _raycastOrigins.bottomRight : _raycastOrigins.bottomLeft;
+
+            for (var i = 0; i < _controller.TotalHorizontalRays; i++)
+            {
+                var ray = new Vector2(initialRayOrigin.x, initialRayOrigin.y + i * _controller.VerticalDistanceBetweenRays);
+
+                DrawRay(ray, rayDirection * rayDistance, Color.red);
+
+                RaycastHit2D raycastHit = Physics2D.Raycast(ray, deltaMovement.normalized, deltaMovement.magnitude, _controller.PlatformMask);
+
         }
     }
 }
