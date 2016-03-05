@@ -1,10 +1,9 @@
-﻿using Assets.Scripts.Heat;
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
-    public class PlayerMotor : MonoBehaviour, IVariableHeater
+    public class PlayerMotor : MonoBehaviour
     {
         public float Gravity = -25f;
         public float RunSpeed = 8f;
@@ -63,13 +62,13 @@ namespace Assets.Scripts.Player
             // send off the collision events if we have a listener
             if (onControllerCollidedEvent != null)
             {
-                for (var i = 0; i < _controller.RaycastHitsThisFrame.Count; i++)
-                    onControllerCollidedEvent(_controller.RaycastHitsThisFrame[i]);
+                foreach (RaycastHit2D hit in _controller.RaycastHitsThisFrame)
+                    onControllerCollidedEvent(hit);
             }
 
             _velocity = _controller.Velocity;
 
-            SendRayCastsToMeltIce();
+            _controller.HeatIce();
         }
 
         private void HandleMovementInputs()
@@ -99,6 +98,11 @@ namespace Assets.Scripts.Player
             {
                 _velocity.y = Mathf.Sqrt(2f * JumpHeight * -Gravity);
                 _animator.Play(Animator.StringToHash("Jump"));
+            }
+
+            if (_controller.IsGrounded && Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                _controller.CreatePilotedLight();
             }
         }
 
@@ -130,22 +134,6 @@ namespace Assets.Scripts.Player
                 directionFacing = DirectionFacing.Left;
 
             return directionFacing;
-        }
-
-        private void SendRayCastsToMeltIce()
-        {
-            var rayDistance = Mathf.Abs(deltaMovement.x) + _controller.SkinWidth;
-            var rayDirection = isGoingRight ? Vector2.right : -Vector2.right;
-            var initialRayOrigin = isGoingRight ? _raycastOrigins.bottomRight : _raycastOrigins.bottomLeft;
-
-            for (var i = 0; i < _controller.TotalHorizontalRays; i++)
-            {
-                var ray = new Vector2(initialRayOrigin.x, initialRayOrigin.y + i * _controller.VerticalDistanceBetweenRays);
-
-                DrawRay(ray, rayDirection * rayDistance, Color.red);
-
-                RaycastHit2D raycastHit = Physics2D.Raycast(ray, deltaMovement.normalized, deltaMovement.magnitude, _controller.PlatformMask);
-
         }
     }
 }

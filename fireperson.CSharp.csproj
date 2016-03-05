@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Fire\Fire.cs" />
+    <Compile Include="Assets\Scripts\Heat\HeatHandler.cs" />
     <Compile Include="Assets\Scripts\Heat\IVariableHeater.cs" />
     <Compile Include="Assets\Scripts\Ice\Ice.cs" />
     <Compile Include="Assets\Scripts\Ice\Triangulator.cs" />
@@ -73,6 +74,8 @@
     <Compile Include="Assets\Scripts\Movement\CollisionState.cs" />
     <Compile Include="Assets\Scripts\Movement\IController.cs" />
     <Compile Include="Assets\Scripts\Movement\MovementHandler.cs" />
+    <Compile Include="Assets\Scripts\Player\PilotedLightController.cs" />
+    <Compile Include="Assets\Scripts\Player\PilotedLightMotor.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMotor.cs" />
     <Compile Include="Assets\Scripts\Sprites\RepeatSpriteBoundary.cs" />

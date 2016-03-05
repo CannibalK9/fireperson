@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Movement;
+﻿using Assets.Scripts.Heat;
+using Assets.Scripts.Movement;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 namespace Assets.Scripts.Player
 {
     [RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
-    public class PlayerController : MonoBehaviour, IController
+    public class PlayerController : MonoBehaviour, IController, IVariableHeater
     {
         public event Action<Collider2D> onTriggerEnterEvent;
         public event Action<Collider2D> onTriggerStayEvent;
@@ -26,10 +27,8 @@ namespace Assets.Scripts.Player
         }
 
         public LayerMask _triggerMask = 0;
-
         public LayerMask _platformMask = 0;
         public LayerMask PlatformMask { get { return _platformMask; } }
-
 
         [Range(0f, 90f)]
         public float _slopeLimit = 30f;
@@ -51,29 +50,25 @@ namespace Assets.Scripts.Player
         public int _totalVerticalRays = 4;
         public int TotalVerticalRays { get { return _totalVerticalRays; } }
 
-        [HideInInspector]
+        public float _heatRayDistance = 0.2f;
+        public float HeatRayDistance { get { return _heatRayDistance; } }
+
         public Transform Transform { get; set; }
-
-        [HideInInspector]
         public BoxCollider2D BoxCollider { get; set; }
-
-        [HideInInspector]
         public CollisionState CollisionState { get; set; }
         public bool IsGrounded { get { return CollisionState.below; } }
-
-        [HideInInspector]
         public Vector3 Velocity { get; set; }
-
         public List<RaycastHit2D> RaycastHitsThisFrame { get; set; } 
-        public MovementHandler _movement;
-
         public float VerticalDistanceBetweenRays { get; set; }
         public float HorizontalDistanceBetweenRays { get; set; }
 
+        public MovementHandler _movement;
+        private HeatHandler _heatHandler;
 
         void Awake()
         {
             _movement = new MovementHandler(this);
+            _heatHandler = new HeatHandler(this);
 
             Transform = GetComponent<Transform>();
             BoxCollider = GetComponent<BoxCollider2D>();
@@ -90,6 +85,23 @@ namespace Assets.Scripts.Player
                 if ((_triggerMask.value & 1 << i) == 0)
                     Physics2D.IgnoreLayerCollision(gameObject.layer, i);
             }
+        }
+
+        public void HeatIce()
+        {
+            _heatHandler.Heat();
+        }
+
+        public void CreatePilotedLight()
+        {
+            Vector3 pilotedLightPosition = _movement.IsFacingRight
+                ? transform.position + new Vector3(0.4f, 0, -0.01f)
+                : transform.position + new Vector3(-0.4f, 0, -0.01f);
+
+            Instantiate(
+                Resources.Load("PilotedLight"),
+                pilotedLightPosition,
+                transform.rotation);
         }
 
         public void OnTriggerEnter2D(Collider2D col)
@@ -120,7 +132,6 @@ namespace Assets.Scripts.Player
             }
         }
 
-        /// <summary>
         /// this should be called anytime you have to modify the BoxCollider2D at runtime. It will recalculate the distance between the rays used for collision detection.
         /// It is also used in the skinWidth setter in case it is changed at runtime.
         /// </summary>

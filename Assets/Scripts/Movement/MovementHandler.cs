@@ -5,6 +5,8 @@ namespace Assets.Scripts.Movement
 {
     public class MovementHandler
     {
+        public bool IsFacingRight = true;
+
         private IController _controller;
         private RaycastHit2D _raycastHit;
         private CharacterRaycastOrigins _raycastOrigins;
@@ -55,10 +57,10 @@ namespace Assets.Scripts.Movement
         /// </summary>
         private void MoveHorizontally(ref Vector3 deltaMovement)
         {
-            var isGoingRight = deltaMovement.x > 0;
+            IsFacingRight = deltaMovement.x > 0;
             var rayDistance = Mathf.Abs(deltaMovement.x) + _controller.SkinWidth;
-            var rayDirection = isGoingRight ? Vector2.right : -Vector2.right;
-            var initialRayOrigin = isGoingRight ? _raycastOrigins.bottomRight : _raycastOrigins.bottomLeft;
+            var rayDirection = IsFacingRight ? Vector2.right : -Vector2.right;
+            var initialRayOrigin = IsFacingRight ? _raycastOrigins.bottomRight : _raycastOrigins.bottomLeft;
 
             for (var i = 0; i < _controller.TotalHorizontalRays; i++)
             {
@@ -82,7 +84,7 @@ namespace Assets.Scripts.Movement
                     rayDistance = Mathf.Abs(deltaMovement.x);
 
                     // remember to remove the skinWidth from our deltaMovement
-                    if (isGoingRight)
+                    if (IsFacingRight)
                     {
                         deltaMovement.x -= _controller.SkinWidth;
                         _controller.CollisionState.right = true;

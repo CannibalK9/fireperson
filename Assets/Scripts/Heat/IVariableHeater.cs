@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Heat
 {
     public interface IVariableHeater
     {
+        BoxCollider2D BoxCollider { get; set; }
+        float HeatRayDistance { get; }
     }
 }

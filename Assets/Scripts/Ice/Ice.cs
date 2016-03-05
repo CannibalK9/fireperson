@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Ice
@@ -6,44 +7,41 @@ namespace Assets.Scripts.Ice
     [RequireComponent(typeof(PolygonCollider2D), typeof(MeshFilter), typeof(MeshRenderer))]
     public class Ice : MonoBehaviour
 	{
-		public float ActualDistanceBetweenPoints = 0.5f;
-        public float MinimumDistanceToTriggerPointsOnCollision = 1.8f;
-		public float DistanceToLowerPoints = 0.1f;
-        public float DistanceInFrontOfParent = -2f;
-        public float DistanceFromSurface = 1.6f;
+		public float ActualDistanceBetweenPoints = 0.2f;
+        public float MinimumDistanceToTriggerPointsOnCollision = 0.4f;
+		public float DefaultDistanceToLowerPoints = 0.1f;
+        public float DistanceInFrontOfParent = -0.02f;
 	
 		public float RelativeCentre;
-		public float RelativeDistanceAboveParent = 0.2f;
-		public float RelativeSize = 0.5f;
-
-        public float NinetyDegreeOffsetDistance = 0;
+		public float RelativeDistanceAboveParent = -0.5f;
+		public float RelativeWidth = 0.5f;
+        public float RelativeDepth = 2f;
 
         private PolygonCollider2D _polyCollider;
         private Mesh _mesh;
-
 
         void Start()
 		{
 			_polyCollider = GetComponent<PolygonCollider2D>();
             _mesh = GetComponent<MeshFilter>().mesh;
 
-            SetPositionToCentreAboveInFrontOfParent();
 			SetRelativeSize();
+            SetPositionRelativeToParent();
 			SetPolyColliderPoints();
             SetMeshFilterToPolyColliderPoints();
 		}
 	
-		private void SetPositionToCentreAboveInFrontOfParent()
+		private void SetPositionRelativeToParent()
 		{
-			gameObject.transform.position = new Vector3(
-				gameObject.transform.parent.transform.position.x + RelativeCentre,
-				gameObject.transform.parent.transform.position.y + RelativeDistanceAboveParent,
+            gameObject.transform.position = gameObject.transform.parent.position;
+
+			gameObject.transform.localPosition = new Vector3(RelativeCentre, RelativeDistanceAboveParent,
                 DistanceInFrontOfParent);
 		}
 
 		private void SetRelativeSize()
 		{
-			gameObject.transform.localScale = new Vector2(RelativeSize, 1);
+			gameObject.transform.localScale = new Vector2(RelativeWidth, RelativeDepth);
 		}
 
 		private void SetPolyColliderPoints()
@@ -79,46 +77,20 @@ namespace Assets.Scripts.Ice
 		{
 		}
 
-        void OnTriggerStay2D(Collider2D coll)
+        void Melt(Vector2 hitLocation)
         {
-            OnCollisionLowerPointsWithinDistance(coll);
+            OnCollisionLowerPointsWithinDistance(hitLocation);
             SetMeshFilterToPolyColliderPoints();
         }
 
-        private void OnCollisionLowerPointsWithinDistance(Collider2D coll)
+        private void OnCollisionLowerPointsWithinDistance(Vector2 hitLocation)
 		{
-			Vector2[] newPoints = LowerNearestPointsToCentre(coll);
+			Vector2[] newPoints = GetPointsLoweredByHit(hitLocation);
             _polyCollider.points = newPoints;
         }
 
-        private Vector2[] LowerNearestPointsToCentre(Collider2D coll)
+        private Vector2[] GetPointsLoweredByHit(Vector2 hitLocation)
         {
-            int rotation = (int)Mathf.Round(transform.rotation.eulerAngles.z);
-
-            Vector2 pcCentre;
-            if (rotation < 90 || rotation > 270)
-            {
-                pcCentre = new Vector2(coll.bounds.center.x, coll.bounds.min.y);
-                Vector2 normalPoint = transform.InverseTransformPoint(pcCentre);
-                normalPoint.y += DistanceFromSurface;
-                pcCentre = transform.TransformPoint(normalPoint);
-            }
-            else if (rotation == 90)
-            {
-                pcCentre = new Vector2(coll.bounds.center.x - NinetyDegreeOffsetDistance, coll.bounds.center.y);
-            }
-            else if (rotation == 270)
-            {
-                pcCentre = new Vector2(coll.bounds.center.x + NinetyDegreeOffsetDistance, coll.bounds.center.y);
-            }
-            else
-            {
-                pcCentre = new Vector2(coll.bounds.center.x, coll.bounds.max.y);
-                Vector2 normalPoint = transform.InverseTransformPoint(pcCentre);
-                normalPoint.y -= DistanceFromSurface;
-                pcCentre = transform.TransformPoint(normalPoint);
-            }
-
             Vector2[] newPoints = _polyCollider.points;
 
             for (int i = 0; i < _polyCollider.points.Length; i++)
@@ -128,10 +100,10 @@ namespace Assets.Scripts.Ice
                     continue;
 
                 Vector2 worldPoint = transform.TransformPoint(point);
-                float distance = Vector2.Distance(worldPoint, pcCentre);
+                float distance = Vector2.Distance(worldPoint, hitLocation);
                 if (distance < MinimumDistanceToTriggerPointsOnCollision)
                 {
-                    newPoints[i] = new Vector2(point.x, point.y - DistanceToLowerPoints);
+                    newPoints[i] = new Vector2(point.x, point.y - DefaultDistanceToLowerPoints);
                 }
             }
             return newPoints;
