@@ -1,18 +1,13 @@
 ﻿using Assets.Scripts.Heat;
 using Assets.Scripts.Movement;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Player
+namespace Assets.Scripts.Denizens
 {
-    [RequireComponent(typeof(BoxCollider2D))]
-    public class PlayerController : MonoBehaviour, IController, IVariableHeater
+    [RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
+    public class DenizenController : MonoBehaviour, IController, IVariableHeater
     {
-        public event Action<Collider2D> onTriggerEnterEvent;
-        public event Action<Collider2D> onTriggerStayEvent;
-        public event Action<Collider2D> onTriggerExitEvent;
-
         [SerializeField]
         [Range(0.001f, 0.3f)]
         private float _skinWidth = 0.02f;
@@ -90,45 +85,6 @@ namespace Assets.Scripts.Player
         public void HeatIce()
         {
             _heatHandler.Heat();
-        }
-
-        public void CreatePilotedLight()
-        {
-            Vector3 pilotedLightPosition = _movement.IsFacingRight
-                ? transform.position + new Vector3(0.4f, 0, 0)
-                : transform.position + new Vector3(-0.4f, 0, 0);
-
-            Instantiate(
-                Resources.Load("PilotedLight"),
-                pilotedLightPosition,
-                transform.rotation);
-        }
-
-        public void OnTriggerEnter2D(Collider2D col)
-        {
-            if (onTriggerEnterEvent != null)
-                onTriggerEnterEvent(col);
-        }
-
-        public void OnTriggerStay2D(Collider2D col)
-        {
-            if (onTriggerStayEvent != null)
-                onTriggerStayEvent(col);
-        }
-
-
-        public void OnTriggerExit2D(Collider2D col)
-        {
-            if (onTriggerExitEvent != null)
-                onTriggerExitEvent(col);
-        }
-
-        public void WarpToGrounded()
-        {
-            while (!IsGrounded)
-            {
-                _movement.Move(new Vector3(0, -1f, 0));
-            }
         }
 
         /// this should be called anytime you have to modify the BoxCollider2D at runtime. It will recalculate the distance between the rays used for collision detection.

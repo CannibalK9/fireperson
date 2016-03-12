@@ -1,0 +1,276 @@
+fileFormatVersion: 2
+guid: c876934bd88df5b4aacc77dab9f61809
+timeCreated: 1457610496
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: person parts_0
+    21300002: person parts_1
+    21300004: person parts_2
+    21300006: person parts_3
+    21300008: person parts_4
+    21300010: person parts_5
+    21300012: person parts_6
+    21300014: person parts_7
+    21300016: person parts_8
+    21300018: person parts_9
+    21300020: person parts_10
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: person parts_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 635
+        width: 56
+        height: 71
+      alignment: 9
+      pivot: {x: 0.28074902, y: 0.22331044}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 29.278055, y: 55.14496}
+        - {x: -3.7219448, y: 55.14496}
+        - {x: -9.721945, y: 47.14496}
+        - {x: -15.721945, y: 22.144958}
+        - {x: -15.721945, y: -3.8550415}
+        - {x: 9.278055, y: -15.8550415}
+        - {x: 31.278055, y: -15.8550415}
+        - {x: 40.278053, y: 1.1449585}
+        - {x: 40.278053, y: 47.14496}
+        - {x: 39.278053, y: 54.14496}
+    - name: person parts_1
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 610
+        width: 38
+        height: 137
+      alignment: 9
+      pivot: {x: 0.33844718, y: 0.8943334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -12.860992, y: 14.476318}
+        - {x: -12.860992, y: -117.52368}
+        - {x: -5.8609924, y: -122.52368}
+        - {x: 25.139008, y: -122.52368}
+        - {x: 25.139008, y: -7.5236816}
+        - {x: 9.139008, y: 14.476318}
+    - name: person parts_2
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 553
+        width: 46
+        height: 153
+      alignment: 9
+      pivot: {x: 0.52669257, y: 0.9253201}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -24.22786, y: -141.57397}
+        - {x: 7.7721405, y: -141.57397}
+        - {x: 21.77214, y: -129.57397}
+        - {x: 21.77214, y: -5.5739746}
+        - {x: 18.77214, y: 11.426025}
+        - {x: -13.2278595, y: 11.426025}
+        - {x: -24.22786, y: -0.5739746}
+    - name: person parts_3
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 480
+        width: 55
+        height: 91
+      alignment: 9
+      pivot: {x: 0.611619, y: 0.85080326}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18.639046, y: 13.576904}
+        - {x: -33.639046, y: -2.4230957}
+        - {x: -33.639046, y: -28.423096}
+        - {x: 16.360954, y: -77.423096}
+        - {x: 21.360954, y: -77.423096}
+        - {x: 21.360954, y: 1.5769043}
+        - {x: 9.360954, y: 13.576904}
+    - name: person parts_4
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 445
+        width: 53
+        height: 160
+      alignment: 9
+      pivot: {x: 0.15250714, y: 0.94508135}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -8.082878, y: 8.786987}
+        - {x: -8.082878, y: -139.21301}
+        - {x: -7.082878, y: -151.21301}
+        - {x: 44.91712, y: -151.21301}
+        - {x: 44.91712, y: -70.21301}
+        - {x: 23.917122, y: 8.786987}
+    - name: person parts_5
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 411
+        width: 45
+        height: 138
+      alignment: 9
+      pivot: {x: 0.2271542, y: 0.91816735}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -10.221939, y: 11.292908}
+        - {x: -10.221939, y: -116.70709}
+        - {x: 0.7780609, y: -126.70709}
+        - {x: 33.77806, y: -126.70709}
+        - {x: 34.77806, y: -124.70709}
+        - {x: 34.77806, y: -35.707092}
+        - {x: 21.77806, y: 11.292908}
+    - name: person parts_6
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 251
+        width: 53
+        height: 176
+      alignment: 9
+      pivot: {x: 0.40733552, y: 0.9115956}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -21.588783, y: 15.559174}
+        - {x: -21.588783, y: -144.44083}
+        - {x: -12.588783, y: -160.44083}
+        - {x: 31.411217, y: -160.44083}
+        - {x: 31.411217, y: 15.559174}
+    - name: person parts_7
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 258
+        width: 64
+        height: 153
+      alignment: 9
+      pivot: {x: 0.32733953, y: 0.91729516}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -20.94973, y: 12.653839}
+        - {x: -20.94973, y: -50.34616}
+        - {x: -1.9497299, y: -130.34616}
+        - {x: 15.05027, y: -140.34616}
+        - {x: 43.05027, y: -140.34616}
+        - {x: 43.05027, y: -70.34616}
+        - {x: 20.05027, y: 12.653839}
+    - name: person parts_8
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 13
+        width: 148
+        height: 361
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 39, y: -30.5}
+        - {x: 43, y: 148.5}
+        - {x: 19, y: 175.5}
+        - {x: -10, y: 180.5}
+        - {x: -31, y: 180.5}
+        - {x: -53, y: 159.5}
+        - {x: -60, y: 142.5}
+        - {x: -65, y: 93.5}
+        - {x: -64, y: -1.5}
+        - {x: -71, y: -90.5}
+        - {x: -74, y: -117.5}
+        - {x: -74, y: -165.5}
+        - {x: -50, y: -180.5}
+        - {x: 74, y: -180.5}
+        - {x: 74, y: -170.5}
+        - {x: 54, y: -124.5}
+    - name: person parts_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 60
+        height: 220
+      alignment: 9
+      pivot: {x: 0.6841715, y: 0.94647646}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -19.05029, y: 11.775177}
+        - {x: -32.05029, y: -13.224823}
+        - {x: -41.05029, y: -81.22482}
+        - {x: -41.05029, y: -177.22482}
+        - {x: -22.05029, y: -208.22482}
+        - {x: 10.949711, y: -208.22482}
+        - {x: 16.94971, y: -206.22482}
+        - {x: 18.94971, y: -155.22482}
+        - {x: 18.94971, y: 5.775177}
+        - {x: 4.949711, y: 11.775177}
+    - name: person parts_10
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 28
+        width: 77
+        height: 169
+      alignment: 9
+      pivot: {x: 0.46810952, y: 0.9286441}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -36.044434, y: 12.059143}
+        - {x: -36.044434, y: -156.94086}
+        - {x: 39.955566, y: -156.94086}
+        - {x: 40.955566, y: -153.94086}
+        - {x: 40.955566, y: -9.940857}
+        - {x: 25.955566, y: 12.059143}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

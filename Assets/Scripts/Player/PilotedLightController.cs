@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Heat;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Heat;
 using Assets.Scripts.Movement;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -8,6 +8,7 @@ namespace Assets.Scripts.Player
     public class PilotedLightController : MonoBehaviour, IVariableHeater, IController
     {
         public float DurationInSeconds = 5f;
+        private float _remainingDurationInSeconds;
         private float MinimumScale = 2.5f;
         private Vector3 InitialScale;
 
@@ -40,6 +41,8 @@ namespace Assets.Scripts.Player
         public float _slopeLimit = 30f;
         public float SlopeLimit { get { return _slopeLimit; } }
 
+        public bool IsMovementOverridden { get; set; }
+
         public AnimationCurve SlopeSpeedMultiplier
         {
             get
@@ -69,24 +72,75 @@ namespace Assets.Scripts.Player
             _heatHandler = new HeatHandler(this);
 
             InitialScale = transform.localScale;
+            IsMovementOverridden = false;
+            _remainingDurationInSeconds = DurationInSeconds;
 
             BoxCollider = GetComponent<BoxCollider2D>();
             CollisionState = new CollisionState();
             Transform = GetComponent<Transform>();
             RaycastHitsThisFrame = new List<RaycastHit2D>(2);
+            IgnoreCollisionLayersOutsideTriggerMask();
         }
+
+        private void IgnoreCollisionLayersOutsideTriggerMask()
+        {
+            for (var i = 0; i < 32; i++)
+            {
+                if ((_triggerMask.value & 1 << i) == 0)
+                    Physics2D.IgnoreLayerCollision(gameObject.layer, i);
+            }
+        }
+
         void Update()
         {
-            DurationInSeconds -= Time.deltaTime;
-            Vector3 newScale = Vector3.one * (DurationInSeconds + MinimumScale);
+            if (IsMovementOverridden)
+            {
+                MoveTowardsPoint();
+            }
+            else if (OnPoint() == false)
+            {
+                DecreaseLifeSpan();
+                DecreaseScale();
+
+                if (_remainingDurationInSeconds <= 0)
+                {
+                    DestroyObject(gameObject);
+                }
+            }
+        }
+
+        private Collider2D collidingPoint;
+
+        private void MoveTowardsPoint()
+        {
+            _movement.Move((collidingPoint.transform.position - transform.position) * 0.2f);
+            if (OnPoint())
+            {
+                _remainingDurationInSeconds = DurationInSeconds;
+                IsMovementOverridden = false;
+            }
+        }
+
+        private bool OnPoint()
+        {
+            return collidingPoint != null
+                ? collidingPoint.transform.position == transform.position
+                : false;
+        }
+
+        private void DecreaseLifeSpan()
+        {
+            _remainingDurationInSeconds -= Time.deltaTime;
+        }
+
+        private void DecreaseScale()
+        {
+            Vector3 newScale = Vector3.one * (_remainingDurationInSeconds + MinimumScale);
             if (newScale.x < InitialScale.x)
             {
                 transform.localScale = newScale;
                 RecalculateDistanceBetweenRays();
             }
-
-            if (DurationInSeconds <= 0)
-                DestroyObject(gameObject);
         }
 
         public void HeatIce()
@@ -101,6 +155,16 @@ namespace Assets.Scripts.Player
 
             var colliderUseableWidth = BoxCollider.size.x * Mathf.Abs(Transform.localScale.x) - (2f * _skinWidth);
             HorizontalDistanceBetweenRays = colliderUseableWidth / (TotalVerticalRays - 1);
+        }
+
+        void OnTriggerEnter2D(Collider2D col)
+        {
+            //LayerMask mask = 1 << LayerMask.NameToLayer("PL Spot");
+            if (col.transform.tag == "stove")
+            {
+                collidingPoint = col;
+                IsMovementOverridden = true;
+            }
         }
     }
 }

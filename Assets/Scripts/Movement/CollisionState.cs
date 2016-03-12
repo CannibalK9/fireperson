@@ -11,6 +11,11 @@
         public bool movingDownSlope;
         public float slopeAngle;
 
+        public CollisionState()
+        {
+            reset();
+        }
+
         public bool hasCollision()
         {
             return below || right || left || above;
