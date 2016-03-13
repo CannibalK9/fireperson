@@ -2,6 +2,7 @@
 using Assets.Scripts.Heat;
 using Assets.Scripts.Movement;
 using UnityEngine;
+using Assets.Scripts.Denizens;
 
 namespace Assets.Scripts.Player
 {
@@ -91,14 +92,22 @@ namespace Assets.Scripts.Player
             }
         }
 
+        public bool NoGravity;
+
         void Update()
         {
             if (IsMovementOverridden)
             {
                 MoveTowardsPoint();
+                NoGravity = true;
             }
             else if (OnPoint() == false)
             {
+                if (NoGravity == true)
+                {
+                    NoGravity = false;
+                    collidingPoint.gameObject.GetComponent<FirePlace>().IsLit = false;
+                }
                 DecreaseLifeSpan();
                 DecreaseScale();
 
@@ -118,6 +127,7 @@ namespace Assets.Scripts.Player
             {
                 _remainingDurationInSeconds = DurationInSeconds;
                 IsMovementOverridden = false;
+                collidingPoint.gameObject.GetComponent<FirePlace>().IsLit = true;
             }
         }
 
@@ -159,8 +169,7 @@ namespace Assets.Scripts.Player
 
         void OnTriggerEnter2D(Collider2D col)
         {
-            //LayerMask mask = 1 << LayerMask.NameToLayer("PL Spot");
-            if (col.transform.tag == "stove")
+            if (col.gameObject.layer == LayerMask.NameToLayer("PL Spot"))
             {
                 collidingPoint = col;
                 IsMovementOverridden = true;

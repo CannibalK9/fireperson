@@ -13,6 +13,7 @@ namespace Assets.Scripts.Player
 
         public float FlySpeed = 2f;
         public float AirDamping = 500f;
+        public float Gravity = 0f;
 
         public bool IsReadyToMove { get; set; }
 
@@ -31,8 +32,10 @@ namespace Assets.Scripts.Player
             {
                 HandleMovementInputs();
 
-                _velocity.x = Mathf.Lerp(_velocity.x, _normalizedHorizontalSpeed * FlySpeed, Time.deltaTime * AirDamping);
-                _velocity.y = Mathf.Lerp(_velocity.y, _normalizedVerticalSpeed * FlySpeed, Time.deltaTime * AirDamping);
+                float appliedGravity = _controller.NoGravity == true ? 0 : Gravity;
+
+                _velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * FlySpeed, ref _velocity.x, Time.deltaTime * AirDamping);
+                _velocity.y = Mathf.SmoothDamp(_velocity.y, _normalizedVerticalSpeed * FlySpeed - appliedGravity, ref _velocity.y, Time.deltaTime * AirDamping);
 
                 _controller._movement.Move(_velocity * Time.deltaTime);
                 _velocity = _controller.Velocity;

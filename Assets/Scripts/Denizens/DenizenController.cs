@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace Assets.Scripts.Denizens
 {
-    [RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
-    public class DenizenController : MonoBehaviour, IController, IVariableHeater
+    [RequireComponent(typeof(BoxCollider2D))]
+    public class DenizenController : MonoBehaviour, IController
     {
         [SerializeField]
         [Range(0.001f, 0.3f)]
@@ -45,9 +45,6 @@ namespace Assets.Scripts.Denizens
         public int _totalVerticalRays = 4;
         public int TotalVerticalRays { get { return _totalVerticalRays; } }
 
-        public float _heatRayDistance = 0.2f;
-        public float HeatRayDistance { get { return _heatRayDistance; } }
-
         public Transform Transform { get; set; }
         public BoxCollider2D BoxCollider { get; set; }
         public CollisionState CollisionState { get; set; }
@@ -56,14 +53,14 @@ namespace Assets.Scripts.Denizens
         public List<RaycastHit2D> RaycastHitsThisFrame { get; set; } 
         public float VerticalDistanceBetweenRays { get; set; }
         public float HorizontalDistanceBetweenRays { get; set; }
+        public bool SatAtFirePlace { get; set; }
 
-        public MovementHandler _movement;
+        public MovementHandler Movement;
         private HeatHandler _heatHandler;
 
         void Awake()
         {
-            _movement = new MovementHandler(this);
-            _heatHandler = new HeatHandler(this);
+            Movement = new MovementHandler(this);
 
             Transform = GetComponent<Transform>();
             BoxCollider = GetComponent<BoxCollider2D>();
@@ -82,22 +79,30 @@ namespace Assets.Scripts.Denizens
             }
         }
 
-        public void HeatIce()
+        void OnTriggerEnter2D(Collider2D col)
         {
-            _heatHandler.Heat();
+            if (col.gameObject.layer == LayerMask.NameToLayer("PL Spot"))
+            {
+                if (col.gameObject.GetComponent<FirePlace>().IsLit == true)
+                    SatAtFirePlace = true;
+            }
         }
 
-        /// this should be called anytime you have to modify the BoxCollider2D at runtime. It will recalculate the distance between the rays used for collision detection.
-        /// It is also used in the skinWidth setter in case it is changed at runtime.
-        /// </summary>
+        void OnTriggerStay2D(Collider2D col)
+        {
+            if (col.gameObject.layer == LayerMask.NameToLayer("PL Spot"))
+            {
+                if (SatAtFirePlace == true)
+                    if (col.gameObject.GetComponent<FirePlace>().IsLit == false)
+                        SatAtFirePlace = false;
+            }
+        }
+
         private void RecalculateDistanceBetweenRays()
         {
-            // figure out the distance between our rays in both directions
-            // horizontal
             var colliderUseableHeight = BoxCollider.size.y * Mathf.Abs(Transform.localScale.y) - (2f * _skinWidth);
             VerticalDistanceBetweenRays = colliderUseableHeight / (TotalHorizontalRays - 1);
 
-            // vertical
             var colliderUseableWidth = BoxCollider.size.x * Mathf.Abs(Transform.localScale.x) - (2f * _skinWidth);
             HorizontalDistanceBetweenRays = colliderUseableWidth / (TotalVerticalRays - 1);
         }

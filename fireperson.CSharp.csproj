@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Denizens\DenizenController.cs" />
     <Compile Include="Assets\Scripts\Denizens\DenizenMotor.cs" />
+    <Compile Include="Assets\Scripts\Denizens\FirePlace.cs" />
     <Compile Include="Assets\Scripts\Fire\Fire.cs" />
     <Compile Include="Assets\Scripts\Heat\HeatHandler.cs" />
     <Compile Include="Assets\Scripts\Heat\IVariableHeater.cs" />

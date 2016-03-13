@@ -131,17 +131,11 @@ namespace Assets.Scripts.Player
             }
         }
 
-        /// this should be called anytime you have to modify the BoxCollider2D at runtime. It will recalculate the distance between the rays used for collision detection.
-        /// It is also used in the skinWidth setter in case it is changed at runtime.
-        /// </summary>
         private void RecalculateDistanceBetweenRays()
         {
-            // figure out the distance between our rays in both directions
-            // horizontal
             var colliderUseableHeight = BoxCollider.size.y * Mathf.Abs(Transform.localScale.y) - (2f * _skinWidth);
             VerticalDistanceBetweenRays = colliderUseableHeight / (TotalHorizontalRays - 1);
 
-            // vertical
             var colliderUseableWidth = BoxCollider.size.x * Mathf.Abs(Transform.localScale.x) - (2f * _skinWidth);
             HorizontalDistanceBetweenRays = colliderUseableWidth / (TotalVerticalRays - 1);
         }

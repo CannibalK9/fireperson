@@ -7,15 +7,13 @@ namespace Assets.Scripts.Player
     {
         public float Gravity = -25f;
         public float RunSpeed = 8f;
-        public float GroundDamping = 20f;
-        public float JumpHeight = 3f;
+        public float GroundDamping = 1f;
 
         private float _normalizedHorizontalSpeed = 0;
         private int _animationPhase = 0;
 
         private PlayerController _controller;
         private Animator _animator;
-        private RaycastHit2D _lastControllerColliderHit;
         private Vector3 _velocity;
         public event Action<RaycastHit2D> onControllerCollidedEvent;
 
@@ -64,20 +62,27 @@ namespace Assets.Scripts.Player
                     case 3:
                         ClimbUp_3();
                         break;
+                    case 4:
+                        ClimbDown_1();
+                        break;
+                    case 5:
+                        ClimbDown_2();
+                        break;
+                    case 6:
+                        ClimbDown_3();
+                        break;
                 }
             }
             else
             {
                 HandleMovementInputs();
 
-                // apply horizontal speed smoothing it. dont really do this with Lerp. Use SmoothDamp or something that provides more control
                 if (_controller.IsGrounded)
-                    _velocity.x = Mathf.Lerp(_velocity.x, _normalizedHorizontalSpeed * RunSpeed, Time.deltaTime * GroundDamping);
+                    _velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * RunSpeed, ref _velocity.x, Time.deltaTime * GroundDamping);
 
                 _velocity.y += Gravity * Time.deltaTime;
                 _controller._movement.Move(_velocity * Time.deltaTime);
 
-                // send off the collision events if we have a listener
                 if (onControllerCollidedEvent != null)
                 {
                     foreach (RaycastHit2D hit in _controller.RaycastHitsThisFrame)
@@ -96,13 +101,19 @@ namespace Assets.Scripts.Player
 
             if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             {
-                _normalizedHorizontalSpeed = 1;
+                var edgeRay = new Vector2(_controller.BoxCollider.bounds.max.x + 0.2f, _controller.BoxCollider.bounds.min.y);
+                RaycastHit2D edgeHit = Physics2D.Raycast(edgeRay, Vector2.down, 1f, _controller.PlatformMask);
+
+                _normalizedHorizontalSpeed = edgeHit ? 1 : 0;
                 if (GetDirectionFacing() == DirectionFacing.Left)
                     FlipSprite();
             }
             else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
             {
-                _normalizedHorizontalSpeed = -1;
+                var edgeRay = new Vector2(_controller.BoxCollider.bounds.min.x - 0.2f, _controller.BoxCollider.bounds.min.y);
+                RaycastHit2D edgeHit = Physics2D.Raycast(edgeRay, Vector2.down, 1f, _controller.PlatformMask);
+
+                _normalizedHorizontalSpeed = edgeHit ? -1 : 0;
                 if (GetDirectionFacing() == DirectionFacing.Right)
                     FlipSprite();
             }
@@ -120,7 +131,7 @@ namespace Assets.Scripts.Player
             {
                 ClimbDown();
             }
-            else if (Input.GetKeyDown(KeyCode.Space)  && PilotedLightExists() == false)
+            else if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E)) && PilotedLightExists() == false)
             {
                 _controller.CreatePilotedLight();
                 //_animator.Play(Animator.StringToHash("Create light"));
@@ -176,25 +187,33 @@ namespace Assets.Scripts.Player
             }
         }
 
-        public void ClimbDown()
+        private void ClimbDown()
         {
-        }
+            Vector2 origin = new Vector2(
+               _controller.BoxCollider.bounds.center.x,
+               _controller.BoxCollider.bounds.min.y);
 
-        private enum DirectionFacing
-        {
-            Right,
-            Left
-        }
+            Vector2 size = new Vector2(5f, 1f);
+            LayerMask mask =
+                1 << LayerMask.NameToLayer("Right Climb Spot")
+                | 1 << LayerMask.NameToLayer("Left Climb Spot");
 
-        private DirectionFacing GetDirectionFacing()
-        {
-            DirectionFacing directionFacing;
-            if (transform.localScale.x > 0f)
-                directionFacing = DirectionFacing.Right;
-            else
-                directionFacing = DirectionFacing.Left;
+            RaycastHit2D hit = Physics2D.BoxCast(origin, size, 0, Vector2.down, 1f, mask);
 
-            return directionFacing;
+            if (hit)
+            {
+                ClimbCollider = hit.collider;
+                if (ClimbCollider.gameObject.layer == LayerMask.NameToLayer("Right Climb Spot"))
+                {
+                    climbingSide = DirectionFacing.Right;
+                    _animator.Play(Animator.StringToHash("Right Climb Down"));
+                }
+                else
+                {
+                    climbingSide = DirectionFacing.Left;
+                    _animator.Play(Animator.StringToHash("Right Climb Down"));
+                }
+            }
         }
 
         //Animation events
@@ -229,6 +248,30 @@ namespace Assets.Scripts.Player
                 ClimbMovement(GetTopRight(ClimbCollider), GetBottomRight(_controller.BoxCollider));
         }
 
+        private void ClimbDown_1()
+        {
+            if (climbingSide == DirectionFacing.Right)
+                ClimbMovement(GetTopRight(ClimbCollider), GetBottomRight(_controller.BoxCollider));
+            else
+                ClimbMovement(GetTopLeft(ClimbCollider), GetBottomLeft(_controller.BoxCollider));
+        }
+
+        private void ClimbDown_2()
+        {
+            if (climbingSide == DirectionFacing.Right)
+                ClimbMovement(GetTopRight(ClimbCollider), GetBottomLeft(_controller.BoxCollider));
+            else
+                ClimbMovement(GetTopLeft(ClimbCollider), GetBottomRight(_controller.BoxCollider));
+        }
+
+        private void ClimbDown_3()
+        {
+            if (climbingSide == DirectionFacing.Right)
+                ClimbMovement(GetTopRight(ClimbCollider), GetTopLeft(_controller.BoxCollider));
+            else
+                ClimbMovement(GetTopLeft(ClimbCollider), GetTopRight(_controller.BoxCollider));
+        }
+
         private void ClimbMovement(Vector2 ledge, Vector2 player)
         {
             _controller._movement.Move((ledge - player) * 0.1f);
@@ -256,6 +299,23 @@ namespace Assets.Scripts.Player
         private Vector2 GetBottomLeft(Collider2D col)
         {
             return col.bounds.min;
+        }
+
+        private enum DirectionFacing
+        {
+            Right,
+            Left
+        }
+
+        private DirectionFacing GetDirectionFacing()
+        {
+            DirectionFacing directionFacing;
+            if (transform.localScale.x > 0f)
+                directionFacing = DirectionFacing.Right;
+            else
+                directionFacing = DirectionFacing.Left;
+
+            return directionFacing;
         }
     }
 }
