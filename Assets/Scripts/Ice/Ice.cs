@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Ice
@@ -77,19 +76,19 @@ namespace Assets.Scripts.Ice
 		{
 		}
 
-        void Melt(Vector2 hitLocation)
+        void Melt(Vector4 hitBox)
         {
-            OnCollisionLowerPointsWithinDistance(hitLocation);
+            OnCollisionLowerPointsWithinBox(hitBox);
             SetMeshFilterToPolyColliderPoints();
         }
 
-        private void OnCollisionLowerPointsWithinDistance(Vector2 hitLocation)
-		{
-			Vector2[] newPoints = GetPointsLoweredByHit(hitLocation);
+        private void OnCollisionLowerPointsWithinBox(Vector4 hitBox)
+        {
+            Vector2[] newPoints = GetPointsLoweredByBox(hitBox);
             _polyCollider.points = newPoints;
         }
 
-        private Vector2[] GetPointsLoweredByHit(Vector2 hitLocation)
+        private Vector2[] GetPointsLoweredByBox(Vector4 hitBox)
         {
             Vector2[] newPoints = _polyCollider.points;
 
@@ -100,11 +99,20 @@ namespace Assets.Scripts.Ice
                     continue;
 
                 Vector2 worldPoint = transform.TransformPoint(point);
-                float distance = Vector2.Distance(worldPoint, hitLocation);
-                if (distance < MinimumDistanceToTriggerPointsOnCollision)
+
+                if (hitBox.w == 0)
                 {
-                    newPoints[i] = new Vector2(point.x, point.y - DefaultDistanceToLowerPoints);
+                    float distance = Vector2.Distance(worldPoint, hitBox);
+                    if (distance >= hitBox.z)
+                        continue;
                 }
+                else
+                {
+                    Vector2 difference = new Vector2(worldPoint.x - hitBox.x, worldPoint.y - hitBox.y);
+                    if (Mathf.Abs(difference.x) >= hitBox.z || Mathf.Abs(difference.y) >= hitBox.w)
+                        continue;
+                }
+                newPoints[i] = new Vector2(point.x, point.y - DefaultDistanceToLowerPoints - UnityEngine.Random.value / 10);
             }
             return newPoints;
         }

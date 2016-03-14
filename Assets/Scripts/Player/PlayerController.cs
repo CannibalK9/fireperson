@@ -89,7 +89,8 @@ namespace Assets.Scripts.Player
 
         public void HeatIce()
         {
-            _heatHandler.Heat();
+            _heatHandler.OneCircleHeat();
+            _heatHandler.TwoCirclesHeat();
         }
 
         public void CreatePilotedLight()

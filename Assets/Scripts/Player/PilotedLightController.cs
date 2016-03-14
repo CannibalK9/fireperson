@@ -155,7 +155,7 @@ namespace Assets.Scripts.Player
 
         public void HeatIce()
         {
-            _heatHandler.Heat();
+            _heatHandler.OneCircleHeat();
         }
 
         private void RecalculateDistanceBetweenRays()
