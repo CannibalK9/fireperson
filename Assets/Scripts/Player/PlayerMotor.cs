@@ -96,8 +96,10 @@ namespace Assets.Scripts.Player
 
         private void HandleMovementInputs()
         {
-            if (_controller.IsGrounded)
-                _velocity.y = 0;
+            if (_controller.IsGrounded == false)
+                return;
+
+            _velocity.y = 0;
 
             if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             {
@@ -105,16 +107,20 @@ namespace Assets.Scripts.Player
                 RaycastHit2D edgeHit = Physics2D.Raycast(edgeRay, Vector2.down, 1f, _controller.PlatformMask);
 
                 _normalizedHorizontalSpeed = edgeHit ? 1 : 0;
-                if (GetDirectionFacing() == DirectionFacing.Left)
+                if (_controller.CollisionState.right && GetDirectionFacing() == DirectionFacing.Right)
+                    ;//BackToWallAnimation
+                else if (GetDirectionFacing() == DirectionFacing.Left)
                     FlipSprite();
             }
             else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
             {
                 var edgeRay = new Vector2(_controller.BoxCollider.bounds.min.x - 0.2f, _controller.BoxCollider.bounds.min.y);
-                RaycastHit2D edgeHit = Physics2D.Raycast(edgeRay, Vector2.down, 1f, _controller.PlatformMask);
+                RaycastHit2D edgeHit = Physics2D.Raycast(edgeRay, Vector2.down, 0.5f, _controller.PlatformMask);
 
                 _normalizedHorizontalSpeed = edgeHit ? -1 : 0;
-                if (GetDirectionFacing() == DirectionFacing.Right)
+                if (_controller.CollisionState.left && GetDirectionFacing() == DirectionFacing.Left)
+                    ;//BackToWallAnimation
+                else if (GetDirectionFacing() == DirectionFacing.Right)
                     FlipSprite();
             }
             else
