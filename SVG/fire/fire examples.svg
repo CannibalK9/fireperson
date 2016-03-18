@@ -1,0 +1,3396 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 744.09448819 1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="fire examples.svg">
+  <defs
+     id="defs4">
+    <filter
+       y="-0.25"
+       height="1.5"
+       inkscape:menu-tooltip="Darkens the edge with an inner blur and adds a flexible glow"
+       inkscape:menu="Shadows and Glows"
+       inkscape:label="Dark And Glow"
+       style="color-interpolation-filters:sRGB;"
+       id="filter4330">
+      <feGaussianBlur
+         stdDeviation="5"
+         result="result6"
+         id="feGaussianBlur4332" />
+      <feComposite
+         result="result8"
+         in="SourceGraphic"
+         operator="atop"
+         in2="result6"
+         id="feComposite4334" />
+      <feComposite
+         result="result9"
+         operator="over"
+         in2="SourceAlpha"
+         in="result8"
+         id="feComposite4336" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 "
+         result="result10"
+         id="feColorMatrix4338" />
+      <feBlend
+         in="result10"
+         mode="normal"
+         in2="result6"
+         id="feBlend4340" />
+    </filter>
+    <filter
+       inkscape:menu-tooltip="In and out glow with a possible offset and colorizable flood"
+       inkscape:menu="Shadows and Glows"
+       inkscape:label="Cutout Glow"
+       style="color-interpolation-filters:sRGB;"
+       id="filter4518">
+      <feOffset
+         dy="3"
+         dx="3"
+         id="feOffset4520" />
+      <feGaussianBlur
+         stdDeviation="3"
+         result="blur"
+         id="feGaussianBlur4522" />
+      <feFlood
+         flood-color="rgb(0,0,0)"
+         flood-opacity="1"
+         result="flood"
+         id="feFlood4524" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite"
+         id="feComposite4526" />
+      <feBlend
+         in="blur"
+         in2="composite"
+         mode="normal"
+         id="feBlend4528" />
+    </filter>
+    <filter
+       y="-0.25"
+       height="1.5"
+       inkscape:menu-tooltip="Darkens the edge with an inner blur and adds a flexible glow"
+       inkscape:menu="Shadows and Glows"
+       inkscape:label="Dark And Glow"
+       style="color-interpolation-filters:sRGB;"
+       id="filter4530">
+      <feGaussianBlur
+         stdDeviation="5"
+         result="result6"
+         id="feGaussianBlur4532" />
+      <feComposite
+         result="result8"
+         in="SourceGraphic"
+         operator="atop"
+         in2="result6"
+         id="feComposite4534" />
+      <feComposite
+         result="result9"
+         operator="over"
+         in2="SourceAlpha"
+         in="result8"
+         id="feComposite4536" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 "
+         result="result10"
+         id="feColorMatrix4538" />
+      <feBlend
+         in="result10"
+         mode="normal"
+         in2="result6"
+         id="feBlend4540" />
+    </filter>
+    <filter
+       inkscape:label="Bark"
+       inkscape:menu="Textures"
+       inkscape:menu-tooltip="Bark texture, vertical; use with deep colors"
+       style="color-interpolation-filters:sRGB;"
+       id="filter4590">
+      <feTurbulence
+         seed="10"
+         baseFrequency="0.12 0.02"
+         numOctaves="10"
+         type="fractalNoise"
+         id="feTurbulence4592" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.7 0 "
+         result="result5"
+         id="feColorMatrix4594" />
+      <feComposite
+         in2="result5"
+         operator="out"
+         in="SourceGraphic"
+         id="feComposite4596" />
+      <feMorphology
+         result="result3"
+         radius="1.3"
+         operator="dilate"
+         id="feMorphology4598" />
+      <feTurbulence
+         seed="25"
+         type="turbulence"
+         baseFrequency="0.08 0.05"
+         numOctaves="8"
+         result="result91"
+         id="feTurbulence4600" />
+      <feDisplacementMap
+         result="result4"
+         scale="5"
+         yChannelSelector="G"
+         xChannelSelector="R"
+         in="result3"
+         in2="result91"
+         id="feDisplacementMap4602" />
+      <feSpecularLighting
+         specularExponent="35"
+         specularConstant="1"
+         surfaceScale="2"
+         lighting-color="rgb(255,255,255)"
+         result="result1"
+         in="result4"
+         id="feSpecularLighting4604">
+        <feDistantLight
+           azimuth="235"
+           elevation="75"
+           id="feDistantLight4606" />
+      </feSpecularLighting>
+      <feComposite
+         operator="in"
+         result="result2"
+         in="result1"
+         in2="result4"
+         id="feComposite4608" />
+      <feComposite
+         k3="1"
+         k2="1"
+         operator="arithmetic"
+         result="result4"
+         in="result4"
+         in2="result2"
+         id="feComposite4610" />
+      <feBlend
+         mode="multiply"
+         in2="result4"
+         id="feBlend4612" />
+    </filter>
+    <filter
+       inkscape:label="Blotting Paper"
+       inkscape:menu="Textures"
+       inkscape:menu-tooltip="Inkblot on blotting paper"
+       height="1.3"
+       y="-0.15"
+       width="1.3"
+       x="-0.15"
+       style="color-interpolation-filters:sRGB;"
+       id="filter4614">
+      <feGaussianBlur
+         stdDeviation="3"
+         in="SourceGraphic"
+         result="result1"
+         id="feGaussianBlur4616" />
+      <feTurbulence
+         type="turbulence"
+         baseFrequency="0.05"
+         numOctaves="5"
+         result="result0"
+         id="feTurbulence4618" />
+      <feDisplacementMap
+         in2="result0"
+         in="result1"
+         xChannelSelector="R"
+         yChannelSelector="G"
+         scale="3"
+         result="result2"
+         id="feDisplacementMap4620" />
+      <feBlend
+         result="result5"
+         in="result2"
+         mode="multiply"
+         in2="result2"
+         id="feBlend4622" />
+      <feGaussianBlur
+         stdDeviation="5"
+         in="result2"
+         result="result4"
+         id="feGaussianBlur4624" />
+      <feComposite
+         operator="arithmetic"
+         in2="result5"
+         in="result4"
+         k2="0.25"
+         k3="1"
+         k1="1"
+         id="feComposite4626" />
+      <feComposite
+         operator="in"
+         in2="result2"
+         id="feComposite4628" />
+    </filter>
+    <filter
+       inkscape:label="Burst"
+       inkscape:menu="Textures"
+       inkscape:menu-tooltip="Burst balloon texture crumpled and with holes"
+       x="-0.2"
+       y="-0.2"
+       width="1.4"
+       height="1.4"
+       style="color-interpolation-filters:sRGB;"
+       id="filter4630">
+      <feTurbulence
+         seed="8"
+         type="fractalNoise"
+         baseFrequency="0.03"
+         numOctaves="5"
+         result="result8"
+         id="feTurbulence4632" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 4 -0.7 "
+         result="result5"
+         id="feColorMatrix4634" />
+      <feComposite
+         result="result11"
+         in2="result5"
+         operator="in"
+         in="SourceGraphic"
+         id="feComposite4636" />
+      <feDisplacementMap
+         result="result4"
+         scale="50"
+         yChannelSelector="G"
+         xChannelSelector="R"
+         in="result11"
+         in2="result8"
+         id="feDisplacementMap4638" />
+      <feComposite
+         result="result7"
+         in2="SourceAlpha"
+         operator="arithmetic"
+         in="result4"
+         k2="1.3"
+         id="feComposite4640" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="result7"
+         values="1 0 0 -1 0 1 0 1 -1 0 1 0 0 -1 0 -0.8 -1 0 4 -2.5 "
+         id="feColorMatrix4642" />
+      <feGaussianBlur
+         stdDeviation="0.5"
+         result="result10"
+         id="feGaussianBlur4644" />
+      <feDiffuseLighting
+         surfaceScale="15"
+         diffuseConstant="0.4"
+         result="result6"
+         lighting-color="rgb(255,255,255)"
+         in="result10"
+         id="feDiffuseLighting4646">
+        <feDistantLight
+           azimuth="235"
+           elevation="25"
+           id="feDistantLight4648" />
+      </feDiffuseLighting>
+      <feComposite
+         operator="in"
+         result="result2"
+         in="result6"
+         in2="result7"
+         id="feComposite4650" />
+      <feComposite
+         in2="result7"
+         operator="arithmetic"
+         k2="0.8"
+         k3="0.8"
+         result="result12"
+         id="feComposite4652" />
+      <feBlend
+         in2="result12"
+         mode="lighten"
+         id="feBlend4654" />
+    </filter>
+    <filter
+       inkscape:label="Cracked Glass"
+       inkscape:menu="Textures"
+       inkscape:menu-tooltip="Under a cracked glass"
+       style="color-interpolation-filters:sRGB;"
+       id="filter4692">
+      <feTurbulence
+         baseFrequency="0.1"
+         seed="50"
+         numOctaves="5"
+         result="result1"
+         type="fractalNoise"
+         id="feTurbulence4694" />
+      <feGaussianBlur
+         stdDeviation="4"
+         result="result7"
+         id="feGaussianBlur4696" />
+      <feDisplacementMap
+         result="result5"
+         in="SourceGraphic"
+         scale="20"
+         xChannelSelector="G"
+         in2="result7"
+         id="feDisplacementMap4698" />
+      <feComposite
+         result="result2"
+         operator="in"
+         in2="result1"
+         in="result5"
+         id="feComposite4700" />
+      <feGaussianBlur
+         stdDeviation="1"
+         result="result6"
+         id="feGaussianBlur4702" />
+      <feSpecularLighting
+         surfaceScale="-3"
+         result="result4"
+         specularConstant="3.5"
+         specularExponent="35"
+         in="result6"
+         id="feSpecularLighting4704">
+        <feDistantLight
+           elevation="45"
+           azimuth="225"
+           id="feDistantLight4706" />
+      </feSpecularLighting>
+      <feComposite
+         k1="1.7"
+         k3="0.7"
+         in2="result2"
+         in="result4"
+         operator="arithmetic"
+         result="result91"
+         id="feComposite4708" />
+      <feBlend
+         result="fbSourceGraphic"
+         mode="multiply"
+         in2="result91"
+         id="feBlend4710" />
+      <feComposite
+         in2="fbSourceGraphic"
+         in="fbSourceGraphic"
+         result="result2"
+         operator="arithmetic"
+         id="feComposite4712" />
+      <feComposite
+         in="result2"
+         result="result4"
+         operator="arithmetic"
+         k2="2"
+         k3="2"
+         in2="fbSourceGraphic"
+         id="feComposite4714" />
+      <feBlend
+         mode="screen"
+         in="result4"
+         in2="result4"
+         id="feBlend4716" />
+    </filter>
+    <filter
+       inkscape:label="Crumpled Plastic"
+       inkscape:menu="Textures"
+       inkscape:menu-tooltip="Crumpled matte plastic, with melted edge"
+       style="color-interpolation-filters:sRGB;"
+       id="filter4718">
+      <feTurbulence
+         numOctaves="2"
+         seed="0"
+         type="turbulence"
+         baseFrequency="0.08"
+         result="result91"
+         id="feTurbulence4720" />
+      <feDisplacementMap
+         result="fbSourceGraphic"
+         scale="10"
+         yChannelSelector="G"
+         xChannelSelector="R"
+         in="SourceGraphic"
+         in2="result91"
+         id="feDisplacementMap4722" />
+      <feGaussianBlur
+         result="result0"
+         in="fbSourceGraphic"
+         stdDeviation="0.5"
+         id="feGaussianBlur4724" />
+      <feTurbulence
+         baseFrequency="0.01"
+         seed="488"
+         numOctaves="8"
+         result="result1"
+         id="feTurbulence4726" />
+      <feComposite
+         result="result2"
+         operator="in"
+         in2="result1"
+         in="result0"
+         id="feComposite4728" />
+      <feSpecularLighting
+         surfaceScale="1.5"
+         result="result4"
+         specularConstant="1"
+         specularExponent="30"
+         in="result2"
+         id="feSpecularLighting4730">
+        <feDistantLight
+           elevation="70"
+           azimuth="235"
+           id="feDistantLight4732" />
+      </feSpecularLighting>
+      <feComposite
+         in2="result2"
+         in="result4"
+         operator="atop"
+         result="result5"
+         id="feComposite4734" />
+      <feBlend
+         mode="multiply"
+         result="result6"
+         in2="result5"
+         id="feBlend4736" />
+      <feBlend
+         mode="screen"
+         in="result6"
+         in2="result6"
+         id="feBlend4738" />
+    </filter>
+    <filter
+       x="-0.15"
+       width="1.3"
+       y="-0.15"
+       height="1.3"
+       inkscape:menu-tooltip="Felt like texture with color turbulence and slightly darker at the edges"
+       inkscape:menu="Textures"
+       inkscape:label="Felt"
+       style="color-interpolation-filters:sRGB;"
+       id="filter4740">
+      <feGaussianBlur
+         result="result1"
+         in="SourceGraphic"
+         stdDeviation="2"
+         id="feGaussianBlur4742" />
+      <feTurbulence
+         result="result0"
+         numOctaves="5"
+         baseFrequency="0.05"
+         type="fractalNoise"
+         id="feTurbulence4744" />
+      <feDisplacementMap
+         result="result2"
+         scale="20"
+         yChannelSelector="G"
+         xChannelSelector="R"
+         in="result1"
+         in2="result0"
+         id="feDisplacementMap4746" />
+      <feGaussianBlur
+         result="result4"
+         in="result2"
+         stdDeviation="5"
+         id="feGaussianBlur4748" />
+      <feComposite
+         result="result6"
+         k1="1"
+         k3="1"
+         k2="0.5"
+         in="result0"
+         in2="result4"
+         operator="arithmetic"
+         id="feComposite4750" />
+      <feComposite
+         in="result6"
+         in2="result0"
+         operator="in"
+         result="result91"
+         id="feComposite4752" />
+      <feComposite
+         operator="arithmetic"
+         k1="1.5"
+         in="result2"
+         in2="result91"
+         id="feComposite4754" />
+    </filter>
+    <filter
+       inkscape:menu-tooltip="Partly opaque water color effect with bleed"
+       inkscape:menu="Textures"
+       inkscape:label="Gouache"
+       style="color-interpolation-filters:sRGB;"
+       id="filter4756">
+      <feGaussianBlur
+         stdDeviation="3"
+         result="result5"
+         in="SourceGraphic"
+         id="feGaussianBlur4758" />
+      <feTurbulence
+         result="result1"
+         baseFrequency="0.02"
+         type="fractalNoise"
+         seed="0"
+         numOctaves="3"
+         id="feTurbulence4760" />
+      <feDisplacementMap
+         result="result3"
+         in2="result1"
+         in="SourceGraphic"
+         xChannelSelector="R"
+         yChannelSelector="G"
+         scale="30"
+         id="feDisplacementMap4762" />
+      <feComposite
+         result="result4"
+         in="result3"
+         in2="result1"
+         operator="out"
+         id="feComposite4764" />
+      <feComposite
+         result="result6"
+         operator="arithmetic"
+         k2="1"
+         k1="0.3"
+         k3="0.3"
+         in2="result4"
+         id="feComposite4766" />
+      <feComposite
+         in2="result5"
+         in="result6"
+         operator="over"
+         id="feComposite4768" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       x="-0.15"
+       width="1.3"
+       y="-0.15"
+       height="1.3"
+       inkscape:label="Ink Blot"
+       id="filter5142">
+      <feGaussianBlur
+         in="SourceGraphic"
+         stdDeviation="9.3 10.79"
+         result="blur1"
+         id="feGaussianBlur5144" />
+      <feTurbulence
+         type="fractalNoise"
+         baseFrequency="0.1876"
+         numOctaves="3"
+         seed="0"
+         result="turbulence"
+         id="feTurbulence5146" />
+      <feDisplacementMap
+         in="blur1"
+         in2="turbulence"
+         xChannelSelector="R"
+         yChannelSelector="G"
+         scale="66.41"
+         result="map"
+         id="feDisplacementMap5148" />
+      <feGaussianBlur
+         in="map"
+         stdDeviation="5"
+         result="blur2"
+         id="feGaussianBlur5150" />
+      <feComposite
+         in="blur2"
+         in2="map"
+         operator="over"
+         result="fbSourceGraphic"
+         id="feComposite5152" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix5154" />
+      <feGaussianBlur
+         id="feGaussianBlur5156"
+         in="fbSourceGraphic"
+         stdDeviation="9.3 10.79"
+         result="blur1" />
+      <feTurbulence
+         id="feTurbulence5158"
+         type="fractalNoise"
+         baseFrequency="0.1876"
+         numOctaves="3"
+         seed="0"
+         result="turbulence" />
+      <feDisplacementMap
+         id="feDisplacementMap5160"
+         in2="turbulence"
+         in="blur1"
+         xChannelSelector="R"
+         yChannelSelector="G"
+         scale="66.41"
+         result="map" />
+      <feGaussianBlur
+         id="feGaussianBlur5162"
+         in="map"
+         stdDeviation="5"
+         result="blur2" />
+      <feComposite
+         id="feComposite5164"
+         in2="map"
+         in="blur2"
+         operator="over"
+         result="composite" />
+    </filter>
+    <filter
+       inkscape:label="Ink Paint"
+       inkscape:menu="Textures"
+       inkscape:menu-tooltip="Ink paint on paper with some turbulent color shift"
+       height="1.3"
+       y="-0.15"
+       width="1.3"
+       x="-0.15"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5166">
+      <feTurbulence
+         type="fractalNoise"
+         baseFrequency="0.07"
+         numOctaves="4"
+         result="result0"
+         id="feTurbulence5168" />
+      <feDisplacementMap
+         in2="result0"
+         in="SourceGraphic"
+         xChannelSelector="R"
+         yChannelSelector="G"
+         scale="10"
+         result="result2"
+         id="feDisplacementMap5170" />
+      <feBlend
+         result="result5"
+         in="result2"
+         mode="multiply"
+         in2="result2"
+         id="feBlend5172" />
+      <feGaussianBlur
+         stdDeviation="10"
+         in="result2"
+         result="result4"
+         id="feGaussianBlur5174" />
+      <feComposite
+         operator="arithmetic"
+         in2="result4"
+         in="result0"
+         k3="0.5"
+         k1="2"
+         result="result6"
+         id="feComposite5176" />
+      <feComposite
+         operator="in"
+         in2="result5"
+         in="result6"
+         result="result7"
+         id="feComposite5178" />
+    </filter>
+    <filter
+       inkscape:label="Jam Spread"
+       inkscape:menu="Textures"
+       inkscape:menu-tooltip="Glossy clumpy jam spread"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5180">
+      <feGaussianBlur
+         stdDeviation="1"
+         in="SourceGraphic"
+         result="result0"
+         id="feGaussianBlur5182" />
+      <feTurbulence
+         result="result1"
+         numOctaves="7"
+         seed="488"
+         baseFrequency="0.017"
+         type="turbulence"
+         id="feTurbulence5184" />
+      <feComposite
+         in="result0"
+         in2="result1"
+         operator="out"
+         result="result2"
+         id="feComposite5186" />
+      <feGaussianBlur
+         stdDeviation="0.5"
+         result="result5"
+         id="feGaussianBlur5188" />
+      <feSpecularLighting
+         in="result5"
+         specularExponent="100"
+         specularConstant="4"
+         result="result4"
+         surfaceScale="1.5"
+         id="feSpecularLighting5190">
+        <feDistantLight
+           azimuth="225"
+           elevation="62"
+           id="feDistantLight5192" />
+      </feSpecularLighting>
+      <feComposite
+         operator="atop"
+         in="result4"
+         in2="result2"
+         result="result91"
+         id="feComposite5194" />
+      <feBlend
+         mode="multiply"
+         in2="result91"
+         id="feBlend5196" />
+    </filter>
+    <filter
+       x="-0.25"
+       width="1.5"
+       y="-0.25"
+       height="1.5"
+       inkscape:menu-tooltip="Smooth rainbow colors slightly melted along the edges"
+       inkscape:menu="Textures"
+       inkscape:label="Melted Rainbow"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5198">
+      <feGaussianBlur
+         result="result8"
+         stdDeviation="5"
+         id="feGaussianBlur5200" />
+      <feTurbulence
+         baseFrequency="0.015"
+         numOctaves="2"
+         type="fractalNoise"
+         result="result7"
+         seed="20"
+         id="feTurbulence5202" />
+      <feComposite
+         in="SourceGraphic"
+         operator="in"
+         result="result6"
+         in2="result8"
+         id="feComposite5204" />
+      <feComposite
+         in="result6"
+         operator="arithmetic"
+         result="result2"
+         in2="result7"
+         k3="1"
+         id="feComposite5206" />
+      <feComposite
+         in2="result6"
+         operator="in"
+         in="result2"
+         result="fbSourceGraphic"
+         id="feComposite5208" />
+      <feComposite
+         in2="fbSourceGraphic"
+         in="fbSourceGraphic"
+         k2="2.5"
+         operator="arithmetic"
+         id="feComposite5210" />
+    </filter>
+    <filter
+       inkscape:label="Organic"
+       inkscape:menu="Textures"
+       inkscape:menu-tooltip="Bulging, knotty, slick 3D surface"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5212">
+      <feTurbulence
+         numOctaves="3"
+         baseFrequency="0.037"
+         result="result0"
+         id="feTurbulence5214" />
+      <feSpecularLighting
+         specularExponent="24.3"
+         surfaceScale="2"
+         specularConstant="1"
+         result="result1"
+         id="feSpecularLighting5216">
+        <feDistantLight
+           elevation="45"
+           azimuth="225"
+           id="feDistantLight5218" />
+      </feSpecularLighting>
+      <feDiffuseLighting
+         in="result0"
+         surfaceScale="3"
+         diffuseConstant="1.21"
+         id="feDiffuseLighting5220">
+        <feDistantLight
+           azimuth="225"
+           elevation="42"
+           id="feDistantLight5222" />
+      </feDiffuseLighting>
+      <feBlend
+         in2="SourceGraphic"
+         mode="multiply"
+         result="result91"
+         id="feBlend5224" />
+      <feComposite
+         operator="arithmetic"
+         in="result1"
+         k2="1"
+         k3="1"
+         in2="result91"
+         id="feComposite5226" />
+      <feComposite
+         in2="SourceAlpha"
+         operator="in"
+         result="result2"
+         id="feComposite5228" />
+    </filter>
+    <filter
+       inkscape:label="Riddled"
+       inkscape:menu="Textures"
+       inkscape:menu-tooltip="Riddle the surface and add bump to images"
+       height="1.3"
+       y="-0.15"
+       width="1.3"
+       x="-0.15"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5230">
+      <feGaussianBlur
+         stdDeviation="0.5"
+         in="SourceGraphic"
+         result="result1"
+         id="feGaussianBlur5232" />
+      <feTurbulence
+         type="fractalNoise"
+         baseFrequency="0.04"
+         numOctaves="10"
+         result="result0"
+         id="feTurbulence5234" />
+      <feGaussianBlur
+         result="result8"
+         stdDeviation="1"
+         id="feGaussianBlur5236" />
+      <feDisplacementMap
+         in2="result0"
+         in="result1"
+         xChannelSelector="R"
+         yChannelSelector="B"
+         scale="20"
+         result="result2"
+         id="feDisplacementMap5238" />
+      <feComposite
+         result="result7"
+         operator="in"
+         in="result2"
+         in2="result8"
+         id="feComposite5240" />
+      <feComposite
+         in2="result7"
+         result="fbSourceGraphic"
+         k2="0.15"
+         in="result2"
+         k1="2"
+         operator="arithmetic"
+         id="feComposite5242" />
+      <feColorMatrix
+         values="1 0 0 -1 0 1 0 1 -1 0 1 0 0 -1 0 -0.8 -1 0 3.7 -2.6 "
+         in="fbSourceGraphic"
+         result="fbSourceGraphicAlpha"
+         type="matrix"
+         id="feColorMatrix5244" />
+      <feGaussianBlur
+         stdDeviation="0.5"
+         result="result9"
+         id="feGaussianBlur5246" />
+      <feSpecularLighting
+         surfaceScale="10"
+         specularExponent="3"
+         result="result11"
+         specularConstant="0.7"
+         id="feSpecularLighting5248">
+        <feDistantLight
+           azimuth="235"
+           elevation="55"
+           id="feDistantLight5250" />
+      </feSpecularLighting>
+      <feDiffuseLighting
+         in="result9"
+         lighting-color="rgb(255,255,255)"
+         result="result6"
+         diffuseConstant="0.4"
+         surfaceScale="50"
+         id="feDiffuseLighting5252">
+        <feDistantLight
+           elevation="10"
+           azimuth="235"
+           id="feDistantLight5254" />
+      </feDiffuseLighting>
+      <feBlend
+         result="result10"
+         mode="screen"
+         in2="result11"
+         id="feBlend5256" />
+      <feComposite
+         in2="fbSourceGraphic"
+         in="result10"
+         result="result2"
+         operator="in"
+         id="feComposite5258" />
+      <feComposite
+         k3="0.9"
+         k2="1"
+         operator="arithmetic"
+         in2="fbSourceGraphic"
+         id="feComposite5260" />
+    </filter>
+    <filter
+       inkscape:label="Rough and Glossy"
+       inkscape:menu="Textures"
+       inkscape:menu-tooltip="Crumpled glossy paper effect which can be used for pictures as for objects"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5262">
+      <feTurbulence
+         type="fractalNoise"
+         numOctaves="7"
+         baseFrequency="0.02"
+         seed="55"
+         result="result0"
+         id="feTurbulence5264" />
+      <feDiffuseLighting
+         surfaceScale="4"
+         diffuseConstant="1"
+         kernelUnitLength="1"
+         result="result1"
+         in="result0"
+         id="feDiffuseLighting5266">
+        <feDistantLight
+           azimuth="235"
+           elevation="60"
+           id="feDistantLight5268" />
+      </feDiffuseLighting>
+      <feSpecularLighting
+         in="result0"
+         surfaceScale="3"
+         specularConstant="1"
+         specularExponent="25"
+         kernelUnitLength="1"
+         result="result3"
+         id="feSpecularLighting5270">
+        <feDistantLight
+           azimuth="235"
+           elevation="55"
+           id="feDistantLight5272" />
+      </feSpecularLighting>
+      <feComposite
+         in="result1"
+         in2="SourceGraphic"
+         operator="arithmetic"
+         k1="1"
+         result="result2"
+         id="feComposite5274" />
+      <feComposite
+         in="result2"
+         in2="result3"
+         operator="arithmetic"
+         k2="1"
+         k3="1"
+         result="result4"
+         id="feComposite5276" />
+      <feComposite
+         in2="SourceAlpha"
+         operator="in"
+         in="result4"
+         result="fbSourceGraphic"
+         id="feComposite5278" />
+      <feDisplacementMap
+         scale="7"
+         yChannelSelector="G"
+         xChannelSelector="R"
+         in2="result0"
+         id="feDisplacementMap5280" />
+    </filter>
+    <filter
+       y="-0.15"
+       height="1.3"
+       x="-0.15"
+       width="1.3"
+       inkscape:menu-tooltip="Aquarelle paper effect which can be used for pictures as for objects"
+       inkscape:menu="Textures"
+       inkscape:label="Rough Paper"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5351">
+      <feTurbulence
+         type="fractalNoise"
+         baseFrequency="0.04"
+         numOctaves="5"
+         seed="0"
+         result="result4"
+         id="feTurbulence5353" />
+      <feDisplacementMap
+         in="SourceGraphic"
+         in2="result4"
+         yChannelSelector="G"
+         xChannelSelector="R"
+         scale="10"
+         result="result3"
+         id="feDisplacementMap5355" />
+      <feDiffuseLighting
+         lighting-color="rgb(233,230,215)"
+         diffuseConstant="1"
+         surfaceScale="2"
+         result="result1"
+         in="result4"
+         id="feDiffuseLighting5357">
+        <feDistantLight
+           azimuth="235"
+           elevation="40"
+           id="feDistantLight5359" />
+      </feDiffuseLighting>
+      <feComposite
+         operator="in"
+         in="result3"
+         in2="result1"
+         result="result2"
+         id="feComposite5361" />
+      <feComposite
+         in2="result1"
+         result="result5"
+         operator="arithmetic"
+         k1="1.7"
+         id="feComposite5363" />
+      <feBlend
+         in="result5"
+         in2="result3"
+         mode="normal"
+         id="feBlend5365" />
+    </filter>
+    <filter
+       height="1.3"
+       width="1.3"
+       y="-0.15"
+       x="-0.15"
+       inkscape:menu-tooltip="Silk carpet texture, horizontal stripes"
+       inkscape:menu="Textures"
+       inkscape:label="Silk Carpet"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5367">
+      <feTurbulence
+         type="turbulence"
+         numOctaves="2"
+         baseFrequency="0.01 0.11"
+         seed="10"
+         id="feTurbulence5369" />
+      <feColorMatrix
+         result="result5"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1.3 0 "
+         id="feColorMatrix5371" />
+      <feComposite
+         in="SourceGraphic"
+         operator="out"
+         in2="result5"
+         id="feComposite5373" />
+      <feMorphology
+         operator="dilate"
+         radius="1.3"
+         result="result3"
+         id="feMorphology5375" />
+      <feTurbulence
+         numOctaves="3"
+         baseFrequency="0.08 0.05"
+         type="fractalNoise"
+         seed="7"
+         result="result6"
+         id="feTurbulence5377" />
+      <feGaussianBlur
+         stdDeviation="0.5"
+         result="result7"
+         id="feGaussianBlur5379" />
+      <feDisplacementMap
+         in="result3"
+         xChannelSelector="R"
+         yChannelSelector="G"
+         scale="3"
+         result="result4"
+         in2="result7"
+         id="feDisplacementMap5381" />
+      <feComposite
+         in="result4"
+         k1="1"
+         result="result2"
+         operator="arithmetic"
+         in2="result4"
+         k2="1"
+         id="feComposite5383" />
+      <feBlend
+         in2="result4"
+         mode="normal"
+         in="result2"
+         id="feBlend5385" />
+    </filter>
+    <filter
+       x="-0.15"
+       width="1.3"
+       y="-0.15"
+       height="1.3"
+       inkscape:menu-tooltip="Stone wall texture to use with not too saturated colors"
+       inkscape:menu="Textures"
+       inkscape:label="Stone Wall"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5387">
+      <feTurbulence
+         type="turbulence"
+         numOctaves="5"
+         baseFrequency="0.08 0.175"
+         seed="25"
+         id="feTurbulence5389" />
+      <feColorMatrix
+         result="result5"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 2 0 "
+         id="feColorMatrix5391" />
+      <feComposite
+         in="SourceGraphic"
+         operator="in"
+         in2="result5"
+         id="feComposite5393" />
+      <feMorphology
+         operator="dilate"
+         radius="0.65"
+         result="result3"
+         id="feMorphology5395" />
+      <feTurbulence
+         numOctaves="7"
+         baseFrequency="0.05 0.09"
+         type="fractalNoise"
+         seed="25"
+         id="feTurbulence5397" />
+      <feGaussianBlur
+         stdDeviation="2"
+         result="result7"
+         id="feGaussianBlur5399" />
+      <feDisplacementMap
+         in="result3"
+         xChannelSelector="R"
+         yChannelSelector="G"
+         scale="5"
+         result="result4"
+         in2="result7"
+         id="feDisplacementMap5401" />
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(255,255,255)"
+         id="feFlood5403" />
+      <feComposite
+         k3="0.7"
+         k1="0.7"
+         result="result2"
+         operator="arithmetic"
+         in2="result4"
+         id="feComposite5405" />
+      <feComposite
+         k2="1"
+         in="result2"
+         operator="arithmetic"
+         in2="SourceAlpha"
+         k1="1"
+         result="result6"
+         id="feComposite5407" />
+      <feBlend
+         mode="multiply"
+         in2="result6"
+         in="result6"
+         id="feBlend5409" />
+    </filter>
+    <filter
+       x="-0.25"
+       width="1.5"
+       y="-0.25"
+       height="1.5"
+       inkscape:menu-tooltip="Smooth rainbow colors melted along the edges and colorizable"
+       inkscape:menu="Textures"
+       inkscape:label="Tinted Rainbow"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5411">
+      <feGaussianBlur
+         result="result8"
+         stdDeviation="5"
+         id="feGaussianBlur5413" />
+      <feTurbulence
+         baseFrequency="0.015"
+         numOctaves="2"
+         type="fractalNoise"
+         result="result7"
+         seed="20"
+         id="feTurbulence5415" />
+      <feComposite
+         in="SourceGraphic"
+         operator="in"
+         result="result6"
+         in2="result8"
+         id="feComposite5417" />
+      <feComposite
+         in="result6"
+         operator="arithmetic"
+         result="result2"
+         in2="result7"
+         k3="1.7"
+         id="feComposite5419" />
+      <feComposite
+         in2="result6"
+         operator="in"
+         in="result2"
+         result="fbSourceGraphic"
+         id="feComposite5421" />
+      <feComposite
+         in2="SourceGraphic"
+         in="fbSourceGraphic"
+         k3="0.3"
+         k2="1.5"
+         operator="arithmetic"
+         result="result9"
+         id="feComposite5423" />
+    </filter>
+    <filter
+       x="-0.35"
+       width="1.7"
+       y="-0.35"
+       height="1.7"
+       inkscape:menu-tooltip="Smooth rainbow colors warped along the edges and colorizable"
+       inkscape:menu="Textures"
+       inkscape:label="Warped Rainbow"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5425">
+      <feGaussianBlur
+         result="result8"
+         stdDeviation="5"
+         id="feGaussianBlur5427" />
+      <feTurbulence
+         baseFrequency="0.015"
+         numOctaves="2"
+         type="fractalNoise"
+         result="result7"
+         seed="20"
+         id="feTurbulence5429" />
+      <feDisplacementMap
+         yChannelSelector="A"
+         xChannelSelector="A"
+         scale="100"
+         result="result10"
+         in="result7"
+         in2="result8"
+         id="feDisplacementMap5431" />
+      <feComposite
+         in="result10"
+         operator="atop"
+         result="result2"
+         in2="result8"
+         id="feComposite5433" />
+      <feComposite
+         in2="result2"
+         operator="arithmetic"
+         in="result10"
+         result="fbSourceGraphic"
+         k1="2.5"
+         k3="0.5"
+         id="feComposite5435" />
+    </filter>
+    <filter
+       inkscape:menu="Textures"
+       inkscape:label="Watercolor"
+       inkscape:menu-tooltip="Cloudy watercolor effect"
+       height="2"
+       y="-0.5"
+       width="1.6"
+       x="-0.3"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5437">
+      <feGaussianBlur
+         stdDeviation="15"
+         result="result8"
+         id="feGaussianBlur5439" />
+      <feTurbulence
+         seed="27"
+         result="result7"
+         type="fractalNoise"
+         numOctaves="5"
+         baseFrequency="0.025"
+         id="feTurbulence5441" />
+      <feComposite
+         in2="result8"
+         result="result6"
+         operator="over"
+         in="result7"
+         id="feComposite5443" />
+      <feColorMatrix
+         result="result9"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 6 -4 "
+         id="feColorMatrix5445" />
+      <feDisplacementMap
+         in="result7"
+         in2="result9"
+         xChannelSelector="A"
+         yChannelSelector="A"
+         scale="45"
+         result="result4"
+         id="feDisplacementMap5447" />
+      <feComposite
+         in2="result4"
+         result="result2"
+         operator="in"
+         in="result8"
+         id="feComposite5449" />
+      <feComposite
+         result="fbSourceGraphic"
+         in="result2"
+         operator="in"
+         in2="result9"
+         id="feComposite5451" />
+      <feComposite
+         operator="arithmetic"
+         k2="1"
+         k1="0.5"
+         in="fbSourceGraphic"
+         in2="fbSourceGraphic"
+         result="result91"
+         id="feComposite5453" />
+      <feBlend
+         in="fbSourceGraphic"
+         mode="multiply"
+         in2="result91"
+         id="feBlend5455" />
+    </filter>
+    <filter
+       inkscape:label="Wax Print"
+       inkscape:menu="Textures"
+       inkscape:menu-tooltip="Wax print on tissue texture"
+       height="1.4"
+       y="-0.2"
+       width="1.4"
+       x="-0.2"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5457">
+      <feGaussianBlur
+         result="result1"
+         in="SourceGraphic"
+         stdDeviation="2"
+         id="feGaussianBlur5459" />
+      <feTurbulence
+         result="result0"
+         numOctaves="5"
+         baseFrequency="0.05"
+         type="fractalNoise"
+         id="feTurbulence5461" />
+      <feDisplacementMap
+         result="result2"
+         scale="10"
+         yChannelSelector="G"
+         xChannelSelector="R"
+         in="result1"
+         in2="result0"
+         id="feDisplacementMap5463" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 10 0 "
+         result="result3"
+         id="feColorMatrix5465" />
+      <feBlend
+         mode="multiply"
+         in="result2"
+         result="result5"
+         in2="result3"
+         id="feBlend5467" />
+      <feGaussianBlur
+         result="result4"
+         in="result3"
+         stdDeviation="5"
+         id="feGaussianBlur5469" />
+      <feComposite
+         k1="0.5"
+         k3="1.5"
+         k2="0.15"
+         in="result4"
+         in2="result5"
+         operator="arithmetic"
+         result="result6"
+         id="feComposite5471" />
+      <feComposite
+         operator="in"
+         in="result6"
+         in2="result4"
+         id="feComposite5473" />
+    </filter>
+    <filter
+       inkscape:label="Leaves"
+       inkscape:menu="Scatter"
+       inkscape:menu-tooltip="Leaves on the ground in Fall, or living foliage"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5509">
+      <feTurbulence
+         baseFrequency="0.09"
+         numOctaves="5"
+         type="fractalNoise"
+         result="result6"
+         id="feTurbulence5511" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 4.9 -2.9 "
+         result="result5"
+         in="result6"
+         id="feColorMatrix5513" />
+      <feComposite
+         in2="result5"
+         operator="in"
+         in="SourceGraphic"
+         id="feComposite5515" />
+      <feMorphology
+         result="result3"
+         radius="6"
+         operator="dilate"
+         id="feMorphology5517" />
+      <feTurbulence
+         baseFrequency="0.2"
+         numOctaves="1"
+         type="fractalNoise"
+         result="result91"
+         id="feTurbulence5519" />
+      <feDisplacementMap
+         result="result4"
+         scale="15"
+         yChannelSelector="G"
+         xChannelSelector="R"
+         in="result3"
+         in2="result91"
+         id="feDisplacementMap5521" />
+      <feComposite
+         in2="result4"
+         operator="arithmetic"
+         result="result2"
+         k1="0.5"
+         k3="1"
+         id="feComposite5523" />
+      <feConvolveMatrix
+         order="3 3"
+         kernelMatrix="1 0 0 0 2 0 0 0 -1 "
+         targetX="0"
+         targetY="0"
+         divisor="1.5"
+         edgeMode="duplicate"
+         in="result2"
+         id="feConvolveMatrix5525" />
+    </filter>
+    <filter
+       inkscape:label="Dragee"
+       inkscape:menu="Ridges"
+       inkscape:menu-tooltip="Gel Ridge with a pearlescent look"
+       height="1.5"
+       width="1.5"
+       y="-0.25"
+       x="-0.25"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5527">
+      <feGaussianBlur
+         stdDeviation="0.01"
+         result="result1"
+         id="feGaussianBlur5529" />
+      <feBlend
+         in="result1"
+         mode="screen"
+         result="result5"
+         in2="result1"
+         id="feBlend5531" />
+      <feGaussianBlur
+         stdDeviation="6"
+         result="result6"
+         id="feGaussianBlur5533" />
+      <feComposite
+         operator="xor"
+         result="fbSourceGraphic"
+         in="result6"
+         in2="result6"
+         id="feComposite5535" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 2 0 "
+         id="feColorMatrix5537" />
+      <feGaussianBlur
+         result="result0"
+         in="fbSourceGraphicAlpha"
+         stdDeviation="2"
+         id="feGaussianBlur5539" />
+      <feSpecularLighting
+         specularExponent="35"
+         specularConstant="1"
+         surfaceScale="3"
+         lighting-color="rgb(255,255,255)"
+         result="result1"
+         in="result0"
+         id="feSpecularLighting5541">
+        <feDistantLight
+           azimuth="235"
+           elevation="55"
+           id="feDistantLight5543" />
+      </feSpecularLighting>
+      <feComposite
+         operator="in"
+         result="result2"
+         in="result1"
+         in2="fbSourceGraphicAlpha"
+         id="feComposite5545" />
+      <feComposite
+         k3="1"
+         k2="1"
+         operator="arithmetic"
+         result="result4"
+         in="fbSourceGraphic"
+         in2="result2"
+         id="feComposite5547" />
+      <feComposite
+         operator="out"
+         in="result9"
+         in2="result4"
+         result="result91"
+         id="feComposite5549" />
+      <feBlend
+         mode="multiply"
+         in2="result91"
+         id="feBlend5551" />
+    </filter>
+    <filter
+       inkscape:label="Glowing Bubble"
+       inkscape:menu="Ridges"
+       inkscape:menu-tooltip="Bubble effect with refraction and glow"
+       x="-0.25"
+       y="-0.25"
+       width="1.5"
+       height="1.5"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5553">
+      <feGaussianBlur
+         stdDeviation="1"
+         result="result1"
+         id="feGaussianBlur5555" />
+      <feGaussianBlur
+         stdDeviation="10"
+         result="result6"
+         in="result1"
+         id="feGaussianBlur5557" />
+      <feComposite
+         operator="atop"
+         in="result6"
+         in2="result1"
+         result="result8"
+         id="feComposite5559" />
+      <feComposite
+         operator="xor"
+         result="fbSourceGraphic"
+         in="result6"
+         in2="result8"
+         id="feComposite5561" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 2 0 "
+         id="feColorMatrix5563" />
+      <feGaussianBlur
+         result="result0"
+         in="fbSourceGraphicAlpha"
+         stdDeviation="1"
+         id="feGaussianBlur5565" />
+      <feSpecularLighting
+         specularExponent="35"
+         specularConstant="1.5"
+         surfaceScale="-2"
+         lighting-color="rgb(255,255,255)"
+         result="result1"
+         in="result0"
+         id="feSpecularLighting5567">
+        <feDistantLight
+           azimuth="230"
+           elevation="60"
+           id="feDistantLight5569" />
+      </feSpecularLighting>
+      <feComposite
+         operator="in"
+         result="result2"
+         in="result1"
+         in2="fbSourceGraphicAlpha"
+         id="feComposite5571" />
+      <feComposite
+         k3="1"
+         k2="1"
+         operator="arithmetic"
+         result="result4"
+         in="fbSourceGraphic"
+         in2="result2"
+         id="feComposite5573" />
+      <feComposite
+         operator="atop"
+         in="result9"
+         in2="result4"
+         result="result91"
+         id="feComposite5575" />
+      <feBlend
+         mode="multiply"
+         in2="result91"
+         id="feBlend5577" />
+    </filter>
+    <filter
+       inkscape:label="Matte Ridge"
+       inkscape:menu="Ridges"
+       inkscape:menu-tooltip="Soft pastel ridge"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5651">
+      <feGaussianBlur
+         stdDeviation="0.5"
+         result="result1"
+         id="feGaussianBlur5653" />
+      <feBlend
+         in="SourceGraphic"
+         mode="normal"
+         result="result5"
+         in2="result1"
+         id="feBlend5655" />
+      <feGaussianBlur
+         stdDeviation="3"
+         result="result6"
+         in="result5"
+         id="feGaussianBlur5657" />
+      <feComposite
+         operator="xor"
+         in="result6"
+         in2="result6"
+         result="result8"
+         id="feComposite5659" />
+      <feComposite
+         operator="in"
+         result="fbSourceGraphic"
+         in="result6"
+         in2="result8"
+         id="feComposite5661" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0 "
+         id="feColorMatrix5663" />
+      <feGaussianBlur
+         result="result0"
+         in="fbSourceGraphic"
+         stdDeviation="0.5"
+         id="feGaussianBlur5665" />
+      <feSpecularLighting
+         specularExponent="55"
+         specularConstant="2"
+         surfaceScale="2"
+         lighting-color="rgb(255,255,255)"
+         result="result1"
+         in="result0"
+         id="feSpecularLighting5667">
+        <fePointLight
+           z="20000"
+           y="-10000"
+           x="-5000"
+           id="fePointLight5669" />
+      </feSpecularLighting>
+      <feComposite
+         operator="arithmetic"
+         result="result2"
+         in="result1"
+         in2="fbSourceGraphicAlpha"
+         k1="1"
+         id="feComposite5671" />
+      <feComposite
+         k3="1"
+         k2="0.5"
+         operator="arithmetic"
+         result="result4"
+         in="fbSourceGraphic"
+         in2="result2"
+         id="feComposite5673" />
+      <feComposite
+         operator="over"
+         in="result9"
+         in2="result4"
+         result="result91"
+         id="feComposite5675" />
+      <feBlend
+         mode="screen"
+         in2="result91"
+         id="feBlend5677" />
+    </filter>
+    <filter
+       inkscape:label="Metallized Ridge"
+       inkscape:menu="Ridges"
+       inkscape:menu-tooltip="Gel Ridge metallized at its top"
+       height="2"
+       y="-0.5"
+       width="2"
+       x="-0.5"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5679">
+      <feGaussianBlur
+         stdDeviation="1"
+         result="result1"
+         id="feGaussianBlur5681" />
+      <feGaussianBlur
+         stdDeviation="8"
+         result="result6"
+         in="result1"
+         id="feGaussianBlur5683" />
+      <feComposite
+         operator="atop"
+         in="result6"
+         in2="result1"
+         result="result8"
+         id="feComposite5685" />
+      <feComposite
+         operator="xor"
+         result="fbSourceGraphic"
+         in="result6"
+         in2="result8"
+         id="feComposite5687" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 2 0 "
+         id="feColorMatrix5689" />
+      <feGaussianBlur
+         result="result0"
+         in="fbSourceGraphicAlpha"
+         stdDeviation="2.5"
+         id="feGaussianBlur5691" />
+      <feSpecularLighting
+         specularExponent="35"
+         specularConstant="1"
+         surfaceScale="4"
+         lighting-color="rgb(255,255,255)"
+         result="result1"
+         in="result0"
+         id="feSpecularLighting5693">
+        <fePointLight
+           z="20000"
+           y="-10000"
+           x="-5000"
+           id="fePointLight5695" />
+      </feSpecularLighting>
+      <feComposite
+         operator="in"
+         result="result2"
+         in="result1"
+         in2="fbSourceGraphicAlpha"
+         id="feComposite5697" />
+      <feComposite
+         k3="1"
+         k2="1"
+         operator="arithmetic"
+         result="result4"
+         in="fbSourceGraphic"
+         in2="result2"
+         id="feComposite5699" />
+      <feComposite
+         operator="atop"
+         in="result9"
+         in2="result4"
+         result="result91"
+         id="feComposite5701" />
+      <feBlend
+         mode="multiply"
+         in2="result91"
+         id="feBlend5703" />
+    </filter>
+    <filter
+       inkscape:label="Refractive Gel A"
+       inkscape:menu="Ridges"
+       inkscape:menu-tooltip="Gel effect with light refraction"
+       height="1.4"
+       width="1.4"
+       y="-0.2"
+       x="-0.2"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5705">
+      <feOffset
+         dx="7"
+         dy="7"
+         in="SourceAlpha"
+         result="result3"
+         id="feOffset5707" />
+      <feGaussianBlur
+         stdDeviation="8"
+         in="result3"
+         result="result1"
+         id="feGaussianBlur5709" />
+      <feComposite
+         operator="in"
+         in2="result1"
+         in="SourceGraphic"
+         result="result2"
+         id="feComposite5711" />
+      <feComposite
+         operator="out"
+         result="fbSourceGraphic"
+         in="result2"
+         in2="result2"
+         id="feComposite5713" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0 0 0 0 4 0 "
+         id="feColorMatrix5715" />
+      <feGaussianBlur
+         result="result0"
+         in="fbSourceGraphicAlpha"
+         stdDeviation="2"
+         id="feGaussianBlur5717" />
+      <feSpecularLighting
+         specularExponent="20"
+         specularConstant="1.2"
+         surfaceScale="3"
+         lighting-color="rgb(255,255,255)"
+         result="result1"
+         in="result0"
+         id="feSpecularLighting5719">
+        <feDistantLight
+           azimuth="235"
+           elevation="45"
+           id="feDistantLight5721" />
+      </feSpecularLighting>
+      <feComposite
+         operator="in"
+         result="result2"
+         in="result1"
+         in2="fbSourceGraphicAlpha"
+         id="feComposite5723" />
+      <feComposite
+         in="fbSourceGraphic"
+         operator="arithmetic"
+         k2="2"
+         k3="2"
+         in2="result2"
+         result="result91"
+         id="feComposite5725" />
+      <feBlend
+         mode="multiply"
+         in2="result91"
+         id="feBlend5727" />
+    </filter>
+    <filter
+       inkscape:label="Refractive Gel B"
+       inkscape:menu="Ridges"
+       inkscape:menu-tooltip="Gel effect with strong refraction"
+       height="1.4"
+       width="1.4"
+       y="-0.2"
+       x="-0.2"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5729">
+      <feOffset
+         dx="3"
+         dy="3"
+         in="SourceAlpha"
+         result="result3"
+         id="feOffset5731" />
+      <feGaussianBlur
+         stdDeviation="8"
+         in="result3"
+         result="result1"
+         id="feGaussianBlur5733" />
+      <feComposite
+         operator="in"
+         in2="result1"
+         in="SourceGraphic"
+         result="result2"
+         id="feComposite5735" />
+      <feComposite
+         operator="out"
+         result="fbSourceGraphic"
+         in="result2"
+         in2="result2"
+         id="feComposite5737" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0 0 0 0 6 0 "
+         id="feColorMatrix5739" />
+      <feGaussianBlur
+         result="result0"
+         in="fbSourceGraphicAlpha"
+         stdDeviation="3"
+         id="feGaussianBlur5741" />
+      <feSpecularLighting
+         specularExponent="20"
+         specularConstant="2"
+         surfaceScale="5"
+         lighting-color="rgb(255,255,255)"
+         result="result1"
+         in="result0"
+         id="feSpecularLighting5743">
+        <feDistantLight
+           azimuth="235"
+           elevation="35"
+           id="feDistantLight5745" />
+      </feSpecularLighting>
+      <feComposite
+         operator="in"
+         result="result2"
+         in="result1"
+         in2="fbSourceGraphicAlpha"
+         id="feComposite5747" />
+      <feComposite
+         in="fbSourceGraphic"
+         operator="arithmetic"
+         k2="1.5"
+         k3="3"
+         in2="result2"
+         result="result91"
+         id="feComposite5749" />
+      <feBlend
+         mode="screen"
+         in2="result91"
+         id="feBlend5751" />
+      <feConvolveMatrix
+         order="3 3"
+         kernelMatrix="2 0 1 0 1 0 0 0 0 "
+         targetX="1"
+         targetY="1"
+         divisor="3"
+         id="feConvolveMatrix5753" />
+    </filter>
+    <filter
+       inkscape:label="Thin Membrane"
+       inkscape:menu="Ridges"
+       inkscape:menu-tooltip="Thin like a soap membrane"
+       x="-0.05"
+       y="-0.05"
+       width="1.1"
+       height="1.1"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5755">
+      <feGaussianBlur
+         stdDeviation="5"
+         result="result1"
+         id="feGaussianBlur5757" />
+      <feComposite
+         in="result1"
+         in2="result1"
+         result="result4"
+         operator="xor"
+         id="feComposite5759" />
+      <feGaussianBlur
+         stdDeviation="8"
+         result="result6"
+         id="feGaussianBlur5761" />
+      <feComposite
+         operator="atop"
+         in="result6"
+         in2="SourceGraphic"
+         result="result8"
+         id="feComposite5763" />
+      <feComposite
+         operator="in"
+         result="fbSourceGraphic"
+         in="result6"
+         in2="result8"
+         id="feComposite5765" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 2 0 "
+         id="feColorMatrix5767" />
+      <feGaussianBlur
+         result="result0"
+         in="fbSourceGraphicAlpha"
+         stdDeviation="2"
+         id="feGaussianBlur5769" />
+      <feSpecularLighting
+         specularExponent="25"
+         specularConstant="2"
+         surfaceScale="-5"
+         lighting-color="rgb(255,255,255)"
+         result="result1"
+         in="result0"
+         id="feSpecularLighting5771">
+        <fePointLight
+           z="20000"
+           y="-10000"
+           x="-5000"
+           id="fePointLight5773" />
+      </feSpecularLighting>
+      <feComposite
+         operator="in"
+         result="result2"
+         in="result1"
+         in2="fbSourceGraphicAlpha"
+         id="feComposite5775" />
+      <feComposite
+         k3="2"
+         k2="1"
+         operator="arithmetic"
+         result="result4"
+         in="fbSourceGraphic"
+         in2="result2"
+         id="feComposite5777" />
+      <feComposite
+         operator="in"
+         in="result4"
+         result="result9"
+         in2="result4"
+         id="feComposite5779" />
+      <feBlend
+         mode="multiply"
+         in="result9"
+         in2="result4"
+         id="feBlend5781" />
+    </filter>
+    <filter
+       inkscape:label="Ink Bleed"
+       inkscape:menu="Protrusions"
+       inkscape:menu-tooltip="Inky splotches underneath the object"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5849">
+      <feGaussianBlur
+         result="result1"
+         in="SourceGraphic"
+         stdDeviation="1.3"
+         id="feGaussianBlur5851" />
+      <feTurbulence
+         result="result0"
+         numOctaves="4"
+         baseFrequency="0.034"
+         id="feTurbulence5853" />
+      <feDisplacementMap
+         result="result2"
+         scale="19.6"
+         yChannelSelector="G"
+         xChannelSelector="R"
+         in="result1"
+         in2="result0"
+         id="feDisplacementMap5855" />
+      <feColorMatrix
+         values="2 0 0 0 0 0 2 0 0 0 0 0 2 0 0 0 0 0 0.7 0"
+         result="result3"
+         id="feColorMatrix5857" />
+      <feGaussianBlur
+         result="result4"
+         in="SourceGraphic"
+         stdDeviation="1.1"
+         id="feGaussianBlur5859" />
+      <feComposite
+         in="result4"
+         in2="result3"
+         id="feComposite5861" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Snow"
+       id="filter5935">
+      <feConvolveMatrix
+         order="3 3"
+         kernelMatrix="1 1 1 0 0 0 -1 -1 -1"
+         preserveAlpha="false"
+         divisor="3"
+         id="feConvolveMatrix5937" />
+      <feMorphology
+         operator="dilate"
+         radius="1 5.15625"
+         id="feMorphology5939" />
+      <feGaussianBlur
+         stdDeviation="1.6270889487870621"
+         result="result0"
+         id="feGaussianBlur5941" />
+      <feColorMatrix
+         values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 0"
+         result="result1"
+         id="feColorMatrix5943" />
+      <feOffset
+         dx="0"
+         dy="1"
+         result="result5"
+         id="feOffset5945" />
+      <feDiffuseLighting
+         in="result0"
+         diffuseConstant="2.2613065326633168"
+         surfaceScale="1"
+         id="feDiffuseLighting5947">
+        <feDistantLight
+           azimuth="225"
+           elevation="32"
+           id="feDistantLight5949" />
+      </feDiffuseLighting>
+      <feComposite
+         in2="result1"
+         operator="in"
+         result="result2"
+         id="feComposite5951" />
+      <feColorMatrix
+         values="0.4 0 0 0 0.6 0 0.4 0 0 0.6 0 0 0 0 1 0 0 0 1 0"
+         result="result4"
+         id="feColorMatrix5953" />
+      <feComposite
+         in2="result5"
+         in="result4"
+         id="feComposite5955" />
+      <feComposite
+         in2="SourceGraphic"
+         id="feComposite5957" />
+    </filter>
+    <filter
+       y="-0.2"
+       width="1.2"
+       height="1.4"
+       x="-0.1"
+       inkscape:label="Fire"
+       inkscape:menu="Protrusions"
+       inkscape:menu-tooltip="Edges of object are on fire"
+       style="color-interpolation-filters:sRGB;"
+       id="filter5959">
+      <feMorphology
+         result="result1"
+         radius="2.4"
+         operator="dilate"
+         id="feMorphology5961" />
+      <feTurbulence
+         baseFrequency="0.09 0.028"
+         numOctaves="1"
+         id="feTurbulence5963" />
+      <feColorMatrix
+         result="result2"
+         values="2 0 0 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 1 0"
+         id="feColorMatrix5965" />
+      <feDisplacementMap
+         result="result4"
+         scale="10.319410319410318"
+         yChannelSelector="G"
+         xChannelSelector="R"
+         in="result1"
+         in2="result2"
+         id="feDisplacementMap5967" />
+      <feFlood
+         result="result3"
+         flood-opacity="1"
+         flood-color="rgb(255,159,54)"
+         id="feFlood5969" />
+      <feMorphology
+         radius="3.8"
+         result="result7"
+         in="result4"
+         id="feMorphology5971" />
+      <feGaussianBlur
+         result="result7"
+         in="result7"
+         stdDeviation="2.4"
+         id="feGaussianBlur5973" />
+      <feComposite
+         result="result5"
+         in2="result4"
+         in="result3"
+         operator="in"
+         id="feComposite5975" />
+      <feComposite
+         operator="out"
+         in2="result7"
+         id="feComposite5977" />
+      <feOffset
+         result="result6"
+         dy="-7"
+         dx="-4.5"
+         id="feOffset5979" />
+      <feGaussianBlur
+         result="result7"
+         stdDeviation="4.8"
+         id="feGaussianBlur5981" />
+      <feComposite
+         in="SourceGraphic"
+         in2="result6"
+         id="feComposite5983" />
+      <feComposite
+         in2="result7"
+         id="feComposite5985" />
+    </filter>
+    <filter
+       inkscape:label="Alpha Monochrome Cracked"
+       style="color-interpolation-filters:sRGB;"
+       inkscape:menu-tooltip="Basic noise fill texture; adjust color in Flood"
+       inkscape:menu="Overlays"
+       id="filter6050">
+      <feColorMatrix
+         result="fbSourceGraphic"
+         type="luminanceToAlpha"
+         id="feColorMatrix6052" />
+      <feColorMatrix
+         result="result6"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 "
+         id="feColorMatrix6054" />
+      <feFlood
+         flood-opacity="1"
+         result="result1"
+         flood-color="rgb(9,96,77)"
+         id="feFlood6056" />
+      <feComposite
+         in2="result6"
+         result="result2"
+         operator="out"
+         id="feComposite6058" />
+      <feTurbulence
+         type="fractalNoise"
+         baseFrequency="0.04"
+         numOctaves="5"
+         id="feTurbulence6060" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -1.5 0 0 4.5 -1 "
+         result="result0"
+         id="feColorMatrix6062" />
+      <feComposite
+         in2="result0"
+         in="result0"
+         result="result4"
+         operator="out"
+         id="feComposite6064" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 5 -1 "
+         result="result7"
+         id="feColorMatrix6066" />
+      <feComposite
+         in2="result2"
+         operator="arithmetic"
+         result="result5"
+         k1="1.5"
+         k3="1"
+         id="feComposite6068" />
+      <feComposite
+         in2="SourceGraphic"
+         operator="in"
+         in="result5"
+         id="feComposite6070" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:menu-tooltip="Basic noise fill texture; adjust color in Flood"
+       inkscape:menu="Overlays"
+       inkscape:label="Alpha Turbulent"
+       id="filter6072">
+      <feColorMatrix
+         result="fbSourceGraphic"
+         type="luminanceToAlpha"
+         id="feColorMatrix6074" />
+      <feFlood
+         flood-opacity="1"
+         result="result1"
+         flood-color="rgb(134,39,24)"
+         id="feFlood6076" />
+      <feComposite
+         result="result2"
+         operator="out"
+         in2="fbSourceGraphic"
+         id="feComposite6078" />
+      <feColorMatrix
+         in="result2"
+         result="fbSourceGraphic"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 "
+         id="feColorMatrix6080" />
+      <feTurbulence
+         type="fractalNoise"
+         baseFrequency="0.035"
+         numOctaves="5"
+         id="feTurbulence6082" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -1.5 0 0 4.7 -1 "
+         result="result0"
+         id="feColorMatrix6084" />
+      <feFlood
+         result="result1"
+         flood-color="rgb(145,199,195)"
+         flood-opacity="1"
+         id="feFlood6086" />
+      <feBlend
+         result="result3"
+         in="result1"
+         mode="normal"
+         in2="fbSourceGraphic"
+         id="feBlend6088" />
+      <feComposite
+         result="result4"
+         operator="out"
+         in2="result0"
+         id="feComposite6090" />
+      <feComposite
+         operator="atop"
+         in2="fbSourceGraphic"
+         result="result5"
+         id="feComposite6092" />
+      <feComposite
+         in2="SourceGraphic"
+         operator="in"
+         id="feComposite6094" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Noise Fill"
+       id="filter6748">
+      <feTurbulence
+         type="fractalNoise"
+         baseFrequency="0.20834 0.07813"
+         numOctaves="5"
+         seed="5"
+         result="turbulence"
+         id="feTurbulence6750" />
+      <feComposite
+         in="SourceGraphic"
+         in2="turbulence"
+         operator="in"
+         result="composite1"
+         id="feComposite6752" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 3.55 -1.04 "
+         result="color"
+         id="feColorMatrix6754" />
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(21,40,57)"
+         result="flood"
+         id="feFlood6756" />
+      <feMerge
+         result="merge"
+         id="feMerge6758">
+        <feMergeNode
+           in="flood"
+           id="feMergeNode6760" />
+        <feMergeNode
+           in="color"
+           id="feMergeNode6762" />
+      </feMerge>
+      <feComposite
+         in2="SourceGraphic"
+         operator="in"
+         result="composite2"
+         id="feComposite6764" />
+    </filter>
+    <filter
+       inkscape:label="Frost"
+       inkscape:menu="Overlays"
+       inkscape:menu-tooltip="Flake-like white splotches"
+       style="color-interpolation-filters:sRGB;"
+       id="filter6814">
+      <feTurbulence
+         type="fractalNoise"
+         numOctaves="5"
+         baseFrequency="0.143"
+         id="feTurbulence6816" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 5 -3"
+         id="feColorMatrix6818" />
+      <feComposite
+         operator="in"
+         in2="SourceAlpha"
+         id="feComposite6820" />
+      <feMorphology
+         operator="dilate"
+         radius="2.7"
+         result="result3"
+         id="feMorphology6822" />
+      <feTurbulence
+         numOctaves="2"
+         baseFrequency="0.121"
+         result="result91"
+         id="feTurbulence6824" />
+      <feDisplacementMap
+         in="result3"
+         xChannelSelector="R"
+         yChannelSelector="A"
+         scale="10"
+         result="result4"
+         in2="result91"
+         id="feDisplacementMap6826" />
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(255,255,255)"
+         id="feFlood6828" />
+      <feComposite
+         result="result2"
+         operator="in"
+         in2="result4"
+         id="feComposite6830" />
+      <feComposite
+         in="result2"
+         operator="over"
+         in2="SourceGraphic"
+         id="feComposite6832" />
+    </filter>
+    <filter
+       inkscape:label="Growing Cells"
+       inkscape:menu="Overlays"
+       inkscape:menu-tooltip="Random rounded living cells like fill"
+       style="color-interpolation-filters:sRGB;"
+       id="filter6860">
+      <feTurbulence
+         type="fractalNoise"
+         baseFrequency="0.1"
+         numOctaves="3"
+         result="result7"
+         id="feTurbulence6862" />
+      <feColorMatrix
+         values="0"
+         result="result8"
+         type="saturate"
+         id="feColorMatrix6864" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 20 -12 "
+         result="result6"
+         type="matrix"
+         id="feColorMatrix6866" />
+      <feGaussianBlur
+         stdDeviation="2"
+         result="result5"
+         in="result6"
+         id="feGaussianBlur6868" />
+      <feColorMatrix
+         in="result5"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 10 -0.1 "
+         result="result0"
+         type="matrix"
+         id="feColorMatrix6870" />
+      <feComposite
+         k1="0.8"
+         k2="1"
+         in2="SourceGraphic"
+         operator="arithmetic"
+         result="result3"
+         in="result0"
+         id="feComposite6872" />
+      <feComposite
+         operator="atop"
+         in2="result8"
+         id="feComposite6874" />
+      <feBlend
+         mode="normal"
+         in2="SourceGraphic"
+         result="result9"
+         id="feBlend6876" />
+      <feComposite
+         in="result9"
+         in2="SourceGraphic"
+         operator="atop"
+         result="result2"
+         id="feComposite6878" />
+    </filter>
+    <filter
+       inkscape:label="Cracked Lava"
+       inkscape:menu="Materials"
+       inkscape:menu-tooltip="A volcanic texture, a little like leather"
+       style="color-interpolation-filters:sRGB;"
+       id="filter7306">
+      <feGaussianBlur
+         result="result0"
+         in="SourceGraphic"
+         stdDeviation="0.5"
+         id="feGaussianBlur7308" />
+      <feTurbulence
+         baseFrequency="0.042"
+         seed="488"
+         numOctaves="7"
+         result="result1"
+         id="feTurbulence7310" />
+      <feDisplacementMap
+         result="result5"
+         xChannelSelector="R"
+         scale="0"
+         in2="result1"
+         in="result1"
+         yChannelSelector="G"
+         id="feDisplacementMap7312" />
+      <feComposite
+         result="result2"
+         operator="in"
+         in2="result5"
+         in="result0"
+         id="feComposite7314" />
+      <feSpecularLighting
+         lighting-color="rgb(255,230,136)"
+         surfaceScale="2"
+         result="result4"
+         specularConstant="2"
+         specularExponent="65"
+         in="result2"
+         id="feSpecularLighting7316">
+        <feDistantLight
+           elevation="62"
+           azimuth="225"
+           id="feDistantLight7318" />
+      </feSpecularLighting>
+      <feComposite
+         k1="2.5"
+         k3="1"
+         k2="-0.5"
+         in2="result2"
+         in="result4"
+         operator="arithmetic"
+         result="result91"
+         id="feComposite7320" />
+      <feBlend
+         result="fbSourceGraphic"
+         mode="multiply"
+         in2="result91"
+         id="feBlend7322" />
+      <feColorMatrix
+         values="1 0 0 -1 0 1 0 1 -1 0 1 0 0 -1 0 -2 -0.5 0 5 -2"
+         in="fbSourceGraphic"
+         result="fbSourceGraphicAlpha"
+         id="feColorMatrix7324" />
+      <feGaussianBlur
+         stdDeviation="8"
+         in="fbSourceGraphicAlpha"
+         result="result0"
+         id="feGaussianBlur7326" />
+      <feOffset
+         dx="2"
+         dy="2"
+         in="result0"
+         result="result3"
+         id="feOffset7328" />
+      <feSpecularLighting
+         in="result0"
+         result="result1"
+         lighting-color="rgb(255,255,255)"
+         surfaceScale="4"
+         specularConstant="0.8"
+         specularExponent="15"
+         id="feSpecularLighting7330">
+        <fePointLight
+           x="-5000"
+           y="-10000"
+           z="20000"
+           id="fePointLight7332" />
+      </feSpecularLighting>
+      <feComposite
+         in2="fbSourceGraphicAlpha"
+         in="result1"
+         result="result2"
+         operator="in"
+         id="feComposite7334" />
+      <feComposite
+         in="fbSourceGraphic"
+         result="result4"
+         operator="arithmetic"
+         k2="2"
+         k3="2"
+         in2="result2"
+         id="feComposite7336" />
+      <feBlend
+         mode="darken"
+         in2="result4"
+         id="feBlend7338" />
+    </filter>
+    <filter
+       inkscape:label="Eroded Metal"
+       inkscape:menu="Materials"
+       inkscape:menu-tooltip="Eroded metal texture with ridges, grooves, holes and bumps"
+       style="color-interpolation-filters:sRGB;"
+       id="filter7370">
+      <feGaussianBlur
+         result="result0"
+         in="SourceGraphic"
+         stdDeviation="1"
+         id="feGaussianBlur7372" />
+      <feTurbulence
+         type="turbulence"
+         baseFrequency="0.057"
+         seed="4"
+         numOctaves="4"
+         result="result1"
+         id="feTurbulence7374" />
+      <feDisplacementMap
+         xChannelSelector="R"
+         in2="result1"
+         result="result91"
+         id="feDisplacementMap7376" />
+      <feComposite
+         result="result2"
+         operator="out"
+         in="result0"
+         in2="result91"
+         id="feComposite7378" />
+      <feComposite
+         k1="0.1"
+         k3="1.2"
+         in2="result2"
+         in="SourceAlpha"
+         operator="arithmetic"
+         result="result5"
+         id="feComposite7380" />
+      <feBlend
+         result="fbSourceGraphic"
+         mode="multiply"
+         in2="result5"
+         id="feBlend7382" />
+      <feGaussianBlur
+         stdDeviation="3"
+         in="fbSourceGraphic"
+         result="result0"
+         id="feGaussianBlur7384" />
+      <feSpecularLighting
+         in="result0"
+         result="result1"
+         lighting-color="rgb(254,230,93)"
+         surfaceScale="3"
+         specularConstant="0.4"
+         specularExponent="15"
+         id="feSpecularLighting7386">
+        <fePointLight
+           x="-5000"
+           y="-10000"
+           z="20000"
+           id="fePointLight7388" />
+      </feSpecularLighting>
+      <feComposite
+         in2="fbSourceGraphic"
+         in="result1"
+         result="result2"
+         operator="in"
+         id="feComposite7390" />
+      <feComposite
+         k1="-1"
+         in="fbSourceGraphic"
+         result="result4"
+         operator="arithmetic"
+         k2="2.5"
+         k3="3.5"
+         in2="result2"
+         id="feComposite7392" />
+      <feBlend
+         mode="multiply"
+         in2="result4"
+         id="feBlend7394" />
+    </filter>
+    <filter
+       inkscape:label="Gold Splatter"
+       x="-0.25"
+       y="-0.25"
+       height="1.5"
+       width="1.5"
+       inkscape:menu="Materials"
+       inkscape:menu-tooltip="Splattered cast metal, with golden highlights"
+       style="color-interpolation-filters:sRGB;"
+       id="filter7446">
+      <feGaussianBlur
+         in="SourceAlpha"
+         stdDeviation="1"
+         result="result91"
+         id="feGaussianBlur7448" />
+      <feComposite
+         result="fbSourceGraphic"
+         operator="in"
+         in="SourceGraphic"
+         in2="result91"
+         id="feComposite7450" />
+      <feGaussianBlur
+         result="result1"
+         in="fbSourceGraphic"
+         stdDeviation="1"
+         id="feGaussianBlur7452" />
+      <feTurbulence
+         result="result0"
+         numOctaves="7"
+         baseFrequency="0.074 0.084"
+         type="fractalNoise"
+         id="feTurbulence7454" />
+      <feDisplacementMap
+         result="result2"
+         scale="80"
+         yChannelSelector="G"
+         xChannelSelector="A"
+         in="result1"
+         in2="result0"
+         id="feDisplacementMap7456" />
+      <feColorMatrix
+         type="saturate"
+         values="1"
+         result="result3"
+         id="feColorMatrix7458" />
+      <feGaussianBlur
+         result="result4"
+         in="fbSourceGraphic"
+         stdDeviation="1"
+         id="feGaussianBlur7460" />
+      <feComposite
+         operator="atop"
+         result="fbSourceGraphic"
+         in="result4"
+         in2="result3"
+         id="feComposite7462" />
+      <feGaussianBlur
+         result="result0"
+         in="fbSourceGraphic"
+         stdDeviation="1"
+         id="feGaussianBlur7464" />
+      <feTurbulence
+         baseFrequency="0.062"
+         seed="488"
+         numOctaves="8"
+         result="result1"
+         type="fractalNoise"
+         id="feTurbulence7466" />
+      <feComposite
+         result="result2"
+         operator="out"
+         in2="result1"
+         in="result0"
+         id="feComposite7468" />
+      <feSpecularLighting
+         lighting-color="rgb(244,200,40)"
+         surfaceScale="2"
+         result="result4"
+         specularConstant="2"
+         specularExponent="40"
+         in="result2"
+         id="feSpecularLighting7470">
+        <feDistantLight
+           elevation="62"
+           azimuth="225"
+           id="feDistantLight7472" />
+      </feSpecularLighting>
+      <feComposite
+         in2="result2"
+         in="result4"
+         operator="atop"
+         result="result92"
+         id="feComposite7474" />
+      <feBlend
+         mode="multiply"
+         in2="result92"
+         id="feBlend7476" />
+    </filter>
+    <filter
+       x="-0.3"
+       width="1.6"
+       y="-0.3"
+       height="1.6"
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Felt Feather"
+       id="filter8276">
+      <feGaussianBlur
+         stdDeviation="3.29 2.74346"
+         result="blur"
+         id="feGaussianBlur8278" />
+      <feComposite
+         in="SourceGraphic"
+         in2="blur"
+         operator="atop"
+         result="composite1"
+         id="feComposite8280" />
+      <feComposite
+         in2="composite1"
+         operator="in"
+         result="composite2"
+         id="feComposite8282" />
+      <feComposite
+         in2="composite2"
+         operator="in"
+         result="composite3"
+         id="feComposite8284" />
+      <feTurbulence
+         type="fractalNoise"
+         numOctaves="3"
+         seed="1"
+         baseFrequency="0.05 0.05"
+         result="turbulence"
+         id="feTurbulence8286" />
+      <feDisplacementMap
+         in="composite3"
+         in2="turbulence"
+         xChannelSelector="R"
+         scale="30"
+         yChannelSelector="G"
+         result="map"
+         id="feDisplacementMap8288" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 -0 "
+         result="colormatrix"
+         id="feColorMatrix8290" />
+      <feComposite
+         in="composite3"
+         in2="colormatrix"
+         operator="atop"
+         result="composite4"
+         id="feComposite8292" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Neon Draw"
+       id="filter9346">
+      <feBlend
+         mode="normal"
+         result="blend"
+         id="feBlend9348"
+         in2="SourceGraphic" />
+      <feGaussianBlur
+         in="blend"
+         stdDeviation="6.56922"
+         result="blur1"
+         id="feGaussianBlur9350" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 50 0"
+         result="color1"
+         id="feColorMatrix9352" />
+      <feComponentTransfer
+         result="component1"
+         id="feComponentTransfer9354">
+        <feFuncR
+           type="discrete"
+           tableValues="0 0.3 0.3 0.3 0.3 0.6 0.6 0.6 0.6 1 1"
+           id="feFuncR9356" />
+        <feFuncG
+           type="discrete"
+           tableValues="0 0.3 0.3 0.3 0.3 0.6 0.6 0.6 0.6 1 1"
+           id="feFuncG9358" />
+        <feFuncB
+           type="discrete"
+           tableValues="0 0.3 0.3 0.3 0.3 0.6 0.6 0.6 0.6 1 1"
+           id="feFuncB9360" />
+      </feComponentTransfer>
+      <feGaussianBlur
+         in="component1"
+         stdDeviation="2.2"
+         result="blur2"
+         id="feGaussianBlur9362" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 50 0"
+         result="color2"
+         id="feColorMatrix9364" />
+      <feComponentTransfer
+         in="color2"
+         result="component2"
+         id="feComponentTransfer9366">
+        <feFuncR
+           type="table"
+           tableValues="0 1 1 1 0 0 0 1 1 1 0 0 0 1 1 1 0 0 0 1"
+           id="feFuncR9368" />
+        <feFuncG
+           type="table"
+           tableValues="0 1 1 1 0 0 0 1 1 1 0 0 0 1 1 1 0 0 0 1"
+           id="feFuncG9370" />
+        <feFuncB
+           type="table"
+           tableValues="0 1 1 1 0 0 0 1 1 1 0 0 0 1 1 1 0 0 0 1"
+           id="feFuncB9372" />
+      </feComponentTransfer>
+      <feComposite
+         in="component2"
+         in2="blur2"
+         k3="0.68"
+         operator="arithmetic"
+         k2="1"
+         result="composite1"
+         id="feComposite9374" />
+      <feComposite
+         in="composite1"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite2"
+         id="feComposite9376" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Neon Draw"
+       id="filter9378">
+      <feBlend
+         mode="normal"
+         result="blend"
+         id="feBlend9380"
+         in2="SourceGraphic" />
+      <feGaussianBlur
+         in="blend"
+         stdDeviation="6.56922"
+         result="blur1"
+         id="feGaussianBlur9382" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 50 0"
+         result="color1"
+         id="feColorMatrix9384" />
+      <feComponentTransfer
+         result="component1"
+         id="feComponentTransfer9386">
+        <feFuncR
+           type="discrete"
+           tableValues="0 0.3 0.3 0.3 0.3 0.6 0.6 0.6 0.6 1 1"
+           id="feFuncR9388" />
+        <feFuncG
+           type="discrete"
+           tableValues="0 0.3 0.3 0.3 0.3 0.6 0.6 0.6 0.6 1 1"
+           id="feFuncG9390" />
+        <feFuncB
+           type="discrete"
+           tableValues="0 0.3 0.3 0.3 0.3 0.6 0.6 0.6 0.6 1 1"
+           id="feFuncB9392" />
+      </feComponentTransfer>
+      <feGaussianBlur
+         in="component1"
+         stdDeviation="2.2"
+         result="blur2"
+         id="feGaussianBlur9394" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 50 0"
+         result="color2"
+         id="feColorMatrix9396" />
+      <feComponentTransfer
+         in="color2"
+         result="component2"
+         id="feComponentTransfer9398">
+        <feFuncR
+           type="table"
+           tableValues="0 1 1 1 0 0 0 1 1 1 0 0 0 1 1 1 0 0 0 1"
+           id="feFuncR9400" />
+        <feFuncG
+           type="table"
+           tableValues="0 1 1 1 0 0 0 1 1 1 0 0 0 1 1 1 0 0 0 1"
+           id="feFuncG9402" />
+        <feFuncB
+           type="table"
+           tableValues="0 1 1 1 0 0 0 1 1 1 0 0 0 1 1 1 0 0 0 1"
+           id="feFuncB9404" />
+      </feComponentTransfer>
+      <feComposite
+         in="component2"
+         in2="blur2"
+         k3="0.68"
+         operator="arithmetic"
+         k2="1"
+         result="composite1"
+         id="feComposite9406" />
+      <feComposite
+         in="composite1"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite2"
+         id="feComposite9408" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="4.5"
+     inkscape:cx="475.48364"
+     inkscape:cy="54.405553"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:none"
+     sodipodi:insensitive="true">
+    <rect
+       style="fill:#000000;fill-opacity:1"
+       id="rect4166"
+       width="599.02045"
+       height="310.11685"
+       x="13.637059"
+       y="505.86969" />
+    <image
+       y="500.20419"
+       x="229.52026"
+       id="image3344"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAIAAACx0UUtAAAAA3NCSVQICAjb4U/gAAAgAElEQVR4 nOy9+a9l15Xf91lr7zPd+c01sVhVIkWJlNRSa+iO2902HLcHGAECJ0FgwL8lyE/5LX9Q/oH8EDiA YcRGYDuwYVjp0epuzaJIcSrW9IY7nHP2Xis/nPuqSmpRrbQZia94PyiwHguXxXvP+76195phx44d O3bs2LFjx44dO3bs2LFjx44dO3bs2LFjx44dO3bs2LFjx44dO3bs2LFjx44dO3bs2LFjx44dO3bs 2LFjx44dO3bs2LFjx44dO3bsuNrIr/sNvGjoRzxSw3/F7+SFIf6638CLhn7En9uv9F28UOw0+jEj 8hFHk+/s6F+TnUY/ZmQnxY+bjzqaduz4pLCzox8zXlrIlJkADh10QZISkro7g/P0/HVgZ3f/KsKv +w28gKgTnXAZNMmCQXBBhEGTu2jK/xd2Gv2YcUGcqBSiQYKDu7sjIgIOMlxZdzL9pdlp9OPHnUKk CEVUGSQqgKiDynM+1U6mvxw7n+njx8FRF1wIeAkNAIqIE0Senfq7y+gvwc6OftyIgqtKgADRKd0j tBLEQWTQpe/M6C/Nzo5+7ChoMpJlM8NycWlHRUQvDWdA2Mn0l2On0f8/UHfP7mamEJSCZ/dQEfmo nP6On8vurP9roqpD2lNEns9/Xsf6YKkgKZI5FKpIKzwI1okldZVQugmeFCpIv77PcEXYafSvyUfm 5aGLOISeG3CDag6NeS9imX574ovj5qCQf5Xv+kqy0+hfk4/SaBdw1QLdt3id6og4QWu80cI8ryCp ewiYC/hOoL8Eu1zox4+a1xYbNCPnYhs1w64Rl7QfQgumIYoEt4D3HxF/2tWbPmWn0Y8bIziKbdD7 mh5Jimqlcr0XvXTkXRARcQKSP1KjO7bsNPoxE52AJPxCvQ0dzsJYCA88n0HHkGsy3CALiHxEaGVX b3rJTqMfM44aGNJJRtGemfMy8S3vH0IXEI3BEM8OJrt607+aXXz0YyZDhp7to22MEw93c32fdAGm QVWD2/Dcfff4fwl2dvQvMdwZB7ddpMxw6cHYc66MBaOnBqBXskZMopMmo9ympu9i3xvsQRVy1nSR FajMc9e5AVLgIaOIQS+e8KyY+/aQ39nXS3Ya/UtcptJ/QQR0eJlcvjwjSAZxlHbdmIxxQQxXYW08 ylkFu/z7XBik+FSHQ63Jz/zhjoGdRrc8r0dxGS6KlzWfP59CgxoddnmpdMWnfRohYy1cpdcsZmeJ TD+c/e7OpUANBETE3UVE8GC4gGA7nT7HTqM/SwC5FKl8dAyolFCKIGIiSEIQocJvOREPkrPGDmnd NqQ1gzwH/flgoN1xQBEXtUGcgpNwhLyT6SW7PNMWARECqBAhgkIczvFLW/r8QVwqUQIae8TFwcfO gXDHqUDFcQ8muHRIi7a4gDEUPD+rzZMYBBQJT/8XIia70NMzdnZ0y1B4LBCG6jpEf2EjsiRHfagW xZHMQjkSFiJL9+yUZoJGpFdp1UnPVDec8gkUwnDe4wIRAcw9yEfG9j+F7IIfW0RQUGHIBgX3+At/ gg3MzN3dBNMa5s6RhOBbuRciY5gijXuQ/Px/iGxN8hDHH3ypiGx/PH6xr/bpY6fRZzzVRoAgIv6R w5sGHLdL376CiTMV8e3Fk1JDQ6iRgqyXt9pntlS2SkW3BX6Xf7bjZ/nUnfVlrLJbth5AwFFFlcIp 0JoQRMS2vk7CDPIQbB8CUkblKKyJESUnlVSpHRjHcNzLaTEO/XJqjFVKcXNJLl32B6IKAVdzF9y3 RXlt24t5I1GDnWbbCCFIkTSpc+loPf/Fp5BPnR1Nbtkv64oNhUIokWg8bTTO7kO6yJ46SZcK0ae2 NkRXyXh264weEsHQJ/3qMs6UxXNZhLos61/tZ3zB+NTZURuq4ZzA1n+PaETFsoIIJt6L9z7Ibhv4 EHBHQZ92zAXEyG5AdnrYBF+L9skBVdWhUURyKEOwXS3zX59PnUa3R7ZTQAUlGpAh+mPg7sk9ifRK FsHZdsezFaj4EAnFPKmjeAYXemWFnWN1mOa8DuRKKJw+9a1au7tm/mfw6dOog1FBAxUaGLKapgh4 i/V4h6Qh7qTi2YeAlNjg8m/DpdanKBI1JhXEzH2ZeZy7/aokp0ZYVFGSPzQ/7/PjT+9l8mPgU3cf FaOCETImVENI0nJyE8Qg4z1k3w4XUbYDG8QJMFhcEXGVAoJ7CZWEIAr0xgrP7XklLGqd1WUVgktc Eh/uKpb/M/jUabSGBqnREgoULDu94yKDn5QggburoUMCfZtzEn1ulHiEEorsmkyyWSYLGSKcLMpr e9PS+uWmW6ZuKcUZxa/zM19xPnUaLUVKpEQLNOC4Z+gdE1y2vvyAXiZ+GAwqyOXzcqHa5kszlj25 GYBonJZc218c7s36rn8IZ9AhSPlr+KgvCi9wvr64zNqIaghBQ5AYw3W0UkE9CZ1LQgQt0E0pbcqZ S39fY8Z7zyfOea29yyteHYfm/ridmv9XWU+n04dduxnrUtAcb1F+Hn0t+Ndqu/bG4R+99db7j9mr jr6TV29aVzQee2vxDgTGhArN4jlQuHbRe7ObWs6cMzyXgWRb5+5ZXn/76/L34cdGBFFRFfEXN3f6 AtvR4XtmikS8cK9MKhO9jIeb+9OCziE0ZLrNTzqADQNFlsisDzPnCRvzzRfa+sD4d+SH61WGdmWh kwl+pDR0+2W6dXfv/Q8ePnxIhmW7iVoB63USnjUuDXqSn64VfTpm56+oW/308eJqVA0xEY94CbV5 Yz7KP5u28cvq+t5JSLps9jA8iEelptKURsH2CvYszXtvJf4o8iQn11B4nMCrZXUjbG4qX3xpNFqc vPnOxbqlgCVtLoNGeXqdhWfXiYDg27IVZTugNOwyon+JF1ej4qIEpRAq88alcRm7uz9rIjL3JJ7x LPROFs3C8As84pXIXIuM7wW+GOsZ/m3aH4aEVSmA65zqM4zuhP7lkjdu88VXTr73wcMPT6lKylC2 +EryJrlCgT71t2ybqJcgQ80TMpTiX5YMhJ1Kn+OF1agKUayCEq/wGhqsgaHow90zvvWTlITn7DaM A7+MgpbIWKTV87vCV5hMpXgL3g44MrYKKF2OCTfYHHn/+m2++MbNzvxPvv9h79RlkZw+6FosCZNy VKDhMrb6tLi5QHUY7SyEy7KS3cSyn+GF1WiF1y6VS+VeQgEFRFyeK84wPLtndxfcEFckDMPAo1Gb j5Ac+L0w/o08+15u/ygCzHK9ZBUSBxKOaE80feaAL33hYHZ8+B+++5N3M1Jq1/rKuj6wVkPAJD61 o/LsrC9Eh2EQuj3xZZvN+tU/r08wL6xGa6Nyr9wLIeIBfxbd9EsEF0zJOtwOXRFxDU4BpXvjfMm5 U8WV5L9oOyrqclwDkqZwGMIh7evX+Z2vF9duTd8+v/jmWylD8tj1BrJK3ekmI7SpLS6Trlym7lUk iD6b+ehw2eEkO5U+xwur0cIpXAZ1hm266LkZtWyD84Nrb+6KKsMNdojVE5HC5feMruy/JRdLIE1S WZ95O3amyESZCa/fm3z9q/co03ffee9BDxQpC+ikmrXmrUHcCu6nfyOwfTvbwmqR5+JKO55x5fP1 ggIBF5EgBPEh894ggKLimGAuBrgUIg4m1uIbrMtbq1ZisWJjG6TKPj+09rea/qvTbnzC+vHRv3n8 4/MDpqcXzenF2ajpV+vPBr8l3d+/wdf/8a0ftN+ePNT/+Ae3HvFWQ19ruF/mb6bTn2jAY2jzvApf aJdvleWZVR2m0b1LneXRqJpuUpGq92knrLyo2rR31EobHvWwclzBqJxIaJUU3c1IQ2LWC1FRTW7Z 7QUuq3oRfmIFFxHFdRvK8acn5fOlwdswk4u5/+WpdM4wbhHM1DZT0n4TZk1oXL579mglkSWLxCSM u00/AsnsF+kbv3+90H4xrf/oLdt0eS2cIY/NHyUuEtnBGaMzjROooXTBMdtGZs0MiEgJlaIMxase 5ac8p+c+wwsbqP8FXHmNytNYvaPiKkQkDlZzeMHldrkhF99jSTy7JPHMs7kMGdLwl+V+zupmSLcm xf6krPrFN8/OV2ONG27COI6j2XWRCXzmSO/8vc95/3ha3fy3P2BNOC35AHlX7MPEmeMuEZtjR+6H ygyvLQ9vZZiP25mLUCATGCtFIEsveBQiUjzX3D+UX386G++vvkZFhvN9K1CXiMdLt0iGik93IIn3 6j30TsLMtxH0y/Y3dwHX0jmEl2u/MYujUpcX9XcAuhtwi8b6NCLc0HA4Gv3m5/c5TNhZ142/+R4b ylPlgYaH6GOlE4LGMb5HumbdtUanWHTD1YZOeiHlLEKFzmEWKDSZZ3Mrhco1XgrSGApZX+B85y/i 6mtU/alMgxHxaBSXlclyGbEfAvVJack9nqB38jYdPjSEZjdwreAIXhqFRVP0Ob99ns8DGJ9XDurq zM5OytGJ+YT+C1+/vr74cDodP77o3lzxBGthhaxFslKUZR3jBDuAGyGdzJpKhtIonJD80jQqDbIn LIIUSqaDXAkVWg52/TJvr3xK5+xcfY2Ki2wdpohHBjsqmWfTvWQolRfvxLuhkNkx3Fz88glocMRw aeAIjkZ1oeGDs82fLVsi5YovLMY+Ykk6ivFQcmX99I2T9bnoyfWl9Ut4m3PJiHlwSgll0EZZYDcL XtmvFvuVKD0QlBB7hnNbBC1hJjKPWgYzcPLQIFCIqgKYbE3pr+kZ/5q58hoFVEQZLqMS3IJLxH0b KneGJmNwwS6r7wzPzwSqoBoGj0Rrwrxir6myF+884jt5g3MXXplPllXbQpPbvcjRDG6OGjtiNNdp MYL3eVJ0WuNl8jJZ2ecq9xPl5l743O398bxOQgdUkRANzTAUR5foRGUcpNg2NHuhWmxjYU+b8T+l AuUF0OhPjw3bOvjPzxfZdsC7m5B1WzIyNCE9X74RBMi4FoQmhDIW2eThBR/Qa+YlOGjKi9j3IO26 idw4Lhhpo3v0Xs3KuULZC0WFlXgwDzlL7qrA/rS5dbJXNCENJ70qYRunDSIiEvESqUR1W09tQ+j0 5yRFP5VCvfIaTck9IdljFjHpTZdBz4twJCxUYpBOfSm+Et/01m2sj3hAdUg+ZTA0EVNswabo+pju Rt5793TZXOtfqUmYGX/7ZW7Nqj+4P/oM8WtU7x2Gvbs99Wtn12ec99e+8qW/P+Mg8SAWj7W5QNaQ Cm7b3d/t+e+/mGeHjy+8/fMlS0Ev0nj1pIy2EtDj+3XOME3NvZdjmQ8nguM/sOIbvpLYex5P88xh WjEHiooMQhY6pRcTy1Pn0MMIGiiiallQFEPBQrz68W9eAI0+5VmwCcSxrNkxJyNJpEc6SEIw1Lc5 cX3q2BtDhD8aNXTmq9WqXW9mezpBxyqzCStrW+vWJIWm5+B6RF2qnKu2Gi2+9FtTNaFaoZueIgT2 rdrTi89+pWleloOX9t59kjYwVF7n7Sh8Er0YiitOyK2lJPR4Z9mEY4pIWuHAuvcVkH+2McplG8uK Q2mKuWR7wUJUV16jTxve/bJoXZ3gZJPepXftTXukF1KgF4m2lea2EXmQqWFQiI5hXLKxdHaWNquL 4+sHI+QwxsMDedKfL/PmAgSdJD+4uWA8nx6ON1OhufHVv3m9pi7dqpRVy4nObvR+M9z/7G+F8u6m mOq3H2zOgVAY2DCMXMi2ViPitbiUvkpdDy3eel4LdxjX9LloUd0YGyX+tETzZVmM4UG0EIIhOZOH IRfmL8R6kiuvUS6r6J/VDhvBSGhyzU6+zM44uHqE8Fxh0WVqHoOZywwmTbnO+aInde3ewVzJc5f9 2fjc1q3RgoUw85AlUh6xt9+PD5HD8USP2RuvuQHHEg9z9Qr9N25y77V+fDM+eHz+p/fbM0ALUEO3 t+G0iYmaPJ5J0eRlv05Ki7TYA+O2NkeAdgiuEIk8t87psgFrML2laoHG7QsRTBDCi9AL9CJolGF6 92XGSSBeGhC5HEZSIiNofBsOdchC1u1rFCwwMQ4hhGKJOdRRtWQJZZemVd1hwBouqiAetK/abkxX xOk9zu0v/uTHd2juBr4Ar4nesrMvLfwf/s5Lxy9PisXhH3/r4fc3eYWCKfnpYxfSODNB9mfSjOiy oyQ0O+9Cid6REgNsKNX/qSN8uMkYyYcp0TJMTi2HmWqwvdNcfV6EO/XToNIQ5R6a5hIEPEDASn8W u7kY0jZC1u3qme1tITLKfkCZuj4jR4H92fRsffYIDrFSY4xloO8CH7pd6/P+ZOEElpvx/BV++Kd/ +n+v7/K4aTg4Z5XWRdl+9svVjb/1GabvP36//xf/8d37QABbF9vl4QHPBUyMBRzMi9FonYCgEF36 d+Fhf3GnrObt5rQAC3S5VRfD/Vk4Ig1j1UA8Bx+KtF2ghw7L/pciA1eQF8WOPldIMpyiQSwIBTaC CT6HPWPfttfWXjFlOEOHCyJKiS2oNpuug+mU/b35w8cPzgIG0cOoHJcIgXfa9f1Vr+2ZyAq7kHJ+ /4f/kjO+8XL3uUlxEEb3RvaNL/P6P7rB5+b043/9Hx7+X++wAgqDFOlLAq5ilMNEyBj2xsW4FoOg lRBUOK34YTo9Ub0LlCqEKTBCtvWlz8S3nZ1mhnvBkKDSsA25vQjlUC+CHR0YGj8Go6Lg4uoEkRJX H9bPbX8it6+U7WzHbTIqEPGGuE6A13U9HU/Oz40IWYIXdREiAUkfWvvYeP/tH93qHlSsyfnR/e+9 cv3ul26t1j8Ij9aT64v2K7+zuPv7dynL8w/DH/zZk5+w8HhGMDIRjxrwHFwKvHKpVUcFZaFAocXw JvuS91omzglQREFrOB/BxXOf+TI0PJR0xe2JH7KYIC/MOMgrY0crqKBAwrZmdPANYtLYSzBCdKlE iuASnJCj6BQ5cFu4zwoKaOBWVX4VLmo8l0VX0zNOTkGq4rUVs6r4CcnhFnsvlXV17c8/CHu0hyv8 gzvNvVXx35KmkQ18k+O3367GZw/yaJ93/vi6feb6F3907e80J7dPXzl+5+v/8/m9/+aQ/PusZ8vv fetH/5pHZYKCpZY9GlT94tC6Y/ViFH9j5pNyUU3vy16YE/uzxWp8dtxLSMV95t/ehN86LF9adaiu 2OPDYWCAiCPbufnD8h1OoUUEa6Q/KPJcvfQXZOvolbGjTw8tA9/6EAaErbG0yqXAC7yAiLgbyGZI dism4CSLke7nZGucFLho2zFWRYrcj0aqFrs2ISstyKdnizvh+IfVUW4fwr1JVTSBmLU9z/d/dH72 3vSA6mB+7bNy7W++cvKZ2+x9Dd7nJ2//83+5+hbQxSArwRRipkEKfGSMujyfoOtUNrEs40GkSF0e UgtdT5S30upGUbxWdQ+71Qrduns/j6ETJuLBL+f8QEbS1c9NXRk7mkWySN72+8hlKYlP3aduYxiZ NXgFlVO4RzdzlvAoyochPBZWkCwMQ23Mh9k323R+RNrAOZ3i44Ja18cH6rk5u1gT2lUmPziNNx68 8up875yzwNn6tJoGZG3L9y7e/27bro7unXDj5PY3fvvkH77Gnb9J+WWqdx/94ff/z3/Pd2oioVAb LH+BjtFjuA2fMT+ZjkO4KKexmVR3b43HbFASHjJJ0p+zeoD8Vr13gHlc/4JvlyClhlKkEWrXEi2h lF3s6VeIiztDl5yLuIoH9UJ8hDfutXkpDLOY5bIEo8PO4ZHKY5ULlQSStbmcxPysFN9Ro3MMJjAJ MqrWJzeq8/Xo/dMEbLLak94ONtdPxvuGC5u8bBYl3ZN8/iHt6WjB/mt3OTjee+M308F1Du508h7v 3v83/+L9t9fzNjGqUoiIYoiFGEOcwrXIvSZcm9RaXOgsNvPqtTvNnDM6DEpo0+qDgh8tNy/r7B4Q ej7aT1dUVQvR0qlcS9cCiR+11PlKcXU+g2xLLAZrVEHNdjBYuBxb5dA7HXSwgiV+ASvoXIASaVSa Yjse7Ol+j2HjvGTGFHulTDzOxuyfhLce6Jst5OIQYqxmd17ZnD+8QXlSxhPieK9g/SS13Wi2f/zK Z3n5tbbZ4+DlWH3hYlSU9m/f++ff/lf/ZpXobiYJdqrgQqu+JK2sd2XRcH0RppWUc4t7VTWrXnsp HmFhhUIF7kbND85S3+VvHI6n8As2i+XLW0BwIhKfPq+rz9XRqIOrOBEKp4LaGQ1ZFqFVWljBSrgQ zoVHwpnSgiStTabmC/wgpDoWT6uGn/4zGGM40nK/yItQHO4TZv0f/3j1NpQe//ZxsX9nf/bSV568 d3ZD0o1Vuks72a/JSYpZcfJauPd15i+n8pBin+ZW9+RNvv+nf/TPPljCNVl/lflxz6SnMYLRZ1u5 ZWMy4sZhqdLu3y7rmzPGevtYXq6ZQAkTqhIC8RF8p3/86snkGwXlRy9q7sWTuF/OsiKb4/ZCuPZX xmfCdVg1E51CtjIVuHj6XXvWaKfu/qT0MiMmZfZZx75xAHuFPQnlc+UnAi6OqhwGDlXH3i7Kg6Pj 9SZuvvnD04fMFoX/gzfO73z9mPLa3RsUUj74i3T7OI33Kqq6LPfgkMW1pU08FqQGfzj5zv/z5v/+ 8IMHfPk2rRanT4r4hLeMpXAaqzZ5oKuEo0m4czR978n9m5+9tv/yCeHxwaR99ZBv/kQVMw1jo1za Bv1DX/52LH93VP/JBY/ofu7j6bEOS3gGM8uQ+TmthVeRK6RRuBzZFZ3y8tDvh17O7QuGaIyBevDW qfACGvMRjIVJyEsNz6e8B9SZBkZGlRkXxXxWb3z1o/u0xWhar9+4zvGXjtpN+N2/cffbP8whFfvH 79Z1STMKekg6Ihye9r5XTujL8+7Ppj/5/vf+VayvTV67ftFurv+H7vGtJ3WWzXlR12F0an1p3Sxy NB7d3J//+OF7hzf3J8dzTh9R5RuLyex936RlQiaRNlkOkx/LRd8tX69mY2k/SqMoGc/bbbmeh36Y FyL4dGU0KljACqjRIJKx5L4WRokMvZAu3SBxBGPD2FnWB+0m/2N/8rXJ+I8vlstZe7x3+Nq3+I4k GsO9qBltmFN+ftXdPQmfn//m+/6H926HH/xg/0/LD7V//HoKm2tw8Jq0986+qK+//vbm0O6Eud7e I94j3FlVbWjCcR6zOaP5yfQPv/vv/v1fxM/n3zm51q4OvvWDJ+3qvI8cysm0++BVNkod4NU7/OZX D77/3fs3bnLwG69QH/HuYzZPDoruJvaDMD1yfSfxJDD1i1cvePvN8r/47YN/2n/nf3ufh7AOs1yy 2ZyFocyP2GSR7L2UfVUm82W3Mjz4sIfqanNlNHpZeicqEhH1bSZF0SzIMOrByT5Ek8CG/HhXsbl+ UBzMmlluRxJujuJ1eNtZ9QGsCVRwIDIvCNp1/XmzoJkt7v+o7TsEjnwlBllsNJkd3ubBk8OTYjya SX2E14gWQdT7kFfePsjL729+9OejOh/drquqfHS26vt2XISTcTzPq+SMCsYN+/ujz9wtPG9yeHT0 Shlmx2ZRc7vu+lVXWs5BVqWNFMSYFDrvBFvntLl+wPx9NujGc5eES88PZ03OQwN3dhG5wNfDIXP1 T/sro9Fh7IgiQbRwCYC74kFiJ66IiGzcHHfE8Uj0kEjLG9i9O5Obs9EPV22j8ZWpfG7Mu0ve7DUw mhn7rG4EP1zIqExBzmeHZTHff/PtNwNFg70xYTydUU18eqBHr3D/+0cnc+aNjm7jM9cQC5e0pHVZ /njz+I8fv//t/YWcHJ+sL8Lm3XVZ+clilNvycX6ks2ZchZMTv3VjfHK09/jRW8WMg699PR7e7jkt 0/rRqn183iS3inVDDhCcBX5zWlW+xpd3r49uv9m1y/zIknmA6JpUg2VQ640lqPWuLIVOoYhs0l/1 ZD/pXCmNDls9EEWii6JOLiSouAs9HlU9u4mIUxL6kEJnL5fce1mOZn74TsibcG3UfuGQdztyT0/Y z36T8JlKZmNf1DaSvjwppW7efrdv2LvbbO7u9bPDW5RHqRozOcImzdHh5qhkdDu341AEaNP6NK4S mw85/15ZWrPf1Ef1yloZ+3S/bChkU07wpp7PFsXtW+eHM3fztzbro1eZvvFVXdzU02Xu7eFp+uCJ gkydGbmAAPPsdxf1fljHsjtazD9/tHq0OX0ztzAiBMk5ZI9ojIV3fQQcM/LwxEIBO43+ypDhuinu PrRCDLfP7Nbjvl2chIhE246gWwVGcK/k+DA3+5uDI19/mMra7l2LX+5dPuBJZoLdjNyepOmIeR2q 3DaL1Ec/f8IMveHrxXXi0R10P/cpaxGqCYtpOGjQRYgl2mZfde0yboy0rMImHE/Kekypna1FN/Wo DKal+SwyWRSLo9HJYcvy/P4HfV9x4yuvh6M3qMoib/qlfnifh+d9xKfC1Kk0RMuTzMt75XxR11Of FPGNk9F3759WK6KKhaipbfBZ0VRRe4PUi0vndO6elV5299FfKW42TLzpEZft1mPzPkNySYpDEEFE XdKQzYdbZTGZ5upwef12daapnerNm82XUls695fqOV9r/HiRyrGOJBScj6ea6XHdp32l4Nrv3Kpf /jK+V/frpbWTptLUdjYpekOys0x5LRrRgI5iNebwQIsRKfZt556bpi1rHdU5FrHc70d7XVDOH3dP 2nZ+997oi/+l1a96+p5evNu+nx+84yu/mBAOI1WPq0djKlxbxOmNpi/6mNO9g3htzHjFuWTzUMA+ HKtmQuuaJJrg7pGcXDxd/dvoVdKoA/RuvYggPYbgTo+Zb0tGFA0iUVSdRCIQqK7X86o+LQ/t9iv1 k9iu98rFuHy160bw4bo4b3VS5sU0SzOqU1EHnS1C159XyMsU/+g3uPn3f1dfeoNuVBfn69gxjTw6 65cLdEUZeztNvh5NDpAR6b1UzXX8ElLx8IKeWc3iaEZQjTYr99PeJher00dh3VUyC3e+9l9w/W+o 3uo3/84efPf8reXj9zDSYuyHw4Zc61TZb/RwGnThfc669ONRur5gcTOmUjAAACAASURBVMr91FvO MzjWeIC90/Upp0y2oNklZRLyYvTeXR2Nss3CJ3fBwzDNQWgv80UKiAdEnCCS3VAi1byYhuK8mPrR SV10/s6oHmUPjyVsmI6rD1sT7Yqy91BE4rgopxPZnF4E7Pbe9Pf/xiS//ipyyPvGLMVadT7iwarS hm5JrJJfeMgymcPMz6e9Ns3+NVLksQXX/dn05PZxT3u6OWuavdXkJ8t+s1pNAs1ov5m/9jmae9ih t6f9k3dX9zfLxw5MxzbdlBdRU+shyKSqxnXYFGaWQ5AY2/lEJrVzliE3ootQjJOt8qYbisLcNqpd Jg0zzK++TD+5Gn26Amb4YmGTDZuWbl1gJaXH2KrmbEE8pwZmThFk4/lc81rVeuXxaM36m/WP/263 aNp+E98r9vdfsQftBo6r0DC6OD9Z5y5ZzlFCiBeUJ5ODyd47Dz/4ym0/+ty7q7/3d+vus+hDDiIw TV9g7yV+86y2De1rqfnXm7wZyT+l+Drh/1gVj8ajr+TRPwndt3z0Q7/28OQLX+a0k1W/7/V6VIvP 9y4mfdqsQvfa3/o7vPq10/WNef6T8uIHnG1+8H58Iicvzx/O2YyFtycXv72mN7+2Xz46PLs2XU1j tWn10ay7p5PXz1Y/Iq8LbvY2Td1bdfh+xwz2Q+Uufb/pBKQPIf+lbuerxydXoz/DueZk5oIMfqok CIoMWaMADinb2llBwiKgnoyLcz+/kCOrq1EkaWxLXCypmxYa6tLbTdf3fZtktLeZnLjM9ODG4gu/ d37w6muj63fMmm1lJgkP4LhATSCGo1rrKDcoKqr90NyjmPv4Os2ZpC/WqxWLeyl0Mt8om/pibpu3 n7yXkoXjL9fc+j02/6Cp3uf01FbL1bLvOgtSFFGLgsKqvbIbWpwno9gU0Qxz0yqISIyxiKopF04B qLTbZmXc3eyFaBB5jiuj0T72pBSGlck9lVCoE7yVoFgNUaVz20APWVQx1LOVDx6t33+Pe6tK5rGa iT8OklyCFUUQJIoG19a1byXsnVbXlCZXh+PP/N692Z3PMbktXmOCKhR4uNRrT8zIrSrcDOEeCtU+ 068Qb/ej29GMIld5xnxvU6yassUeyVsX4VGRHp418/29r/0et/9rNoRiRP9Be3px+mTTdUUZiroI TSxLmpOqC03qN/lgHJs6umMuWmpIsSyrsuzK1AdnDCJynm1bkG+k52c624tQ+nRlNApJYQpzmEDt ou4icuoWVCoJEvQsde6eBco65xXRPJWPNvbjN1efvV8ezpCylckoSCeplb6XnINq0Fyo1aHWuYWj QCj6ajp+teHay126VlbO01VfgBSICmZ2obIfwivDvpLMSMavoK+LRPNey1AsFpuiMDmX+nFaadRv 9WeMGp189ouc/A82vrWGauP0b6eL5fIcJI9HXdlQFmUI4bAs672i79vFlFJBCwuFmYnHEEIRtAY1 xtBLOLV+60FaTu7b4Ohz7aNXmiuj0aa3EbIn8cDDDB/hpeWgvG0ZKLCMbuyn95+qC97Bhx+sHtyv Jzdj3XQcXi+rtWlwNu7Zcy5KV7SI4/JwUhzNKQ9iPNKjQ2Z36G8QL+DpkO/gMgxeDn1/VjBWnRJw odMg1T4Sa4O0IISynOcQYnio8oPUsjr/8dIfHH3m87z6P1n4O0+cyfgsdm+zeiufrVJbVY0f7edQ S8ZDYRPVyWHs3SejXkFCkWPRbnrydrZqBQ1M0AfIGQTBjd6tw4chKLju7OivlD2nRBuNhUrpPsEX Ko0ifR6GkbRmLdQQnNx2wclYoak2rPd+7Z7AjBLGRfAYs/Z9n9vkKgSdT9Zpby7TY7QO8YDxZ3O4 WcoYvcAzbiaKBJUSqdDSvcu6UK1QzDciU4mFOSpQ1BhSTOJQfL/6fticPb4o8zHc+Yec/JNVRGxV akD/nNMf9Gcr9fHeXq6LVoOvejes7GjGBdo14yQa3MWN3npL3m763Lc1zJwaUs69UjBE4i4Fuo1z XH2v/gppdLKtY0+P3bNbrVRF3CvidDxdtZt1n85FzfxJsieQLQUgW6HtxJiO4qiqq1BCv06bsghx VtXufZ/7NuXeBRYnj1fHN2S01y/7ogzUL3V51PhjqPFkw3ocSpOJ6hSpQrmvckBoCASrRWoNmLVO JZXTi0mtIWCweeLdo8n0bvnSF7j+39GgRVokYd2yesLDH3VnK/HpfI/FxMy7s4306n5alGMnWj2J Er1rU98TKPsubzabrusKGItEdzOnQF3B82DwtzX4CvJct+JV5cpoNCKd2MotZ+9gJuRAVRW35vPz 5cXZumvwLtui7R90aeOUVOvUIjQ1s0kzG0+0DLDuxas6StGUZTVL0Ku6SR+Ka6fzawum0379gEoZ Hfgq0b2HvYwl3EBN6iATfIaMYhy7N4QwXPvUhg1l/YX1oxjMcnZXsZDXffsYOx1fu8lL/yOz33qY mcUoXeTsR+1ZrE4/7JZRZL8ZS+lqKeRgfdRNqx6SlKloihCkz9b3WdRz9r7vkz0dm+OGoWjSQY7b SijgBbmOXoX99cP2hQtIRZ1Cc5FzizeqBxTT1m/eXk2rzVHdz4Olrn2wsjOilYtuenG05jXji6X+ 1m+OXvvGiOvJwjndflHUxJDUukriXl0d1HGh1cv3JFRYE8Z3qK5Z52WxoLln+dC0MhWihBA01oQx WlsqQhEoA4GMm5s4EirrH4vHIkxjocEeaXo36IZqP9z5X6i+aC4e1l4UBbD+A3vyv56++WEpMq9o 2/U5QSazMlidnozqBWF1fGs6O5yu+3UVqkls+rP18r78p/e7d87j3OM+aR14R/xJz9JML7+d2QUB jaJaWJJLiyqIqKIiKqKyLdMZhCzIZQjvk8aVsaNAzhlRE7KzcWs996rLjS/qej6vZzmfxYvjtn2w Mc2528g+8YiwP5WqKuidjXQ28u1qsRhUmzhSL7BI50zHSMyU7kEEDRlZQdQoTq+UUBrBrRQD6aCG y7JW4DLXoD4Xrx3EQBrkiLhWm7lX4ioiKhINUk//mO6i0tR7o3lej9dlc0pxnh7nUbF/tu5Hqs0o ivapb1MvtarGEENRxlQHz9mDEAK1M7Vwpjkbz8Y+DGW08tM1JQI+6BcXROTZrpJtmc4nkauk0S73 JiRcYJ1Zad8VxZMLb0oZzcKkrrzh1PrN2/aTfJpynNHv088aTOx8HUbdRMd7QWrqiqIQTCQSp4QR FhidkPqU3EITipFERVvxM7QXqWEMk2CVI2ZiJI3iPmzIfW4Ak1NIvd2urDgNxTVhqqHrvSkRgcKK 4Gv699i8xebxuKavqtQVo3FXX5fe1ucdo2rSVmcEL0ZJtvtEJGdP5rGs6rIfFX0ygmkpPgvFsRUf hFVKnmw44A1TkYxu96ts355d9ikMEwrcdWgJ57Iw/BPJldGoDQMZPVsgOxtjbZ6UdVucrbrzle0t mrs3m4T3q0fhPpm0D6/c4JXXOLwVGWULXjYjzyWhwDWbZIllURJHSElzj+ylmWmgqCWORAp3zzwK LESmMEbH4m6hd7ptqnbYjCuoKua4qwqKKVkMBRnHMBbbrrQDCotwRv8O/XvabmiKYpGyPtCK8sZJ mfY3Hz7wiy7OWw2EOotTlhGJ1pEsZdEY8rjMmySKushMwjX172m4kESE7fhfM1fnctu4ipibDf/m Kgx9DMOSiHw5w/XpAKlPFFdGo/ly8tZPTTFyx4u27c+Wy4t1Pjic3b0x6tbdTC+8iicn8vobzee/ tKivlZS5K1PK50mPK1cxTTmbqhE1lMSS1BBLqZugxfbyZiIquX/i2kVxiQGpiTFIG6Qkqw/LFIfr 3fB2zKQICGgL2dCg9XDL81aHTaY4WE/+ADtVadCW6XkqTrvimP0vYfPR/A/69Y/beDEdT5pRYa23 MeesBEIdk6cypEnZxxT7biiItozNKVaesoISTKNZj6WhRVFFVdy9v5y9KuJhmBp4OZC1B9NPqDm9 MhpNMvyQC25qlMP6zUwgqNS9cbpMxWg5Ho8/97nZzZfq8d58fpiv3VOu1wSxdpM9BWnjeC5lxCna tnchm/ctybK8G+sZcQ+ZYgVZXERc8cJNXV0sEw0VYoPWbNLgzOG+laiIu0tIyDCyVwIibsMGm1Bc BoIMzJAlBVod5zbkIEwrqV5h9gbM6723bfltjzram4ZyIv0GW6dkSKxH1WNNRdEvRnkd4nIdNBPd Kuv3rDw1zgMotcs25iTeZKJpkJDALmdIDBuo1YcBby6DHX361SeMK6NRFIkhWEy5C9AIE4ll7+1m NarLZM151xabXMz6+X51UFTVomgWwqERLXflph8VlYVIrsfEiCfNHvve0lrcExLCudtE0hHFIWGB jkQKN62KfffKxcw3+EqJSMFwAR3WPT73Ht2dYbaoFAoYYpA7LGvdSG7JFYabZkmxqKhfIs7Nbzez g2b8MuObLB+k+kyb9f7B9Wo0Z2WrdZcTIYTkni1JjKPGbSpNVcSiWG/MUj9x9tfxAzgfOrz9smZM fQTRJATdWO4uh7Jn9WgShOA+uPzp8iF/Ark6GhU0BNFA7wq1UEkoM6uLZVvR9VWfy85zUrNy7ZU9 WS19VkyKKdUoyKLWGMIS1ufrzaQsoziWgg8XtCyuZj/u28bbx1oti7qj3HOpk0gR74oHQbN37q1b q7l4OqF2sKM//UYV2I48G255ybCNSIMmPOLBEEQ8NlKPQ7Pn63HYe535EXY/n72z9vejMr1+k47+ 4aOLi1WUUDfNxXq1bldaTKtSbKRFEXtKF5c2uTFaUrK9DA37z4d7RQ3BRFwSEp4L6Csi7ooobk8z U5/IgOonLj4qzz8oARVEUCWXZsm8O4l8VficxEbCw8iqD1qlk0PZq9NYQ03TrTrrfe+1w3q+0Pkh sVz151k2xXRKs183dzQXtOIWJVRIwLJYl9ICHxUaovT4knwmdhHSRVo+1tTDWGXffO7WqKsYPY4G UVVRZNi0hw6X0a2X7yiu7kXwssY79QZV/JGkv8ibC/yE6vZPrn2lWHyhtIoP/oQf/TP58N/XpRXX 7yadbN57aA8eVqkV7XI0DVFyXl9YrIpQBiOpr9VXIkmLmMq+XlntlJmlWauURazyaCHdgctx9tJt iS8jRAxuECJKkIS0eD+4Tp/InNQn244OHfXbbziYFcpEKJVsvsp9az6jyDnnnEOIMUbERL2oYiiH pQWBUIj2+OVQzvw26lb0npPl1tLQB4WEa+5YdncXQ8RdeqGUSeHhQsLSw1qkQcW1kKBiyuWcyV/m oyhh2Hnjfc4pqNSxdKhfakva73H+n3z1XZcz6psSa0IZWVIG6gKyKGU5yi2b1bqqYgjupjlly+6u QSUl7hSNr8/DBY+EJ3S9oibm3Ii1Iq3Zkn4NGDExhRzFxc23o00+yXziNPr88xIRnu2pyerMXGYm kZjMVpaWsEBybzn3sSjLSiWYRK1GlVZCIYggUeIYj+gIQtefxRi1LLDgnXpKIKoaqmq7fUwUMTwh ijtxLbElthJb6JBCohBUvJKnSZpfgpxcHR1WkEsTwgzpkILH32H9rbz+s976cnxL4wJfpfwwtn0s hVFBqbGIjEb9WR/O/t/23qzX0vO68/uv9QzvsKczVJ0qsooSKcqWZNFpx93uuN3IANhJ0GgEuchV vkPyBZJ8gtwFCJKbBA04jSATctEx2jftbg+yDaU7tiVbIimyyJqHM+7xHZ5hrVy8+xRJy5TE0lSH 3j8cHB4QrOLe7/nv9Qxrrf+aV7VLSZhAZJhgGJ3NMeoXc0l19FkPROcp9AKIJqQDNS1JY3JPIEUp OAQOYE4hopoVStudibyMZ3rgJdTocwbBmEGmRBGpAo8zGeIgsoJkIAKWWBI0i3PGe8cmsM3lyNrC wA4aHSbEOvBwLXrAWjB5OGctrOjlRuwMGLYWADNgiBjKygWGL/JKjsgNMxG2I5EvW4ZU9YcE1MzD tQTbkrGPnJCXyD0234Akda8VxXUqrkEb9O+m9tjmBGSUDnAoC1S1zWsUWpTgSKqiSgQmArFyl7kN I84zAlG2QCcQpAgJ2fRQQaoY1wBm1Gq82ChxmO0bVYeJ0z+LX+oL8fJp9PIamUCGiBQGBIXzxieQ oNN0Bi2BMaNiMsOtOak1bB3UCDlYT8aTDLOXlZkZbKGq0lk7VlVNiQzDumFwPWJCt1YitUzGw1oY Vi5AnnBNcUA4APaJZsoFDTtOvny1Hz8/fawN669hvUEGkCEWOoGGnHvRNtW1MbesuUlsoI/Q3pP+ 3HYe/VJSYMMoPKoSzognU1q1kSUbS65gIqOKlCSl2IkGDQpyRJ6hjJShgqcmZoEKZhkTUA/aWF3Y 1CfRrVkBJVJRIrB+8vb5JeHl0yi2Mh1mZhnQkChxhq1IkHwGtcAeMDH2gJ0T4w2sNcYQmWGqg8Bm ELMqUh6O7UORnMSNK1NKKSbhTDYZVc0hxhihJdgQHJMjjMBTtlNQCT2E7kP3lMagYsghMV1e02wv RrehFJ+uUShggJgkgnIFncGsgQ1d+y2jFadWu7fD8puyeez7qc23EU4kKRlH1SQVTpHhXDkexXkn kk0GYA1DlULQEFOvnKAgJraWU0SGOA22s33MkgEjYFAC5lnOAQ9sryVIh4SYEuilrDh9KTV6uRPl 55k8ADmoUgfth1+3AcNM1Vs23rK3FhAiZUOwmjUAhKRKiViMSUBEDjktDSaWKUvQlKI0qplUDCmX +8SWXEVuCndAbh9mD1RnKYkqsCPD21djB7+U4YVeTp/5UX63WbNEgbVUE8PQmHDh8AriCVZ3aPmu XZ9rVOYIu9maB5kC1YS86fu1c268t7969lhEVWGt0cwA9T2HSJqZszViDRlSk0kTOIB8T2vCORCB AqKgVqG6nY4rtB2SrkPdPvASnu1fUo1iODIrPa8r04yhU6chqEEgMKjKxE6NIWstsSqESUGahwna wxDinEAACyhobpCOQDCcoR1yB4nwDG/AFuxhK7gR7Bh2D2YGGm2tPkiArCbDAhAgAdX3v+YfoFSN kBxU1ZphkkINtSLMq8do7mD5Paw3JtyEDXCnKN/FuiAIbIGiJovcd4VxNHbOkwipAsKwTrI6Z6wj jjx8EZMoiSKq9llKaFKcAMmBMsZEhqxnjTkBUMWPdi3x8+Ql1ahCE5BIhyIdBt5QO9HEQK/oxEIS 0O0fTa9Rp4Y9WaFCWFQiNUmWrIuG9vd62ZjU2voQXbdZLaV0uvewzG8hVim+k7hh+gLZMpvTgqbE FnYEMwIXIKhGaGOcVerQ9YjJOAMP9YaM+2s3y/zDUjRU9ZR8DoUKLALl+znf0fQU4RnoFFUDOkdo ES26PW1uk/zL7vAL/eFXR7ND3xy7/Di4YK/tV8txfHqWL3obM4mWtq68W5MpZ3ZzOm98zagmWpDy og+N4ztRLoZ+RSVmlwFBTjnzUE+1rc2TyzFPLyMvqUa/n1bSdWcOGVmwSJqAGdOoNialorZV7VMK IaZRZdkWMSiyQBIrckq2axCyIfiyzHkCLUCsxgPOkBpnnSkhBciBDIgBHtJHSjBUCDkQg8wnEwyf EbHIYBkqkNfIS0oXHC9i/x2O4ECUrkN6uA3KBegU8a2yODL+yGVP0VpMlZLIlMd71UwkNdSydKSq zlPhWC7r74Uki0RNCTmpKQAPMGG4CAAA0Rd/Fz8Pro5GgcKY24UtsyxMDim/OuFpnYucJ3vFaMyC JsZk7dRYm6JKiCZlItEs2DRI2TjjCi96qFTCEPGYbTLEYAKPQBMQQEa3AiWFAYxyxVQreRjeWp1v vWk/Y247Gc7QrMgNdIF8yuFE4jOn3TA1OisLWTEFCoXhYu/vG64Ne3QrROPMTA1EC4wnthMfKWmQ mJECG3aeJAoAZhKVpCEjRSBoHIM61hXQEVTzpefQT+E39FPjymg0AQQ5YL3pKBsXnB1X5F0zmWA8 pbLWoIkHq1xYAKFpqr60RQGodp0kMbYEcUEzsIXxhBusDjL4joxgykF/CiNkAAvyRJWaKWgEKsFW hzPTiwWhPPjUJyM9pEVqIC3nFvkaqIPbiMtCBex1tgfMY4z3QYJuhdAhZXhPw5xatclZcSZyjkgE YmPZaB8VYGYWSaBt752I7pHpkBdA+Ohsxy/hBdMP4MpotANlkYr15shZT6FmX6jjOJ06W2TnxVrn CwJEFM4WsW2KbsyFt8QS+xyiLRxigGSYHnZszGsisxSPbUrIBbwblmEhCJi4YjMjGpHZA3lQCcNk oQyQCMS8QI3QZQE82MLUyFNwm9Mp2QmX15wfwe7D7oMOgLKlO5VEpLXmtTplXwId9SukLKpkwEbY iPFGkmUyfchZiQ0M1FL2hJJRKu3DtJBz0YaRNasaXDWRXhmN9vDr3KPAaGqMS77QqjalMa42ytl6 9XVpXWaTVdX50iiQIhRQkdBLyBoj+h7tY2AGfx3uDdIWUMnnLB4kEM3ImSyRY66NmcHsi5kSWZBT Y8Eg1hfMGrJisKcyNWEfOQAKzPJeNPYm7Buwt0EVdIN8BjnPEnPqWGKyXm3pfUK/pjyHwiETqxpQ YawpUjB95i4kUTLWkCYiGMYeI4ufAStQCTUKESiGfNhLWYT3KVwZjSqKZe7nqYu19zXDaempVAgr G/LeFgWsB5mcs4D6wjseZBpyaBoRFDJCyli+p3qTyq+AbpE1oueaO9YRdJWQhrFGhizxGGYf9pqy 2xZeDbPFifBiyRiTAAINM+iuQ0vwJJmln70K7AHXkWvkjYYzSY9zflry2GQFKqonUhS9Ll17zn2H CM6Jc8cSSVmImzZfzJs+IQOeYQieoGwOjBEUU02lJkfg56MndXdm+inh601YnrdoKE0mtXVgkbwJ akvvjXOGTTaGjDeIQRGt8yAg55z6EAIrq2ZS9M0jssalRLQPU8IdIJ9CyqTnAr0cS8JEDlyDyyHn qTScNfDiiyRFsPtoR6sToALtofhlKFJaRjkRPLT02Jq5J4EO82/JlNNUTrR3OTsOgpQQe4Q+xU5T kXLcNHm+6IIUAiUiR2QITFyRHZPxmj3YItN20r0SDG37Vq8GL1396DDo0hDz8APzMLA9c5Kc9hJu j+h6baY+lUX0JYst2TIMvHfCqc8bdrmseVGkelRhFfiEy3wtteF0+RR4dozKTt6q9n8d1ZcgMwq3 LF5BMeOJMaYwCk5CXJI/pPErKPywQLPZdqIThoXU/tBQRJ8kgdWAjbIZxEFgZltiPUdcclq4vPTa WwgPHw8zbY2GqjLVdZ9GbnFh2juwD6XVZl1JLMjMU4xhuX98r3r3uxd9lw8nZlpDfOydiNGZxpuh q13ZM50R5rAdjIAFOUOG6pltU97L7aT70sXRfJlbHOrePlKC3fehJ5HUOsTCkDVM0GxNdM6UhbWO lVnFGGMMF5XJ7WLRnSXZzIpJE6a9ra7z+OtvfPWX4N+EuYlkUIBdQlgjn8cmULasM+sKuGtw+6CP Hs5H+ZgXNaMjIoBUhZQwVO/rII0ATZcZVVZYQgFCTpGpslQaLoE19EJTR8Gm/LCqX1HNlApb25MP 8r0PF5sVipqITM5ilOuiZnVAjqk/T2muqVGJUMA+34demSj6Emr0eX/QJ8wJADQnJWTKmBRqqBcJ UVg1MwmUU9IQCBQzCfccjBLHNqSIkT2c0VFR33il3Pu7GP0mbo6Q9iC3M1cGCu7hWlATe2/hrR3B TOEOQAfIJhP4+ev58WRKRBCFkA5WojlvlUo9KKn0BAEx1CuBxKkuHWbMe9AAeSDyWHJLfenrjAax V41euvr4SXfyrC38aFSysQQiEonKWUwD0zr+sN88UZmrBgCQYedyhQSKl1Cjn4ZHPLL4yuv+zdcn h7MI29qKwdxvJGeNXa8g49UYkxP1jdgQivHR/u1rdFRidgMHv4HZvwN3HesliusorzN8SBExeq5g rxVFZqqhM9AMGEFcChpSX5Yel9VMP45MeegWBWlSzVFzUgmkYqmDZkIGk4ojFqhVFmsDaAqdoH+q /ZOUn5J0jBr56ORO++TOymjTLjb33s8pmdmsdFbhSElCL6kN5y3OEp0L3Zd8DCyALDAQB5ZhKsvV 4cpo1ACFAVK5WaoNwVSoURdFYWiDLDEqAGudK6whaMqOzag6wrUaN/pYveH8fwo5aPr/V+SoJLYF QyCJcx5ZvcHmyBRraIE8gVZAKYCSOL50prmsu/sxijAEwiQQVU0kMkw8jTDxo+ZSYoVTMAjEI8Aj duhOQ3uice0JzA5P9779x3eeftBMRjo/04sTVKVhtzSou5gSkiZFQtvp/V7uQS6ANdAARPAKRxJw xczIXzqNfvwT/rwVg4gEs4u+e/9uWzzcHI7y9Fq1d92VpZ+MN2SYjUSfATbGDA0fhbewfYzaxn03 ecuZL8d43smTg8lbsBVUoGqMYTcBTQACLqCs5JSMGmVDzjEs5yERvo2jOsgUL7Daq5ICAhYWMgak lAURw1g+VYCJRGF02F7oGBqgZzE81LA2apgZHBGLbkHSTYpxVZiTg/1ysjfr5Sk2KaZNp6jBlavY 6nnffQgF0AOZUBJKAoOCvkAm9+fJS6fR4vLpbc9Ml1ErQAhk2doqG69ElPqw7lPswmhU+MqlKDl3 yjqeOOdZ0UXzsMWXDP271fg3YM+pubNnD2BuAkAmQmRjyJjtpVLch1FwBgk4gSyYhhI/fKwV5If3 hHwal7OShtsnMKvCEhDN4Gsj29bSIVAL+gJ8AjxQPLVQixkQVBdUbW7eZG6LcVU6Pgp9oVYlK9pc j1zldYS6n5Og3zCWBJc5EyxJQVyq0atz5fScl06jH88xDmoYviezGE3xxq2Dr+35GivRPmvXdxK6 6aiuvHFJkVOWKMy2LIuYnjkfinJcVL+F8qtI32jbtyfua1h7uKEWKBqKQhnGb00NmchYok5Uck4S HLIxl2WiL67O51zmp4gZykQMJQwOO8qgDABMNITcxLAN6Ix5M+7g0AAAHOtJREFUadnAjEDzJBsn H4xndMy8WC2tqdpWNmGjTqdWZ3ujen/kenO8WnZd1yl0XOVVVhIiOGIHyLCteCl9nT6Nl06jmxoU UWSwJFLMgFeAI6ZvJ3x9ab56g2ojF6d90bnR3uGc+83pycEtWx+tylpyptAnVZKM5FxtruNoL15r XJPR5bqgk/LgOkclomxUHOCIRaWXJAYlBKIgKolhDWS4E5XtvSiel1u/IAzKsEOdHEELaAlVmKcg UQSiQBgMGSwU8CssLtC31tV5xO3ipFhduOW8f3QzNudZcgpTNVNf9uWkK0f1zb1m7MerJb/9pPvz i/wdNSeazbKtAa8YkSnZZOIOeXBPkatz+/TSaRRJhzH06TLB4BWV2C9b/eK0HhfFs9MzIn84m10s TlOViwLOG2OUGSJCBEAUmcWhV7RrDc/Ap5AeIAcH+v7N2A8ssdCtUSOGOxv+MaLpx6PX0ANFBLLQ TGQBAgVIBjEg0ka2U9AN4MzkxVj63LXdRb84q9YLijEb29ZjX1TJV1TWrsPtt+9ffOfe2XunuNvg IdBbw4aqPhVASWSh0G0k55e2nvlv4qXTKKcMoQRVwjCMwcLU6m7U/Ztj5zPuPur3b85ev3FdFk+N ajWpqto6D2Y1ho0RACLZZK8bYH6e9z/Q4h7ljYH16relnyQf5diUL7s8/wbk+T6SSFlVZOuFy5/9 1EFbV7XBK2r7PycPUoIHAsRAA5BUAVUpr2dytMm2fYLVCZbLi/MwP0YMXI94NMJsLxubyWRj5dvf 83/0l5tvzXEMHA8HeWEjtAcYIgdVaIaSxiu0yg+8fBoVAJoA8DBwCArDMLcKOSxMs+mfLbAq2jeO 8v7+9CIuJlNXVs6YyAaAMYaINOdo2cta9eI8H32Q3T0rAWQKDBr9eCjlH1ywvG1RGmyORT4qzfis DK56g5kZbbe/EIUZkWbVTGIAM1zsE2XyTstRoNJ1T7FpcPYsLlZ9sCm344mZ7Y/qumSWzaZvVr2I PPlgczpHD9DBVLpg236fqUhpdFkOmKACecFLiZ8rL59GP1p3GSQB2EDm0EBYJjmbb5aE45Pw+vTk 13/h+uZ4UY3YeR0qJJjZGCJWRUzq84r0okHzBLMzUA1Uhob/Ui6X8GHB5R8cWobLoeGHy2blz371 tO0M1m2GlwkCMAFGxUIUZCEKRCBAFU5AkZGcs4Bg03RNMHDTgwCAYFPMi4v+4ix2jSf4ch0PgQ1A XWiazgKvkFSQJawAAgmiw+imqxZGXz6NRsAABsgZYLTAKYTQy4WumtVy3S8tmoRn50tf3tqblb5Q 4iQSScgwGcNEqpoDUmwNL4VCD4pgD7Yw8bKy7uNrPYY00N/4epiZCEpEBOVtidsLaHQQOoGUieTS jFwBZh38RtSCHJS3psraoDmztCZdoB7r+Bp850Pv9zgGrBb59Fk4eZrWC2NoUvpZVZzcdJBERdOP AQYqlQg0GDb3GoAACnrFEqF4CTWqBjmjBGdwECSSE0gLeRwxj7EAkqKy2DThwYOTyeGUeKMaUw4g O9jYESVRidSnUNqOORMZp1wTEUyAyMesRX74skcGAIgv3fBe9MCkz+OxXs4fFRBBDAbJKhkARAok SEReUvPIdk9gWpQlvfoLo15N+jD2vm+xvEgXJ3Z5jr61xqQU1pu6q8TdbN00+4XSEulU2jXJUjVB MxAhCZTJbOsM5cqcml46jYKhGQ5sYBOiMFqgUxg/Pcw6S2shnZS+3YS//KuHv/Qre0cTEY0qIpcJ ISKCSqKcRV0yrIbYKgogE4Xtuf5HX/A+5kfyY7KtkdnO9RiC6uVr4csPgApEgAwKCKcyfz+xFge3 cfSa2yzt/OGjR9ysuFu7HMAQor5t18t0fq+AEVBQjSSgMzSPIC1hA9XnAt06ZW4n5PwE3tLPhJeu fnTYjfaQSBmkpEPjJhW2CyG8asZv2GovNt5j1eG9Bx3ZWvVwOjoqfUHSMG+IM5jr5qCtzeZWM/7C F93hb5Jcb3LrzRhhhRSRiMQSDBkl07JpYcqMHE2w1lEGekBz8r0x7vl0ox9Hqdu/4PJor6RgVaMc iQSQDAZRAQhkJeks5UfGPOB8ohcbWpwSHqE9OX28Wh3P5ufrZn4m7UpSk4BVoONVmq7qvjdPgO+Z /D3Oj8iuyfUo5gg9NG334KoQ0Xy1xoe/fHH0U1CGAiH33vlb+6PJiNp16lt+951ls1x2q/HREe9N MJ56NgaQpB37uhiVxjK6FhbeVVAnFEiFOCsp0WABXwERClKGfrxmVOmFWut+7Lcqqup0lpetzp9y SEweJ3H9sD194NcXF30ffTlxxnfSL1bdPEgw/nFKK5UTyLHKOWGjFJVV08/81f/kuTIaFfUJISIa iftFXTOvQuy1IEW7wcVZcmSteGscsYFR4Qs2VV3X1jDaea4aNy5BI1CjFIAICiAPMJQgHorBelsH E3uJIAHcT/2N0XC/laGGnq+/JEjAcq6LZ9yi3dD8opk/MMv70y5d1H7Mrj6/0LM2Hrc47rQV+S6o IVmoLICNDLU5+WrlPD+NK6PRPnABE5GTojRSiKQut7k/mlQMs14IYujXYbMxs0NXjOxolkST4wqO pF9mOjOja2CrCAQAjoYmOh1hyHZmEIG2njgNtFfxJMWnWTj9uLn752z/+ss7Ws3b27HmQ2pOadH3 p3T8pDs7b3JTWNmb1mVdTs/O9M6DZ3eetafZnSacSfqAXVRqFPJ8T0JXqtr+07kyGkXOPXQBrA2K uro5qpf9KTrEkJEUARpBWYzVauzqiWOD0Ke0CS71jPPUOdcJ1a8gN0AAJ9VIlKAZOgEYSDq0UqhA Nipr5T3C6Gfz3lQVyKqD501WVTTf6deP42m/uVevTkriPBs7P8rGT9arfP/R2fuPmscRp5CnyEtg TSRCMmyJIENxgQN3V1+nV0ajI0Yvcgo8CjhP+uXx+NXroT07X0cGwOS882VBZZHL0o3GFbKTgHbR VosLjM6Y+9C2hTnitFEmcEO8AVogAhGowRE8xTAHRheia6hj3f/ZxtHnetIYz7pm2S2asBpVZm92 WFWjqDEimSdPLp4cr+cRDfwx9BGQnSFVIrWDoygAsAUzMYYmkavMldFoRbFjrInuZv3O4/mb07ou dX+UU3TSSUopJ6dCqppSCFGNwsDHRZNPjk1xXPi26xuhG8Qlc4YBjIW0oASJQAtfQIfZtQG0ESyA 8c9mO6eah++qTMhDHCU6NHZc16vxdR+z0VqzSW2nLqycN1ygBxrYFrRGDJy95Oca1+1MMP187Eev Tjl2hnFkp7MlcHeDs8VyVNlXrtfjcWksYowhhJyzIitillZ7clrkLrXLOdKK7Br5PLbHSD1Sh7yG LKEr5CV0Bdl81JyJBPRKHTT+7JrQST76DoDE2ldHo+uzG7PJbT8+6CLmi8162WrXbQ4OpteuTXtg gU4Ln50FQQj5Y1/KUCZ94eqCl4mX7370+xhGHlr2o6yTvq2BDjgPYb/WX7l1cDgzddm1KS6aENWO 62u1r7RPvJfGNxovo+6Dm6u/ejouls6rPTig+QbRJTrS8gaPpvAmpRTanvw55A6F72p/PyuhuC3F 7cSls5kAqGEhzaRRNEVNEcZsZzEC+BGW/oykEEAVAiUIDYVyAQQFpWMb3qf4DtJdQmNgEFVjWPOp zB6Wh8vxeFKHa/HcvvNBevWAeTO/96Fe4JV7eraxGYklfXJXonqZDrjyXAGNDpTWpJxI4Q2cos64 UdHRqNrbw95hfXhUujJ1Xdv0cz9a7F1Ls/1J27QP768f3mnP54tyX8avXc+u5rTG+ILrhvJBbr/O +gbXrd1/X9s9UoUmqAKG1EOZlBQemQdJEYGZ2YCNKm8f3cebBX4AisEgdGg92f7Ayi7B5JZDjxgQ AmJE7DUHssdJ12qzc7WxY9BYgq7a+aP3ElF6chG//Vgfo36m62xAyi/9lKUX58rsRxMjD2ODjU+i 8xwfnYV74340Xlej4saN8uD69T6RL3T/UPb2JDV++Sw8eRAe3llVE1y/oJt719fd2eTEcZor7mJk rP86/BR4M7WNxS8CHdABCXDItaEpch2yDAUlg3EKDMAEtp91n8fbqR1DpmCYHc+qSn0HOUd+hPQQ 6Rw5CjzUYZKgs6J43fQzNCvoOldPg5+ndvrOh8uHHZ5Ze5L6RuEAlrz5qTz1l4Iro9Egw4AjRIUq N8CzFb73eP2lVzTrxuS1r6vrRzf2r03ILjf9MZpJt6qaNW9WmwzZLCtUN0y6z9Miadk1JRiOji1/ gezEuN8AAERQD00gAgzgQTBiMAxreG5J8UIeuVtLCyHINoKqKilBEnQt/ETcXTFzZMt5n3TCMrLo yRgigDKSxCY2c1g3e/vu8o7grqRjbTLgfoyi1ivBlVnrBfAGnqBJFFTBjlRzm26NfVmPnOfVarNY XIQ+dKFbbzZxkZ884uNnRehdiE2m/Nbf+UX/ygi+pfKgmP6q3/9Na3+lC75nuDFENuKSWohjsawG ZEQ5GHj+2Di77QQjyfiMaz22DhAMgIQg23JSkY2yJTtWe43NAZsxW2aOtFLanKJ5QN0DrI9x3qzu dScfbjq5/Qfvnrzd465iQxlgoyz4XCQ9P4UrE0chxrAYiEANlMknzUvFex8mV5f7h3vOLfq+zS2J 9czTLHG10matdWk3K9z/zurONz5484t/D/arIZ5TWnh9BP9ajf2sC+rOOL8BdRhWc9r2HhEANIDZ eqVh274s9OnNJZ+Cqg67RpJtyTQJCNRZcrjJ9OrWbiK/Dfkz0ae0XMnqvsa7Rp5hvulOTVhZn0ZN LY+Bx8BmiPWJgxJfnSKmF+DKxFHDpcvJqjqgIFcZHlEuVHzvbcGTCWYTP64Koyb0feyj8/7sdPT0 Sc+8rlx2YvoQb03Yf+Uf2Cjt8mx1+l1afdvhfaZzyg3WF4gXyD0EyAYJiBkhgS6AiO0UcUOGiA0b e2lH9SPHURn2oJdnpsvVmdQSLCmQFf0jtHfQfEjNUyy/FdZ3keYm5naeVmcpd+R89W/m7R98sDlD EW0Gg7NVeHXx6qeTPpUrE0ed8SqNAAWh8MaIAuI8ViE9enY+GaNw1V5disA5noz2Vu3KuartT/um e+OmnY5vP/zew9/7v8/+4S8vrh39J+PpPx7PPwjL323bf275BqfXedbATsQfij9UMyVYiJIK4R8w FcpCzDTUtQ6f6xfuaxrUPfxxgYEDVim/G9Pb0n9om3O/DhQI+pdZe9YSOg2R27A0Nc32/Mn3nm6A jAK2Lw00mV4IHog/mef8EnJl4miWHMARao05IPqCxNtZDjM2kNJ5463zrpqM2ft1J/NVRjt/tOje P+6baLyVg73Nl75ybb4O5//nHZo+zF8+Crd+a/Taf+bG/zH818OtA+6gWptoTMgmkUFt/CH7Ixm9 CTclOyMuP7bCZ/SGMrEQhEgvDTwvHZ41XkbKYfuaoiQDIdU1cyByYEoaO6ycXcnZH5nj33MX7/lN bymTud+mP+0e5DpEu5rr8TJdeM61K6ScLP/r/0kByuhSQp84A4CaVCmufM7z07gycXQ4rCg0Zkkk Yq3zrlayUWtO0qT1eb+uUHrXdjFG7dqiveA+SBZe9DRvw2uj+Gtf2Z9/c/Pof8mrb//3X/lH/xRv /Oeof9OMfrXS63gtQxSSoAA5WAMLEKxJUPuRvfhQTEQERNnedw4bSyUQmBiqIpkyhC0ZEKnknLNz DgoRkkhIpALAeRr3m/8nrL9ZynddwZBrmiYSblEqJ7fvrt++O07XqE5P8kl9a/+VdOPkm3c7DBmw 5zvQISjv9qMvAduudqgBrGhtaFKUZV29UphZZSY+7Y3swWhs1Dbr0K5zd1Kd9/po3S8yRVjR/Pob +Zd+7dqNf+8/4vjd+P7T1feO16s/rl9bmy+9HqnMo4l6VZfgenW9uB42qsmUi22L3tAJl6E5SU7g limBBCQwBGbl4VDVi2RRAaAKZEiEJLXWZgk5BQmMaE0kI8IS7OZPivm73H1IdN7HZdedl7S2vocv PSpUo02xqQ7y9de+dHHP/PY/efQHgVpoqxq3zVXDY2HF5/Zkf2XiqB0siIVzTmvocYhO0Yhc88LO 1aNZWTnmad+H9apdrnvuVKzAYRm1DT5f9O/f6/+t4/P23//Ca3/n1/FQNu88PuW/6PJf+fXpUn5x piA1BM8KIAEZFIEephpanFV1W/wxDBy3DkS09SE3wKWrA3lisAJKJNBMlGGEpU8pb1JsrBrLCSTI p4jnuP+H2Dwik3I0TQ5AgkmgBs0ebk1OsZisp6N4G9+mf/rP3vkfT7BwGlm74aFsx84zI3+OA+mV 0WhK0RgmNjlzAzkBQoynMY4ZB8LXtFjkfLJB3/bLRZuSeHOxJiSDFrJBIUm/9f567/fPvvYf/rej m/+Ve+vLo9sPR81/ieJ1tId+emj7ISTZ7TN53oI/VJCSEmciBRHIAOb5/eh20OZlJx0MG1za5mRo TjQkzfOG4pLyxliGXyHP0b3bb+4m/dejgxuY/l1TvL4vM7AgnODifkvfjXlV+raQaf5T/ie//fb/ /P767tRLlz4aDHJZ15c/B9VNn86VWetBEFFRUTZDQOuBBoiKRdbjJj2e908vNk8u+rNGOrgLzYse q4CzjB5eLbfrbnmGf3v15vXp65iuV/23C70H3gD7Rfkq+FvKp8mtk4vBpt6mjlNngk1GNQEBGogi kDCYepHbijgDqUPcIK4R1+DR5b/PSCtKc2AOLKBzI3PCmm0g7pCfps27bfu98+oVHv9KMfp7gb+8 oqmUBaNv2409yuZ0UT/Ij/5o9d/9r+/+9p3+LqatECR+dD7b/uOKzbL5rFwljT6vx2BrQZRUeqAl rIjPoy4yNhGbjLWgg1lQnq+Q86wFb2iTfN8mxL44/9bZdPbezS9cL+SV1dPfWx7/Drq/9Po7aHrq n5q8ZkTD1pjCmcJxiZQUUdEr9SK9SJAcJUU2IxVQ6pDOEZ6hf4zuMfrH2bzJCkiHfKLhkeYHJI+B J2gfAhfEkYgoqoYGaW2RDr7wHxTuJrIx7VPq3/byvsmPfPcUx2fh3XjnX23+t9958L/f03vOp3GV 2g0wpKwIW2OKq1Rf+WJcGY1a93zDZ2EsMQfNGdiQ6dhGFYCs8xnUqqxzzs43sShwFJGWaINByvCY rX3z599q8/rdr/3SeXH9taLbw9mH6f13bHqI9V1055Q7hhiIgRoKxk6MhbGJWZgyXfYLRR6r9JLn Gk8RThCeITyleJyKt0hb0qXm45wepfwE+oTpLM0fEXoYI1rmUCJaY52px+n4G/nRn5nHf4KT38/P /kQef4fvPct3lvM//bP3/zL9H/9i/i+e5bWzFxqb0Pra5bAdsLzdpT1vqv78rvZXZz/6/I5ao4T4 PKtSW2GVwDgHLXIySgxDwKxJoPQYd0EkZCAUHO5jeRCKiP7f/Ksgyye//g/d7V+c2vpLDc0hDfIx IhAzelHjgo4lT6vJEuqRa/QFuo4ykalgCjcFdR7rJZ7+Szz7XWy+CxjYff+rv4yqR/+Azt627Ykt C5gaQXl2Arwm8dAQDK2Q7+DRN9KzP7Pnx13Tr6JmLkW4W/XSPOOsd/+/t/7w4cM/Xvf3LC/hm0Qg DWFolIfi8hivn2d1DlwZjX4aWVUUBkiqotDL+5juI8McJRDy1qfpGWgP6FdYv7t4jLf9st7/cllf M83y0E2mbvwqipuo9mNhokuZuqq5AQdwii53qJXJjZPhc7/ax+n/tX78P4Snv59OES4QNlVOq0Pz X9QGGjZ9s7JFPT56HdMbcD6cFeUkmdETiffj+ljPPgzP3gtnD2Q9BTyEtTdxQ/1FuTgtNovuX99/ 8PbZ4lHAEtJz2gbKq2fW9BPgyms0yHbS/FA+l6DD9iyzsoIUTMSqpDAggt5zCagSGzQqxzk9yXoU sO/WX27KwmnZO+ppFfzG+mIfxY2+vEC7T2qtsZNSYQK6GqHGh/9NOP6mnv7FNDhr9lGP5xrb2J38 s78i1pQkWYxfqfmrvkabS5T695E3WD8M6w82Z/dxMTfz3rZy2msJmLbTlXI/sutZdzF98nj1h08e 31UcA5utX78M3ow/36f9c+HKa1T1EzkgvjxC9AAIRmFUjQ45I2VgrZJTstGzVLGoVh+m/dAW7y2O 3vLljcK/8Qpe/QWM3uztUePK7KDYh2ZPD2YckCwWz9LTb56f/cX+/X9++r4/e++oP7ea5z3d0yLb 2k/Xt5lZNInr1Zp4EKU45TrCvI0+QM9te7zXNcaWGI/B2ueAZq1BKKHP4Ukbv3Xaf/fR6n3FCbBm iKsoDrO/JP9tlOjn4NKCP7Yhe15MBKjZ3skYgbssuDNALpE6lMAM+CL8lyp6teonDr96C3uv4ugX bkzfuGlvznBtzx/s2cnI4GsIE/Qe4SmWf653v/X4nQcn99vf/YNeG1QZeyO3tyf1jKrp9Wp0pPW3 vC8sFWxQjWn/hpkdKY1zm3tnxyx1bh06YzKol75rbDFL3UZC32e+f85/cqf9xneXbz/J922xJBka s9FnC1GIWpL0t06nV1+jfxNEpEN9kWLwDKVLmTqHCAQFsp+oOYLehB4Aa/QWKIEamAE3a751dO3a 3mxevVfW8B79xp0+nh4/onl73kMiyn3X3X4FX7w5evXgduXqkOZNeDq3aVQVo6oc1xiN0+FBnh0A E+1FOMw2p6PHd9Ozh82m7aK0USLrQZLYaz6P+s5Z+xeP8WHEBkVASKxgQNlk2CEhUFjtP78FTp/C ldcoffQDKX1Ux6nyUY/bx4s7rYoAzhtmNgqb1GU10DBSIlYxkiklkczDH5xq54i938ucWix7AbNh nv3appnU/UGh+858ce/GF25MJqPTrGfnJ18zVlyZq1Eqp2kyyfVYC0/zYMOan93v77+/fPy0WfTo gF6xsgjAUnCa8BRowAG1c9MmPk609YUoFAbcE2fLiJ/b+qZP48pr1IH0UoWyjaAAsK1aA4bxNYN8 FSgxpdxYtAYAIzisFQCKUABgiEG2LMxbR8dNtknTUJ5fAuVwswXUGddQ7mM8xvmtsXz1Fm6Mxyb5 Ui6aoJuInqAWgrFqreIuVsfSp67RFJCNy350FvN5au5zToYXmc4l9zCAFWQCCCkSEuCBUkFwSxI1 /LFLuL8tXHmN/qTwnzFdc1hOOYUydzPIqxav18XtujgoirqyrGDRnHNKqUuxSSFKtrnIol3SVZYL 0VPKc2hLuN+WGSrQgBwhCSKXGdYdA1f+XP/zogutkSgQBs4i3KbPMZ+7sN9bo2RBrFDVKBKEklBM MQn6rKssFyoLxZLR6lBKqlk1f1QAuOMT7DS6RT/jitJLz0C8FFZIWKRUIl1vYRglmQLb8RGiKsA8 p6jos24UK2CBoa4AHYsCMowMHzxtP1HTtGOn0Us+q8/H87A3zM+JyiuoAy2COKBCLkkdmLCdiXTM EEWvaIAG2Fy6TSQSDNkyUnmedv9c598/KzuNbnmBJKMCZCBEiWxQagUsHNBZoAAXahxIoQIV6JpM Ig1Arzp8paGsb5t/HyaVXcEJXz99dhrdIp8xcA19TSpIpIZSggkKhmSGJS6UDWBURSVDMlTUZKZI GoAEFhFVgqp+v23YLoJ+kt1n9gUxg0Yvn99QM2CHSnzAERliIhJoVMmqJThBk0EEyTBWRIgU4a/Z R+4E+n3s4ugL4p1NKlnleRwckrIBYCCqumEsL289HU2SBERBHlzzBKz6ieuuT67zO63u2LFjx44d O3bs2LFjx44dO3bs2LFjx44dO3bs2LFjx44dO3bs2LFjx44dO3bs2LFjx44dO3bs2LFjx44dO3bs 2LFjx44dO3bs2LFjx44dO3bs2LFjx44dO3bs2LFjx44dP3f+f2NgRySipHoRAAAAAElFTkSuQmCC  "
+       style="image-rendering:optimizeSpeed"
+       preserveAspectRatio="none"
+       height="225"
+       width="225" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2">
+    <path
+       style="fill:#ff6600;fill-opacity:1;"
+       d="m 206.07112,444.50292 c 0,8.27409 -4.31134,9.42327 -6.65559,15.39015 -2.38078,6.05984 -4.01224,14.37296 -10.34461,17.68056 -4.66956,2.43906 -15.32728,5.82016 -20.80915,5.82016 -5.39118,0 -8.84775,-8.00579 -12.3177,-9.87712 -6.31083,-3.40341 -10.86687,-2.83379 -14.44806,-12.44462 -1.84064,-4.93974 -7.14572,-14.4082 -7.14572,-20.10466 0,-13.97511 7.68265,-16.73711 17.06219,-24.23765 5.97228,-4.77586 12.8749,-11.62277 20.74716,-11.62277 8.28732,0 10.86479,4.12018 17.00326,9.36403 8.85024,7.56043 16.90822,16.52598 16.90822,30.03192 z"
+       id="path3347"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;"
+       d="m 199.00005,442.91274 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter4518)"
+       d="m 74.751289,53.498936 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter4530)"
+       d="m 145.96705,57.53954 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418009,-1.99279 -11.192168,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.217198,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter4590)"
+       d="m 216.17265,59.054771 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter4614)"
+       d="m 283.85287,60.064921 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter4630)"
+       d="m 359.61431,62.590301 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-40"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter4692)"
+       d="m 434.87067,62.085226 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter4718)"
+       d="m 501.03566,62.085226 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter4740)"
+       d="m 576.7971,59.054776 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter4756)"
+       d="m 638.92149,63.095386 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5142)"
+       d="m 74.24621,157.54464 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-0-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5166)"
+       d="m 140.4112,157.54464 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-8-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5180)"
+       d="m 216.17264,154.51419 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-3-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5198)"
+       d="m 278.29703,158.5548 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5212)"
+       d="m 351.028,164.61571 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-0-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5230)"
+       d="m 417.19299,164.61571 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-8-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5262)"
+       d="m 492.95443,161.58526 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-3-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5351)"
+       d="m 555.07882,165.62587 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5367)"
+       d="m 625.28443,168.65632 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5387)"
+       d="m 70.205602,247.9533 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5411)"
+       d="m 141.92643,248.96345 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.888667,-2.39336 -8.417997,-1.99279 -11.192157,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.626407,-3.35851 9.973507,-8.17343 16.071737,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5425)"
+       d="m 204.05081,244.92284 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5437)"
+       d="m 272.74119,242.90253 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-20"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5457)"
+       d="m 350.01786,240.37715 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5509)"
+       d="m 416.68793,244.92284 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5527)"
+       d="m 492.95444,240.88223 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-22"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5553)"
+       d="m 560.63466,241.89238 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-04"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter6050)"
+       d="m 627.7792,242.89694 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5651)"
+       d="m 64.649763,322.70459 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.5354201,-10.13222 -5.5354201,-14.13812 0,-9.82766 5.9513501,-11.76997 13.2171901,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-5-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5679)"
+       d="m 129.29953,321.69443 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.176274,0 -6.853894,-5.62988 -9.541884,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.071744,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-5-61"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5705)"
+       d="m 196.97975,318.1589 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-5-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5729)"
+       d="m 269.71073,311.59291 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-5-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5755)"
+       d="m 349.51278,316.64367 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-5-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5849)"
+       d="m 413.65747,313.61321 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-5-28"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5935)"
+       d="m 490.42906,314.11829 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-5-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter5959)"
+       d="m 576.7971,319.67413 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-5-82"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter6072)"
+       d="m 654.57885,325.73504 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-5-26"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1"
+       d="m 60.609153,380.28328 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 C 9.1603327,388.46136 5.0507627,381.8029 5.0507627,377.797 c 0,-9.82766 5.9513503,-11.76997 13.2171903,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-5-26-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1"
+       d="m 127.7843,381.79851 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.119763,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.071743,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-5-26-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter8276)"
+       d="m 199.00005,376.74775 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-5-26-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter7446)"
+       d="m 277.79195,386.3442 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-5-26-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter7370)"
+       d="m 367.69553,378.26298 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-5-26-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter7306)"
+       d="m 443.45697,378.26298 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-5-26-43"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter6860)"
+       d="m 511.13719,378.26298 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-5-26-34"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter6814)"
+       d="m 588.91893,384.32389 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-5-26-21"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <path
+       style="fill:#ffe680;fill-opacity:1;filter:url(#filter6748)"
+       d="m 652.05347,379.27313 c 0,5.81855 -3.33977,6.62668 -5.15574,10.82275 -1.84426,4.26143 -3.10807,10.10743 -8.01343,12.43342 -3.61726,1.71521 -11.87324,4.09289 -16.11976,4.09289 -4.17627,0 -6.85389,-5.62988 -9.54188,-6.94585 -4.88867,-2.39336 -8.418,-1.99279 -11.19216,-8.75137 -1.42585,-3.47376 -5.53542,-10.13222 -5.53542,-14.13812 0,-9.82766 5.95135,-11.76997 13.21719,-17.04454 4.62641,-3.35851 9.97351,-8.17343 16.07174,-8.17343 6.41976,0 8.41639,2.89742 13.17154,6.58503 6.85582,5.31669 13.09792,11.62149 13.09792,21.11922 z"
+       id="path3347-6-4-36-3-5-26-00"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.99224806;stroke-opacity:1"
+       id="rect11653"
+       width="127.00775"
+       height="127.00775"
+       x="0.49612403"
+       y="924.85834" />
+    <path
+       style="fill:#ffe680;fill-opacity:1"
+       d="m 72.29952,989.37392 c 0,2.25675 -1.202255,2.5702 -1.855972,4.19766 -0.663901,1.65277 -1.118847,3.92017 -2.884687,4.82232 -1.302146,0.66525 -4.274149,1.5874 -5.802818,1.5874 -1.503382,0 -2.467273,-2.1835 -3.434901,-2.6939 -1.759833,-0.9283 -3.030324,-0.7729 -4.028973,-3.39427 -0.513281,-1.34731 -1.992649,-3.92982 -1.992649,-5.48352 0,-3.81172 2.142378,-4.56504 4.757947,-6.61082 1.665423,-1.3026 3.59028,-3.17008 5.78553,-3.17008 2.310995,0 3.029742,1.12378 4.741511,2.55402 2.467971,2.06211 4.715012,4.50744 4.715012,8.19119 z"
+       id="path3347-6-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssss" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.99224806;stroke-opacity:1"
+       id="rect11653-4"
+       width="127.00775"
+       height="127.00775"
+       x="128.49612"
+       y="924.85834" />
+    <path
+       style="fill:#ffe680;fill-opacity:1"
+       d="m 201.36214,988.36442 c 0,2.82094 1.16657,5.47147 0.34944,7.5058 -0.82988,2.06596 -2.21992,1.82013 -4.42722,2.94783 -1.62768,0.8316 -3.28929,2.39495 -5.20013,2.39495 -1.87923,0 -6.16418,0.3507 -7.37372,-0.2873 -2.19978,-1.1604 -5.01993,-1.58217 -6.26824,-4.85888 -0.6416,-1.68414 0.99995,-5.93897 0.99995,-7.88109 0,-4.76465 0.009,-4.06359 3.27842,-6.62082 2.08177,-1.62825 4.48786,-3.9626 7.23192,-3.9626 2.88874,0 7.48327,-0.23798 9.62299,1.54982 3.08496,2.57763 1.78698,4.60761 1.78698,9.21229 z"
+       id="path3347-6-0-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssssssssssc" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.99224806;stroke-opacity:1"
+       id="rect11653-4-2"
+       width="127.00775"
+       height="127.00775"
+       x="256.49612"
+       y="924.85834" />
+    <path
+       style="fill:#ffe680;fill-opacity:1"
+       d="m 332.8359,991.0185 c 0,3.56947 -2.59686,2.0317 -3.63084,4.60597 -1.0501,2.61408 2.81956,9.18063 0.0265,10.60753 -2.05962,1.0523 -5.94878,-4.1406 -10.85569,-4.1198 -4.72507,0.02 -7.83647,4.3087 -9.36699,3.5014 -2.78353,-1.4683 -7.17341,-3.4395 -8.75298,-7.58567 -0.81186,-2.13113 4.34538,-10.17784 4.34538,-10.17784 0,0 -3.27402,-7.60602 0.86299,-10.84186 2.63421,-2.06033 12.3014,4.47388 12.3014,4.47388 4.50238,-1.39278 7.96145,-3.83433 10.66899,-1.5721 3.90361,3.26165 7.99788,0.81778 6.07548,6.31816 z"
+       id="path3347-6-0-2-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssssscscssc" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.99224806;stroke-opacity:1"
+       id="rect11653-4-2-0-2"
+       width="127.00775"
+       height="127.00775"
+       x="0.49612403"
+       y="796.85834" />
+    <path
+       style="fill:#ffe680;fill-opacity:1"
+       d="m 80.617028,861.63431 c 0,1.75831 1.583983,5.24155 3.55185,6.58388 3.52597,2.40514 8.284378,2.3579 7.371766,4.63005 -1.443833,3.59474 -4.146211,9.61767 -7.987262,11.57993 -2.832432,1.44729 -8.447679,-3.78084 -11.772841,-3.78084 -1.483082,0 -9.41492,-0.1058 -12.102825,0.10977 -3.23882,0.25982 -8.577067,1.33235 -9.727282,0.72567 -1.553398,-0.81938 -4.434951,6.17125 -6.877415,5.20689 -3.576335,-1.41205 -9.726336,-3.22584 -11.017045,-6.61383 -0.49792,-1.30697 3.150698,-8.1114 5.199811,-10.77253 1.106711,-1.43725 4.08289,-3.14816 5.335298,-4.77699 1.628329,-2.11773 1.41675,-4.0967 1.41675,-5.15506 0,-2.55196 1.335881,-6.44395 0.340933,-8.39776 -2.237673,-4.39414 -11.355439,-1.36908 -7.417231,-4.44944 0.843831,-0.66001 -1.707779,-14.02213 1.489849,-13.71696 4.835118,0.46145 11.828996,7.71643 16.15193,6.96058 2.737648,-0.47867 8.579515,-0.0511 12.265548,-2.22455 3.169298,-1.86877 4.339269,-6.41365 5.25507,-6.41365 5.026876,0 5.797518,0.2588 9.52099,3.36986 5.368318,4.48548 5.233497,7.76685 2.779358,15.39469 l 0.648891,6.2956 z"
+       id="path3347-6-0-2-7-3-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssssssssssssssssssscc" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.99224806;stroke-opacity:1"
+       id="rect11653-4-2-4-3"
+       width="127.00775"
+       height="127.00775"
+       x="256.49612"
+       y="796.85834" />
+    <path
+       style="fill:#ffe680;fill-opacity:1"
+       d="m 332.17759,861.1032 c 3.11112,5.05597 0.64495,3.95821 -3.13535,7.28399 -0.83365,0.73336 3.62373,5.75296 3.62373,5.75296 3.72536,1.1457 -2.84361,4.0728 -0.034,8.396 0,0 -5.06575,2.6504 -7.47793,1.1294 -2.36744,-1.4928 -4.76449,-3.867 -6.54723,-6.452 -0.88903,-1.2891 -5.07705,-1.5768 -4.14499,-2.7428 4.08751,-5.1134 -2.63439,0.5428 -2.32114,3.2286 0.35845,3.0734 -4.61644,7.9089 -5.63569,7.3712 -1.60938,-0.8489 -8.30102,-5.6066 -3.34133,-7.4248 3.25492,-1.1932 -9.97707,-3.2614 -7.9672,-5.7089 1.50751,-1.8358 -1.47918,-7.75996 1.39898,-7.6008 2.42123,0.13389 2.95763,-1.79333 4.12626,-1.7236 6.16431,0.36782 0.0888,-3.82498 0.0888,-3.82498 0,0 -4.37466,-10.01868 1.11495,-14.0073 8.11272,-5.89451 4.66935,2.94004 4.66935,2.94004 1.38106,0.86958 2.64595,1.57384 3.82171,0.47486 1.54899,-1.44784 4.26163,3.26157 4.26163,3.26157 -1.2313,3.23792 3.98757,3.38036 3.98757,3.38036 -0.24577,-0.52948 0.53394,-1.18295 0.70826,-2.05451 5.81691,-1.79942 11.56172,-6.47554 11.56172,-6.47554 2.12713,-0.74301 2.75528,5.85327 5.64793,0.21561 1.5363,-2.99418 -2.76115,3.61292 3.97916,8.61389 l -2.14025,3.6452 z"
+       id="path3347-6-0-2-7-0-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csscssssssssscssssscssccc" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.99224806;stroke-opacity:1"
+       id="rect11653-4-2-4"
+       width="127.00775"
+       height="127.00775"
+       x="384.49612"
+       y="924.85834" />
+    <path
+       style="fill:#ffe680;fill-opacity:1"
+       d="m 460.8359,991.01851 c -1.61137,-1.03672 -2.19929,-0.25337 -2.42391,1.18578 -0.30199,1.93485 0.0527,5.05506 -0.54026,6.5313 -1.04999,2.61411 2.15289,6.06951 -0.64017,7.49641 -2.05962,1.0523 -6.88875,-7.00799 -10.85569,-4.1198 0,0 -6.24147,-1.4821 -3.85505,2.8067 1.35262,2.4309 -4.92638,3.1208 -5.73416,2.6947 -2.78356,-1.4682 -7.61793,-3.6617 -9.19743,-7.80788 -0.4555,-1.19569 -4.01134,-13.23283 1.133,-10.3244 2.28015,1.28913 0.76794,-4.74233 0.76794,-4.74233 0,0 3.39265,-8.05047 7.52966,-11.28631 2.63421,-2.06033 9.85695,2.25166 9.85695,2.25166 0,0 8.18367,-2.50099 10.89121,-0.23876 3.90361,3.26165 6.66455,5.26222 4.74215,10.7626 z"
+       id="path3347-6-0-2-7-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccssssssscscssc" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.99224806;stroke-opacity:1"
+       id="rect11653-4-2-4-7"
+       width="127.00775"
+       height="127.00775"
+       x="512.49609"
+       y="924.85834" />
+    <path
+       style="fill:#ffe680;fill-opacity:1"
+       d="m 588.83591,991.01848 c -1.61137,-1.03672 -2.19929,-0.25337 -2.42391,1.18578 -0.30199,1.93485 0.0527,5.05506 -0.54026,6.5313 -1.04999,2.61414 2.15289,6.06944 -0.64017,7.49634 -2.05962,1.0523 -6.88875,-7.00792 -10.85569,-4.1197 0,0 -6.24147,-1.4821 -3.85505,2.8066 1.35262,2.4309 -4.92638,3.1208 -5.73416,2.6947 -2.78356,-1.4682 -7.61793,-3.6617 -9.19743,-7.80781 -0.4555,-1.19569 -4.01134,-13.23283 1.133,-10.3244 2.28015,1.28913 0.76794,-4.74233 0.76794,-4.74233 0,0 3.39265,-8.05047 7.52966,-11.28631 2.63421,-2.06033 9.85695,2.25166 9.85695,2.25166 0,0 8.18367,-2.50099 10.89121,-0.23876 3.90361,3.26165 6.66455,5.26222 4.74215,10.7626 z"
+       id="path3347-6-0-2-7-0-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccssssssscscssc" />
+  </g>
+</svg>

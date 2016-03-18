@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="297mm"
+   height="210mm"
+   viewBox="0 0 1052.3622 744.09448"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="pipes.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.98"
+     inkscape:cx="216.95091"
+     inkscape:cy="408.38252"
+     inkscape:document-units="px"
+     inkscape:current-layer="g4162"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     showguides="false">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4169" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-308.26772)">
+    <rect
+       style="fill:#cc7333;fill-opacity:1;stroke:none;stroke-opacity:1"
+       id="rect4136-3"
+       width="17.713469"
+       height="64"
+       x="159.59795"
+       y="633.03552"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\pipe.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#d98245;fill-opacity:1;stroke:none;stroke-opacity:1"
+       id="rect4136-5"
+       width="3.5426936"
+       height="64"
+       x="156.05525"
+       y="633.03552"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\pipe.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#ae5f27;fill-opacity:1;stroke:none;stroke-opacity:1"
+       id="rect4136-3-3"
+       width="7.2011514"
+       height="64"
+       x="-184.51256"
+       y="633.03552"
+       transform="scale(-1,1)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\pipe.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#cc7333;fill-opacity:1;stroke:none;stroke-opacity:1"
+       id="rect4136-3-9"
+       width="0.8856734"
+       height="64"
+       x="155.16959"
+       y="633.03552"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\pipe.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#e18b4e;fill-opacity:1;stroke:none;stroke-opacity:1"
+       id="rect4136-5-8"
+       width="1.7713468"
+       height="64"
+       x="153.39822"
+       y="633.03552"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\pipe.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#cc7333;fill-opacity:1;stroke:none;stroke-opacity:1"
+       id="rect4136-3-9-0"
+       width="0.8856734"
+       height="64"
+       x="152.51256"
+       y="633.03552"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\pipe.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       id="g4233"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\pipecorner.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         transform="matrix(-1,0,0,-0.79078331,543.85742,1159.9702)"
+         id="g4383">
+        <path
+           inkscape:connector-curvature="0"
+           id="rect4136-3-4"
+           d="m 316.65625,366.21094 -17.71289,7.33594 0,36.11914 17.71289,0 0,-43.45508 z"
+           style="fill:#cc7333;fill-opacity:1;stroke:none;stroke-opacity:1"
+           transform="translate(0,308.26772)" />
+        <path
+           inkscape:connector-curvature="0"
+           id="rect4136-5-0"
+           d="m 298.94336,684.51064 -3.54297,1.35911 0,32.06399 3.54297,0 0,-33.4231 z"
+           style="fill:#d98245;fill-opacity:1;stroke:none;stroke-opacity:1" />
+        <path
+           inkscape:connector-curvature="0"
+           id="rect4136-3-3-3"
+           d="m 323.85742,671.54277 -7.20117,2.97943 0,43.41154 7.20117,0 0,-46.39097 z"
+           style="fill:#ae5f27;fill-opacity:1;stroke:none;stroke-opacity:1" />
+        <path
+           inkscape:connector-curvature="0"
+           id="rect4136-3-9-1"
+           d="m 295.40039,686.42871 -0.88672,0.33386 0,31.17117 0.88672,0 0,-31.50503 z"
+           style="fill:#cc7333;fill-opacity:1;stroke:none;stroke-opacity:1" />
+        <path
+           inkscape:connector-curvature="0"
+           id="rect4136-5-8-2"
+           d="m 294.51442,686.9867 -1.77148,0.66115 0,30.28589 1.77148,0 0,-30.94704 z"
+           style="fill:#e18b4e;fill-opacity:1;stroke:none;stroke-opacity:1" />
+        <path
+           inkscape:connector-curvature="0"
+           id="rect4136-3-9-0-0"
+           d="m 292.74219,687.75299 -0.88477,0.33031 0,29.85044 0.88477,0 0,-30.18075 z"
+           style="fill:#cc7333;fill-opacity:1;stroke:none;stroke-opacity:1" />
+      </g>
+    </g>
+    <g
+       transform="matrix(-0.70710678,0.70710678,-0.70710678,-0.70710678,947.45905,897.53775)"
+       id="g4383-5"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\pipecorner.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         id="g4225">
+        <path
+           inkscape:connector-curvature="0"
+           id="rect4136-3-4-2"
+           d="m 317.20038,668.63087 -17.7122,7.33761 0,18.09199 17.7122,7.33486 0,-32.76446 z"
+           style="fill:#cc7333;fill-opacity:1;stroke:none;stroke-opacity:1" />
+        <path
+           inkscape:connector-curvature="0"
+           id="rect4136-5-0-1"
+           d="m 299.48818,675.96848 -3.54382,1.4667 0,15.15584 3.54382,1.46945 0,-18.09199 z"
+           style="fill:#d98245;fill-opacity:1;stroke:none;stroke-opacity:1" />
+        <path
+           inkscape:connector-curvature="0"
+           id="rect4136-3-3-3-7"
+           d="m 324.40264,665.64914 -7.20226,2.98173 0,32.76446 7.20226,2.98448 0,-38.73067 z"
+           style="fill:#ae5f27;fill-opacity:1;stroke:none;stroke-opacity:1" />
+        <path
+           inkscape:connector-curvature="0"
+           id="rect4136-3-9-1-1"
+           d="m 295.94436,677.43518 -0.88527,0.36598 0,14.42388 0.88527,0.36598 0,-15.15584 z"
+           style="fill:#cc7333;fill-opacity:1;stroke:none;stroke-opacity:1" />
+        <path
+           inkscape:connector-curvature="0"
+           id="rect4136-5-8-2-7"
+           d="m 295.05909,677.80116 -1.77052,0.73473 0,12.95718 1.1518,0.47509 0.61872,0.25688 0,-14.42388 z"
+           style="fill:#e18b4e;fill-opacity:1;stroke:none;stroke-opacity:1" />
+        <path
+           inkscape:connector-curvature="0"
+           id="rect4136-3-9-0-0-9"
+           d="m 293.28857,678.53589 -0.88527,0.36598 -0.001,12.24593 0.88663,0.36736 10e-6,-12.97927 z"
+           style="fill:#cc7333;fill-opacity:1;stroke:none;stroke-opacity:1" />
+      </g>
+    </g>
+    <g
+       id="g4162">
+      <path
+         style="fill:#d98245;fill-opacity:1;stroke:none;stroke-opacity:1"
+         d="m 259.07812,627.78139 -1.46874,3.54297 26.39062,0 0,-3.54297 -24.92188,0 z"
+         id="rect4136-5-3"
+         inkscape:connector-curvature="0"
+         inkscape:export-filename="C:\code\fireperson\Assets\Sprites\pipecorner.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+      <path
+         style="fill:#cc7333;fill-opacity:1;stroke:none;stroke-opacity:1"
+         d="m 257.1179,631.32436 -7.47456,17.71484 34.35666,0 0,-17.71484 -26.8821,0 z"
+         id="rect4136-3-32"
+         inkscape:connector-curvature="0"
+         inkscape:export-filename="C:\code\fireperson\Assets\Sprites\pipecorner.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+      <path
+         style="fill:#ae5f27;fill-opacity:1;stroke:none;stroke-opacity:1"
+         d="M 250.27148 340.77148 L 247.28906 347.97266 L 284 347.97266 L 284 340.77148 L 250.27148 340.77148 z "
+         transform="translate(0,308.26772)"
+         id="rect4136-3-3-2"
+         inkscape:export-filename="C:\code\fireperson\Assets\Sprites\pipecorner.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+      <path
+         style="fill:#cc7333;fill-opacity:1;stroke:none;stroke-opacity:1"
+         d="m 259.50526,626.89663 -0.36432,0.88476 24.85906,0 0,-0.88476 -24.49474,0 z"
+         id="rect4136-3-9-3"
+         inkscape:connector-curvature="0"
+         inkscape:export-filename="C:\code\fireperson\Assets\Sprites\pipecorner.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+      <path
+         style="fill:#e18b4e;fill-opacity:1;stroke:none;stroke-opacity:1"
+         d="m 260.23867,625.12514 -0.73249,1.77149 24.49382,0 0,-1.77149 -23.76133,0 z"
+         id="rect4136-5-8-4"
+         inkscape:connector-curvature="0"
+         inkscape:export-filename="C:\code\fireperson\Assets\Sprites\pipecorner.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+      <path
+         style="fill:#cc7333;fill-opacity:1;stroke:none;stroke-opacity:1"
+         d="M 260.54492 315.97266 L 260.17773 316.85742 L 284 316.85742 L 284 315.97266 L 260.54492 315.97266 z "
+         transform="translate(0,308.26772)"
+         id="rect4136-3-9-0-6"
+         inkscape:export-filename="C:\code\fireperson\Assets\Sprites\pipecorner.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+    </g>
+  </g>
+</svg>

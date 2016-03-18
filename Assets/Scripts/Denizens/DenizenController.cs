@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Heat;
-using Assets.Scripts.Movement;
+﻿using Assets.Scripts.Movement;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -53,10 +52,9 @@ namespace Assets.Scripts.Denizens
         public List<RaycastHit2D> RaycastHitsThisFrame { get; set; } 
         public float VerticalDistanceBetweenRays { get; set; }
         public float HorizontalDistanceBetweenRays { get; set; }
-        public bool SatAtFirePlace { get; set; }
+        public bool SatAtFireplace { get; set; }
 
         public MovementHandler Movement;
-        private HeatHandler _heatHandler;
 
         void Awake()
         {
@@ -79,23 +77,10 @@ namespace Assets.Scripts.Denizens
             }
         }
 
-        void OnTriggerEnter2D(Collider2D col)
-        {
-            if (col.gameObject.layer == LayerMask.NameToLayer("PL Spot"))
-            {
-                if (col.gameObject.GetComponent<FirePlace>().IsLit == true)
-                    SatAtFirePlace = true;
-            }
-        }
-
         void OnTriggerStay2D(Collider2D col)
         {
             if (col.gameObject.layer == LayerMask.NameToLayer("PL Spot"))
-            {
-                if (SatAtFirePlace == true)
-                    if (col.gameObject.GetComponent<FirePlace>().IsLit == false)
-                        SatAtFirePlace = false;
-            }
+                SatAtFireplace = col.gameObject.GetComponent<Fireplace>().IsLit;
         }
 
         private void RecalculateDistanceBetweenRays()

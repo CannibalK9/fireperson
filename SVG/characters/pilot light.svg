@@ -1,0 +1,1175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 744.09448819 1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="pilot light.svg"
+   inkscape:export-filename="C:\Users\DB\Desktop\sprites\pilot light.png"
+   inkscape:export-xdpi="90.099998"
+   inkscape:export-ydpi="90.099998">
+  <defs
+     id="defs4">
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Out of Focus"
+       id="filter4989">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(80,155,235)"
+         result="flood"
+         id="feFlood4991" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.2125 -0.7154 -0.0721 1 0 "
+         result="colormatrix1"
+         id="feColorMatrix4993" />
+      <feGaussianBlur
+         in="colormatrix1"
+         stdDeviation="4.83 10.16"
+         result="blur"
+         id="feGaussianBlur4995" />
+      <feColorMatrix
+         in="blur"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 11.98 -4.95 "
+         result="colormatrix2"
+         id="feColorMatrix4997" />
+      <feBlend
+         in="colormatrix2"
+         in2="flood"
+         mode="normal"
+         result="blend"
+         id="feBlend4999" />
+      <feComposite
+         in="blend"
+         in2="blend"
+         operator="arithmetic"
+         k2="1"
+         result="composite1"
+         id="feComposite5001" />
+      <feComposite
+         in2="SourceGraphic"
+         operator="in"
+         id="feComposite5003" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Out of Focus"
+       id="filter4989-2">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(80,155,235)"
+         result="flood"
+         id="feFlood4991-3" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.2125 -0.7154 -0.0721 1 0 "
+         result="colormatrix1"
+         id="feColorMatrix4993-0" />
+      <feGaussianBlur
+         in="colormatrix1"
+         stdDeviation="4.83 10.16"
+         result="blur"
+         id="feGaussianBlur4995-6" />
+      <feColorMatrix
+         in="blur"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 11.98 -4.95 "
+         result="colormatrix2"
+         id="feColorMatrix4997-7" />
+      <feBlend
+         in="colormatrix2"
+         in2="flood"
+         mode="normal"
+         result="blend"
+         id="feBlend4999-6" />
+      <feComposite
+         k4="0"
+         k3="0"
+         k1="0"
+         in="blend"
+         in2="blend"
+         operator="arithmetic"
+         k2="1"
+         result="composite1"
+         id="feComposite5001-7" />
+      <feComposite
+         in2="SourceGraphic"
+         operator="in"
+         id="feComposite5003-2" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Out of Focus"
+       id="filter4989-2-1">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(80,155,235)"
+         result="flood"
+         id="feFlood4991-3-4" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.2125 -0.7154 -0.0721 1 0 "
+         result="colormatrix1"
+         id="feColorMatrix4993-0-2" />
+      <feGaussianBlur
+         in="colormatrix1"
+         stdDeviation="4.83 10.16"
+         result="blur"
+         id="feGaussianBlur4995-6-6" />
+      <feColorMatrix
+         in="blur"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 11.98 -4.95 "
+         result="colormatrix2"
+         id="feColorMatrix4997-7-2" />
+      <feBlend
+         in="colormatrix2"
+         in2="flood"
+         mode="normal"
+         result="blend"
+         id="feBlend4999-6-6" />
+      <feComposite
+         k4="0"
+         k3="0"
+         k1="0"
+         in="blend"
+         in2="blend"
+         operator="arithmetic"
+         k2="1"
+         result="composite1"
+         id="feComposite5001-7-9" />
+      <feComposite
+         in2="SourceGraphic"
+         operator="in"
+         id="feComposite5003-2-3" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Out of Focus"
+       id="filter4989-2-1-1">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(80,155,235)"
+         result="flood"
+         id="feFlood4991-3-4-4" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.2125 -0.7154 -0.0721 1 0 "
+         result="colormatrix1"
+         id="feColorMatrix4993-0-2-0" />
+      <feGaussianBlur
+         in="colormatrix1"
+         stdDeviation="4.83 10.16"
+         result="blur"
+         id="feGaussianBlur4995-6-6-9" />
+      <feColorMatrix
+         in="blur"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 11.98 -4.95 "
+         result="colormatrix2"
+         id="feColorMatrix4997-7-2-1" />
+      <feBlend
+         in="colormatrix2"
+         in2="flood"
+         mode="normal"
+         result="blend"
+         id="feBlend4999-6-6-4" />
+      <feComposite
+         k4="0"
+         k3="0"
+         k1="0"
+         in="blend"
+         in2="blend"
+         operator="arithmetic"
+         k2="1"
+         result="composite1"
+         id="feComposite5001-7-9-4" />
+      <feComposite
+         in2="SourceGraphic"
+         operator="in"
+         id="feComposite5003-2-3-9" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Out of Focus"
+       id="filter4989-2-1-1-9">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(80,155,235)"
+         result="flood"
+         id="feFlood4991-3-4-4-9" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.2125 -0.7154 -0.0721 1 0 "
+         result="colormatrix1"
+         id="feColorMatrix4993-0-2-0-2" />
+      <feGaussianBlur
+         in="colormatrix1"
+         stdDeviation="4.83 10.16"
+         result="blur"
+         id="feGaussianBlur4995-6-6-9-3" />
+      <feColorMatrix
+         in="blur"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 11.98 -4.95 "
+         result="colormatrix2"
+         id="feColorMatrix4997-7-2-1-8" />
+      <feBlend
+         in="colormatrix2"
+         in2="flood"
+         mode="normal"
+         result="blend"
+         id="feBlend4999-6-6-4-9" />
+      <feComposite
+         k4="0"
+         k3="0"
+         k1="0"
+         in="blend"
+         in2="blend"
+         operator="arithmetic"
+         k2="1"
+         result="composite1"
+         id="feComposite5001-7-9-4-6" />
+      <feComposite
+         in2="SourceGraphic"
+         operator="in"
+         id="feComposite5003-2-3-9-0" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Out of Focus"
+       id="filter4989-2-1-1-9-2">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(80,155,235)"
+         result="flood"
+         id="feFlood4991-3-4-4-9-8" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.2125 -0.7154 -0.0721 1 0 "
+         result="colormatrix1"
+         id="feColorMatrix4993-0-2-0-2-2" />
+      <feGaussianBlur
+         in="colormatrix1"
+         stdDeviation="4.83 10.16"
+         result="blur"
+         id="feGaussianBlur4995-6-6-9-3-6" />
+      <feColorMatrix
+         in="blur"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 11.98 -4.95 "
+         result="colormatrix2"
+         id="feColorMatrix4997-7-2-1-8-1" />
+      <feBlend
+         in="colormatrix2"
+         in2="flood"
+         mode="normal"
+         result="blend"
+         id="feBlend4999-6-6-4-9-7" />
+      <feComposite
+         k4="0"
+         k3="0"
+         k1="0"
+         in="blend"
+         in2="blend"
+         operator="arithmetic"
+         k2="1"
+         result="composite1"
+         id="feComposite5001-7-9-4-6-9" />
+      <feComposite
+         in2="SourceGraphic"
+         operator="in"
+         id="feComposite5003-2-3-9-0-7" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Out of Focus"
+       id="filter4989-2-1-1-9-2-7">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(80,155,235)"
+         result="flood"
+         id="feFlood4991-3-4-4-9-8-8" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.2125 -0.7154 -0.0721 1 0 "
+         result="colormatrix1"
+         id="feColorMatrix4993-0-2-0-2-2-7" />
+      <feGaussianBlur
+         in="colormatrix1"
+         stdDeviation="4.83 10.16"
+         result="blur"
+         id="feGaussianBlur4995-6-6-9-3-6-3" />
+      <feColorMatrix
+         in="blur"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 11.98 -4.95 "
+         result="colormatrix2"
+         id="feColorMatrix4997-7-2-1-8-1-6" />
+      <feBlend
+         in="colormatrix2"
+         in2="flood"
+         mode="normal"
+         result="blend"
+         id="feBlend4999-6-6-4-9-7-6" />
+      <feComposite
+         k4="0"
+         k3="0"
+         k1="0"
+         in="blend"
+         in2="blend"
+         operator="arithmetic"
+         k2="1"
+         result="composite1"
+         id="feComposite5001-7-9-4-6-9-7" />
+      <feComposite
+         in2="SourceGraphic"
+         operator="in"
+         id="feComposite5003-2-3-9-0-7-5" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Out of Focus"
+       id="filter4989-2-1-1-9-2-7-8">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(80,155,235)"
+         result="flood"
+         id="feFlood4991-3-4-4-9-8-8-1" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.2125 -0.7154 -0.0721 1 0 "
+         result="colormatrix1"
+         id="feColorMatrix4993-0-2-0-2-2-7-8" />
+      <feGaussianBlur
+         in="colormatrix1"
+         stdDeviation="4.83 10.16"
+         result="blur"
+         id="feGaussianBlur4995-6-6-9-3-6-3-6" />
+      <feColorMatrix
+         in="blur"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 11.98 -4.95 "
+         result="colormatrix2"
+         id="feColorMatrix4997-7-2-1-8-1-6-5" />
+      <feBlend
+         in="colormatrix2"
+         in2="flood"
+         mode="normal"
+         result="blend"
+         id="feBlend4999-6-6-4-9-7-6-2" />
+      <feComposite
+         k4="0"
+         k3="0"
+         k1="0"
+         in="blend"
+         in2="blend"
+         operator="arithmetic"
+         k2="1"
+         result="composite1"
+         id="feComposite5001-7-9-4-6-9-7-5" />
+      <feComposite
+         in2="SourceGraphic"
+         operator="in"
+         id="feComposite5003-2-3-9-0-7-5-4" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Out of Focus"
+       id="filter4989-2-1-1-9-2-7-8-5">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(80,155,235)"
+         result="flood"
+         id="feFlood4991-3-4-4-9-8-8-1-2" />
+      <feColorMatrix
+         in="SourceGraphic"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.2125 -0.7154 -0.0721 1 0 "
+         result="colormatrix1"
+         id="feColorMatrix4993-0-2-0-2-2-7-8-1" />
+      <feGaussianBlur
+         in="colormatrix1"
+         stdDeviation="4.83 10.16"
+         result="blur"
+         id="feGaussianBlur4995-6-6-9-3-6-3-6-0" />
+      <feColorMatrix
+         in="blur"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 11.98 -4.95 "
+         result="colormatrix2"
+         id="feColorMatrix4997-7-2-1-8-1-6-5-4" />
+      <feBlend
+         in="colormatrix2"
+         in2="flood"
+         mode="normal"
+         result="blend"
+         id="feBlend4999-6-6-4-9-7-6-2-5" />
+      <feComposite
+         k4="0"
+         k3="0"
+         k1="0"
+         in="blend"
+         in2="blend"
+         operator="arithmetic"
+         k2="1"
+         result="composite1"
+         id="feComposite5001-7-9-4-6-9-7-5-8" />
+      <feComposite
+         in2="SourceGraphic"
+         operator="in"
+         id="feComposite5003-2-3-9-0-7-5-4-7" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="180.02622"
+     inkscape:cy="75.575463"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1358"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:none;opacity:0.31000001"
+     sodipodi:insensitive="true">
+    <image
+       y="434.64792"
+       x="208.64285"
+       id="image3347"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMoAAAD5CAIAAADp6T38AAAAA3NCSVQICAjb4U/gAAAgAElEQVR4 nOy9244sSXIttpaZe0Rm1d49dw0wIHkAQYAgvfBL+Kt81R/ocfQgSDg4Ig4PybmwZ3q6e1/qkhnu tvTgHpGRVZW7L+zhTEWVYaN2ZFRW5G2lubnZsmWU9Otf//pXv/rVzc2NuwNw94ggiW2aPX2ax6fP a7hwnfhBns1W7auvvvr7v/97/vrXv/6Hf/iHP/7xj8djf3+HYQBQa/2LPr0/n12A10W4fNf7vxoA /PKXv/zHf/xHfv7557/85S8B/OhHP7q7u4sIM6u1ml16W5+5Kf0w12H5Ya6zUZum6Z//+Z/T/f09 gOvr6/v7++PxuNvt3H0cx2ma/tLP8M9j8gu/uHT+ghenfohns1kzs7dv36aU0jAMOecWe11dXX38 +DGltNnFURe88qXzvLAIcqPvzw9ktdYvv/wyvXv3rjktkj/72c+Ox+PxeHT3FuZv0C56r0tbmQv3 vwS7VwMADMMwDEP6yU9+0mJ5AO/fv29r5TiOh8PhL/r0/nx2CV6X4HIJXq+x16esxVrpcDgcj0eS OecWzr958+brr78ex/Ev/Qz/PKZLMPqOi92r9/qk1Vp3u10iaWaSSJZScs7tF9JWQ9cGIwIgHbKW 4dOFRZNWl7difUDkdgg0qL2i7aGR/IF26Vs2Izuw1gevePo2ttHk1g9t261h/Hnt1XvNZhcWR6h7 rL4mAm2VfI29voW9wqtbXEhMGDQHZyI5L46vSdVvZa/w+kbr8UMLvNoiud19zw9sr/CajZcWxwBw clqng//MJ/dc7RVe32gthcFXj/U97CXAy+Z6IgG4ezsjWsAhCxrOKtQBnLKmBwsAJoCgAMIQABIH AFKVWsTv6hm115D/ZC8BXg9MZ3H8KaC31UGcKtw9y//qur6PvTx4NbfUVjoCAtjAtI692nGDVMPZ K8i+j708eCE6YvryNx8vyNHajS2Iivmf5puvidZvthcIr2XVM3B1fDqw83AtTojsPuw1uvq29vLg 1UvXBiSIM5LWxbF2Zv6VKhBA6Vhsfo5xmdjzaid7gfBKwIwetJBr9kyyE7bO7gbAgAoYpFfv9e3t BZa0HSBkUAJ8htSDr5l1bMm6h0M7eKV5fTfbrPeKAMkWQs18h7a6HaAEJMo9Uk9DANVSv89p+QNo Hmk+BgDIggFF4AqswCQUolKARshgtzMEVz8ZP1iH0rOyzb7mJyk05LImPra2T1wi+tV9ZGD0dZOC Fqg9eIhXGsVD2yy8Fms4I3meSrAVzpY86srJneJ9Auq+p+fJ2k97Kgh7TYyd2cbhtcJWN8FOOOPs gTinVc9QtdwMsO0JBCao0ScMXPIXcbrUq61ss/DqkNIJW+0g5ls9Wu9OqG0VF0jh5Nu0RGMEAiII KEBf5cMABF4ZrY9ss/Bq9th7nfyTHiyOSz7sPAhriyYBFSCBBcJqbV2vua+B10PbLLwW7/XgjDgD q4VQfedoXN6KJQhb3Fi7COer9Q7HB1sEvQZej22z8Frs0RbyQYCPJTdx7rHWv23IUV9J+0bywaWW YvkLTCVetA3DqwAATUAneCkAwggJMgpAQKltKtXC88hkbrAhKxjVWgu7hAlwYBAqEK6PkAQHB9EC x8YI82iL7IphwQCg79qmuwnb9ldt7YQwO5voC9kp+TnHTHNLLcQ5Q7ayM7e0Pl7tMV83j+e2Ye+1 XtpOyQhxodbMwGoxGYzWGfQkxZnsdVoKccqQMQQDQzPDQg2OfA3AzmzD8MIjbDXAPf35z3lXY68w Bs0BqpN2QuwJsL7aIkHRua/rhP7r/nFlG4bXOr9wuhlQY0l0GHFeEGkQSBfaGRdq7xOCtW7axskR BIoiYGo4Q4gVCNAuS6S8RNsuvLQOuU5QEzKQgNz/zb6NJOhS69gwIGgzaWIVnKEtpFovjgGYsET0 r8JMJ9suvLrx3I0ZNEAONWwNp6WThIy9ztMcWEGv9CxOq57OyM7yq6fF8dVOtu2d47yPW+ex5ECC 2r9WavQHGax5/9i8F5+4YL/agwTsqz20LXmvs35GaQALKbHKRGYwQYkQJJAgQ4n0gKH1OZLsgbxI hzJkVJ1r2O1PKwEwgmEQEESAQRCUaRGkMCxaAT3X/5r3eim2Wi7PQrT5iAsB/2F+a+XYGlHRT/d5 eMFmLzrSf3nw0ho6S02apDexwqW5g3SSZCfqLJRXckm6zuEayL7C2uohsMrdv9CgbEuL47e0E6TO OVuLHKY3bM1RfyUdCKnJFHYSDuFswbyMzO1uVNsQaKXU+qIprC8PXq0FqDcCOZTmjeOShmjY8u63 4LMqTkcYgF6+7DyL0g6kuaTdmdMA6guXXX158Do1mSXIQM4LV+d7nbDVvBrRs6zqCAODNCATRTAi qyGMmSgzsNar4aod/IXZC3zNi5fCEmYtcfqsFe2n86dAas6Hnd30OfAyiE9tCM70dl6avTx4nUhd y1ZxAcrSn92NS8loxRs7R1i/AuHnZ/qDAQ1br6H9xmzhlMqAAbEDd1BS7yQTIVNApRV6arU5eZ9B A0SGUIhdy9gDgZOCl6R7gJKgAEMogkGB8E6e7hwygZLqVgfMfdpe5It+4IrWdipB2vzbSxSuR2/d Wcvu0w/30uwFwqsHTDNnkKt8KVdZU5yi+4XP86CJaE1UXC2Xc2Ls5aJqsRcHr4WGupYI4Cn7ZcRq 2whcQBhWUf+CoScKly8cYduNvS6ZCKDt9cjTLq8dcwYQ6Q0e0oywHqEb1MQNbW6QbDphMzo7c79d s1cyL6+wG7eX6L1mbM3VHvj5mngqBM11HlvdxHrD2P8/ZTFOId2r98ILhNdpZQRmZ4MTx+usVr0G x4PK9xpqZ8voAqzFHp95OfYC4YXVgrhOcfEcbQ/v/Og8nnr3zs68WFQttt3YixPUKj8+v8wKKuqO hIJGB1KjRQCokQnvXFZStXUQtULi0sAtqLO4rJHrNQKEKjgZJ/DYmGRQ+8+FZCIQ04skSW/Xe2ld /PlmO9tR9oNPLXaxvtnVdQjZSiLl1TbsvU62TlbxQZ0RIlr3hh6va6eTM8IErOYLwdnar2lkFnKb yhcMQqIBFZo1eV5kWWjD8Fpt+nBi/wF4aus3k71gvaSNgJqEwGrA8VonzEhBJOVCAhORQYkTZQEz mcheH3qpnJwNw2sxmxvImq0TpE3fa8EWZmy1mwLEk8C41gdkK166EJSDGaoAoUkIoTbWjjDTJV69 17bMZjpX681fU2VszoViXjEDLdfaklWwJYN6afcno8IMEELIVAETweg9ulWwoM1SrK/ea2N2Ys3j YXLhBJgVo4beNMZXIgCdgw+cDQpd8MZOYHUgBDdmQYgElkBnSESD6ksN9Le7c3xoPA/nv+ne5xrS TzAsTkl5E3v9m7DVta2vhy+VS4htea9oYl5cL3ByyQKOSFICbOZIGOSyTGYZAXgXB/BOkkagE+qX XtzTthGATQ5AKGCBIpoUgHLCDpwMkxBQBaFwwDmLlQNYE/C3PYX05XgvAGdp93XBZ+7a+A52qho9 Xn8f3nypS+O2vNdjMywNZwuhfsVaXjMmPnmRZlr9BPrmkfMh1dzgqYNyqXO/3F60DcOLqy6MxTrC znP0/r2yBi2M09wFOfc2yudpjwYkoK641C/ONgyvde508WELB7UtiL6iFn7jdc6815zFiIXadRqG 1YHV+ra95zhw/HO8yL9y2zC8MK9Nq5+935+cVeyXXNf3fgjSIFcXxVwn2JbF0c+md78k2y68nixm rxnx8NlhkSQu7eBOrGidfgI0OzXWAoCxK7OuSYjt35b3hp+2be8cV5oip1Pr0P4/7lIWbM0ca3E5 ec46fIn2/L0Xy3lqoJeuU0CsgQMYBlQilAA37paKEEMEGJm02qVHgpwaLkkCuWsUat4jzq7ImGAh hagWujcx6bAKRsABpzJYBICFPoAFKuDRWiWpS89teWjyZr9Vs2glcRpT9Y3W+NCndPzyi6f6Ip/e lp7OP8HO6MenVOrWZQ2fv/e6aBaN4beKtfWpr9MaW34OCwAgF6YX5jTEikDGJnqIPmVtLVHRHlox V6OsJSkkQcvo0W3aZuEVK9VToXXjf6rY+BhbPUrjDIWWR50PIAfVhzz2zJZmMV/NKY9l5whggqwD UE094NskdZ+3bRZeaK4LFmCg0QI/yY0+YWtd6pmzZe0uEpeljYLi5J9ojaTf2BaAdVHgvsi2vGsb BmlSQxgB/RDbi79e2yy8BFOfHzRLI8k+kX1ayo5Li/Ys40uce68VMdqgaZWJEIRZj67MrisBpdcP 2IrinDE6/9V2bbPOeQ7trR2L3yrAf4Sty4QcnQdY605anZ+cF0EJUgMrT3+4advwy+svLVY4+6Yw egHTEySIR6vYQqqeifzrP9H6ZlsQn3jsbbNxsIHF0aO7pXVFMAyICgA0wkUHk2EHDbUOpBOZcCIR xkbFElvmqunzdq69jCthrj58qJMkDoApEpiESSjCAayhH8Nu2uA0xRU00b6CfZ18AAGFUKlKhEJ0 bPobvunX9qQ9ckK2yrN/7zz+6W0MC7RBChQpsADlfNrtC7Jn773+A2akEd15rXVsziOtS+tXi5yW 5HuP08kaDGObkUZIMohhp9VzSbpq81/vFwivJomzVkM9Y6ueKdt8c2h0yq41E4NEtM5cBikwuKRb 5+eAb3f1524b//Y8tlnFuSdOuRJ7fqya9Km18oE806mAbSJhFEm4aKBrKTFp2Vpi9bebtRfovRr/ ZlYLB3o5aGYUfmvvxUfHBpmYwUJ5S+QakuBE7kNrT39lXWRg0zzpFwevLqx6iuW9d9v2m98ptF/0 4lZRlBzy4GAIUIFKJbXhHVrmJ1ifyb112/4rvGwXl8JvtTheMKGN9WsV9DbgIz3BujmTbN2sPXvv Veeyyikv3/dzU9AIAokBwigLcM5kkr0smIBM+npIseapLfqUKFcrlFPBmQPtAAf7CCTFm9BBuhNL CQOuzcIRBpgqVASrsmDiqY9o9ZMBPfuPBhuA12X7lGOeezdOwdB3dVQdpX1Mms29aCdWRT+DZRPw 3Z7hNmzD8FpyAatlqOHgnA897yUvhPEXQu/eI0lKTUyOgnXqfSNHsHEi1pl+e2q/uWXbMLwWoh/W uYOehpDNCtAtQ2G8tIO76NUIEHSgOS0HKuCNYjPLlVsXoVjnILR6VuK2o6/twuukhGNYt9Q2YM2f 9zwkARd1AHgpOdG2nD6TB9XYXWxogwtTa91ePY11omvTsJptu/ACTsDqx5gT9Otlsa1jzkuj1C95 r94PQojg3JZNIYyAINLVxOh6v+66BXKGO18Xx+dqq0/uPAvQ22j7wjT3kF30Xhdg171UY9mbYF1m YqYc9uPTE9g4kp60Tb/mxx/qWQ8PltTX93sf1n+7ksVfX+oBZ3Ad4GOd3d2qPX/v9TA/FABnAa3G Rd5Be2gP7ACPAFSNZpRYhAkAqQkXvNeF8+IEpZZ+p0IqRBWKGMusY0NQ0dR/KVRYMAmJFtAE3gOY 504u9uAL8Lzt+cPrG+yJT+uM0MxvzHg9/UmT/jiVMVfHNSsG2PkO4+LVtmrbfrVrtsx8fMo8Yf5t 01P97lc/9a6dBmAtO0TC0aVZ7ZxdvablbPv937L3an5rlcNc2q9ltLZbtG9yXZ/ojVxl0VDR/Vnp optsHUEukTQtUWBX0fkO40KetW34RT7IM52SAueyvMbvK35JnPsqNTGm1PKlRG4zi4BE5s706mKt 2/dbzTbsvdYqD6e22D7MET1rP6fB7LJ64CUcdHYNCcqFICnMSy1NapSb1Lza6VJaI37jtt1XuG4F O1cTmamCy+DZ75NA57I4rhwkSXLJms7HZ350hfgXYJv2Xs2eVqq5sJd8wi56L86CcThRMNbXPEm2 PrnNfAkI2w68OMvftNr0PQOqbMq5ToYLCUhOERQylMUUQlgBCpkx97Wuu1s556UecAxlggJywswM opFUkk8IFwZEEhCswj1YCk3wVonS0p50Gdnb6LDd7uIInGcf5oOZfbWmqj74jL/9cvngnl15wPrJ RWlurb0jzn9I6WK9fCO2ZXg1VzEjoMNoNlvSUVzVlb8HDbqxvUDW1n/G1tCBYHT5Q1E0IQEWvQ3O v7Wi3fO27SyOD4wnDbelGthyB86ZOXOifDEaM2KuRq+HxyxK41gfEMSiGUaGAFJAKIlqFW0FCQYS kUkXCmltFFbjVGy7TQgbhtfM62o6byeZmhaDN5C1n4IWlWiuJJb6zOwlPMfZQZzuDwBydkmlyJSC R0igAi1t4YKDWZgI63Ga6uZd2GYXxzmfPi92aLpw1go4jVHYls5+86k2oU8skQZa+61RRAAyhhFy NcqPCSayqU1kIkMOeou9okHz1Xs9W2s59JYgcDSEzYM5GhmrHYMiTajrZXHZuPGC91p5O8iopvRE EIltOmibot2Zqwg4zNmI0eykDsPDdMbGbLPeqxkf0WlmN7amEP6HQvv1/dV9EgBonqonnvHM1k5x 475rA96L1gZF2TyHkZJBZpxECx6lyVgd1aNaeJqOwQjnsUVfdDM4WJqbCgliiHoYez20apWojGoh GEXT6ELhnQnOnSMBo/Sx1psad8xDDalm8zFZuCtiqjFtI791yTbuvR6/wOY5gpipMk9QRr9fmQiz EuLaKTZF6pWexbqKsPk3f8uv8EHl2ObPG7ITpFqqP7576quta5pjp4W2Q3jAYN6EERvtRw+Lj4ua 8Mb3js9+cfykLZ/fOi5vLT0UCHoQ1qL73u/6WAT66cWLpKwFUq1lFjJSQBvtDhohc4SLmaiQQQlK K5xtn2u/4ZdnJy7hWqG5d4aZjMHZ2ZxH999mcWySFtE0p1fi02IiEmkwF1Lj/MgMSB3caoomNrcC bNm2+/IWkvtp1zYviETMsGvEVdGI8jhl3+7+9PVb2NZ8mKjmEgHIxdalJsKCCTQwL9r6J2ApAdOf 9T34i9uGvRcesawAmaz16RMkzEjq++ouLbjrmYjuw+zErzcXEVw2EKuo60Rb3bJt/OWt7ISYOTVl wMPAHP+BbeP64lqNVF7LID6G+3/ksf767dkvjkKBAGX0tmuRASuo99Ko2MnGakFNwI+kN7RUmcCB SFQ2WRIdOhoAkNUFoIKVAgVzgCFNTYtX8h48FTNjONlKTWRv6Y8iqUQIFTFZhAsmD+2SRTihMYIR kN0x3SPWfNoVw5aHv8Tb+QPb9r49T/meUz27p+yXqBwAjGt6zDqTfpY30Hr7eeGxz3P3XYbnRApa 8bCBvtuQPfJhsZl8/obg9fBD4ky/sccV617RNspZiXCukdSyWeeUrBUggDmwXz3YctM6fFsDklpv EnJre1xWzLMOue3as18cATxKIwnqbAidFOTahzpDjQQZRhgByqBWW2oXmoP2IFyGtlw+CphOSD0n voaJwTAiQCQwSwAS4UIi6qyfQ5oBvvJVS/18I97r+cNLOAGrffDUio7VkUSwbxit8whllDGcag09 tdWeZ+JDJzssF7dZOXwBaxtAtHKKan4rOvVZBF3mCpcFqwGpMSYIkxLNz1UCZlXV5fj525ac84Pm n3UP45K+75wFtZXRGMYwVj9zF21l1Josc0rMdjoEVu6KK+/VlmIZQQcNdDIRecnrEq2x1qBE5tWC u9hr7PVXZOvoeJWdX5vYcwQ8xWGnnHtfIufk+4O/O0HqQRETeJTFIAlEMHr41SBOB1PLhHXEL7qY mrNfp4v3iVc/3Pvzl7QNwGu2hz6gbxVnSur5dq/DjCJFVJ5tEp/qs3gQ2l9Mj62dWXARuVgNm2lr 9Jlc9PmltoItbCD2Itt0qAoIypBJjkgTSxK9mjOb75SGyEOlW+zJNGjIGgutsBSUqrpL2UIMeAkE IxCApKMdATOAcgBGApWwO1WCCHqjhBllqMQkCzIa58cAl0MyVHxUDS87BEIfKu5CE8yTt0DNQRmC yi3Y1yZorM8eXt/C1nlLAGhClUs3ImSXFS5P1rpvl+NLtgrIcKo4iWap1SOF1Ka4y1z2naVTnpdt GF5PB2FK3rilxNIIqU8o5DRUBTttdTm4eH8jwxo5hxRZZS6EawTkTqkCLriZVbOtBPFP24Zir0t2 LhkXRvQheA466Q6zy4l4zL5qyfLHp6e+02AUHWybRzczs0bC8Vme6bzyuF3btPfC+dgEETTRw2lG 9KY0zcP3nnYjJxpq82Hz8cVHtVRFBuQuycwgByOqQ8FKVTbGrKSLo0C2YtuF17LnX9eJYUHSHOZz jsKJcOHTqSbNWdaWWv0EKGRkkGaoICULRDVLQIJ0ys12FtorvJ69nSXDwmkwGWkuEKiUCRdD+9ar aI8QdskIl5FNOk5k9PSH2ygVY8AGIIFmZjK//MhbsE3D66lhBT2lPqfdCUMrQH8X+1TsZWSbp40A +jgFhBkdTofUCdlZnvEKr79yUwwAgAAqCczchBGEalUpqATMzJmdu4qdwURJjZhVJFV1CROXAYUI l4AqVNcoKSIiKgAzmRkZxnuDU27hQa82FFLGcvuelsVMczgEm+is4cNklZJQE6fRNBJXTgQnwwQ7 EAWsTU7MhLIJcbktb17iUcVmztRjyXudbp6i+NV78ik26dN3m0WdHpQjbSbH9rRGI/tr0+8/Ngyv RvNS4yJbZ7635MJMhoZmCV8A/ePv8hAWJGapt8u2NCOtzvRqOvuU7pnDKHrQWguk2BuWYusjqzb7 8hpnoXmp9jPmD/5EamhKW0YZBYuZNNYK2wsf/4Kdo2puBJq5qbOr7A/v0SBlHvBgDlolN++9nn3s ddFaIp4ma5wFZ/+AO7asccB67yuDcJggIcS2cn2TOOWJq3iins69Gz5r74gIUqJVwlu8T0Zr4oXZ a9b+ORrpavkt+CJ5KmsfeK8IdpGtHirZadi7Wtu+xSfi67Me3cVscV2dik02FpCYQA9zsf3LgaQN f70BbNh7BdEWx2i5qF5enDnypNrAA/RgXy29JQUNjFmd69uH9qtukV4OakBzoJAueiBIM5rQ/+G7 TwN5XrZh73WiKbdA+5SsWrgStt4wrh1Vp1x9u5w6nzxehfb9UURCJrBF9LJv2DhswJ6993IdAwOQ xALeiQWxC31m2hsaH9QNb2FvOQ4aJ9h168+GgApVIkIRjrDG5qLAgHk0ta+oJN3d/YGniXnUo1YE QE1G0oCCGmwPZDtkG4sr3SpNcU/cDSh7i6+I27BdkNQRFFWIAlkRbRPge/bwumRsyqad6Yfelx02 zf6aK4XLH/Jxn2KxkowKSQgA1mgUbcXEU9uHS1TYZ2ebhZeHtZSDyTh3q9qjIUJ/vg/yrL8DkCSp aamShCdGguVS+vKtud1oS7ZZeJm8Z7RgVMLSdHbek4glt/6Dfq6c+9JOpzxRiUqyKkstObLOey1P Zkssis3CK2CAE26zOo1ohpP34krC/ge0tl/E+d4CYMoZdQgcUExAwEJdeQ6PmiU/oTPwvGyz8Kps yvMmJLJl8Pu8Ajxauf4sIDsHilmK5kfhdI9i85Ta+f6v3usZWTE2Vpea1Fbnpp4tRs17/bAx/mPf 085UBWBSy7e52Zz3mk7ea33/bShGbxZeglVDT57SaCcCw3/OvuzBo0QF1FJvDfZmzGKq0/mfbAFU J3v28Dq6WVhjOFAm2tQcw+GGupLvLe9sB+yPnnfg4MMIQFKNkCAQ5maumMDaBAAAg1paKw4WLnh0 fr2IaqiEYxDMSMGbs2FUwct0NLPk2Z2t91+CpI+6S6oOZB/oFlFqfAzcJ/tJjY8RxVGSy2iKUkpV 2kLGewuvYbaHXdrn/mOlb/NDaDo8/oPgxf5Hkk5rRlIwSYjWzcFtfQpn9uy912wG1FPQcwqZ7dTD qFniAY0Jv9aiOaGFJNqGru0ruwDTytQkdE4L2Szr1HNXD/aMACSNaYSCLCoUawAREdIZ4UILK/vT hP5nY88fXiexhqUbu2Uf1noQ1hkyrRuDJkgycVJrt+8siqXeTamRKWZ2xYLcLug01xC7VlOXP1lz 8B/EXtkTkFRzpKkpr0q0qi4R/YRP3YI9f3iduoDqTFvgirywVs4FO0E0REVnSUAQGEtB8aH36tqn 86/b0EaB1mXEZq7rEw5svYscmCpzUYEpvPQ2bhnkvcN2cb3cjkLOBuAFYPZhJyk29llo6jvGTidc 7qMVXubRZatlrV1i9l4AV71Ei/eydtiIrx2pF7elBgc8zIo5LYHuXRrzQd/2RoDVbAMOeek26x3U y83TtL2V2pEa3WpWhxPbALS4XIhk/6dFjotoPNSVHlj0QdpnLKD1BW1+dBhh1gL9oQsUpkevYiP5 iQ3Aq9kq/FqfXX/MWhTb1v2PzXVp/SdPHn/Dw7cIjKfj5dH7zcrFZYok3SyZ2aNnvinv9ewXRw8H JvmdCGGA9qYE1VoqLDx5SgN3gw2DUgokJEpB0ZCkEBJinp2wCu3NOtc+olYi0ln5yBorTGjrphoh ghQxwlBFRY0ia9wbB3nkcappgoluYwXqJNzXwQcgBKiGYqoOJVjm7rAJB/bs4fXw6z7zkt3dLLm7 uZtluMHd4fEoOU669Kle6celyRaWPXmfNn7dCPTlEg8Gss+iry6ZFte1aiiPxyN0n61tAF5LbH62 MtKTm9u8BtFzWILlps9FstUbpW+Ipp/E1vpgXY0GThGaDFzL84gtASJRIOEyJ3KgBfgmgrJFhGcb 9vzhxXXOfU5MyNvsF84Rt7DKWc4DM/rA9mBruPjUgzyJLT0Mzkg2X9W3pwBshouRAcDBJnXpxAAm yGKWXZ2n1kSsEm3P2p4/vB5KKffJFxHRtEkoSmEBBCtBd6ASLlXSFfXTHJhLTmtZHNmzE+Qn9wEk RVOL75nBAczEKCTABBeNM/1sM0NqN+CJG7bWADHIliGgkiATLGbCPU5Szf3mN+4QH4MMj7IP7Uxb 6jx6gsQXR9R7HtkaMAkHk5gCPiOsJ8+iVwG2YM/fez3A1iq0hyVYMrNJIlIAABybSURBVE+WMpIj OdVD+67p1TaL8k9v0p50YB0Ly80lU9/mqBkQfV/ZoeKLqoAIE9u40NRycjGHX1gWxy1sHDcAr8ef Q/sYU7beP+bmLnO4Qy61cL7i21FDPxHaP2kNqm1j2dRwTFBXLVyebHOZfexyPLGGbAJcG4BXJUxu YWQhP4ZHiZ3ieqhOM4ZLXgOQAgL1IclrdUYq1epkcRQKVENCBBvJi3MpkYi68CLODnJDS8/+y4RU lIjMkLkEtZZ/z9UGEZwqk9MUcQge015RTYV7XpXjzbEU6d594qCgFSId/yJv5w9szx5eYECnevRp crYIWaDTVJeps63tfy0evhR2WjG7FRO1WviefNi1PoXaAI5W5J7v/kDBULPq0yxd3sYNeZx7L1P7 wnz/9+Ovyp4/vE5m6APzDLCgmfWlx8E2VZZwJxinaElGqGcqJKqnpoT5/MVm6QbKefIorc9dE/Vk 4NTL6qiUk04kIomptTBplVmltJmd4zbgteRUGykvQd4/MDpp0fVCctCoWEo6TY23dXGz0WyaNpMw 82oup58MUJ+p1ob4tSVVUGPxtPLmzCcEjDRr2wqGYBOYiSHggcbJ6TsD4yrt8cxtG/ACsHByWviU iARrMl2JzGQOGJENR0Nv6GgKAW18TxvTAYBih07nRjyNL0G9S5eEsfZRVAw98RcEzEwtQwYnANuJ t5hlmMTWUw6gkfpDm6gMbQheABp9SgZ50NrqEzDvWSUKXf1oqee0DWQ7oU5LpQwSQQSULriv2nJn JIxhFGcfpk4OO7kuAIDMm0KKzASwmnEHOwiuPkMUs3bPRpJe2Ai81iIg6gQ9wls21ehdbZAeNDYp 8DitPjETv9qnL6NFu+hZC/UjU8OWePJhnb86Uw57vbpPuGVrt+x8V2aYE7nS5pXRgCWoj23okW8C Xic7tQMtes8tDabexAE/8VnZYnOsWKYLmUJE90GX4DXXMdfeTS2RRuBcKb/5S/WHcDZpxMY8k8VS 996cPXt4WSWUojOew1iHeiSOx7tdjDsfdjUPNuRIVTYJOGay0mE+GeVeg6oOZhSAQRmtIBiOEMV9 arr5vVmDc37hVkeYuTnd2mSiiFBMO1y1yXxkCjJYgwcAJpcQdDHCGMmUXWPa1Z/dTF/JkAaqHg5x NDPF8J/S6vtnt2cPr0vm7jRjail7c3eZS7leZkZo2bIZFx/0od3f5szZLGjYGvndnd7IF006U7P3 4hOTOzpnw2Z51y0E75+2zcLLkps7LdHd3OEeZpCth6wsCyKBkAkyQiZJRoSJwp0HFiarcSHUj0Ez M++FaknNfeEB+advR6lo42z7cksSbrZ1hG0WXhKD1honRJtpfl2AaV1A1CrYihawgxVgSACTnRKw ZGqXBDTVIGF0moAItazITLdH59fMjyUSMJizlQ4kY4JvM+RabLPwakMVEaEQK1pGXtQaWGdV6uBS amznawKAQXMTthvM2gHJGxxIOk0kQtI8L9n6+heroN/BIhGINs6I3jj35vk/8S35C9hm4dWWpwB9 LjwH2zgy4CG1hoKWMTBz/N7y66ilspFbjWZkcjMLoKbchX4FSCyMSRE9Gdo4zR2Wc4KiqeSLTsLM wlun0JZts/AyS/RsyekJnmhOy0JGnbhyUYvN4316HotmlSA5JW8ey+aNQpMhgdUewwuqoVKZEkut x7CeLev7A+C031TjatMEEEZP2yj+XLLtwsubJk1yd5khucwhr5fzlR0NSwHRCFL7JBJmkdzdlTwa vKJ0uQnBagQJ0tym6fC4UEmdlHlO4G4O8s/5JvzF7dnDy8wVHrUR+OR0Qzbku/hyl3+CIR2YVW2o kTExppthh6lG3BcW0OUB7MQopeScbchVcagTIpCSD9msILuGpF0uQ8KchrBwkEFGkBU8VhzDS0w2 1BqYglUWaJNmgpxyjChjqABTTrcwMqEMb4bdzXujrB4nQwyDl1JIAVsIy549vB7ZqWAXhC03l9kb KyLXTB1tXJm+QzRaslwJ5mQ5+W5Udu0yx4yxlckBgDVEtDQGJgnVVILVzVjCrHgJlOiic/8Jr/uv 0jYALz1qcgwwRKHRT+fQp0kvtd900BkbdxBm1tvRDMlSMkvGnCw5r7Kyc8zaZQynVIIrRCgYAU2F XuQTirICpSJNvJvIqtoRxl6/7Kvi6cSmbQPwmo1nQnA09ZHWJvVKn3dJLrVuwx6Aw9g6iQSEgdkx Jhs7mKZ9RnLssnaZOSE1xt/cHAtTDZRQrnYoKLVORxyLA4rGS0SEmpbTK7yeo0VvymnAauJYallV temyNA801fHEOs31HYCEtYnYigokZ0p1SNwN2A8as5Jxn9viqF1mcrUsqyBNbJ26QdTgUDElTJo+ CGQEbAqfZFHVCIyv8NqKBRCwGgyzOY9qFL1zu1phkCQtXHTSpZE2ZOwH7HLd57rPvBo5pHw9ILvG 1BfHOfaKqTWBO2SsgYNrqixArfCiShwVSaiwaPn/GVDzer383LA9f3hR58viKow2ANGrQTMHn6vm MKCzn2n0/Wj7wa920z7VwbDPuhq5H+1aSCt4zbGXlR1J0RDCFBgCR9gUNl0hTyayilNFCdXQTOwh ORcwt++6sAV4PWECY80xXOfobe4oWxarHhbtctqNvBp9l5iJ0bEfuB+QjhoYmchkJo2t1SftWuLA okKpyEAwyHw10lxT2H2BH+EmI2p3XWtZipeAsGcPrwhAldZA4hQlRAAHYQyDJ3OkZNnMGFWpkaUn qDpEYzJPHNLNWG+uWN8Ce0NK2CW8yXXvd/u3nj2P5iMwBL1YAk31UM0MKFYhGeru7nYoH+/HlO/f HVES6ohaR1fKUW8OwhV9kh8KLWxkcR5u4+59Ph5VJqO8ifm4MVxI/KSkynOxZw+vM+sc50+mmbKr QGEVAhhOOIyyYfRdrruRu5zGIe0S3uzjOtkuwZEH5h18gGWgyaHsRneDIgKQoSAPuElpfIeYap2M k/G22oRcQK8l2l1D3mGERr7oCj9zB/fp5hZsG/Bqalpd5XT18wmTW0ABq6YgmA2DIVnNLInI1ECM 4N64B3f0K5CyAWnHPMIHCJIimZsBYAQgREUhsog7anCNpntXTm61RqqRIItoIoZmdLcEZyCAAlaw PhJi2YJtBV5deLzd+tS3f6KCqoYwkxvGhH1mTnVk7BJ2CXuPHbAP7iP2kXYwZ87IOwwjPDUimAzF zABFSEhROVWkUnCdvTBiQDF9LEoIC6i4O+VdtgSJvd2xTZop6DjbGsKeP7xatXixhi1eLFyXqIKC CDcMhv1g1yPGlN6O+szjxwOumQemK+cb82tejUiZ42hjhieYV3OauxUzZwAlarS+RAcdMiJlGxFI 9V75mPI9y201Zo+qUCBDLimihCbwCFZw+vS34pna84fXnHGAhN4J9snPac6hww3ZOWbsMndDXI+6 dlwNuAaHaldmb6gr7L3mjHFnY4ZbmNfkMIO7WUIQJSCgqKvl3zfdAUUcTDuPNMU8dZZ0cjBmwaQi 1XllPAIB1FNmeCsubAPwwqrguLQ5X4SXm0kKQmZhpmTMjmTYZY2GnfvebOfpGulNwrXv6zEnjamO yXJCTiTDKI8Kp4jJogApUnGVVA9jxW7ChBgYQ61JVCiisV/dEpmlJBVzpmxAAdRjL25klNBizx9e iyTO5QVxbdm8KNgUVUmQVSLk+3G4SnGdhje43mN/jfRj4BqfHUYzDAnjgKuRyc2AiIKJTAzIxUov Qq2skx8SD9VqQVwRu5zGSEOKbOVeMqHNpWoZODMmn9PCcXJdG7JnDy96QZflSsBRvKV/KR5hv5ru 3+XhZjc6ymDh5mli3PKWaRSGGEZc76aRuB7yzz7DqGH0fI3hbR2uY8jlTcXuhuN+dEMmx6p0xEgM RqMfUi8FVPoUui11NPA6qZRM+/xwvEVw8EpEqTu/uh1DOO6dngGUenusH+/9tnx4/9GPH0Z8lXb3 B/K+WKbnWg8XpXmekz17eM328MMgQgq1zkMG4K283ZVUzSwRQ8aO2OW8y3V/xC5853lv4067zL1z b7YbaFSGBsfOOBKZMNJnTYgqHA3BNr4boYSkfU53Q8RoHF1jxq7qDoCFg+YRJgYose1CQjhzvXO3 5LO35w+vJsW2trbWaLKYFJMwKQro5i2md5jLHWPizn3vdpXGN7j5rPKtDdexu8KbPd5kf+vcu6cM IzIxGEdiAJKh6YYBoKEQd5KZuSuJuZIFt6PfX+t2jNglux7qYVIJMIGSJ5GVMCsVR/AATlDP0W9H 2gvAFuC17By7AxAQoLwWaWI9qk5C1KZS6WYaYElukd1G1wjuzEbos2rXTNf5ao/rUW+z3rrtnbRi QiYSsaMnsk1eSIGmeFIZZrAQHN52kdD1YB92vM2oAzGaMjjMY0eNkgNRURxH8Va8B6pUBYKY3e0W YvwNwItnea9eXQnGQbhXTBFTVTFUOMPBYwqmSF6yIVdki1wjI+1q2mEcbZ947fXKuHPtLNrQlgxL Um44E420GjQ1pAiqYIgeJPARNacxjahWKisTxApvLLG2KKrGxHqIege7Aw9Sn9jevJe+UVH4mdjz h5fSjDA7bb5YrE5AQRwVJaKQIVPA3J2W5I7sGA07YBe2w9Web0d7m3mdeOW2N+yoRDgigUQdZVlK aMr1mto8WcqkAU0105JUWBNKHsY8IlzV6uAoCtIhWBN9LUIpmO4w3Yq3wj04ey/YljaPzx9ewNk6 QkEBwKKIU8NWoAICEWSCyxOyYUzYOa7oVylfYT/kN0P6LKW3zisrOyrREm1kMsEDGZ7BpD4Y4d5l JK1PRwPMYJNwlyZPygYfQZeZJaPMhKB6EM8SnKqmo6Y78AAeFYv30sx33IJtAF7rKZuLiQhEhUKo amK4TUOwCb25IbnnjB2GXR73uM7pKqW9c2/YWUoWiXQiw5w0s0GwQG4TWgB5CsgtrDXTVrbOyKPR jJ6RBpiZOdwZUIlGFSJDqoEaqEVlAuuJmqbz/PDztw3AK8ADeAAAjb0X1m5uo8A/gL8Br5lG6ccx OfPoo0Rk29fxqu4D14VvD3lIP3mjqzS9zfY22XXGYACqpCs4gJZ5oCEC4QjgbUU1qHIiKLm0E0x4 n+ztDsepDgXp+ng31vvwnb294Rc+7sCcDhxvq3394e7dH1S+SB/+1e2AzMkqdcwwaTjyjWH6y76t P4htAF5PG1GZwry29unugGyM6TZcQNAkd6QYM8fkg0d2c1PrG0IAlCJg/kAE/9TH9pTllIYIDzfT 8ochtAEcJM3gREGhJulIq4+vtxkO/mbhlYZ7Swfy3uOIUhEGZXEM3jaBOHePjDz6OHK/szFhlzg6 B0OiEhRVnCV1+Qhhl2ykHRJzIBFmiYRgrevaLCWaM4gjdY+4QXwEK1lBSMZT0LWR6H6z8KJ/pO29 3vjxBod7HUrdKZIlM7kxmbsiMScMGWPG4MrGwTCSg8El0ENx6uoGsMzaIPwCABzhksPncezJ3WFu zH20oybogPiAeMf6FXg8DTgC54kcr7HXX7eJt6i3OHwAPsg/xnBX94ea9mkEHTST0wzJkSyS28A6 MgbYQBvJxEQo2nCO9WW/+YGLBRhG0EB3d0vuSjYSVBzqdMT0sU7vVb9CfE0rQAiBPi9hloTahG0W XqED4z5Nt6gfkT7Wqw/leFt3Q6GMAIMmc5qFG9y0o7JxNAymkXT1KUCNUIFZnxzfNMuTtagCSs3R KRg0UG4DGSp1OtzW+w91eofynvEO6YDuGtt0XEgbSdljMy/jsZG0qFaKT5Md760cFQfoUEqptUY0 Np+SMScMiWOyMWF0G4wJdKBNk8KjwAuPxlGtzRAumIIhRURELSolzAYGSynHw910977cv1d8NH2k 1ZUK06I5txHvtWV4tY+JtTKqtbqQRYl6rKUoJLFpxTmTY0g2uGdrow1gIYRQNYvKna78CWwBcBop CkJERK1qgDa6xCh1mg5TuY96UByAI1aj5jezYVxss4vj1fFOabhNf1L9/XX8Ih9+EXc/9jdXe9sx j4ecbyHE5Ika3XfwMXbVrgoTcXSEMVV44AgGUYFaEYIHEHDhfo8AiqJGoSK3wesJVnbXpQxmh9GO utrdIEq5ub6//uo9ixmcNerN57j7TebNPtmEAQBtqTN2Ks42EvebhRfIYMDupA+K91HuUMJKPo5m 9GACDQxSmZHdEmoCDeGyaLUlwYSjQ8REBSihzIIpdNSmIBHmbaQQKLNd0J0Ok6CKKFCpKLXGfToW u/16uPl8uvsjpi8He59wOyFhK2B6bJuFl5SBgN1Sf4r4dxz+FveTH/Ph2gwWcNCAMEQyDLQdOCo8 RDqrgd2PFK+VVqigVYnBBi8zVqEKcqsUACdBMzCZG4BWCSpiAQqqJjt+9I//Pn74Tf74G+gPrnfi QadZpyeQbQZt24UXRzFgHwhIn+vwR9188Ntp+knONFlutB2WYsFEjYgspDCCQg0joApDiFYpySQx EE0ZIsIlROsdgZuJoMNChUYPoKqWwuIWhrDJB0XdHT743efUF8RdsE52SqA2SG0GWM02C68CqzgK JdtHr+/K8Yu4/WPc/AnTz1mCVajEBBWxhgUzPEEmVEU1VTWZe3kJ0EioNyCZGqYqAo2HISPcPBMJ qJgMDpoiMFWGDfJ7GbAvVfflQ46vM24KoqRdMY3xhNPaDMg2C68K1QgRxhjtoOPX091v683PeTty GOzwBlPGUSywai5PHAwBREBVdgQMBuNxikocDcVQgAqZTFIIEsBIoBhJUcwIJFajG4QaOoYVWdDD 4uZedx/K8U/AF0wfYZM8SdfSbXvCr97rOVmFaq2wpo7DSTf1+Dlu/4c+/JQp22ef4ZAw0Wt285Qy SdACtUpH4QiQHuAHRjFMxIFNCg4KgYjokogJGg2VKqYd+WPQjRaGKFGrVaACBVdf/O7w9b+Vm39V /R39i2S3hGzqGdWNoWqxzcJL6jwqIiWa6aj6rk5f4PY2drd2ONh0FdHSXp58HnEgD1WRtQ3UCHxI KOBknIgjpTblpSXxVYlIhgkWhiAK8VOYOx1Qy6qWGoUqGr7+PN5/Xu//HfUPZl9nTim8FjvkpxfH beTANgWv9foy5ANiIMZj5Rf4E8fpugS+fvfxR7/Kb/NQ/6fjNMbdYbrXdP+mHK6u8i2ST85aOU06 HHlHq2QJVAVAtsgMURUi3oMpZ8tMVK3HXA9D4o/d/S5+NNi725rvDnEs9qPdxz9+Gek2vrwvH36v u39y+y14excszHU/5NLGZp15r21gCxuD15nNpUGhkgQOsDvEHrfv6u1Hlep2VWzHeq9SPSL5vgYA VgMyFKjCMfAud/bXJBShAo2f9famS6XISY6yPBluQAzT6DYNUBCHsrsvfvPx+P5PdfqT4iNQmtKd MRHO2OaauNhm4SWRMElsraqk4j3dePMFPnyhj/c8JEyY7oody86nw9EONT4G7uC3TO+FD4d6V8qN DSKKIsRJPZkFIH90GWsCMw5JkWrJ+OB6O5QRw72hlMDHKb8/5ncf44vfTdNva3xJvzcDLakJVGyF 13XJNgsvdIS1AksBRf8oYF/+qA+/K1/9vn79X3B1NX1mKLYfTSmK1UPVDXjDclN4y3qrooNDXcjL FBCzWKEvTGY0gwmpVlDmIRLT13degeRVeC+8A95P01dfxPGfpN8bb2ES3TAQFVGALU8M3Sy8WveG JIi0AEO6p5kdfldvU3z1N/zi77D/L/hxTFNMiIPhzuJWeh/T+2o3lfeho3gXVSpVlBSBOqepvswa PI1mg2KYCmpJoA224+Q4XufhGgk3vP964ocP5cMfUP+H2xdmt0CEkpn11rhXeD1Pk1SJDEHhsEqE UKf4Vx7u87uf+5d/V95c2S+v7u/55TFszO8O8cf7w5+O04fixymXiTHxt2xCFYwICVHbwGwVaUjc O0dFqlG81p0ddsxvrg+78drGnWfcfTF99Sd++Bfc/rfM39BuaLclqiKnPoAvNiElcdG2Cy924UIB lENsTa+RvrBy1Mf/6l/8nV3/lDd/c6hv3lX6Xfrjjf32XfnDHQ41o4w6mo441KnPpaqIkCQEJQ2T p5TkOFqaXFO2+yu936Wvbvf53v/mDY53wNfv65d/uv7w/x6O/1dKX1o6VE5RUWsQnbfzCq9naepy gSIMSFCFEmDcHezua93/rnz9r/XH/0s6/iL09piG33+J339V//VPhz/cHhViOO4d99q9K2xT2AWr aHONJRlSWL13akCMJa4CV+Ju0tUw3sh/hg8fJrx/j/e/3R/+xeK/H/yjJdRABBQRDPetqXk9ts3C y7kDATvMOSSjVeAmWcYb3h7+gA//D77+n3/24X/f/7N/Pr3/6vfvv/z83d1X00/q26Ee64c/6HjI 7skPtdZpmqap1Frb7CnC/csMI8zoZsnhRjMZD/zN+5//7b/99G/fHsv/Nt3/5vh/f1m+3A//q6b/ r5agtGMgQZoiAriK+Faqd8/UNguvxR5kwK9iX3EkdZ8O8eV//+3/+X/89p8TfnqLP1REhvbgHhxh 3tq5P/vFz6dpur+/1/GICpghZ3ev9QtMFTVQJkwTpiNqIITkH/Df/sn3GRNu/2368F9Z/4X1C0ux ekobd1qLbRZemqdEPThTb2OK++Txi/3Xst/df6gc99c+5J//6kc//cX4o5/fczgOg7/5DPthQuyv f1pKOR6PpRQF3D3nnFKqtbIU3B94e4PbW97e8P7w/7d3dbtt8zD0kJTspl2BPUCf4nvnPdPut2Jr gXX9SxzbEsldSHWzLdmQ7UOHuDlXiQA7Fn1EUgxFes7nOt7d3t/d3PTdF6dLW1wrX0NvPL8F8Bzo Iivd+F5cMC+K2dKroKiu76gWW6TOsXa7EpUT/Rru35zz2cPyNI2ClffMfWj4/MGbZm12F96Xglte 7WJtOGWJYcppoKHnfkVDx2mAabO65XUf1495ddOvP+f0mXAXBDkbKsX9lXALM6bXRKnJOJaRThQS AuUO95xyHq/GR/r0yYXeXQEUYAIwQ2IVzuq/epCjlA8nr1/1GuTwBE/wET4CCW4fvSWJgYJlNYyM HFq2WvSmtnUp3HIvp2ePca+DxaS9Jis56gMClJlMo3Th1EMyHfrF4rzvO00ajCI1VhsrRMEHgxmy QwkmJd9GgNQDplCwK2cXVXYALJkhbEXLRZYTA6WstI1bs8fM6YWf7GMTlDm6taqakCFrDtZCu2Zh EJhmgZK5CRxMLKEvHTQcCVAWlLbbulw4ORCNDBTBVM945GXDLmrIDiRDm4xTzidt61A4nrlVoxJH 7XWA2Joy5e4xZ+bA0lLTmPeqj+SZ2U4flDg6s2oyqFMAAoH6Yc3sgUFsgLplVTVAZI3SlptADlGU eie36YwX7UkDlWUeRrXBwRD8UPt54yFfQhr/CqH8xWFmZYlPHw495ejnPWNFPDPAvIN2AEDRKQJY huHpyqJOMrAEIJGfbgKAgCgcN34GBoBKERIAaEKylFalOFdoADDQlPTGZ9RWDzTfPNWCUPZB/NQi uvbhBaaRmUF1u9Oza75m++3v5iq3P0Ng5olSAJiZmc1srqtq17z+L209V7n9Gar22hRujevsuWoP Hbtosa82em1y+zXClJ8+BYfKyFyV/L7aa65yeBkEMzMzZp58/GIZY4y/v/oAkfP2Fugi2wME+2qj Xfd5naj0UtVp51jotes1HDp20WXXfI+u/d/g2ThuwszmSq9drz+l7YW+93X5j679JijnfHl5SUQi oqoiMoW+/vWzHXHAMLOLi4tvrDxAR4pK1CQAAAAASUVORK5CYII= "
+       style="image-rendering:optimizeSpeed"
+       preserveAspectRatio="none"
+       height="249"
+       width="202" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2">
+    <rect
+       style="fill:none;fill-opacity:1;stroke:none;stroke-width:0.98461539"
+       id="rect5955"
+       width="63.076035"
+       height="64.247101"
+       x="0.49278152"
+       y="987.62274"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#2a7fff;filter:url(#filter4989)"
+       d="m 82.861994,928.97868 -30.35714,-0.35715 c 0,0 -11.10373,-14.38102 -11.38835,-28.12586 -0.90877,-43.88516 20.67957,-107.68282 27.28121,-130.62413 8.62074,24.9129 28.81956,87.18595 27.30609,131.71993 -0.49392,14.53353 -12.84181,27.38721 -12.84181,27.38721 z"
+       id="path3366-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccscsc"
+       transform="matrix(0.12512031,0,0,0.12548262,22.022417,913.4303)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#00ccff"
+       d="m 32.345971,1029.7657 -3.798294,-0.044 c 0,0 -0.81194,-5.2968 2.033205,-5.3106 2.971628,-0.014 1.765089,5.3554 1.765089,5.3554 z"
+       id="path3366"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#aaeeff"
+       d="m 31.9508,1029.4632 -2.979885,-0.034 c 0,0 -0.636994,-4.0557 1.595114,-4.0664 2.33134,-0.011 1.384771,4.1006 1.384771,4.1006 z"
+       id="path3366-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:none;stroke-width:0.98461539"
+       id="rect5955-3"
+       width="63.076035"
+       height="63.258686"
+       x="64.554382"
+       y="988.61121"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#2a7fff;filter:url(#filter4989-2)"
+       d="m 82.861994,928.97868 -30.35714,-0.35715 c 0,0 -11.10373,-14.38102 -11.38835,-28.12586 -0.90877,-43.88516 20.67957,-107.68282 27.28121,-130.62413 8.62074,24.9129 28.81956,87.18595 27.30609,131.71993 -0.49392,14.53353 -12.84181,27.38721 -12.84181,27.38721 z"
+       id="path3366-2-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccscsc"
+       transform="matrix(0.12512031,0,0,0.12548262,86.084013,913.43034)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#00ccff"
+       d="m 96.407566,1029.7657 -3.798294,-0.044 c 0,0 -0.81194,-5.2968 2.033205,-5.3106 2.971628,-0.014 1.765089,5.3554 1.765089,5.3554 z"
+       id="path3366-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#aaeeff"
+       d="m 96.012395,1029.4632 -2.979885,-0.034 c 0,0 -0.636994,-4.0557 1.595115,-4.0664 2.331339,-0.011 1.38477,4.1006 1.38477,4.1006 z"
+       id="path3366-3-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 93.350521,1025.1793 c -4.265321,-4.3047 -4.746889,-0.21 -4.746889,-0.21 l 0.206387,-0.2101"
+       id="path6005"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 92.744592,1028.831 c -5.400208,2.738 -1.665927,4.4628 -1.665927,4.4628 l -0.13547,-0.2618"
+       id="path6005-6"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 95.600136,1029.5425 c 0.927748,5.9969 3.717282,2.9682 3.717282,2.9682 l -0.290129,0.048"
+       id="path6005-6-0"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 96.45742,1027.5781 c 5.97359,0.9682 3.9634,-2.6284 3.9634,-2.6284 l -0.0439,0.2916"
+       id="path6005-6-7"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 95.277065,1024.8383 c 2.764118,-5.3984 -1.267789,-4.5924 -1.267789,-4.5924 l 0.262963,0.132"
+       id="path6005-6-7-4"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:none;stroke-width:0.98461539"
+       id="rect5955-3-4"
+       width="63.076035"
+       height="63.258686"
+       x="128.61598"
+       y="988.61121"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#2a7fff;filter:url(#filter4989-2-1)"
+       d="m 82.861994,928.97868 -30.35714,-0.35715 c 0,0 -11.10373,-14.38102 -11.38835,-28.12586 -0.90877,-43.88516 20.67957,-107.68282 27.28121,-130.62413 8.62074,24.9129 28.81956,87.18595 27.30609,131.71993 -0.49392,14.53353 -12.84181,27.38721 -12.84181,27.38721 z"
+       id="path3366-2-1-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccscsc"
+       transform="matrix(0.12512031,0,0,0.12548262,150.1456,913.43038)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#00ccff"
+       d="m 160.46916,1029.7657 -3.7983,-0.044 c 0,0 -0.81194,-5.2968 2.03321,-5.3106 2.97163,-0.014 1.76509,5.3554 1.76509,5.3554 z"
+       id="path3366-9-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#aaeeff"
+       d="m 160.07399,1029.4632 -2.97989,-0.034 c 0,0 -0.63699,-4.0557 1.59512,-4.0664 2.33134,-0.011 1.38477,4.1006 1.38477,4.1006 z"
+       id="path3366-3-6-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 159.33866,1024.8383 c 1.5141,-2.9571 -0.92919,-3.7863 -2.90569,-4.1896 -1.63175,-0.3328 -1.86945,-2.1457 -1.86945,-2.1457 l 0.38936,0.2904"
+       id="path6005-6-7-4-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 157.46267,1025.2087 c -2.33642,-2.358 -3.87778,-0.2838 -4.87095,1.4767 -0.81992,1.4535 -2.61253,1.1201 -2.61253,1.1201 l 0.39572,-0.2816"
+       id="path6005-6-7-4-2-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 156.83975,1028.7463 c -2.95808,1.4998 -1.46742,3.611 -0.10476,5.1023 1.12499,1.2312 0.2548,2.838 0.2548,2.838 l -0.14474,-0.4645"
+       id="path6005-6-7-4-2-37"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 159.48423,1029.5272 c 0.50824,3.2849 2.97088,2.5155 4.80622,1.6766 1.51523,-0.6925 2.77005,0.634 2.77005,0.634 l -0.48521,-0.01"
+       id="path6005-6-7-4-2-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 160.40047,1027.5004 c 3.27219,0.5303 3.3035,-2.0563 3.07527,-4.0661 -0.18857,-1.6591 1.45714,-2.4461 1.45714,-2.4461 l -0.15943,0.4596"
+       id="path6005-6-7-4-2-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:none;stroke-width:0.98461539"
+       id="rect5955-3-4-6"
+       width="63.076035"
+       height="63.258686"
+       x="192.67758"
+       y="988.61121"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#2a7fff;filter:url(#filter4989-2-1-1)"
+       d="m 82.861994,928.97868 -30.35714,-0.35715 c 0,0 -11.10373,-14.38102 -11.38835,-28.12586 -0.90877,-43.88516 20.67957,-107.68282 27.28121,-130.62413 8.62074,24.9129 28.81956,87.18595 27.30609,131.71993 -0.49392,14.53353 -12.84181,27.38721 -12.84181,27.38721 z"
+       id="path3366-2-1-0-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccscsc"
+       transform="matrix(0.12512031,0,0,0.12548262,214.2072,913.43042)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#00ccff"
+       d="m 224.53075,1029.7657 -3.79829,-0.044 c 0,0 -0.81194,-5.2968 2.03321,-5.3106 2.97162,-0.014 1.76508,5.3554 1.76508,5.3554 z"
+       id="path3366-9-5-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#aaeeff"
+       d="m 224.13558,1029.4632 -2.97988,-0.034 c 0,0 -0.63699,-4.0557 1.59511,-4.0664 2.33134,-0.011 1.38477,4.1006 1.38477,4.1006 z"
+       id="path3366-3-6-7-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 223.40026,1024.8383 c 0.89816,-1.7541 -0.33943,-4.2351 -2.1984,-5.0266 -1.27483,-0.5428 -3.17131,-1.0091 -3.65655,-1.6726 -1.09552,-1.4981 1.4373,-4.2072 1.4373,-4.2072 l -0.0576,0.9177"
+       id="path6005-6-7-4-2-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 224.45768,1027.417 c 1.94103,0.3146 3.91138,-1.6325 4.08747,-3.6502 0.12078,-1.3837 -0.0231,-3.3366 0.45623,-4.0046 1.0821,-1.5078 4.43388,0.071 4.43388,0.071 l -0.88809,0.2287"
+       id="path6005-6-7-4-2-9-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 223.45573,1029.5495 c 0.30147,1.9486 2.75678,3.2263 4.72456,2.7707 1.34953,-0.3124 3.15703,-1.0531 3.9386,-0.8023 1.76425,0.5662 1.30254,4.2511 1.30254,4.2511 l -0.49128,-0.7764"
+       id="path6005-6-7-4-2-9-5-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 220.88808,1029.0324 c -1.75471,0.8896 -2.20765,3.6264 -1.16756,5.3625 0.71327,1.1907 1.97429,2.6857 1.97791,3.5088 0.008,1.8576 -3.62881,2.556 -3.62881,2.556 l 0.58444,-0.7085"
+       id="path6005-6-7-4-2-9-5-2-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 221.27666,1025.6887 c -1.38587,-1.3988 -4.1212,-0.9851 -5.44613,0.5435 -0.90873,1.0482 -1.93682,2.713 -2.71622,2.9708 -1.75916,0.5817 -3.54527,-2.6713 -3.54527,-2.6713 l 0.8525,0.3385"
+       id="path6005-6-7-4-2-9-5-2-3-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:none;stroke-width:0.98461539"
+       id="rect5955-3-4-6-8"
+       width="63.076035"
+       height="63.258686"
+       x="256.73917"
+       y="988.61121"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#2a7fff;filter:url(#filter4989-2-1-1-9)"
+       d="m 82.861994,928.97868 -30.35714,-0.35715 c 0,0 -11.103723,-14.38102 -11.38835,-28.12586 -0.583152,-28.16084 8.097355,-62.46222 16.137137,-89.48942 4.489216,-15.09133 39.492951,-12.9147 41.858359,-21.13471 3.2849,9.49298 -9.780131,25.07802 -10.495457,38.77688 -0.415204,7.95137 -5.937659,17.44305 -4.64426,25.78046 2.326151,14.99465 12.333547,29.44794 11.731521,47.16259 -0.493916,14.53353 -12.84181,27.38721 -12.84181,27.38721 z"
+       id="path3366-2-1-0-1-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsscsssc"
+       transform="matrix(0.12512031,0,0,0.12548262,278.2688,913.43042)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#00ccff"
+       d="m 288.59235,1029.7656 -3.79829,-0.044 c 0,0 -0.81194,-5.2968 2.0332,-5.3106 2.97163,-0.014 1.76509,5.3554 1.76509,5.3554 z"
+       id="path3366-9-5-5-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#aaeeff"
+       d="m 288.19718,1029.4631 -2.97988,-0.034 c 0,0 -0.637,-4.0557 1.59511,-4.0664 2.33134,-0.011 1.38477,4.1006 1.38477,4.1006 z"
+       id="path3366-3-6-7-5-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 287.46186,1024.8382 c 0.89816,-1.7541 -0.16069,-3.6077 -2.01966,-4.3992 -1.27483,-0.5428 -2.94964,-2.3775 -3.03095,-3.1964 -0.29117,-2.932 4.38657,-3.3108 4.38657,-3.3108 l -0.77254,0.5591"
+       id="path6005-6-7-4-2-9-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 288.57195,1027.3266 c 1.94103,0.3146 3.37164,-1.2681 3.54772,-3.2857 0.12079,-1.3837 1.34316,-3.5482 2.09456,-3.8787 2.69055,-1.1838 4.49522,3.1608 4.49522,3.1608 l -0.76897,-0.5641"
+       id="path6005-6-7-4-2-9-4-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 287.79067,1029.6937 c 0.30146,1.9486 2.24442,2.8241 4.21221,2.3685 1.34952,-0.3124 3.7798,0.1847 4.32548,0.7992 1.95399,2.2006 -1.60837,5.2643 -1.60837,5.2643 l 0.29728,-0.9076"
+       id="path6005-6-7-4-2-9-4-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 284.97093,1029.0064 c -1.75472,0.8897 -1.98453,3.0135 -0.94444,4.7495 0.71328,1.1907 0.99286,3.6623 0.57878,4.3727 -1.483,2.5437 -5.48925,0.092 -5.48925,0.092 l 0.95264,0"
+       id="path6005-6-7-4-2-9-4-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 285.39995,1025.6326 c -1.38597,-1.3988 -3.47097,-0.9617 -4.79591,0.5669 -0.90871,1.0482 -3.16617,2.0787 -3.96774,1.9032 -2.87057,-0.6284 -1.78386,-5.2071 -1.78386,-5.2071 l 0.29438,0.9086"
+       id="path6005-6-7-4-2-9-4-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:none;stroke-width:0.98461539"
+       id="rect5955-3-4-6-8-9"
+       width="63.076035"
+       height="63.258686"
+       x="320.80078"
+       y="988.61121"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#2a7fff;filter:url(#filter4989-2-1-1-9-2)"
+       d="m 82.861994,928.97868 -30.35714,-0.35715 c 0,0 -11.103723,-14.38102 -11.38835,-28.12586 -0.188089,-9.08292 4.842091,-24.88898 5.409406,-38.40451 0.378892,-9.0266 -4.398307,-16.24016 -2.382461,-22.66378 4.323897,-13.77838 15.109696,-13.79036 18.824478,-26.27827 4.489218,-15.09133 54.492953,1.37101 56.858363,-6.849 3.2849,9.49298 -30.494421,8.64945 -31.209747,22.34831 -0.415204,7.95137 -5.93766,17.44305 -4.64426,25.78046 1.494568,9.63417 9.731499,12.61628 12.716582,22.8121 1.66091,5.673 -0.769841,18.01763 -0.985061,24.35049 -0.493917,14.53353 -12.84181,27.38721 -12.84181,27.38721 z"
+       id="path3366-2-1-0-1-4-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsssscssssc"
+       transform="matrix(0.12512031,0,0,0.12548262,342.33039,913.43042)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#00ccff"
+       d="m 352.65395,1029.7655 -3.79829,-0.044 c 0,0 -0.81194,-5.2968 2.0332,-5.3106 2.97163,-0.014 1.76509,5.3554 1.76509,5.3554 z"
+       id="path3366-9-5-5-1-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#aaeeff"
+       d="m 352.25878,1029.463 -2.97989,-0.034 c 0,0 -0.63699,-4.0557 1.59512,-4.0664 2.33134,-0.011 1.38477,4.1006 1.38477,4.1006 z"
+       id="path3366-3-6-7-5-7-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 351.52346,1024.8381 c 0.89816,-1.7541 0.1968,-5.1315 -1.66217,-5.9229 -1.27484,-0.5428 -3.30712,-1.7502 -3.38844,-2.569 -0.14325,-1.4425 1.89536,-1.8462 3.82201,-2.1574 1.98943,-0.3213 3.87131,0.3703 3.87131,0.3703 l -0.95128,0.2007"
+       id="path6005-6-7-4-2-9-4-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 352.54372,1027.4626 c 1.94102,0.3146 4.9271,-1.3979 5.10318,-3.4156 0.12079,-1.3837 0.63772,-3.6952 1.38911,-4.0258 1.32362,-0.5824 2.33648,1.2373 3.22695,2.9788 0.9194,1.7983 0.84512,3.8069 0.84512,3.8069 l -0.48426,-0.8453"
+       id="path6005-6-7-4-2-9-4-8-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 351.93995,1029.6733 c 0.30146,1.9486 2.84828,4.2676 4.81606,3.812 1.34952,-0.3124 3.70127,-0.5337 4.24694,0.081 0.96136,1.0825 -0.45129,2.6109 -1.8276,3.9984 -1.42125,1.4326 -3.34901,1.9825 -3.34901,1.9825 l 0.65201,-0.7232"
+       id="path6005-6-7-4-2-9-4-8-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 348.91211,1028.9894 c -1.75471,0.8897 -3.16675,4.0354 -2.12667,5.7716 0.71328,1.1906 1.64983,3.3654 1.23527,4.0759 -0.72943,1.2514 -2.61535,0.3763 -4.35646,-0.5077 -1.79776,-0.9129 -2.91495,-2.5816 -2.91495,-2.5816 l 0.88728,0.3984"
+       id="path6005-6-7-4-2-9-4-8-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 349.53837,1025.5718 c -1.38597,-1.3987 -4.80541,-1.7735 -6.13045,-0.245 -0.90862,1.0484 -2.68157,2.6137 -3.48348,2.4378 -1.41213,-0.309 -1.16508,-2.3782 -0.8648,-4.3121 0.31018,-1.9969 1.54742,-3.578 1.54742,-3.578 l -0.10366,0.9693"
+       id="path6005-6-7-4-2-9-4-8-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:none;stroke-width:0.98461539"
+       id="rect5955-3-4-6-8-9-9"
+       width="63.076035"
+       height="63.258686"
+       x="384.86237"
+       y="988.61121"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#2a7fff;filter:url(#filter4989-2-1-1-9-2-7)"
+       d="m 82.861994,928.97868 -30.35714,-0.35715 c 0,0 -11.103723,-14.38102 -11.38835,-28.12586 -0.188089,-9.08292 0.556377,-20.60327 1.123692,-34.1188 0.378892,-9.0266 -5.112593,-14.0973 -3.096747,-20.52092 4.323897,-13.77838 34.39541,-25.93322 38.110192,-38.42113 4.489218,-15.09133 45.207239,27.0853 47.572649,18.86529 3.2849,9.49298 -38.351564,-5.63626 -39.06689,8.0626 -0.415204,7.95137 -3.080517,11.72876 -1.787117,20.06617 1.494568,9.63417 -2.411358,13.33057 0.573725,23.52639 1.66091,5.673 11.373016,17.30334 11.157796,23.6362 -0.493917,14.53353 -12.84181,27.38721 -12.84181,27.38721 z"
+       id="path3366-2-1-0-1-4-0-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsssscssssc"
+       transform="matrix(0.12512031,0,0,0.12548262,406.39197,913.43046)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#00ccff"
+       d="m 416.71553,1029.7655 -3.7983,-0.044 c 0,0 -0.81194,-5.2968 2.03321,-5.3106 2.97163,-0.014 1.76509,5.3554 1.76509,5.3554 z"
+       id="path3366-9-5-5-1-5-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#aaeeff"
+       d="m 416.32036,1029.463 -2.97989,-0.034 c 0,0 -0.63699,-4.0557 1.59511,-4.0664 2.33135,-0.011 1.38478,4.1006 1.38478,4.1006 z"
+       id="path3366-3-6-7-5-7-8-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 415.58504,1024.8381 c 0.89816,-1.7541 2.892,-2.9726 1.55521,-4.6681 -2.08472,-2.6442 -7.69473,-2.4756 -6.87394,-4.8994 0.46482,-1.3725 3.32531,-1.667 5.43071,-1.4403 2.00354,0.2156 4.85439,2.611 4.85439,2.611 l -0.95127,0.2007"
+       id="path6005-6-7-4-2-9-4-8-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 416.70413,1027.4251 c 1.94103,0.3146 3.71266,1.8398 4.90745,0.041 1.86327,-2.8055 -0.0301,-8.1043 2.52194,-8.0704 1.44526,0.019 2.60841,2.6565 3.04406,4.7347 0.41465,1.9777 -0.97599,5.437 -0.97599,5.437 l -0.48425,-0.8452"
+       id="path6005-6-7-4-2-9-4-8-6-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 416.02119,1029.7894 c 0.30147,1.9486 -0.59741,4.1097 1.47746,4.6934 3.23625,0.9103 7.67605,-2.533 8.4325,-0.088 0.42853,1.3844 -1.71315,3.3089 -3.54931,4.3666 -1.74734,1.0067 -5.45757,0.7492 -5.45757,0.7492 l 0.65192,-0.7231"
+       id="path6005-6-7-4-2-9-4-8-6-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 412.84261,1028.8986 c -1.75472,0.8897 -4.08189,0.7001 -3.99429,2.8596 0.13681,3.368 4.77414,6.5387 2.68956,8.0156 -1.18044,0.8366 -3.66728,-0.6115 -5.23768,-2.0359 -1.4946,-1.3557 -2.39695,-4.9741 -2.39695,-4.9741 l 0.88717,0.3984"
+       id="path6005-6-7-4-2-9-4-8-6-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 413.63771,1025.6935 c -1.38597,-1.3987 -1.92528,-3.677 -3.94609,-2.9261 -3.15168,1.1713 -4.72547,6.5742 -6.77018,5.0423 -1.15815,-0.8674 -0.55341,-3.6868 0.31216,-5.6249 0.82368,-1.8445 3.97622,-3.8233 3.97622,-3.8233 l -0.10359,0.9693"
+       id="path6005-6-7-4-2-9-4-8-6-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:none;stroke-width:0.98461539"
+       id="rect5955-3-4-6-8-9-9-7"
+       width="63.076035"
+       height="63.258686"
+       x="448.92398"
+       y="988.61121"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#2a7fff;filter:url(#filter4989-2-1-1-9-2-7-8)"
+       d="m 82.861994,928.97868 -30.35714,-0.35715 c 0,0 -11.103723,-14.38102 -11.38835,-28.12586 -0.188089,-9.08292 9.127806,-13.46041 9.695121,-26.97594 0.378892,-9.0266 -14.398306,-19.81159 -12.382462,-26.23521 1.856281,-5.91516 8.77476,-9.97088 9.838562,-15.29214 1.414147,-7.07373 -15.276938,-10.28794 -13.156941,-17.4147 1.86276,-6.26201 30.052772,-14.16819 46.68962,-6.81878 10.55311,4.66189 26.952456,14.40434 39.570336,16.20169 15.42936,2.19783 26.26566,-4.30056 27.02698,-6.94619 1.52178,4.39776 -11.65598,16.21838 -26.31142,17.50105 -16.9797,1.48609 -35.942959,-7.5054 -36.3269,-0.15274 -0.415204,7.95137 6.919483,10.30019 8.212883,18.6376 1.494568,9.63417 0.445785,12.61628 3.430868,22.8121 1.66091,5.673 -1.484127,19.4462 -1.699347,25.77906 -0.493917,14.53353 -12.84181,27.38721 -12.84181,27.38721 z"
+       id="path3366-2-1-0-1-4-0-9-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccssssssscsssssc"
+       transform="matrix(0.12512031,0,0,0.12548262,470.45357,913.4305)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#00ccff"
+       d="m 480.77712,1029.7655 -3.79829,-0.044 c 0,0 -0.81194,-5.2968 2.03321,-5.3106 2.97162,-0.014 1.76508,5.3554 1.76508,5.3554 z"
+       id="path3366-9-5-5-1-5-0-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#aaeeff"
+       d="m 480.38195,1029.463 -2.97988,-0.034 c 0,0 -0.63699,-4.0557 1.59511,-4.0664 2.33134,-0.011 1.38477,4.1006 1.38477,4.1006 z"
+       id="path3366-3-6-7-5-7-8-0-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 479.64664,1024.8381 c 0.89816,-1.7541 2.892,-2.9726 1.55521,-4.6681 -2.08472,-2.6442 -8.94593,-0.7727 -8.12514,-3.1964 0.46482,-1.3726 4.04028,-3.101 6.14569,-2.8744 2.00353,0.2157 6.73119,2.9696 6.73119,2.9696 l -0.95127,0.2006"
+       id="path6005-6-7-4-2-9-4-8-6-25"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 480.96793,1026.6667 c 1.94102,0.3146 3.71266,1.8399 4.90745,0.041 1.86328,-2.8055 -2.03172,-8.7714 0.52037,-8.7376 1.44527,0.019 4.18924,2.8955 4.62489,4.9737 0.41465,1.9776 -0.73596,7.3379 -0.73596,7.3379 l -0.48427,-0.8454"
+       id="path6005-6-7-4-2-9-4-8-6-25-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 480.18703,1029.5803 c 0.30146,1.9486 -0.59751,4.1097 1.47745,4.6934 3.23626,0.9103 7.69021,-4.6483 8.44676,-2.2037 0.42853,1.3844 -1.45122,4.8905 -3.28737,5.9482 -1.74725,1.0066 -7.18605,1.5656 -7.18605,1.5656 l 0.652,-0.7231"
+       id="path6005-6-7-4-2-9-4-8-6-25-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 477.20505,1028.9639 c -1.75472,0.8897 -4.08192,0.7001 -3.99429,2.8596 0.13681,3.3681 6.78451,5.8986 4.70005,7.3756 -1.18044,0.8365 -5.08617,0.1271 -6.65666,-1.2974 -1.49448,-1.3555 -3.70522,-6.3704 -3.70522,-6.3704 l 0.88719,0.3984"
+       id="path6005-6-7-4-2-9-4-8-6-25-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 477.26408,1026.36 c -1.38596,-1.3988 -1.92528,-3.677 -3.94608,-2.9262 -3.15169,1.1713 -3.49716,8.2939 -5.54194,6.7622 -1.15805,-0.8675 -1.69223,-4.8121 -0.82669,-6.7501 0.82363,-1.8444 4.89614,-5.5027 4.89614,-5.5027 l -0.10368,0.9694"
+       id="path6005-6-7-4-2-9-4-8-6-25-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:none;stroke-width:0.98461539"
+       id="rect5955-3-4-6-8-9-9-7-1"
+       width="63.076035"
+       height="64.247101"
+       x="0"
+       y="923.86987"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#2a7fff;filter:url(#filter4989-2-1-1-9-2-7-8-5)"
+       d="m 82.861994,928.97868 -30.35714,-0.35715 c 0,0 -17.532294,-10.09531 -17.816921,-23.84015 -0.188089,-9.08292 6.984948,-14.88898 7.552263,-28.40451 0.378892,-9.0266 -5.826877,-22.66873 -3.811033,-29.09235 1.856281,-5.91516 8.77476,-9.97088 9.838562,-15.29214 1.414147,-7.07373 -25.276938,0.42635 -23.156941,-6.70041 1.86276,-6.26201 21.481343,-27.02534 38.118191,-19.67593 10.55311,4.66189 44.809595,17.26149 57.427475,19.05884 15.42936,2.19783 3.40852,7.12801 4.16984,4.48238 1.52178,4.39776 11.91545,4.07552 -2.73999,5.35819 -16.9797,1.48609 -35.942959,-7.5054 -36.3269,-0.15274 -0.415204,7.95137 14.06234,14.5859 15.35574,22.92331 1.49457,9.63417 -12.411358,13.33057 -9.426275,23.52639 1.66091,5.673 -7.912698,14.4462 -8.127918,20.77906 -0.493917,14.53353 -0.698953,27.38721 -0.698953,27.38721 z"
+       id="path3366-2-1-0-1-4-0-9-4-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccssssssscsssssc"
+       transform="matrix(0.12512031,0,0,0.12548262,21.529571,849.67767)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#00ccff"
+       d="m 31.853128,966.01261 -3.798292,-0.0442 c 0,0 -0.811941,-5.29677 2.033205,-5.31062 2.971627,-0.0141 1.765087,5.35539 1.765087,5.35539 z"
+       id="path3366-9-5-5-1-5-0-2-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#aaeeff"
+       d="m 31.457958,965.71015 -2.979885,-0.0341 c 0,0 -0.636993,-4.0557 1.595113,-4.06634 2.331342,-0.0111 1.384772,4.10057 1.384772,4.10057 z"
+       id="path3366-3-6-7-5-7-8-0-9-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 30.722622,961.08527 c 0.898164,-1.75415 1.37268,-3.68969 0.03593,-5.38521 -2.084725,-2.64417 -7.426612,-0.0552 -6.605822,-2.47934 0.464817,-1.37258 4.040285,-3.10102 6.145689,-2.87435 2.003537,0.21563 6.820569,3.328 6.820569,3.328 l 2.176733,1.90362"
+       id="path6005-6-7-4-2-9-4-8-6-25-05"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 31.871537,963.13335 c 1.941026,0.31461 3.923152,0.16905 5.117961,-1.62987 1.863272,-2.80549 -2.242596,-7.10061 0.309868,-7.06688 1.44527,0.0191 4.189248,2.89544 4.624897,4.97363 0.414649,1.9776 -0.289108,7.33792 -0.289108,7.33792 l -0.662467,3.17009"
+       id="path6005-6-7-4-2-9-4-8-6-25-05-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 31.212143,965.96373 c 0.30147,1.9486 1.052011,3.7942 3.127167,4.37794 3.236252,0.9103 6.040578,-4.33326 6.797346,-1.88826 0.428522,1.38442 -1.451226,4.89051 -3.287371,5.94828 -1.74725,1.00657 -7.18606,1.56552 -7.18606,1.56552 L 27.76677,975.8355"
+       id="path6005-6-7-4-2-9-4-8-6-25-05-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 28.108669,965.23604 c -1.754708,0.88962 -3.272978,2.17586 -3.185293,4.33557 0.136811,3.36805 5.975926,4.42251 3.891151,5.89989 -1.180445,0.83652 -5.08617,0.12699 -6.656671,-1.29749 -1.494467,-1.35541 -3.258353,-6.3703 -3.258353,-6.3703 l -1.21701,-3.87892"
+       id="path6005-6-7-4-2-9-4-8-6-25-05-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ccff;stroke-width:0.9495815px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 28.528472,961.76529 c -1.385872,-1.39868 -3.342924,-2.0013 -5.363898,-1.25021 -3.15168,1.1712 -2.347247,7.06648 -4.392493,5.53458 -1.158064,-0.86743 -1.692137,-4.812 -0.826605,-6.75016 0.823532,-1.84429 4.896048,-5.50266 4.896048,-5.50266 l 2.599229,-2.04898"
+       id="path6005-6-7-4-2-9-4-8-6-25-05-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\plAnimation3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+  </g>
+</svg>

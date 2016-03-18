@@ -10,7 +10,7 @@ namespace Assets.Scripts.Player
     {
         public float DurationInSeconds = 5f;
         private float _remainingDurationInSeconds;
-        private float MinimumScale = 2.5f;
+        private float MinimumScale = 1f;
         private Vector3 InitialScale;
 
         private HeatHandler _heatHandler;
@@ -106,7 +106,7 @@ namespace Assets.Scripts.Player
                 if (NoGravity == true)
                 {
                     NoGravity = false;
-                    collidingPoint.gameObject.GetComponent<FirePlace>().IsLit = false;
+                    collidingPoint.gameObject.GetComponent<Fireplace>().IsLit = false;
                 }
                 DecreaseLifeSpan();
                 DecreaseScale();
@@ -125,9 +125,10 @@ namespace Assets.Scripts.Player
             _movement.Move((collidingPoint.transform.position - transform.position) * 0.2f);
             if (OnPoint())
             {
+                transform.localScale = InitialScale;
                 _remainingDurationInSeconds = DurationInSeconds;
                 IsMovementOverridden = false;
-                collidingPoint.gameObject.GetComponent<FirePlace>().IsLit = true;
+                collidingPoint.gameObject.GetComponent<Fireplace>().IsLit = true;
             }
         }
 

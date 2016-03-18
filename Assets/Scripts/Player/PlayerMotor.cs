@@ -131,7 +131,7 @@ namespace Assets.Scripts.Player
             {
                 ClimbDown();
             }
-            else if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E)) && PilotedLightExists() == false)
+            else if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E)))
             {
                 _controller.CreatePilotedLight();
                 //_animator.Play(Animator.StringToHash("Create light"));
@@ -164,7 +164,7 @@ namespace Assets.Scripts.Player
                _controller.BoxCollider.bounds.center.x,
                _controller.BoxCollider.bounds.max.y);
 
-            Vector2 size = new Vector2(5f, 1f);
+            Vector2 size = new Vector2(4f, 1f);
             LayerMask mask =
                 1 << LayerMask.NameToLayer("Right Climb Spot")
                 | 1 << LayerMask.NameToLayer("Left Climb Spot");
@@ -176,11 +176,13 @@ namespace Assets.Scripts.Player
                 ClimbCollider = hit.collider;
                 if (ClimbCollider.gameObject.layer == LayerMask.NameToLayer("Right Climb Spot"))
                 {
+                    CancelHorizontalVelocity();
                     climbingSide = DirectionFacing.Right;
                     _animator.Play(Animator.StringToHash("Right Climb Up"));
                 }
                 else
                 {
+                    CancelHorizontalVelocity();
                     climbingSide = DirectionFacing.Left;
                     _animator.Play(Animator.StringToHash("Right Climb Up"));
                 }
@@ -193,7 +195,7 @@ namespace Assets.Scripts.Player
                _controller.BoxCollider.bounds.center.x,
                _controller.BoxCollider.bounds.min.y);
 
-            Vector2 size = new Vector2(5f, 1f);
+            Vector2 size = new Vector2(4f, 1f);
             LayerMask mask =
                 1 << LayerMask.NameToLayer("Right Climb Spot")
                 | 1 << LayerMask.NameToLayer("Left Climb Spot");
@@ -205,15 +207,23 @@ namespace Assets.Scripts.Player
                 ClimbCollider = hit.collider;
                 if (ClimbCollider.gameObject.layer == LayerMask.NameToLayer("Right Climb Spot"))
                 {
+                    CancelHorizontalVelocity();
                     climbingSide = DirectionFacing.Right;
                     _animator.Play(Animator.StringToHash("Right Climb Down"));
                 }
                 else
                 {
+                    CancelHorizontalVelocity();
                     climbingSide = DirectionFacing.Left;
                     _animator.Play(Animator.StringToHash("Right Climb Down"));
                 }
             }
+        }
+
+        private void CancelHorizontalVelocity()
+        {
+            _normalizedHorizontalSpeed = 0;
+            _velocity = Vector3.zero;
         }
 
         //Animation events

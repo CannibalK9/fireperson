@@ -8,7 +8,7 @@ namespace Assets.Scripts.Denizens
         public float RunSpeed = 3f;
         public float GroundDamping = 7f;
         public float HazardWarningDistance = 1f;
-        public DirectionTravelling directionTravelling = DirectionTravelling.None;
+        public DirectionTravelling directionTravelling;
 
         private float _normalizedHorizontalSpeed = 0;
 
@@ -21,13 +21,15 @@ namespace Assets.Scripts.Denizens
         {
             _animator = GetComponent<Animator>();
             _controller = GetComponent<DenizenController>();
+            directionTravelling = DirectionTravelling.None;
         }
 
         void Update()
         {
-            if (_controller.SatAtFirePlace)
+            if (_controller.SatAtFireplace)
             {
                 _satAtFirePlace = true;
+                _velocity = Vector3.zero;
                 directionTravelling = DirectionTravelling.None;
             }
             else if (_satAtFirePlace)
@@ -38,6 +40,11 @@ namespace Assets.Scripts.Denizens
 
             DetermineMovement();
             HandleMovement();
+        }
+
+        void MoveToFireplace(DirectionTravelling direction)
+        {
+            directionTravelling = direction;
         }
 
         private void DetermineMovement()
@@ -132,13 +139,6 @@ namespace Assets.Scripts.Denizens
             _velocity.y += Gravity * Time.deltaTime;
             _controller.Movement.Move(_velocity * Time.deltaTime);
             _velocity = _controller.Velocity;
-        }
-
-        public enum DirectionTravelling
-        {
-            None,
-            Right,
-            Left
         }
 
         private enum DirectionFacing
