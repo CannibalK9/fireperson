@@ -16,6 +16,8 @@ namespace Assets.Scripts.Ice
 		public float RelativeWidth = 0.5f;
         public float RelativeDepth = 2f;
 
+        public bool GrowsBack;
+
         private PolygonCollider2D _polyCollider;
         private Mesh _mesh;
 
@@ -74,7 +76,32 @@ namespace Assets.Scripts.Ice
 
 		void Update()
 		{
+            if (GrowsBack)
+            {
+                RaisePoints();
+                SetMeshFilterToPolyColliderPoints();
+            }
 		}
+
+        private void RaisePoints()
+        {
+            Vector2[] newPoints = GetRaisedPoints();
+            _polyCollider.points = newPoints;
+        }
+
+        private Vector2[] GetRaisedPoints()
+        {
+            Vector2[] newPoints = _polyCollider.points;
+            Vector2 point;
+            for (int i = 0; i < _polyCollider.points.Length; i++)
+            {
+                point = _polyCollider.points[i];
+
+                if (point.y < 0.5f && point.y != -0.5f)
+                newPoints[i] = new Vector2(point.x, point.y + UnityEngine.Random.value / 1000);
+            }
+            return newPoints;
+        }
 
         void Melt(Vector4 hitBox)
         {
@@ -91,12 +118,15 @@ namespace Assets.Scripts.Ice
         private Vector2[] GetPointsLoweredByBox(Vector4 hitBox)
         {
             Vector2[] newPoints = _polyCollider.points;
+            Vector2 point;
 
             for (int i = 0; i < _polyCollider.points.Length; i++)
             {
-                Vector2 point = _polyCollider.points[i];
-                if (point.y <= -0.4f)
+                point = _polyCollider.points[i];
+                if (point.y <= -0.3f)
+                {
                     continue;
+                }
 
                 Vector2 worldPoint = transform.TransformPoint(point);
 
