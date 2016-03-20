@@ -15,36 +15,11 @@ namespace Assets.Scripts.Player
         private PlayerController _controller;
         private Animator _animator;
         private Vector3 _velocity;
-        public event Action<RaycastHit2D> onControllerCollidedEvent;
 
         void Awake()
         {
             _animator = GetComponent<Animator>();
             _controller = GetComponent<PlayerController>();
-
-            onControllerCollidedEvent += onControllerCollider;
-            _controller.onTriggerEnterEvent += onTriggerEnterEvent;
-            _controller.onTriggerExitEvent += onTriggerExitEvent;
-        }
-
-        void onControllerCollider(RaycastHit2D hit)
-        {
-            if (hit.normal.y == 1f)
-            return;
-
-            //Debug.Log( "flags: " + _controller.collisionState + ", hit.normal: " + hit.normal );
-        }
-
-
-        void onTriggerEnterEvent(Collider2D col)
-        {
-            Debug.Log("onTriggerEnterEvent: " + col.gameObject.name);
-        }
-
-
-        void onTriggerExitEvent(Collider2D col)
-        {
-            Debug.Log("onTriggerExitEvent: " + col.gameObject.name);
         }
 
         void Update()
@@ -82,12 +57,6 @@ namespace Assets.Scripts.Player
 
                 _velocity.y += Gravity * Time.deltaTime;
                 _controller._movement.Move(_velocity * Time.deltaTime);
-
-                if (onControllerCollidedEvent != null)
-                {
-                    foreach (RaycastHit2D hit in _controller.RaycastHitsThisFrame)
-                        onControllerCollidedEvent(hit);
-                }
 
                 _velocity = _controller.Velocity;
             }

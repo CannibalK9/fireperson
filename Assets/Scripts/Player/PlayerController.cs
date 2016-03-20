@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Heat;
 using Assets.Scripts.Movement;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,10 +8,6 @@ namespace Assets.Scripts.Player
     [RequireComponent(typeof(BoxCollider2D))]
     public class PlayerController : MonoBehaviour, IController, IVariableHeater
     {
-        public event Action<Collider2D> onTriggerEnterEvent;
-        public event Action<Collider2D> onTriggerStayEvent;
-        public event Action<Collider2D> onTriggerExitEvent;
-
         [SerializeField]
         [Range(0.001f, 0.3f)]
         private float _skinWidth = 0.02f;
@@ -50,6 +45,8 @@ namespace Assets.Scripts.Player
         public int _totalVerticalRays = 4;
         public int TotalVerticalRays { get { return _totalVerticalRays; } }
 
+        private float _defaultHeatRayDistance;
+        private float _currentHeatRayDistance;
         public float _heatRayDistance = 0.2f;
         public float HeatRayDistance { get { return _heatRayDistance; } }
 
@@ -65,6 +62,8 @@ namespace Assets.Scripts.Player
         public MovementHandler _movement;
         private HeatHandler _heatHandler;
 
+        public GameObject PilotedLight;
+
         void Awake()
         {
             _movement = new MovementHandler(this);
@@ -76,6 +75,17 @@ namespace Assets.Scripts.Player
             RaycastHitsThisFrame = new List<RaycastHit2D>(2);
             SkinWidth = _skinWidth;
             IgnoreCollisionLayersOutsideTriggerMask();
+
+            _defaultHeatRayDistance = _heatRayDistance;
+            _currentHeatRayDistance = _heatRayDistance;
+        }
+
+        void Update()
+        {
+            if (_currentHeatRayDistance == _heatRayDistance)
+                _heatRayDistance = _defaultHeatRayDistance;
+            else
+                _currentHeatRayDistance = _heatRayDistance;
         }
 
         private void IgnoreCollisionLayersOutsideTriggerMask()
@@ -100,28 +110,14 @@ namespace Assets.Scripts.Player
                 : transform.position + new Vector3(-0.4f, 0, 0);
 
             Instantiate(
-                Resources.Load("PilotedLight"),
+                PilotedLight,
                 pilotedLightPosition,
                 transform.rotation);
         }
 
-        public void OnTriggerEnter2D(Collider2D col)
+        public void Spotted()
         {
-            if (onTriggerEnterEvent != null)
-                onTriggerEnterEvent(col);
-        }
-
-        public void OnTriggerStay2D(Collider2D col)
-        {
-            if (onTriggerStayEvent != null)
-                onTriggerStayEvent(col);
-        }
-
-
-        public void OnTriggerExit2D(Collider2D col)
-        {
-            if (onTriggerExitEvent != null)
-                onTriggerExitEvent(col);
+            _heatRayDistance -= Time.deltaTime * 0.3f;
         }
 
         public void WarpToGrounded()

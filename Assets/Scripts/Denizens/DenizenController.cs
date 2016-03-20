@@ -49,7 +49,7 @@ namespace Assets.Scripts.Denizens
         public CollisionState CollisionState { get; set; }
         public bool IsGrounded { get { return CollisionState.below; } }
         public Vector3 Velocity { get; set; }
-        public List<RaycastHit2D> RaycastHitsThisFrame { get; set; } 
+        public List<RaycastHit2D> RaycastHitsThisFrame { get; set; }
         public float VerticalDistanceBetweenRays { get; set; }
         public float HorizontalDistanceBetweenRays { get; set; }
         public bool SatAtFireplace { get; set; }
@@ -76,6 +76,22 @@ namespace Assets.Scripts.Denizens
                     Physics2D.IgnoreLayerCollision(gameObject.layer, i);
             }
         }
+
+        public bool SpotPlayer(Vector2 direction)
+        {
+            LayerMask mask = 1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Static Environment");
+
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 20f, mask);
+            if (hit)
+            {
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+                {
+                    hit.collider.SendMessage("Spotted", SendMessageOptions.RequireReceiver);
+                    return true;
+                }
+            }
+            return false;
+        } 
 
         void OnTriggerStay2D(Collider2D col)
         {

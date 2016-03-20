@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Denizens;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Player
 {

@@ -5,7 +5,7 @@ namespace Assets.Scripts.Denizens
 {
     public class Fireplace : MonoBehaviour
     {
-        public bool IsLit { get; set; }
+        public bool IsLit;
         public bool IsAccessible;
         public bool IsHeatSource;
 
@@ -23,7 +23,7 @@ namespace Assets.Scripts.Denizens
             if (IsLit == false || IsHeatSource == false)
                 return;
 
-            LayerMask mask = 1 << LayerMask.NameToLayer("Denizens");
+            LayerMask mask = 1 << LayerMask.NameToLayer("Denizens") | 1 << LayerMask.NameToLayer("Static Environment");
 
             origin = transform.position;
             rotation = new Vector2(transform.rotation.x, transform.rotation.y);
@@ -39,7 +39,7 @@ namespace Assets.Scripts.Denizens
 
         private void SendRaycastMessage(RaycastHit2D hit, DirectionTravelling direction)
         {
-            hit.collider.SendMessage("MoveToFireplace", direction, SendMessageOptions.RequireReceiver);
+            hit.collider.SendMessage("MoveToFireplace", direction, SendMessageOptions.DontRequireReceiver);
         }
 
         public List<Fireplace> GetConnectedFireplaces()

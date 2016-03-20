@@ -15,7 +15,13 @@ namespace Assets.Scripts.Denizens
         private DenizenController _controller;
         private Animator _animator;
         private Vector3 _velocity;
-        private bool _satAtFirePlace;
+        private bool _movementPaused;
+        private bool _waitingToMove;
+
+        private void BeginMoving()
+        {
+            _movementPaused = false;
+        }
 
         void Awake()
         {
@@ -26,20 +32,21 @@ namespace Assets.Scripts.Denizens
 
         void Update()
         {
-            if (_controller.SatAtFireplace)
+            if (_controller.SatAtFireplace || _movementPaused)
             {
-                _satAtFirePlace = true;
+                _waitingToMove = true;
                 _velocity = Vector3.zero;
                 directionTravelling = DirectionTravelling.None;
             }
-            else if (_satAtFirePlace)
+            else if (_waitingToMove)
             {
                 SetTravelInDirectionFacing();
-                _satAtFirePlace = false;
+                _waitingToMove = false;
             }
 
             DetermineMovement();
             HandleMovement();
+            SpotPlayer();
         }
 
         void MoveToFireplace(DirectionTravelling direction)
@@ -108,10 +115,23 @@ namespace Assets.Scripts.Denizens
             return Physics2D.Raycast(edgeRay, Vector2.down, 1f, _controller.PlatformMask) == false;
         }
 
+        private bool _hitSnow;
+
         private bool ApproachingSnow(Vector2 snowRay)
         {
             LayerMask mask = 1 << LayerMask.NameToLayer("Melting");
-            return Physics2D.Raycast(snowRay, Vector2.down, 0.1f, mask);
+            RaycastHit2D hit = Physics2D.Raycast(snowRay, Vector2.down, 0.1f, mask);
+            if (hit && _hitSnow == false)
+            {
+                _hitSnow = true;
+                _movementPaused = true;
+                _animator.Play(Animator.StringToHash("Shiver"));
+            }
+            else
+            {
+                _hitSnow = false;
+            }
+            return hit;
         }
 
         private void FlipSprite()
@@ -139,6 +159,27 @@ namespace Assets.Scripts.Denizens
             _velocity.y += Gravity * Time.deltaTime;
             _controller.Movement.Move(_velocity * Time.deltaTime);
             _velocity = _controller.Velocity;
+        }
+
+        private bool _playerSpotted;
+
+        private void SpotPlayer()
+        {
+            Vector2 direction = GetDirectionFacing() == DirectionFacing.Right
+                ? Vector2.right
+                : Vector2.left;
+
+            if (_controller.SpotPlayer(direction) && _playerSpotted == false)
+            {
+                _playerSpotted = true;
+                _movementPaused = true;
+                _animator.Play(Animator.StringToHash("Gasp"));
+            }
+            else if (_playerSpotted)
+            {
+                _playerSpotted = false;
+                _animator.Play(Animator.StringToHash("Relief"));
+            }
         }
 
         private enum DirectionFacing
