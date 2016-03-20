@@ -66,6 +66,7 @@ namespace Assets.Scripts.Player
         public List<RaycastHit2D> RaycastHitsThisFrame { get; set; }
         public float VerticalDistanceBetweenRays { get; set; }
         public float HorizontalDistanceBetweenRays { get; set; }
+        public Fireplace Fireplace { get; set; }
 
         void Awake()
         {
@@ -106,7 +107,7 @@ namespace Assets.Scripts.Player
                 if (NoGravity == true)
                 {
                     NoGravity = false;
-                    collidingPoint.gameObject.GetComponent<Fireplace>().IsLit = false;
+                    Fireplace.IsLit = false;
                 }
                 DecreaseLifeSpan();
                 DecreaseScale();
@@ -118,24 +119,26 @@ namespace Assets.Scripts.Player
             }
         }
 
-        private Collider2D collidingPoint;
+        public Collider2D _collidingPoint;
 
         private void MoveTowardsPoint()
         {
-            _movement.Move((collidingPoint.transform.position - transform.position) * 0.2f);
+            _movement.Move((_collidingPoint.transform.position - transform.position) * 0.2f);
             if (OnPoint())
             {
                 transform.localScale = InitialScale;
                 _remainingDurationInSeconds = DurationInSeconds;
                 IsMovementOverridden = false;
-                collidingPoint.gameObject.GetComponent<Fireplace>().IsLit = true;
+
+                Fireplace = _collidingPoint.gameObject.GetComponent<Fireplace>();
+                Fireplace.IsLit = true;
             }
         }
 
-        private bool OnPoint()
+        public bool OnPoint()
         {
-            return collidingPoint != null
-                ? collidingPoint.transform.position == transform.position
+            return _collidingPoint != null
+                ? _collidingPoint.transform.position == transform.position
                 : false;
         }
 
@@ -172,8 +175,11 @@ namespace Assets.Scripts.Player
         {
             if (col.gameObject.layer == LayerMask.NameToLayer("PL Spot"))
             {
-                collidingPoint = col;
-                IsMovementOverridden = true;
+                if (col.GetComponent<Fireplace>().IsAccessible)
+                {
+                    _collidingPoint = col;
+                    IsMovementOverridden = true;
+                }
             }
         }
     }

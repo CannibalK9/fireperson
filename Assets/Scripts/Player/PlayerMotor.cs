@@ -51,7 +51,7 @@ namespace Assets.Scripts.Player
         {
             if (_animationPhase != 0)
             {
-                switch (_animationPhase)
+                switch(_animationPhase)
                 {
                     case 1:
                         ClimbUp_1();
@@ -151,8 +151,8 @@ namespace Assets.Scripts.Player
 
         private void SetAnimationWhenGrounded()
         {
-            if (_controller.IsGrounded && _normalizedHorizontalSpeed == 0) { }
-            //_animator.Play(Animator.StringToHash("Idle"));
+            if (_controller.IsGrounded && _normalizedHorizontalSpeed == 0)
+                _animator.Play(Animator.StringToHash("Idle"));
             else { }
                 //_animator.Play(Animator.StringToHash("Run"));
         }
@@ -170,27 +170,25 @@ namespace Assets.Scripts.Player
                _controller.BoxCollider.bounds.center.x,
                _controller.BoxCollider.bounds.max.y);
 
-            Vector2 size = new Vector2(4f, 1f);
-            LayerMask mask =
-                1 << LayerMask.NameToLayer("Right Climb Spot")
-                | 1 << LayerMask.NameToLayer("Left Climb Spot");
+            Vector2 size = new Vector2(5f, 1f);
 
-            RaycastHit2D hit = Physics2D.BoxCast(origin, size, 0, Vector2.up, 3f, mask);
+            RaycastHit2D hit = Physics2D.BoxCast(origin, size, 0, Vector2.up, 3f, GetClimbMask());
 
             if (hit)
             {
+                CancelHorizontalVelocity();
                 ClimbCollider = hit.collider;
                 if (ClimbCollider.gameObject.layer == LayerMask.NameToLayer("Right Climb Spot"))
                 {
-                    CancelHorizontalVelocity();
-                    climbingSide = DirectionFacing.Right;
-                    _animator.Play(Animator.StringToHash("Right Climb Up"));
+                    SetAnimationPhase(1);
+                    _climbingSide = DirectionFacing.Right;
+                    _animator.Play(Animator.StringToHash("Right Climb Up_1"));
                 }
                 else
                 {
-                    CancelHorizontalVelocity();
-                    climbingSide = DirectionFacing.Left;
-                    _animator.Play(Animator.StringToHash("Right Climb Up"));
+                    SetAnimationPhase(1);
+                    _climbingSide = DirectionFacing.Left;
+                    _animator.Play(Animator.StringToHash("Right Climb Up_1"));
                 }
             }
         }
@@ -201,29 +199,33 @@ namespace Assets.Scripts.Player
                _controller.BoxCollider.bounds.center.x,
                _controller.BoxCollider.bounds.min.y);
 
-            Vector2 size = new Vector2(4f, 1f);
-            LayerMask mask =
-                1 << LayerMask.NameToLayer("Right Climb Spot")
-                | 1 << LayerMask.NameToLayer("Left Climb Spot");
+            Vector2 size = new Vector2(5f, 1f);
 
-            RaycastHit2D hit = Physics2D.BoxCast(origin, size, 0, Vector2.down, 1f, mask);
+            RaycastHit2D hit = Physics2D.BoxCast(origin, size, 0, Vector2.down, 1f, GetClimbMask());
 
             if (hit)
             {
+                CancelHorizontalVelocity();
                 ClimbCollider = hit.collider;
                 if (ClimbCollider.gameObject.layer == LayerMask.NameToLayer("Right Climb Spot"))
                 {
-                    CancelHorizontalVelocity();
-                    climbingSide = DirectionFacing.Right;
-                    _animator.Play(Animator.StringToHash("Right Climb Down"));
+                    SetAnimationPhase(4);
+                    _climbingSide = DirectionFacing.Right;
+                    _animator.Play(Animator.StringToHash("Right Climb Down_1"));
                 }
                 else
                 {
-                    CancelHorizontalVelocity();
-                    climbingSide = DirectionFacing.Left;
-                    _animator.Play(Animator.StringToHash("Right Climb Down"));
+                    SetAnimationPhase(4);
+                    _climbingSide = DirectionFacing.Left;
+                    _animator.Play(Animator.StringToHash("Right Climb Down_1"));
                 }
             }
+        }
+
+        private LayerMask GetClimbMask()
+        {
+            return 1 << LayerMask.NameToLayer("Right Climb Spot")
+                | 1 << LayerMask.NameToLayer("Left Climb Spot");
         }
 
         private void CancelHorizontalVelocity()
@@ -232,65 +234,160 @@ namespace Assets.Scripts.Player
             _velocity = Vector3.zero;
         }
 
-        //Animation events
+        DirectionFacing _climbingSide;
+        Vector2 _target;
+        Vector2 _moving;
+
         private void SetAnimationPhase(int phase)
         {
             _animationPhase = phase;
         }
 
-        DirectionFacing climbingSide;
-
         private void ClimbUp_1()
         {
-            if (climbingSide == DirectionFacing.Right)
-                ClimbMovement(GetTopRight(ClimbCollider), GetTopLeft(_controller.BoxCollider));
+            if (_climbingSide == DirectionFacing.Right)
+            {
+                _target = GetTopRight(ClimbCollider);
+                _moving = GetTopLeft(_controller.BoxCollider);
+            }
             else
-                ClimbMovement(GetTopLeft(ClimbCollider), GetTopRight(_controller.BoxCollider));
+            {
+                _target = GetTopLeft(ClimbCollider);
+                _moving = GetTopRight(_controller.BoxCollider);
+            }
+            ClimbMovement();
+
+            if (NotMoving())
+            {
+                _animator.Play(Animator.StringToHash("Right Climb Up_2"));
+                SetAnimationPhase(2);
+                _previousPosition = null;
+            }
         }
 
         private void ClimbUp_2()
         {
-            if (climbingSide == DirectionFacing.Right)
-                ClimbMovement(GetTopRight(ClimbCollider), GetBottomLeft(_controller.BoxCollider));
+            if (_climbingSide == DirectionFacing.Right)
+            {
+                _target = GetTopRight(ClimbCollider);
+                _moving = GetBottomLeft(_controller.BoxCollider);
+            }
             else
-                ClimbMovement(GetTopLeft(ClimbCollider), GetBottomRight(_controller.BoxCollider));
+            {
+                _target = GetTopLeft(ClimbCollider);
+                _moving = GetBottomRight(_controller.BoxCollider);
+            }
+            ClimbMovement();
+
+            if (NotMoving())
+            {
+                _animator.Play(Animator.StringToHash("Right Climb Up_3"));
+                SetAnimationPhase(3);
+                _previousPosition = null;
+            }
         }
 
         private void ClimbUp_3()
         {
-            if (climbingSide == DirectionFacing.Right)
-                ClimbMovement(GetTopLeft(ClimbCollider), GetBottomLeft(_controller.BoxCollider));
+            if (_climbingSide == DirectionFacing.Right)
+            {
+                _target = GetTopLeft(ClimbCollider);
+                _moving = GetBottomLeft(_controller.BoxCollider);
+            }
             else
-                ClimbMovement(GetTopRight(ClimbCollider), GetBottomRight(_controller.BoxCollider));
+            {
+                _target = GetTopRight(ClimbCollider);
+                _moving = GetBottomRight(_controller.BoxCollider);
+            }
+            ClimbMovement();
+
+            if (NotMoving())
+            {
+                _animator.Play(Animator.StringToHash("Idle"));
+                SetAnimationPhase(0);
+                _previousPosition = null;
+            }
         }
 
         private void ClimbDown_1()
         {
-            if (climbingSide == DirectionFacing.Right)
-                ClimbMovement(GetTopRight(ClimbCollider), GetBottomRight(_controller.BoxCollider));
+            if (_climbingSide == DirectionFacing.Right)
+            {
+                _target = GetTopRight(ClimbCollider);
+                _moving = GetBottomRight(_controller.BoxCollider);
+
+            }
             else
-                ClimbMovement(GetTopLeft(ClimbCollider), GetBottomLeft(_controller.BoxCollider));
+            {
+                _target = GetTopLeft(ClimbCollider);
+                _moving = GetBottomLeft(_controller.BoxCollider);
+            }
+            ClimbMovement();
+
+            if (NotMoving())
+            {
+                _animator.Play(Animator.StringToHash("Right Climb Down_2"));
+                SetAnimationPhase(5);
+                _previousPosition = null;
+            }
         }
 
         private void ClimbDown_2()
         {
-            if (climbingSide == DirectionFacing.Right)
-                ClimbMovement(GetTopRight(ClimbCollider), GetBottomLeft(_controller.BoxCollider));
+            if (_climbingSide == DirectionFacing.Right)
+            {
+                _target = GetTopRight(ClimbCollider);
+                _moving = GetBottomLeft(_controller.BoxCollider);
+            }
             else
-                ClimbMovement(GetTopLeft(ClimbCollider), GetBottomRight(_controller.BoxCollider));
+            {
+                _target = GetTopLeft(ClimbCollider);
+                _moving = GetBottomRight(_controller.BoxCollider);
+            }
+            ClimbMovement();
+
+            if (NotMoving())
+            {
+                _animator.Play(Animator.StringToHash("Right Climb Down_3"));
+                SetAnimationPhase(6);
+                _previousPosition = null;
+            }
         }
 
         private void ClimbDown_3()
         {
-            if (climbingSide == DirectionFacing.Right)
-                ClimbMovement(GetTopRight(ClimbCollider), GetTopLeft(_controller.BoxCollider));
+            if (_climbingSide == DirectionFacing.Right)
+            {
+                _target = GetTopRight(ClimbCollider);
+                _moving = GetTopLeft(_controller.BoxCollider);
+            }
             else
-                ClimbMovement(GetTopLeft(ClimbCollider), GetTopRight(_controller.BoxCollider));
+            {
+                _target = GetTopLeft(ClimbCollider);
+                _moving = GetTopRight(_controller.BoxCollider);
+            }
+            ClimbMovement();
+
+            if (NotMoving())
+            {
+                _animator.Play(Animator.StringToHash("Idle"));
+                SetAnimationPhase(0);
+                _previousPosition = null;
+            }
         }
 
-        private void ClimbMovement(Vector2 ledge, Vector2 player)
+        private Vector2? _previousPosition;
+
+        private bool NotMoving()
         {
-            _controller._movement.Move((ledge - player) * 0.1f);
+            bool notMoving = _previousPosition == null ? false :_previousPosition == _moving;
+            _previousPosition = _moving;
+            return notMoving;
+        }
+
+        private void ClimbMovement()
+        {
+            _controller._movement.Move((_target - _moving) * 0.5f);
         }
 
         private Vector2 GetTopRight(Collider2D col)

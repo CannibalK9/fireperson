@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Denizens;
+using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
@@ -51,6 +52,56 @@ namespace Assets.Scripts.Player
 
         private void HandleMovementInputs()
         {
+            if (_controller.OnPoint())
+            {
+                if (Input.GetAxis("Mouse X") > 0)
+                {
+                    if (_controller.Fireplace.Right != null)
+                    {
+                        _controller.Fireplace.IsLit = false;
+                        _controller._collidingPoint = _controller.Fireplace.Right.GetComponent<Collider2D>();
+                        _controller.IsMovementOverridden = true;
+                        return;
+                    }
+                }
+
+                if (Input.GetAxis("Mouse X") < 0)
+                {
+                    if (_controller.Fireplace.Left != null)
+                    {
+                        _controller.Fireplace.IsLit = false;
+                        _controller._collidingPoint = _controller.Fireplace.Left.GetComponent<Collider2D>();
+                        _controller.IsMovementOverridden = true;
+                        return;
+                    }
+                }
+
+                if (Input.GetAxis("Mouse Y") > 0)
+                {
+                    if (_controller.Fireplace.Up != null)
+                    {
+                        _controller.Fireplace.IsLit = false;
+                        _controller._collidingPoint = _controller.Fireplace.Up.GetComponent<Collider2D>();
+                        _controller.IsMovementOverridden = true;
+                        return;
+                    }
+                }
+
+                if (Input.GetAxis("Mouse Y") < 0)
+                {
+                    if (_controller.Fireplace.Down != null)
+                    {
+                        _controller.Fireplace.IsLit = false;
+                        _controller._collidingPoint = _controller.Fireplace.Down.GetComponent<Collider2D>();
+                        _controller.IsMovementOverridden = true;
+                        return;
+                    }
+                }
+
+                if (_controller.Fireplace.IsAccessible == false)
+                    return;
+            }
+
             if (Input.GetAxis("Mouse X") > 0)
             {
                 if (_normalizedHorizontalSpeed < 1)
