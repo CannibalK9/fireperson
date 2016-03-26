@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
-    [RequireComponent(typeof(BoxCollider2D))]
     public class PlayerController : MonoBehaviour, IController, IVariableHeater
     {
         [SerializeField]
@@ -66,14 +65,16 @@ namespace Assets.Scripts.Player
 
         void Awake()
         {
-            _movement = new MovementHandler(this);
-            _heatHandler = new HeatHandler(this);
-
-            Transform = GetComponent<Transform>();
+            Transform = transform.parent.parent;
             BoxCollider = GetComponent<BoxCollider2D>();
             CollisionState = new CollisionState();
             RaycastHitsThisFrame = new List<RaycastHit2D>(2);
+
             SkinWidth = _skinWidth;
+
+            _movement = new MovementHandler(this);
+            _heatHandler = new HeatHandler(this);
+
             IgnoreCollisionLayersOutsideTriggerMask();
 
             _defaultHeatRayDistance = _heatRayDistance;
@@ -135,6 +136,13 @@ namespace Assets.Scripts.Player
 
             var colliderUseableWidth = BoxCollider.size.x * Mathf.Abs(Transform.localScale.x) - (2f * _skinWidth);
             HorizontalDistanceBetweenRays = colliderUseableWidth / (TotalVerticalRays - 1);
+        }
+
+        void OnDrawGizmos()
+        {
+            Gizmos.color = new Color(1, 0, 0, 0.5F);
+            BoxCollider2D box = GetComponent<BoxCollider2D>();
+            Gizmos.DrawCube(box.bounds.center, new Vector3(box.bounds.size.x, box.bounds.size.y, 1));
         }
     }
 }

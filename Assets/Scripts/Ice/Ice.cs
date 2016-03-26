@@ -21,6 +21,11 @@ namespace Assets.Scripts.Ice
         private PolygonCollider2D _polyCollider;
         private Mesh _mesh;
 
+        public Vector2[] GetCurrentPoints()
+        {
+            return _polyCollider.points;
+        }
+
         void Start()
 		{
 			_polyCollider = GetComponent<PolygonCollider2D>();

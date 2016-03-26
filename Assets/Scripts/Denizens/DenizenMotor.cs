@@ -59,7 +59,6 @@ namespace Assets.Scripts.Denizens
             if (_controller.IsGrounded)
             {
                 _velocity.y = 0;
-                //SetAnimationWhenGrounded();
                 if (_controller.CollisionState.becameGroundedThisFrame)
                     SetTravelInDirectionFacing();
             }
@@ -71,6 +70,7 @@ namespace Assets.Scripts.Denizens
 
             if (directionTravelling == DirectionTravelling.Right)
             {
+                SetAnimationWhenGrounded();
                 var hazardRay = new Vector2(
                     _controller.BoxCollider.bounds.max.x + HazardWarningDistance,
                     _controller.BoxCollider.bounds.min.y);
@@ -85,6 +85,7 @@ namespace Assets.Scripts.Denizens
             }
             else if (directionTravelling == DirectionTravelling.Left)
             {
+                SetAnimationWhenGrounded();
                 var hazardRay = new Vector2(
                     _controller.BoxCollider.bounds.min.x - HazardWarningDistance,
                     _controller.BoxCollider.bounds.min.y);
@@ -144,7 +145,7 @@ namespace Assets.Scripts.Denizens
             if (_controller.IsGrounded && _normalizedHorizontalSpeed == 0)
                 _animator.Play(Animator.StringToHash("Idle"));
             else
-                _animator.Play(Animator.StringToHash("Run"));
+                _animator.Play(Animator.StringToHash("Idle"));
         }
 
         private void HandleMovement()

@@ -10,20 +10,20 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="210mm"
-   height="297mm"
-   viewBox="0 0 744.09449 1052.3622"
+   width="1024"
+   height="1024"
+   viewBox="0 0 1024 1024"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="person.svg"
-   inkscape:export-filename="C:\Users\DB\Desktop\sprites\drawing-1.png"
+   inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts2.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
      id="defs4">
     <filter
-       style="color-interpolation-filters:sRGB;"
+       style="color-interpolation-filters:sRGB"
        inkscape:label="Roughen"
        id="filter5060">
       <feTurbulence
@@ -49,18 +49,29 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.43"
-     inkscape:cx="-55.201659"
-     inkscape:cy="596.60306"
+     inkscape:zoom="1.2162237"
+     inkscape:cx="494.32451"
+     inkscape:cy="807.74808"
      inkscape:document-units="px"
-     inkscape:current-layer="layer2"
-     showgrid="false"
+     inkscape:current-layer="layer5"
+     showgrid="true"
      inkscape:window-width="1366"
      inkscape:window-height="705"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     showguides="false" />
+     showguides="false"
+     units="px"
+     objecttolerance="1"
+     gridtolerance="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3613"
+       spacingx="64"
+       spacingy="64"
+       originx="0"
+       originy="64" />
+  </sodipodi:namedview>
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -69,7 +80,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -78,7 +89,8 @@
      id="layer3"
      inkscape:label="Sketch 2"
      sodipodi:insensitive="true"
-     style="display:none">
+     style="display:none"
+     transform="translate(0,-28.362114)">
     <image
        y="211.04105"
        x="-459.67526"
@@ -95,7 +107,8 @@
      inkscape:groupmode="layer"
      id="layer1"
      style="display:none"
-     sodipodi:insensitive="true">
+     sodipodi:insensitive="true"
+     transform="translate(0,-28.362114)">
     <image
        y="202.36221"
        x="75.357147"
@@ -110,7 +123,8 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Sketch 1"
-     style="display:inline">
+     style="display:none"
+     transform="translate(0,-28.362114)">
     <path
        style="opacity:1;fill:#3d6b6b;fill-opacity:1;stroke:none;stroke-width:0.69999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 322.35019,549.92597 c 0.078,-23.66705 1.08356,-55.71613 4.69314,-68.26884 1.75291,-6.096 3.78332,-11.84314 4.51199,-12.77142 1.2189,-1.55278 14.08415,-15.82471 20.24328,-15.84005 3.73732,-0.009 9.61252,5.17411 9.61252,8.33973 0,0.64605 -8.08627,15.24696 -10.7925,33.02088 -3.36209,22.08154 -2.91308,51.22004 -4.88686,59.68257 z"
@@ -417,7 +431,8 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="Sketch 3"
-     style="display:none">
+     style="display:none"
+     transform="translate(0,-28.362114)">
     <path
        inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
        inkscape:export-ydpi="90"
@@ -661,13 +676,13 @@
        inkscape:export-ydpi="90">
       <path
          style="fill:#ae6b3f;fill-opacity:1;stroke:none;stroke-width:2"
-         d="m 56.572266,798.45898 c -7.524002,-0.10562 -14.210738,17.39949 -20.740235,25.26758 l -12.537109,86.98242 c -0.35285,2.4483 0.31984,19.99986 2.40039,30.2754 2.412081,11.91295 -7.05597,24.11402 -2.84375,36.63085 4.959041,14.7361 19.724215,32.34447 19.896485,33.88477 0,0 13.019795,1.2842 18.478515,0.4473 5.70261,-0.8743 2.181664,-3.9546 -5.222656,-12.46683 -1.0423,-1.1982 -7.179155,-12.17005 -10.078125,-25.15625 -4.46997,-20.02371 1.23622,-41.93948 2.34961,-47.08203 L 74.351562,806.79883 c -5.767093,-3.81239 -11.587468,-7.54488 -17.208984,-8.29688 -0.19086,-0.0255 -0.380528,-0.0403 -0.570312,-0.043 z"
+         d="m 56.572266,798.45898 c -7.524002,-0.10562 -14.210738,17.39949 -20.740235,25.26758 l -12.537109,86.98242 c -0.32929,2.28483 0.236134,17.71996 2.003906,28.12305 5.819602,7.08137 12.295832,13.35606 19.046875,14.75781 0.531446,-12.46566 3.202629,-22.9895 3.929688,-26.34765 L 74.351562,806.79883 c -5.767093,-3.81239 -11.587468,-7.54488 -17.208984,-8.29688 -0.19086,-0.0255 -0.380528,-0.0403 -0.570312,-0.043 z"
          transform="translate(293.09297,31.359674)"
          id="rect3409-6-0-2"
          inkscape:connector-curvature="0" />
       <path
          style="fill:#d38d5f;fill-opacity:1;stroke:none;stroke-width:2"
-         d="m 56.572266,798.375 c -4.603433,-0.0646 -8.886898,6.46359 -13.019532,13.34766 0.101393,1.59489 0.451172,7.27929 0.451172,7.27929 L 30.201172,914.7832 c -0.35285,2.4483 0.317887,19.99986 2.398437,30.27539 2.41208,11.91296 -7.05597,24.11406 -2.84375,36.63086 4.95904,14.7361 14.028902,28.99095 14.201172,30.53125 0,0 5.402608,6.5947 10.861328,5.7578 5.70261,-0.8743 21.050805,-2.8823 13.646485,-11.3945 -1.0423,-1.1983 -6.673296,-13.68364 -9.572266,-26.66994 -4.46997,-20.02367 -4.824327,-43.4551 -3.710937,-48.59765 L 81.205078,811.11719 c -7.947016,-4.78391 -16.200979,-11.64758 -24.0625,-12.69922 -0.19086,-0.0255 -0.380528,-0.0403 -0.570312,-0.043 z"
+         d="m 56.572266,798.375 c -4.603433,-0.0646 -8.886898,6.46359 -13.019532,13.34766 0.101393,1.59489 0.451172,7.27929 0.451172,7.27929 L 30.201172,914.7832 c -0.35285,2.4483 0.317887,19.99986 2.398437,30.27539 0.244354,1.20684 0.361585,2.41614 0.388672,3.62891 4.502248,4.05603 9.253571,6.84375 14.121094,6.84375 2.763074,0 5.446549,-0.89608 8.035156,-2.41016 -0.742577,-10.4322 -0.581703,-18.9465 0.03711,-21.80468 L 81.205078,811.11719 c -7.947016,-4.78391 -16.200979,-11.64758 -24.0625,-12.69922 -0.19086,-0.0255 -0.380528,-0.0403 -0.570312,-0.043 z"
          transform="translate(293.09297,31.359674)"
          id="rect3409-5-1"
          inkscape:connector-curvature="0" />
@@ -699,14 +714,15 @@
        inkscape:export-ydpi="90">
       <path
          style="fill:#774f33;fill-opacity:1;stroke:none;stroke-width:1.99999988"
-         d="m 167.32031,851.96289 c -4.42817,-0.0622 -8.56371,5.98077 -12.55078,12.56836 0.33819,1.85021 0.65538,3.69491 0.92383,5.5293 3.04618,20.81577 -9.86708,42.00533 -9.6543,61.59765 0.14253,13.1241 2.52538,31.85476 -3.92968,46.97657 -6.36052,14.90031 -9.81807,35.10753 1.29492,37.58403 9.8184,2.188 18.20405,2.1141 24.15039,1.7421 36.65633,-2.2932 10.75047,0.1229 27.59179,-10.9043 0.0874,-8.86666 -16.99439,-2.205 -26.58007,-16.16207 -7.41765,-10.80033 6.91724,-45.10067 7.6914,-52.69336 2.03195,-19.92859 10.65004,-45.53733 10.06836,-67.69336 -0.011,-3.47655 -0.51844,-6.90855 -1.37695,-10.30469 -5.71728,-3.77712 -11.4846,-7.45188 -17.05664,-8.19726 -0.19086,-0.0255 -0.38248,-0.0403 -0.57227,-0.043 z"
-         transform="translate(304.3712,3.2481287)"
+         d="m 144.54735,940.16327 c -1.55168,0.0538 -3.16103,0.0667 -4.61449,0.46828 -4.26334,1.178 -8.00187,3.17748 -11.15356,6.95439 -0.29752,0.83188 -0.61412,1.65627 -0.96094,2.46875 -6.36052,14.90031 -9.81807,35.10748 1.29492,37.58398 9.8184,2.188 18.20405,2.11419 24.15039,1.74219 36.65633,-2.2932 10.75048,0.1229 27.5918,-10.9043 0.0874,-8.86666 -16.9944,-2.20504 -26.58008,-16.16211 -3.0396,-4.42575 -2.60975,-11.47064 -0.77391,-20.33382 -2.68659,-0.81656 -5.09285,-1.73148 -7.59328,-1.81736 -0.52696,-0.0181 -0.84363,-0.0179 -1.36085,0 z"
+         transform="translate(318.66151,31.828754)"
          id="rect3409-1-0-7-3"
-         inkscape:connector-curvature="0" />
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="sscssscscss" />
       <path
          style="fill:#ae6b3f;fill-opacity:1;stroke:none;stroke-width:1.99999988"
-         d="m 165.53516,850.17773 c -2.21317,-0.0311 -4.35374,1.47791 -6.43946,3.80274 1.16271,5.0074 2.15583,9.97006 2.87305,14.87109 3.04618,20.81577 -6.33788,42.28461 -9.65234,61.59571 -2.99335,17.44024 1.6783,41.91894 -6.60352,59.03125 -4.61064,9.52671 -5.30293,20.74008 0.79492,21.90428 l 10.41407,1.9883 20.27734,3.209 c 4.85828,-1.6712 35.38898,6.5252 35.55469,-10.2813 0.0874,-8.86657 -25.76198,-0.094 -35.34766,-14.05075 -3.41213,-5.98506 -5.75092,-8.05299 -5.34961,-16.06055 1.42401,-28.414 22.48919,-76.00815 20.54492,-106.89062 -0.006,-1.74106 -0.14242,-3.46923 -0.375,-5.18946 -8.5724,-4.74075 -17.57808,-12.74586 -26.12109,-13.88867 -0.19086,-0.0255 -0.38053,-0.0384 -0.57031,-0.041 z"
-         transform="translate(304.3712,3.2481287)"
+         d="m 143.75,939.73828 c -1.55113,0.0538 -3.0563,0.27223 -4.50977,0.67383 -1.06536,0.29437 -2.09006,0.68841 -3.08007,1.16601 -0.63597,6.90827 -1.94,13.53837 -4.73828,19.32032 -4.61064,9.52671 -5.30293,20.74009 0.79492,21.90429 l 10.41406,1.98829 L 162.9082,988 c 4.85828,-1.6712 35.38898,6.52525 35.55469,-10.28125 0.0874,-8.86657 -25.76198,-0.094 -35.34766,-14.05078 -3.41213,-5.98506 -5.75091,-8.05299 -5.34961,-16.06055 0.0741,-1.47947 0.21405,-3.02316 0.38868,-4.60156 -4.47798,-1.93617 -8.79945,-3.12887 -12.83789,-3.26758 -0.52697,-0.0181 -1.04937,-0.0179 -1.56641,0 z"
+         transform="translate(318.66151,31.828754)"
          id="rect3409-1-07-6"
          inkscape:connector-curvature="0" />
     </g>
@@ -831,5 +847,486 @@
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"
        inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png" />
+    <path
+       style="display:inline;fill:#d38d5f;fill-opacity:1;stroke:none;stroke-width:2"
+       d="m 401.86497,187.14592 26.84383,6.4087 c 3.8474,0.91858 7.53777,20.67393 5.46603,27.70581 l -4.58849,15.57422 c -2.07174,7.03187 -12.98389,22.06337 -16.4642,20.18354 L 380.2174,239.24528 c -3.48031,-1.87983 2.82267,-8.62341 4.13042,-15.83653 l 3.83087,-21.13006 c 1.30774,-7.21312 9.83887,-16.05131 13.68628,-15.13277 z"
+       id="rect3428-2-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssss"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png" />
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 384.88372,226.78081 c 11.71505,-10.71046 4.9122,-7.70349 14.97092,-14.09883 2.48759,0.82919 7.60523,-3.66054 12.15944,-2.14247 5.28598,1.762 10.45938,4.11679 15.29866,6.53643 6.58703,3.29351 3.09035,9.09182 8.58842,12.7572 2.91014,1.94009 -4.50667,-7.99334 1.30814,-13.80815 4.33372,-4.33371 -2.20383,-20.52962 -4.50581,-23.98256 -3.47427,-5.21139 -19.93881,-7.34225 -29.4189,-7.34225 -1.81395,0 -10.16822,5.19287 -11.51178,6.53642 -6.2008,6.20081 -10.45233,7.76358 -8.1869,12.29444 2.16604,4.33208 -8.43772,24.34272 -8.94929,23.83116 -1.76004,12.99844 -12.19775,10.96611 0.0727,18.60466 -1.22317,2.44633 12.71719,-19.82174 10.17442,-19.18605 z"
+       id="path3445"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsssssssscccc" />
+    <g
+       style="display:inline"
+       transform="translate(-286.43423,-4.6525481)"
+       id="g4281-2-3"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         style="fill:#ae6b3f;fill-opacity:1;stroke:none;stroke-width:2"
+         d="m 46.15625,956.86328 c -6.338871,0 -12.544815,4.64114 -18.472656,11.67188 -1.446838,9.0459 -5.984056,18.25881 -2.824219,27.64843 4.959041,14.73611 19.724214,32.34451 19.896484,33.88481 0,0 13.019796,1.2841 18.478516,0.4472 5.70261,-0.8743 2.181664,-3.9545 -5.222656,-12.4668 -1.0423,-1.1982 -7.179155,-12.17 -10.078125,-25.15622 -2.864943,-12.83382 -1.548531,-26.42256 0.05859,-35.89649 -0.609464,-0.0851 -1.220977,-0.13281 -1.835938,-0.13281 z"
+         transform="translate(291.08539,12.792083)"
+         id="rect3409-6-0-2-9"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:#d38d5f;fill-opacity:1;stroke:none;stroke-width:2"
+         d="m 46.738281,954.53906 c -4.314979,0 -8.568516,2.16364 -12.714843,5.75196 0.18208,1.16576 0.373425,2.29601 0.583984,3.33593 2.41208,11.91296 -7.05597,24.11406 -2.84375,36.63085 4.95904,14.7361 14.028902,28.991 14.201172,30.5313 0,0 5.402608,6.5947 10.861328,5.7578 5.70261,-0.8743 21.050804,-2.8824 13.646484,-11.3946 -1.0423,-1.1983 -6.673295,-13.6836 -9.572265,-26.66988 -3.205461,-14.35918 -4.289246,-30.4359 -4.238282,-40.29883 -3.216146,-2.31488 -6.528378,-3.64453 -9.923828,-3.64453 z"
+         transform="translate(291.08539,12.792083)"
+         id="rect3409-5-1-3"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       style="display:inline"
+       transform="translate(-312.55895,-71.102272)"
+       id="g4285-9-8"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         style="fill:#774f33;fill-opacity:1;stroke:none;stroke-width:1.99999988"
+         d="m -121.09961,836.43359 c -4.42817,-0.0622 -8.56371,5.98077 -12.55078,12.56836 0.33819,1.85021 0.65538,3.69491 0.92383,5.5293 3.04618,20.81577 -9.86708,42.00534 -9.6543,61.59766 0.13803,12.70953 2.3774,30.67717 -3.34375,45.5332 3.29835,4.19752 7.14901,7.20488 11.70899,8.46484 3.77771,1.04382 7.91219,0.84442 12.27343,-0.27539 -1.91288,-14.03105 8.90994,-40.60715 9.58008,-47.17968 2.03195,-19.92859 10.65004,-45.53733 10.06836,-67.69336 -0.011,-3.47655 -0.51844,-6.90855 -1.37695,-10.30469 -5.71728,-3.77712 -11.4846,-7.45189 -17.05664,-8.19727 -0.19086,-0.0255 -0.38248,-0.0403 -0.57227,-0.043 z"
+         transform="translate(592.79151,18.776691)"
+         id="rect3409-1-0-7-3-3"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:#ae6b3f;fill-opacity:1;stroke:none;stroke-width:1.99999988"
+         d="m -122.88477,834.64844 c -2.21317,-0.0311 -4.35373,1.4779 -6.43945,3.80273 1.16271,5.0074 2.15583,9.97007 2.87305,14.8711 3.04618,20.81577 -6.33789,42.2846 -9.65235,61.5957 -2.59771,15.13515 0.57314,35.56857 -3.95507,51.89062 1.53149,0.94656 3.15282,1.67737 4.8789,2.1543 5.70441,1.57618 12.2226,0.33421 19.10938,-2.67383 -0.29385,-1.54806 -0.40763,-3.34292 -0.29297,-5.63086 1.42401,-28.414 22.489191,-76.00815 20.544921,-106.89062 -0.006,-1.74106 -0.14242,-3.46922 -0.375,-5.18946 -8.572401,-4.74075 -17.578081,-12.74586 -26.121091,-13.88867 -0.19086,-0.0255 -0.38054,-0.0384 -0.57032,-0.041 z"
+         transform="translate(592.79151,18.776691)"
+         id="rect3409-1-07-6-5"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       style="display:inline"
+       transform="matrix(1.0455552,0,0,1.093289,-338.399,-67.702484)"
+       id="g4285-9-80"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         style="fill:#ae6b3f;fill-opacity:1;stroke:none;stroke-width:1.99999988"
+         d="m 144.54735,940.16327 c -1.55168,0.0538 -3.16103,0.0667 -4.61449,0.46828 -4.26334,1.178 -8.00187,3.17748 -11.15356,6.95439 -0.29752,0.83188 -0.61412,1.65627 -0.96094,2.46875 -6.36052,14.90031 -9.81807,35.10748 1.29492,37.58398 9.8184,2.188 18.20405,2.11419 24.15039,1.74219 36.65633,-2.2932 10.75048,0.1229 27.5918,-10.9043 0.0874,-8.86666 -16.9944,-2.20504 -26.58008,-16.16211 -3.0396,-4.42575 -2.60975,-11.47064 -0.77391,-20.33382 -2.68659,-0.81656 -5.09285,-1.73148 -7.59328,-1.81736 -0.52696,-0.0181 -0.84363,-0.0179 -1.36085,0 z"
+         transform="translate(318.66151,31.828754)"
+         id="rect3409-1-0-7-3-1"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="sscssscscss" />
+      <path
+         inkscape:connector-curvature="0"
+         style="fill:#d38d5f;fill-opacity:1;stroke:none;stroke-width:1.99999988"
+         d="m 143.75,939.73828 c -1.55113,0.0538 -3.0563,0.27223 -4.50977,0.67383 -1.06536,0.29437 -2.09006,0.68841 -3.08007,1.16601 -0.63597,6.90827 -1.94,13.53837 -4.73828,19.32032 -4.61064,9.52671 -5.30293,20.74009 0.79492,21.90429 l 10.41406,1.98829 L 162.9082,988 c 4.85828,-1.6712 35.38898,6.52525 35.55469,-10.28125 0.0874,-8.86657 -25.76198,-0.094 -35.34766,-14.05078 -3.41213,-5.98506 -5.75091,-8.05299 -5.34961,-16.06055 0.0741,-1.47947 0.21405,-3.02316 0.38868,-4.60156 -4.47798,-1.93617 -8.79945,-3.12887 -12.83789,-3.26758 -0.52697,-0.0181 -1.04937,-0.0179 -1.56641,0 z"
+         transform="translate(318.66151,31.828754)"
+         id="rect3409-1-07-6-3" />
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer5"
+     inkscape:label="Sketch 4"
+     transform="translate(0,-28.362114)">
+    <path
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       sodipodi:nodetypes="sssssss"
+       inkscape:connector-curvature="0"
+       id="rect3390-6-3-4-3"
+       d="m 309.35593,948.21431 c 18.84801,5.28156 29.49276,44.34243 29.62096,48.69096 l 0.4589,15.56493 c 0.12813,4.3485 4.8265,23.3258 -14.02156,18.0442 -18.84801,-5.2816 -22.09725,-11.1967 -22.83369,-16.0102 l -8.27742,-54.10251 c -0.73645,-4.8135 -3.79524,-17.46896 15.05281,-12.18738 z"
+       inkscape:transform-center-y="-0.7309853"
+       inkscape:transform-center-x="2.3972963"
+       style="display:inline;fill:#ae6b3f;fill-opacity:1;stroke:none;stroke-width:2.00294662" />
+    <g
+       style="display:inline"
+       id="g4269-9"
+       transform="matrix(1.5020657,0,0,1.5020657,-488.63105,-401.0758)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         inkscape:export-filename="C:\code\fireperson\Assets\Sprites\drawing-1.png"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         sodipodi:nodetypes="sssssscssss"
+         inkscape:connector-curvature="0"
+         id="rect3426-2-9"
+         d="m 367.92476,383.62772 14.18602,29.03735 c 1.68784,3.45484 0.72733,6.6917 -1.54586,13.63395 l -3.99455,12.19916 c -1.30138,3.97432 5.59151,10.95833 8.87291,16.07857 2.45044,3.82367 2.92488,8.68042 2.99531,10.36991 l 1.0123,24.28251 -52.55889,-52.00962 c -2.76092,-2.73206 4.73524,-10.10319 8.15012,-16.524 l 6.21618,-11.68794 c 3.41487,-6.42079 14.97862,-28.83472 16.66646,-25.37989 z"
+         style="fill:#d38d5f;fill-opacity:1;stroke:none;stroke-width:2" />
+      <path
+         inkscape:export-filename="C:\code\fireperson\Assets\Sprites\drawing-1.png"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         sodipodi:nodetypes="cssssccscc"
+         inkscape:connector-curvature="0"
+         id="rect3426-3-7-7"
+         d="m 386.8291,401.72927 c 3.845,0.0272 -0.16811,16.31612 -1.87392,23.31707 l -2.83336,11.62858 c -0.97655,4.00793 0.55968,11.18054 3.84108,16.22376 2.45044,3.76615 2.92488,8.54983 2.99531,10.21391 l 1.0123,23.91722 -20.96909,-30.52288 c 1.78391,-7.56287 5.05249,-18.46011 0.86466,-35.52173 l 0.69769,-30.32217 z"
+         style="fill:#ae6b3f;fill-opacity:1;stroke:none;stroke-width:2" />
+    </g>
+    <path
+       style="display:inline;fill:#d38d5f;fill-opacity:1;stroke:none;stroke-width:2"
+       d="m 57.093091,50.26122 40.321195,9.62629 c 5.779044,1.37977 11.322224,31.05359 8.210334,41.61594 l -6.892211,23.3935 c -3.11189,10.56233 -19.502656,33.14063 -24.73031,30.317 L 24.577004,128.51787 c -5.227654,-2.82362 4.239836,-12.95292 6.204162,-23.7875 L 36.5354,72.99163 C 38.499711,62.15705 51.314028,48.88151 57.093091,50.26122 Z"
+       id="rect3428-2-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssss"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png" />
+    <g
+       style="display:inline"
+       id="g4273-3"
+       transform="matrix(1.5020657,0,0,1.5020657,-375.09357,-629.29193)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         inkscape:export-filename="C:\code\fireperson\Assets\Sprites\drawing-1.png"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         sodipodi:nodetypes="cssssscc"
+         inkscape:connector-curvature="0"
+         id="path4474-0-4-7"
+         d="m 542.6985,585.57959 c 0.0957,-30.81877 1.32923,-72.55247 5.75715,-88.89836 2.15033,-7.93809 4.64106,-15.42191 5.53494,-16.6307 1.49524,-2.022 17.27724,-20.60663 24.83275,-20.6266 4.58463,-0.0121 11.79182,6.73762 11.79182,10.85983 0,0.84127 -9.91955,19.85429 -13.23933,42.99915 -4.12432,28.75415 -3.57351,66.69775 -5.99478,77.71749 z"
+         style="opacity:1;fill:#3d6b6b;fill-opacity:1;stroke:none;stroke-width:0.69999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         style="opacity:1;fill:#3d6b6b;fill-opacity:1;stroke:none;stroke-width:2"
+         d="m 490.875,26.355469 -9.08008,0.90039 9.54883,4.025391 c 0.0552,-1.565678 -0.0866,-3.206068 -0.46875,-4.925781 z m 0.46875,4.925781 c -0.69075,19.584198 -33.0332,27.287109 -33.0332,27.287109 l -17.14649,45.326171 -9.78125,61.92969 -0.13877,84.80809 c -0.004,2.42595 63.5957,-27.53602 77.91356,-4.98724 l 39.26241,-11.73107 -2.83993,-46.95502 30.2168,-76.55664 -5.94727,-42.517574 -14.22852,-16.070313 -9.58593,-8.753906 -1.87891,17.564453 c -4.66728,7.674339 -21.85742,-16.294922 -21.85742,-16.294922 z"
+         transform="matrix(0.66574984,0,0,0.66574984,255.91151,444.0261)"
+         id="rect3380-4-6-7"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccccccscccccccccc" />
+      <path
+         style="opacity:1;fill:#008080;fill-opacity:1;stroke:none;stroke-width:2"
+         d="m 486.50781,20.019531 c -14.71015,0.736902 -23.93164,43.742188 -23.93164,43.742188 l -17.14648,45.328121 -2.28467,61.92774 c 0,0 -9.74628,40.84635 7.4645,70.00819 9.5097,16.11318 39.56953,13.12896 58.2075,11.48728 22.4382,-1.97642 41.15133,-16.23889 41.15133,-16.23889 l 30.0922,-120.6765 -0.94141,-48.527348 -15.23047,-16.068359 -17.59375,-12.759765 2.125,27.576171 C 543.75264,73.492698 526.5625,49.523438 526.5625,49.523438 L 493.13867,22.539062 c -2.31452,-1.86859 -4.52941,-2.624802 -6.63086,-2.519531 z"
+         transform="matrix(0.66574984,0,0,0.66574984,255.91151,444.0261)"
+         id="rect3380-5-7"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="scccsscccccccss" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="C:\code\fireperson\Assets\Sprites\drawing-1.png"
+         sodipodi:nodetypes="csccc"
+         inkscape:connector-curvature="0"
+         id="rect4211-2-9-1"
+         d="m 634.44687,481.98355 c 0,0 8.35186,3.46299 8.34702,7.12007 -0.12612,95.24794 -13.87785,69.30997 -13.87785,69.30997 l 3.07706,-16.47316 z"
+         style="fill:#3d6b6b;fill-opacity:1" />
+      <text
+         transform="matrix(1.0202493,0.24645586,-0.2237154,0.92611094,0,0)"
+         sodipodi:linespacing="125%"
+         id="text8557-7-5"
+         y="661.79144"
+         x="684.37433"
+         style="font-style:normal;font-weight:normal;font-size:63.58424759px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:63.58424759px;line-height:125%;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#ffffff"
+           y="661.79144"
+           x="684.37433"
+           id="tspan8559-5-6"
+           sodipodi:role="line">ρ</tspan></text>
+    </g>
+    <g
+       style="display:inline"
+       transform="matrix(1.5020657,0,0,1.5020657,-509.00533,-802.71191)"
+       id="g4285-8-6"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         style="fill:#774f33;fill-opacity:1;stroke:none;stroke-width:1.99999988"
+         d="m 129.64844,730.51367 c -12.05151,45.7657 15.54838,94.47288 22.30859,138.53321 7.65531,4.74147 15.56819,11.11294 23.11914,12.12304 2.62391,0.35101 5.14485,-1.50767 7.5918,-4.42383 0.0911,-2.10138 0.13974,-4.18877 0.0859,-6.23828 -0.0796,-25.14386 -25.35732,-48.04515 -31.97461,-70.70898 -8.36692,-28.65613 1.60599,-55.11755 2.59375,-65.1211 l -23.72461,-4.16406 z"
+         transform="translate(307.94378,3.2481287)"
+         id="rect3409-1-0-7-9-9"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:#ae6b3f;fill-opacity:1;stroke:none;stroke-width:1.99999988"
+         d="m 135.92383,729.30469 c -12.1438,46.11617 15.98605,95.22134 22.47265,139.54687 0.16816,1.14911 0.29317,2.30051 0.38868,3.45313 6.04944,4.0046 12.17313,8.07558 18.07617,8.86523 4.30205,0.57549 8.32621,-4.78957 12.20117,-11.04101 -0.0136,-0.2754 -0.016,-0.55922 -0.0332,-0.83203 -0.0796,-25.14386 -5.70888,-48.04516 -12.32618,-70.70899 -8.36691,-28.65613 -18.04244,-55.11754 -17.05468,-65.12109 l -23.72461,-4.16211 z"
+         transform="translate(307.94378,3.2481287)"
+         id="rect3409-1-07-8-7"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       style="display:inline"
+       transform="matrix(1.5020657,0,0,1.5020657,-523.6739,-628.30576)"
+       id="g4285-9-82"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         style="fill:#774f33;fill-opacity:1;stroke:none;stroke-width:1.99999988"
+         d="m 144.54735,940.16327 c -1.55168,0.0538 0.70961,5.87266 -0.74385,6.27424 -4.26334,1.178 -4.90536,-0.69316 -8.05705,3.08375 -0.29752,0.83188 -7.96833,4.36572 -8.31515,5.1782 -6.36052,14.90031 -9.43101,30.46271 1.68198,32.93921 9.8184,2.188 18.20405,2.11419 24.15039,1.74219 36.65633,-2.2932 10.75048,0.1229 27.5918,-10.9043 0.0874,-8.86666 -16.9944,-2.20504 -26.58008,-16.16211 -3.0396,-4.42575 -4.15801,-8.37413 -2.32217,-17.23731 -2.68659,-0.81656 -3.54459,-4.82799 -6.04502,-4.91387 -0.52696,-0.0181 -0.84363,-0.0179 -1.36085,0 z"
+         transform="translate(318.66151,31.828754)"
+         id="rect3409-1-0-7-3-4"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="sscssscscss" />
+      <path
+         inkscape:connector-curvature="0"
+         style="fill:#ae6b3f;fill-opacity:1;stroke:none;stroke-width:1.99999988"
+         d="m 143.75,939.73828 c -1.55113,0.0538 -3.0563,0.27223 -4.50977,0.67383 -1.06536,0.29437 0.23232,3.01079 -0.75769,3.48839 -0.63597,6.90827 -4.26238,11.21599 -7.06066,16.99794 -4.61064,9.52671 -5.30293,20.74009 0.79492,21.90429 l 10.41406,1.98829 L 162.9082,988 c 4.85828,-1.6712 35.38898,6.52525 35.55469,-10.28125 0.0874,-8.86657 -25.76198,-0.094 -35.34766,-14.05078 -3.41213,-5.98506 -8.46036,-6.50473 -8.05906,-14.51229 0.0741,-1.47947 -2.10833,-3.41023 -1.9337,-4.98863 -4.47798,-1.93617 -3.76762,-4.29006 -7.80606,-4.42877 -0.52697,-0.0181 -1.04937,-0.0179 -1.56641,0 z"
+         transform="translate(318.66151,31.828754)"
+         id="rect3409-1-07-6-1"
+         sodipodi:nodetypes="cscssccscccsc" />
+    </g>
+    <path
+       style="opacity:1;fill:#ae6b3f;fill-opacity:1;stroke:none;stroke-width:2"
+       d="m 345.10133,662.3927 c -4.34283,11.27646 4.53909,34.23776 -7.91923,31.65031 -6.97144,-2.04147 -11.31819,1.79631 -22.72396,-27.01789 l 1.63433,-17.48426 c 0.99911,-10.68861 1.12346,-11.44617 9.00127,-12.63882 4.0984,1.5772 5.07527,4.86291 5.07527,4.86291 z"
+       id="rect4301-5-3-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccscsc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\drawing-1.png" />
+    <path
+       style="fill:#ae6b3f;fill-opacity:1;stroke:none;stroke-width:2"
+       d="m 331.5788,642.26859 -4.62773,-3.8291 c -3.04467,-2.51925 13.51575,17.43354 13.51575,17.43354 -0.83715,9.39209 -3.91278,8.50523 -2.25757,15.72073 2.53707,4.77753 9.01368,12.16319 11.48725,3.73038 2.25785,-7.69734 -15.64086,-23.143 -18.1177,-33.05555 z"
+       id="rect3449-2-5-1-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscccc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\drawing-1.png" />
+    <path
+       style="fill:#ae6b3f;fill-opacity:1;stroke:none;stroke-width:2.00294662"
+       inkscape:transform-center-x="1.5786265"
+       inkscape:transform-center-y="0.084671344"
+       d="m 306.77681,375.96511 c 16.65663,-2.40958 35.65708,91.57654 36.91712,102.95748 l 4.51013,40.73655 c 1.26003,11.38093 10.10815,57.45403 -6.54851,59.86362 -16.65662,2.40959 -12.67085,-11.23525 -15.03068,-22.37533 L 297.83641,421.24589 c -2.35983,-11.14007 -7.71626,-42.87118 8.9404,-45.28078 z"
+       id="rect3390-6-3-49"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssss"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\drawing-1.png" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4474-3-41-9-1-2"
+       d="m 172.32201,171.95585 c -0.0348,18.39741 0.93632,52.77451 2.40766,92.25157 4.31919,5.45449 8.6181,9.72503 12.82449,10.95415 6.31997,1.84672 12.13106,-19.47 17.73372,-40.02847 2.95598,-15.93617 5.69042,-36.4431 3.31348,-49.35258 l -36.27935,-13.82467 z"
+       style="display:inline;opacity:1;fill:#3d6b6b;fill-opacity:1;stroke:none;stroke-width:0.69999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="display:inline;opacity:1;fill:#3d6b6b;fill-opacity:1;stroke:none;stroke-width:0.69999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 168.67475,182.04833 c 0.15202,-32.59113 2.11243,-76.72487 9.14936,-94.010792 3.41735,-8.394597 7.37565,-16.308802 8.79625,-17.58711 2.37625,-2.138271 -0.51694,-15.398305 11.4904,-15.419421 7.28599,-0.0128 -8.15201,8.749429 -9.95747,12.785989 0,0 31.26093,7.804636 25.98509,32.280534 -6.55446,30.40776 -0.96619,77.6743 -4.81418,89.32778 z"
+       id="path4474-8-7-8-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssssscc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4474-3-1-6-9"
+       d="m 160.02492,213.39299 c -0.0315,10.25617 0.82839,29.19901 2.14163,51.04971 8.50572,5.61621 17.0835,11.05078 25.37375,12.18375 l -1.43752,-13.79143 c 0,0 11.84362,-28.03991 7.79196,-41.52977 l -33.86982,-7.91226 z"
+       style="display:inline;opacity:1;fill:#d38d5f;fill-opacity:1;stroke:none;stroke-width:0.69999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="display:inline;opacity:1;fill:#249c96;fill-opacity:1;stroke:none;stroke-width:0.69999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 157.37272,217.32696 c 0.13969,-46.29183 1.94106,-108.97858 8.40708,-133.531176 3.14008,-11.92354 6.77726,-23.16472 8.08257,-24.9804 2.18347,-3.03718 10.03384,-10.61337 21.06702,-10.64337 6.69486,-0.0182 19.77632,8.11033 20.74741,14.22551 0,0 -2.81756,11.56997 -7.66538,46.335066 -6.02266,43.19062 -5.21832,100.18441 -8.75406,116.73679 z"
+       id="path4474-4-0-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssssscc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4474-3-4-1-8-8"
+       d="m 294.04417,57.623031 c -0.16189,17.786076 0.13624,37.490761 1.73089,57.561909 4.34829,54.7296 19.8939,92.26525 19.8939,92.26525 l 13.41851,0.15334 c 0,0 -7.94705,-31.80323 -9.76928,-46.00611 -1.82225,-14.20285 0.47466,-45.24802 -1.38766,-66.758968 l -3.38845,-39.111325 c 0,0 1.04975,1.143423 3.79489,-6.100425 -9.4369,-3.998027 -11.85517,-10.589245 -24.2928,7.996329 z"
+       style="display:inline;opacity:1;fill:#ae6b3f;fill-opacity:1;stroke:none;stroke-width:0.69999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       sodipodi:nodetypes="csccscccc" />
+    <path
+       style="display:inline;fill:#3d6b6b;fill-opacity:1;stroke:none;stroke-width:2"
+       d="m 301.37982,265.56031 18.09976,-7.28736 c 9.51005,-3.82896 15.87828,30.40454 15.87828,30.40454 3.04535,11.92545 4.15673,18.01125 -1.86444,27.17303 -9.22925,6.0662 -12.63004,7.84165 -21.62829,-2.86578 -8.21347,-9.77359 -19.49542,-34.83813 -10.48531,-47.42443 z"
+       id="rect3449-6-3-7-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscccc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4474-3-41-9-8-2"
+       d="m 306.7243,47.369565 c 2.92198,68.067155 8.68244,151.400565 11.55626,153.326835 l 16.87842,6.085 c 3.54229,2.83354 1.34233,-30.98103 -0.4238,-45.18391 -1.76614,-14.20285 -3.9477,-61.729259 -5.45732,-65.936751 L 318.09568,64.494663 c -4.91393,-11.253867 -7.12702,-6.677088 -14.56817,-8.332159 0.65013,4.771417 7.52663,-8.204728 3.19679,-8.792939 z"
+       style="display:inline;opacity:1;fill:#3d6b6b;fill-opacity:1;stroke:none;stroke-width:0.69999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       sodipodi:nodetypes="cccssccc" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4474-3-1-1-8"
+       d="m 307.3662,43.493804 c -3.78157,-0.06381 -7.42193,3.454629 -10.96039,8.678065 3.34899,67.893111 17.34083,149.181551 20.09124,150.968321 l 18.49895,7.72944 c 3.65481,2.83354 -7.94707,-38.38098 -9.7693,-52.58385 -1.82225,-14.20286 0.47174,-45.24805 -1.39059,-66.758988 l -3.38552,-39.111308 c 0,0 0.44652,-1.329444 1.03267,-3.152771 -4.46474,-2.847823 -8.90337,-4.989818 -13.26041,-5.691234 -0.28669,-0.04609 -0.57158,-0.07284 -0.85665,-0.07773 z"
+       style="display:inline;opacity:1;fill:#d38d5f;fill-opacity:1;stroke:none;stroke-width:0.69999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       sodipodi:nodetypes="ccccscccccc" />
+    <path
+       style="display:inline;fill:#cd8b60;fill-opacity:1;stroke:none;stroke-width:2"
+       d="m 299.96157,261.39064 13.46264,-1.53184 c 9.36483,-1.06558 15.5435,24.64902 15.5435,24.64902 2.76736,11.92545 9.3877,26.35649 3.91618,35.51826 -8.38673,6.0662 -17.38294,6.32434 -25.55976,-4.38309 -7.46369,-9.77359 -15.55017,-41.66605 -7.36256,-54.25235 z"
+       id="rect3449-9-9-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscccc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png" />
+    <path
+       style="display:inline;opacity:1;fill:#3d6b6b;fill-opacity:1;stroke:none;stroke-width:0.69999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 346.54597,989.63258 c -0.17866,-42.01177 -2.48256,-98.90261 -10.75245,-121.18512 -4.0161,-10.82111 -8.66795,-21.02296 -10.33746,-22.67077 -2.79259,-2.75635 0.60752,-19.84927 -13.50366,-19.87649 -8.56258,-0.0165 -19.02122,12.70858 -16.89942,17.91193 0,0 -8.13668,8.63053 -1.93643,40.18132 7.70287,39.19728 -4.66221,98.00673 -0.14,113.02871 z"
+       id="path4474-8-7-0-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssssscc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png" />
+    <g
+       style="display:inline"
+       transform="matrix(1.5020657,0,0,1.5020657,-440.38269,-527.0202)"
+       id="g4281-2-3-1"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         style="fill:#ae6b3f;fill-opacity:1;stroke:none;stroke-width:2"
+         d="m 46.15625,956.86328 c -6.338871,0 -12.544815,4.64114 -18.472656,11.67188 -1.446838,9.0459 -5.984056,18.25881 -2.824219,27.64843 4.959041,14.73611 19.724214,32.34451 19.896484,33.88481 0,0 13.019796,1.2841 18.478516,0.4472 5.70261,-0.8743 2.181664,-3.9545 -5.222656,-12.4668 -1.0423,-1.1982 -7.179155,-12.17 -10.078125,-25.15622 -2.864943,-12.83382 -1.548531,-26.42256 0.05859,-35.89649 -0.609464,-0.0851 -1.220977,-0.13281 -1.835938,-0.13281 z"
+         transform="translate(291.08539,12.792083)"
+         id="rect3409-6-0-2-9-5"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:#d38d5f;fill-opacity:1;stroke:none;stroke-width:2"
+         d="m 46.738281,954.53906 c -4.314979,0 -8.568516,2.16364 -12.714843,5.75196 0.18208,1.16576 0.373425,2.29601 0.583984,3.33593 2.41208,11.91296 -7.05597,24.11406 -2.84375,36.63085 4.95904,14.7361 14.028902,28.991 14.201172,30.5313 0,0 5.402608,6.5947 10.861328,5.7578 5.70261,-0.8743 21.050804,-2.8824 13.646484,-11.3946 -1.0423,-1.1983 -6.673295,-13.6836 -9.572265,-26.66988 -3.205461,-14.35918 -4.289246,-30.4359 -4.238282,-40.29883 -3.216146,-2.31488 -6.528378,-3.64453 -9.923828,-3.64453 z"
+         transform="translate(291.08539,12.792083)"
+         id="rect3409-5-1-3-8"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       style="display:inline"
+       transform="matrix(1.5020657,0,0,1.5020657,-516.83303,-698.92507)"
+       id="g4285-9-8-6"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         style="fill:#774f33;fill-opacity:1;stroke:none;stroke-width:1.99999988"
+         d="m -121.09961,836.43359 c -4.42817,-0.0622 2.66114,9.85141 -1.32593,16.439 0.33819,1.85021 -9.79534,8.33967 -9.52689,10.17406 3.04618,20.81577 -10.64121,33.48994 -10.42843,53.08226 0.13803,12.70953 2.3774,30.67717 -3.34375,45.5332 3.29835,4.19752 7.14901,7.20488 11.70899,8.46484 3.77771,1.04382 4.81568,-4.96154 9.17692,-6.08135 -1.91288,-14.03105 12.00645,-34.80119 12.67659,-41.37372 2.03195,-19.92859 10.65004,-45.53733 10.06836,-67.69336 -0.011,-3.47655 -0.51844,-6.90855 -1.37695,-10.30469 -5.71728,-3.77712 -11.4846,-7.45189 -17.05664,-8.19727 -0.19086,-0.0255 -0.38248,-0.0403 -0.57227,-0.043 z"
+         transform="translate(592.79151,18.776691)"
+         id="rect3409-1-0-7-3-3-9"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccsscscsccccc" />
+      <path
+         style="fill:#ae6b3f;fill-opacity:1;stroke:none;stroke-width:1.99999988"
+         d="m -122.88477,834.64844 c -2.21317,-0.0311 -4.35373,1.4779 -6.43945,3.80273 1.16271,5.0074 2.15583,9.97007 2.87305,14.8711 3.04618,20.81577 -6.33789,42.2846 -9.65235,61.5957 -2.59771,15.13515 0.57314,35.56857 -3.95507,51.89062 1.53149,0.94656 3.15282,1.67737 4.8789,2.1543 5.70441,1.57618 6.80371,-1.21405 13.69049,-4.22209 -0.29385,-1.54806 1.89359,-3.01345 2.41647,-5.24379 6.84291,-29.18813 25.198641,-74.84696 23.254371,-105.72943 -0.006,-1.74106 -0.14242,-3.46922 -0.375,-5.18946 -8.572401,-4.74075 -17.578081,-12.74586 -26.121091,-13.88867 -0.19086,-0.0255 -0.38054,-0.0384 -0.57032,-0.041 z"
+         transform="translate(592.79151,18.776691)"
+         id="rect3409-1-07-6-5-0"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccsscscsccccc" />
+    </g>
+    <g
+       style="display:inline"
+       transform="matrix(1.5704926,0,0,1.6421919,-557.97206,-640.32999)"
+       id="g4285-9-80-8"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         style="fill:#ae6b3f;fill-opacity:1;stroke:none;stroke-width:1.99999988"
+         d="m 144.54735,940.16327 c -1.55168,0.0538 0.54096,7.14742 -0.9125,7.549 -4.26334,1.178 -2.07867,-1.42499 -5.23036,2.35192 -0.29752,0.83188 -8.75851,2.01031 -9.10533,2.82279 -6.36052,14.90031 -11.29887,32.27519 -0.18588,34.75169 9.8184,2.188 18.20405,2.11419 24.15039,1.74219 36.65633,-2.2932 10.75048,0.1229 27.5918,-10.9043 0.0874,-8.86666 -16.9944,-2.20504 -26.58008,-16.16211 -3.0396,-4.42575 -5.20115,-8.63835 -3.36531,-17.50153 -2.68659,-0.81656 -2.50145,-4.56377 -5.00188,-4.64965 -0.52696,-0.0181 -0.84363,-0.0179 -1.36085,0 z"
+         transform="translate(318.66151,31.828754)"
+         id="rect3409-1-0-7-3-1-8"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="sscssscscss" />
+      <path
+         inkscape:connector-curvature="0"
+         style="fill:#d38d5f;fill-opacity:1;stroke:none;stroke-width:1.99999988"
+         d="m 143.75,939.73828 c -1.55113,0.0538 -3.0563,0.27223 -4.50977,0.67383 -1.06536,0.29437 0.87153,4.22877 -0.11848,4.70637 -0.63597,6.90827 -4.90159,9.99801 -7.69987,15.77996 -4.61064,9.52671 -5.30293,20.74009 0.79492,21.90429 l 10.41406,1.98829 L 162.9082,988 c 4.85828,-1.6712 35.38898,6.52525 35.55469,-10.28125 0.0874,-8.86657 -25.76198,-0.094 -35.34766,-14.05078 -3.41213,-5.98506 -7.60191,-6.63685 -7.20061,-14.64441 0.0741,-1.47947 -2.74754,-3.37719 -2.57291,-4.95559 -4.47798,-1.93617 -3.98686,-4.19098 -8.0253,-4.32969 -0.52697,-0.0181 -1.04937,-0.0179 -1.56641,0 z"
+         transform="translate(318.66151,31.828754)"
+         id="rect3409-1-07-6-3-0"
+         sodipodi:nodetypes="cscssccscccsc" />
+    </g>
+    <g
+       style="display:inline"
+       transform="matrix(1.5874631,0,0,1.5874631,-685.33695,-670.59598)"
+       id="g4285-9-8-6-4"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         style="fill:#ae6b3f;fill-opacity:1;stroke:none;stroke-width:1.99999988"
+         d="m -121.09961,836.43359 c -4.42817,-0.0622 4.98724,6.71325 1.00017,13.30084 0.33819,1.85021 -12.89557,8.8223 -12.62712,10.65669 3.04618,20.81577 -9.86708,36.14547 -9.6543,55.73779 0.13803,12.70953 -0.55253,29.94469 2.14988,44.80072 3.29835,4.19752 1.65538,7.93736 6.21536,9.19732 3.77771,1.04382 6.08098,-5.38169 10.44222,-6.5015 -1.91288,-14.03105 10.74115,-34.38104 11.41129,-40.95357 2.03195,-19.92859 10.65004,-45.53733 10.06836,-67.69336 -0.011,-3.47655 -0.51844,-6.90855 -1.37695,-10.30469 -5.71728,-3.77712 -11.4846,-7.45189 -17.05664,-8.19727 -0.19086,-0.0255 -0.38248,-0.0403 -0.57227,-0.043 z"
+         id="rect3409-1-0-7-3-3-9-1"
+         inkscape:connector-curvature="0"
+         transform="translate(592.79151,18.776691)"
+         sodipodi:nodetypes="ccsscscsccccc" />
+      <path
+         style="fill:#d38d5f;fill-opacity:1;stroke:none;stroke-width:1.99999988"
+         d="m -122.88477,834.64844 c -2.21317,-0.0311 -4.35373,1.4779 -6.43945,3.80273 1.16271,5.0074 2.15583,9.97007 2.87305,14.8711 3.04618,20.81577 -6.33789,42.2846 -9.65235,61.5957 -2.59771,15.13515 0.57314,35.56857 -3.95507,51.89062 1.53149,0.94656 3.15282,1.67737 4.8789,2.1543 5.70441,1.57618 7.09521,-0.032 13.98199,-3.04007 -0.29385,-1.54806 0.98285,-4.14088 1.53824,-6.36335 6.91764,-27.68151 25.785371,-74.90942 23.841101,-105.79189 -0.006,-1.74106 -0.14242,-3.46922 -0.375,-5.18946 -8.572401,-4.74075 -17.578081,-12.74586 -26.121091,-13.88867 -0.19086,-0.0255 -0.38054,-0.0384 -0.57032,-0.041 z"
+         transform="translate(592.79151,18.776691)"
+         id="rect3409-1-07-6-5-0-2"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccsscscsccccc" />
+    </g>
+    <g
+       style="display:inline"
+       transform="matrix(1.5786116,0,0,1.5786116,-670.27095,-799.43699)"
+       id="g4285-8-6-1"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         style="fill:#ae6b3f;fill-opacity:1;stroke:none;stroke-width:1.99999988"
+         d="m 129.64844,730.51367 c -12.05151,45.7657 15.54838,94.47288 22.30859,138.53321 7.65531,4.74147 15.56819,11.11294 23.11914,12.12304 2.62391,0.35101 5.14485,-1.50767 7.5918,-4.42383 0.0911,-2.10138 0.13974,-4.18877 0.0859,-6.23828 -0.0796,-25.14386 -25.35732,-48.04515 -31.97461,-70.70898 -8.36692,-28.65613 1.60599,-55.11755 2.59375,-65.1211 l -23.72461,-4.16406 z"
+         transform="translate(307.94378,3.2481287)"
+         id="rect3409-1-0-7-9-9-0"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:#d38d5f;fill-opacity:1;stroke:none;stroke-width:1.99999988"
+         d="m 135.92383,729.30469 c -12.1438,46.11617 15.98605,95.22134 22.47265,139.54687 0.16816,1.14911 0.29317,2.30051 0.38868,3.45313 6.04944,4.0046 12.17313,8.07558 18.07617,8.86523 4.30205,0.57549 8.32621,-4.78957 12.20117,-11.04101 -0.0136,-0.2754 -0.016,-0.55922 -0.0332,-0.83203 -0.0796,-25.14386 -5.70888,-48.04516 -12.32618,-70.70899 -8.36691,-28.65613 -18.04244,-55.11754 -17.05468,-65.12109 l -23.72461,-4.16211 z"
+         transform="translate(307.94378,3.2481287)"
+         id="rect3409-1-07-8-7-4"
+         inkscape:connector-curvature="0" />
+    </g>
+    <path
+       inkscape:connector-curvature="0"
+       id="rect3380-4-6-7-1"
+       d="m 511.01669,761.78625 -16.43859,-6.07324 -53.58484,11.63271 c -0.0553,3.39704 -8.56064,58.94209 -15.57522,93.54042 -13.66272,67.38898 -19.36337,135.23688 -16.33399,137.68358 26.91079,33.17138 173.63709,2.21638 215.29688,25.88088 3.3303,0.03 -24.74138,-52.58978 -32.54102,-76.85158 -6.81096,-21.1864 -36.54593,-45.9856 -36.7832,-50.16601 L 541.8478,765.19834 Z"
+       style="opacity:1;fill:#3d6b6b;fill-opacity:1;stroke:none;stroke-width:2"
+       sodipodi:nodetypes="cccsccsscc" />
+    <path
+       inkscape:connector-curvature="0"
+       id="rect3380-5-7-2"
+       d="m 535.48115,756.95319 -29.96501,-0.98013 -50.09069,-2.34498 c 0.53415,3.35524 -4.7565,77.85309 -11.7711,112.45142 -13.66272,67.38902 -19.36337,136.9829 -16.33399,139.4297 26.91079,33.1713 159.66443,0.4702 201.32422,24.1347 3.33031,0.03 -24.74137,-52.58968 -32.54101,-76.85148 -6.81097,-21.1864 -10.08668,-49.0344 -10.75391,-53.168 l -24.75142,-98.12105 -12.20226,-30.47429 z"
+       style="opacity:1;fill:#008080;fill-opacity:1;stroke:none;stroke-width:2"
+       sodipodi:nodetypes="cccsccscccc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:95.50772095px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="623.78619"
+       y="887.89221"
+       id="text8557-7-5-1"
+       sodipodi:linespacing="125%"
+       transform="matrix(1.0202493,0.24645585,-0.2237154,0.92611094,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan8559-5-6-6"
+         x="623.78619"
+         y="887.89221"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:95.50772095px;line-height:125%;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#ffffff">ρ</tspan></text>
+    <path
+       style="display:inline;fill:#cd8b60;fill-opacity:1;stroke:none;stroke-width:2"
+       d="m 316.52792,260.14931 1.92501,-1.92753 c 1.33907,-1.34084 9.11054,14.0223 9.11054,14.0223 3.58717,7.13202 8.49289,15.52305 9.93698,21.55834 0.13365,4.3448 -1.3523,5.16204 -5.55588,-0.8249 -3.83696,-5.4648 -13.54861,-24.4879 -15.41665,-32.82821 z"
+       id="rect3449-9-9-2-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscccc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\person parts.png"
+       inkscape:transform-center-x="4.9333031" />
   </g>
 </svg>

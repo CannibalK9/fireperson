@@ -1,0 +1,402 @@
+fileFormatVersion: 2
+guid: 7f22a1a17c16e574290969800baee417
+timeCreated: 1458714995
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: person parts2_0
+    21300002: person parts2_1
+    21300004: person parts2_2
+    21300006: person parts2_3
+    21300008: person parts2_4
+    21300010: person parts2_5
+    21300012: person parts2_6
+    21300014: person parts2_7
+    21300016: person parts2_8
+    21300018: person parts2_9
+    21300020: person parts2_10
+    21300022: person parts2_11
+    21300024: person parts2_12
+    21300026: person parts2_13
+    21300028: person parts2_14
+    21300030: person parts2_15
+    21300032: person parts2_16
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 300
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: person parts2_0
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 896
+        width: 84
+        height: 107
+      alignment: 9
+      pivot: {x: 0.3559045, y: 0.17679489}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -11.895977, y: 88.08295}
+        - {x: -17.895977, y: 81.08295}
+        - {x: -29.895977, y: 25.082947}
+        - {x: -29.895977, y: 2.0829468}
+        - {x: -10.895977, y: -18.917053}
+        - {x: 40.104023, y: -18.917053}
+        - {x: 54.104023, y: -0.9170532}
+        - {x: 54.104023, y: 80.08295}
+        - {x: 29.104023, y: 88.08295}
+    - name: person parts2_1
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 775
+        width: 59
+        height: 230
+      alignment: 9
+      pivot: {x: 0.6496592, y: 0.9224108}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -38.329895, y: 17.84552}
+        - {x: -38.329895, y: -212.15448}
+        - {x: 6.670105, y: -212.15448}
+        - {x: 20.670105, y: -182.15448}
+        - {x: 20.670105, y: 17.84552}
+    - name: person parts2_2
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 833
+        width: 51
+        height: 180
+      alignment: 9
+      pivot: {x: 0.3643793, y: 0.8865567}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17.583344, y: 18.4198}
+        - {x: -18.583344, y: 17.4198}
+        - {x: -18.583344, y: -69.5802}
+        - {x: -15.5833435, y: -95.5802}
+        - {x: -7.5833435, y: -132.5802}
+        - {x: 1.4166565, y: -151.5802}
+        - {x: 5.4166565, y: -153.5802}
+        - {x: 27.416656, y: -153.5802}
+        - {x: 27.416656, y: -15.5802}
+        - {x: 12.4166565, y: 18.4198}
+    - name: person parts2_3
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 759
+        width: 150
+        height: 236
+      alignment: 9
+      pivot: {x: 0.26436564, y: 0.13997352}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 110.34515, y: 165.96625}
+        - {x: 77.34515, y: 188.96625}
+        - {x: 71.34515, y: 185.96625}
+        - {x: 25.345154, y: 202.96625}
+        - {x: 5.345154, y: 202.96625}
+        - {x: -28.654846, y: 170.96625}
+        - {x: -39.654846, y: 144.96625}
+        - {x: -39.654846, y: -33.033752}
+        - {x: 53.345154, y: -33.033752}
+        - {x: 88.34515, y: -20.033752}
+        - {x: 109.34515, y: 50.966248}
+        - {x: 110.34515, y: 70.96625}
+    - name: person parts2_4
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 718
+        width: 82
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5210872, y: 0.57565004}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 9.270847, y: 67.895996}
+        - {x: -0.7291527, y: 67.895996}
+        - {x: -7.7291527, y: 57.895996}
+        - {x: -42.729153, y: 10.895996}
+        - {x: -42.729153, y: -16.104004}
+        - {x: 22.270847, y: -92.104004}
+        - {x: 39.270847, y: -92.104004}
+        - {x: 39.270847, y: 39.895996}
+    - name: person parts2_5
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 526
+        width: 95
+        height: 229
+      alignment: 9
+      pivot: {x: 0.31798416, y: 0.93955785}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -30.208496, y: 13.841248}
+        - {x: -30.208496, y: -103.15875}
+        - {x: -3.208496, y: -203.15875}
+        - {x: 24.791504, y: -215.15875}
+        - {x: 64.791504, y: -215.15875}
+        - {x: 64.791504, y: -135.15875}
+        - {x: 33.791504, y: 13.841248}
+    - name: person parts2_6
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 728
+        width: 42
+        height: 72
+      alignment: 9
+      pivot: {x: 0.49890354, y: 0.83622235}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18.953949, y: 8.791992}
+        - {x: -20.953949, y: 7.791992}
+        - {x: -20.953949, y: -51.208008}
+        - {x: -17.953949, y: -60.208008}
+        - {x: 21.046051, y: -60.208008}
+        - {x: 21.046051, y: 0.7919922}
+        - {x: 12.046051, y: 8.791992}
+    - name: person parts2_7
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 455
+        width: 100
+        height: 241
+      alignment: 9
+      pivot: {x: 0.3443764, y: 0.924655}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -34.437637, y: 18.158142}
+        - {x: -34.437637, y: -80.84186}
+        - {x: -11.437637, y: -220.84186}
+        - {x: -7.4376373, y: -222.84186}
+        - {x: 65.56236, y: -222.84186}
+        - {x: 65.56236, y: -41.841858}
+        - {x: 21.562363, y: 18.158142}
+    - name: person parts2_8
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 472
+        width: 67
+        height: 205
+      alignment: 9
+      pivot: {x: 0.36614946, y: 0.91532934}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -16.532013, y: 17.357483}
+        - {x: -16.532013, y: -37.642517}
+        - {x: 3.467987, y: -187.64252}
+        - {x: 42.467987, y: -187.64252}
+        - {x: 42.467987, y: -23.642517}
+        - {x: 11.467987, y: 17.357483}
+    - name: person parts2_9
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 152
+        width: 80
+        height: 217
+      alignment: 9
+      pivot: {x: 0.54840773, y: 0.8996939}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 15.12738, y: 20.766418}
+        - {x: 12.12738, y: 21.766418}
+        - {x: -19.87262, y: 21.766418}
+        - {x: -40.87262, y: -56.23358}
+        - {x: -40.87262, y: -192.23358}
+        - {x: -34.87262, y: -195.23358}
+        - {x: 0.12738037, y: -195.23358}
+        - {x: 15.12738, y: -182.23358}
+        - {x: 36.12738, y: -60.23358}
+        - {x: 36.12738, y: 9.766418}
+    - name: person parts2_10
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 264
+        width: 76
+        height: 206
+      alignment: 9
+      pivot: {x: 0.6365113, y: 0.89652526}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -28.374863, y: 21.315796}
+        - {x: -48.374863, y: -24.684204}
+        - {x: -48.374863, y: -184.6842}
+        - {x: 1.6251373, y: -184.6842}
+        - {x: 27.625137, y: -74.684204}
+        - {x: 27.625137, y: 19.315796}
+        - {x: 17.625137, y: 21.315796}
+    - name: person parts2_11
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 342
+        width: 37
+        height: 74
+      alignment: 9
+      pivot: {x: 0.40653124, y: 0.82962364}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -13.0416565, y: 12.607849}
+        - {x: -13.0416565, y: -46.39215}
+        - {x: -10.0416565, y: -47.39215}
+        - {x: 21.958344, y: -47.39215}
+        - {x: 21.958344, y: -5.392151}
+        - {x: 9.9583435, y: 12.607849}
+    - name: person parts2_12
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 146
+        width: 116
+        height: 76
+      alignment: 9
+      pivot: {x: 0.45011955, y: 0.8676655}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -41.213867, y: 10.057419}
+        - {x: -52.213867, y: -4.942581}
+        - {x: -52.213867, y: -65.94258}
+        - {x: 61.786133, y: -65.94258}
+        - {x: 63.786133, y: -59.94258}
+        - {x: 63.786133, y: -33.94258}
+        - {x: 2.7861328, y: 10.057419}
+    - name: person parts2_13
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 19
+        width: 56
+        height: 206
+      alignment: 9
+      pivot: {x: 0.40654373, y: 0.9296541}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -12.766449, y: 14.491257}
+        - {x: -22.766449, y: 7.4912567}
+        - {x: -22.766449, y: -167.50874}
+        - {x: -0.766449, y: -191.50874}
+        - {x: 33.23355, y: -191.50874}
+        - {x: 33.23355, y: -20.508743}
+        - {x: 12.233551, y: 14.491257}
+    - name: person parts2_14
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 3
+        width: 74
+        height: 124
+      alignment: 9
+      pivot: {x: 0.49937758, y: 0.90588206}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.953941, y: 11.670624}
+        - {x: -36.95394, y: 6.670624}
+        - {x: -36.95394, y: -69.32938}
+        - {x: -1.9539413, y: -112.32938}
+        - {x: 37.04606, y: -112.32938}
+        - {x: 37.04606, y: -64.32938}
+        - {x: 14.046059, y: 11.670624}
+    - name: person parts2_15
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 15
+        width: 122
+        height: 83
+      alignment: 9
+      pivot: {x: 0.42611358, y: 0.857491}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -30.985855, y: 11.828247}
+        - {x: -51.985855, y: 0.8282471}
+        - {x: -51.985855, y: -69.17175}
+        - {x: -46.985855, y: -71.17175}
+        - {x: 68.014145, y: -71.17175}
+        - {x: 70.014145, y: -67.17175}
+        - {x: 70.014145, y: -36.171753}
+        - {x: 11.014145, y: 11.828247}
+    - name: person parts2_16
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 22
+        width: 226
+        height: 278
+      alignment: 9
+      pivot: {x: 0.47765788, y: 0.07017938}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 77.04932, y: 101.49013}
+        - {x: 74.04932, y: 113.49013}
+        - {x: 52.049316, y: 212.49013}
+        - {x: 34.049316, y: 247.49013}
+        - {x: 22.049316, y: 256.4901}
+        - {x: -12.950684, y: 258.4901}
+        - {x: -62.950684, y: 258.4901}
+        - {x: -75.95068, y: 243.49013}
+        - {x: -105.95068, y: 75.49013}
+        - {x: -107.95068, y: 45.490128}
+        - {x: -107.95068, y: 6.4901276}
+        - {x: -95.95068, y: -0.50987244}
+        - {x: -46.950684, y: -15.509872}
+        - {x: 81.04932, y: -14.509872}
+        - {x: 107.04932, y: -19.509872}
+        - {x: 117.04932, y: -19.509872}
+        - {x: 117.04932, y: -13.509872}
+        - {x: 84.04932, y: 62.490128}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
