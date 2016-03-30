@@ -11,7 +11,7 @@ namespace Assets.Scripts.Player
         public float DurationInSeconds = 5f;
         private float _remainingDurationInSeconds;
         private float MinimumScale = 1f;
-        private Vector3 InitialScale;
+        private Vector2 InitialScale;
 
         private HeatHandler _heatHandler;
         public float _heatRayDistance = 0.2f;
@@ -62,11 +62,12 @@ namespace Assets.Scripts.Player
         public Transform Transform { get; set; }
         public Vector3 Velocity { get; set; }
 
-        public bool IsGrounded { get { return CollisionState.below; } }
         public List<RaycastHit2D> RaycastHitsThisFrame { get; set; }
         public float VerticalDistanceBetweenRays { get; set; }
         public float HorizontalDistanceBetweenRays { get; set; }
         public Fireplace Fireplace { get; set; }
+
+        private SpriteRenderer _renderer;
 
         void Awake()
         {
@@ -82,6 +83,8 @@ namespace Assets.Scripts.Player
             Transform = GetComponent<Transform>();
             RaycastHitsThisFrame = new List<RaycastHit2D>(2);
             IgnoreCollisionLayersOutsideTriggerMask();
+
+            _renderer = GetComponent<SpriteRenderer>();
         }
 
         private void IgnoreCollisionLayersOutsideTriggerMask()
@@ -104,6 +107,8 @@ namespace Assets.Scripts.Player
             }
             else if (OnPoint() == false)
             {
+                _renderer.enabled = true;
+
                 if (NoGravity == true)
                 {
                     NoGravity = false;
@@ -130,6 +135,8 @@ namespace Assets.Scripts.Player
                 _remainingDurationInSeconds = DurationInSeconds;
                 IsMovementOverridden = false;
 
+                _renderer.enabled = false;
+
                 Fireplace = _collidingPoint.gameObject.GetComponent<Fireplace>();
                 Fireplace.IsLit = true;
             }
@@ -149,7 +156,7 @@ namespace Assets.Scripts.Player
 
         private void DecreaseScale()
         {
-            Vector3 newScale = Vector3.one * (_remainingDurationInSeconds + MinimumScale);
+            Vector2 newScale = Vector2.one * (_remainingDurationInSeconds + MinimumScale);
             if (newScale.x < InitialScale.x)
             {
                 transform.localScale = newScale;

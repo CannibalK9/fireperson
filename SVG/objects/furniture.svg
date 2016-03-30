@@ -95,8 +95,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4142136"
-     inkscape:cx="289.72031"
-     inkscape:cy="1012.257"
+     inkscape:cx="164.88723"
+     inkscape:cy="927.40419"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -122,7 +122,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -145,16 +145,16 @@
        sodipodi:nodetypes="ccsccc" />
     <path
        style="fill:#734727;fill-opacity:1;stroke:none;stroke-opacity:1"
-       d="m 3.626265,105.20846 9.210425,0 c 0,0 5.186945,33.05193 -1.601813,46.44031 -0.808666,1.5948 -2.515929,3.26157 -4.09561,2.9215 -1.042579,-0.22444 -1.911189,-2.9215 -1.911189,-2.9215 l 1.20136,-22.53046 z"
+       d="m 3.626265,105.20846 9.210425,0 c 0,0 4.479838,37.29948 -2.30892,51.2627 -2.1588251,1.46468 -5.299692,0.70711 -5.299692,0.70711 l 1.20136,-27.03337 z"
        id="rect4140"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccssccc" />
+       sodipodi:nodetypes="cccccc" />
     <path
        style="fill:#734727;fill-opacity:1;stroke:none;stroke-opacity:1"
-       d="m 53.682922,105.20846 8.009056,0 c 0,0 1.522127,12.8746 2.02816,26.14719 0.330748,8.67529 0.915512,17.52061 -2.02816,23.05196 -0.632636,1.18875 -2.050569,2.18765 -3.238959,1.90683 -1.212679,-0.28656 -2.367378,-3.28625 -2.367378,-3.28625 l 0.800906,-21.15105 z"
+       d="m 53.682922,105.20846 8.009056,0 c 0,0 1.522127,12.8746 2.02816,26.14719 0.330748,8.67529 -3.442374,25.88039 -3.442374,25.88039 l -6.313443,0.0348 2.922226,-25.39369 z"
        id="rect4142"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccsssccc" />
+       sodipodi:nodetypes="ccscccc" />
     <rect
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1"
        id="rect4153"

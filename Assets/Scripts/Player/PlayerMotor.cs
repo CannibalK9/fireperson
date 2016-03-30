@@ -47,12 +47,24 @@ namespace Assets.Scripts.Player
 
         void Update()
         {
-            if (_climbHandler.IsClimbing)
+            if (//_animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") == false
+                 _climbHandler.CurrentClimbingState != ClimbingState.None)
             {
+                if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+                        _climbHandler.NextClimbingState = ClimbingState.AcrossLeft;
+                else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+                        _climbHandler.NextClimbingState = ClimbingState.AcrossRight;
+                else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+                    _climbHandler.NextClimbingState = ClimbingState.Up;
+                else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+                    _climbHandler.NextClimbingState = ClimbingState.Down;
+
                 _climbHandler.ClimbAnimation();
             }
             else
             {
+                _climbHandler.SetNotClimbing();
+
                 HandleMovementInputs();
 
                 if (_controller.IsGrounded)
@@ -112,11 +124,13 @@ namespace Assets.Scripts.Player
 
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
             {
-                _climbHandler.CheckClimbUp();
+                if (_climbHandler.CheckClimbUp())
+                    Animator.Play(Animator.StringToHash("Straight Climb Up"));
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
             {
-                _climbHandler.CheckClimbDown();
+                if (_climbHandler.CheckClimbDown())
+                    Animator.Play(Animator.StringToHash("Climb Down"));
             }
             else if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E)))
             {
@@ -171,6 +185,11 @@ namespace Assets.Scripts.Player
         public void ReapplyPlatformMask()
         {
             _controller._platformMask = _defaultPlatformMask;
+        }
+
+        public ClimbingState SwitchClimbingState()
+        {
+            return _climbHandler.SwitchClimbingState();
         }
     }
 }
