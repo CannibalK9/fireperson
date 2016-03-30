@@ -5,7 +5,9 @@
         None,
         Up,
         Down,
+        AcrossLeft,
         AcrossRight,
-        AcrossLeft
+        MoveToEdge,
+        Jump
     }
 }

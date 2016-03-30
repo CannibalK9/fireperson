@@ -28,6 +28,14 @@ namespace Assets.Scripts.Player
             }
         }
 
+        public DirectionFacing ClimbingSide
+        {
+            get
+            {
+                return _climbHandler.ClimbingSide;
+            }
+        }
+
         private PlayerController _controller;
         private ClimbHandler _climbHandler;
         private Vector3 _velocity;
@@ -47,21 +55,22 @@ namespace Assets.Scripts.Player
 
         void Update()
         {
-            if (//_animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") == false
-                 _climbHandler.CurrentClimbingState != ClimbingState.None)
+            if (_climbHandler.CurrentClimbingState != ClimbingState.None)
             {
-                if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+                if (_climbHandler.CurrentClimbingState != ClimbingState.MoveToEdge && _climbHandler.CurrentClimbingState != ClimbingState.Jump)
+                {
+                    if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
                         _climbHandler.NextClimbingState = ClimbingState.AcrossLeft;
-                else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+                    else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
                         _climbHandler.NextClimbingState = ClimbingState.AcrossRight;
-                else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
-                    _climbHandler.NextClimbingState = ClimbingState.Up;
-                else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-                    _climbHandler.NextClimbingState = ClimbingState.Down;
-
+                    else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+                        _climbHandler.NextClimbingState = ClimbingState.Up;
+                    else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+                        _climbHandler.NextClimbingState = ClimbingState.Down;
+                }
                 _climbHandler.ClimbAnimation();
             }
-            else
+            else if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Straight Climb Up") == false)
             {
                 _climbHandler.SetNotClimbing();
 
@@ -124,13 +133,29 @@ namespace Assets.Scripts.Player
 
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
             {
-                if (_climbHandler.CheckClimbUp())
+                if (_climbHandler.CheckLedgeAbove())
                     Animator.Play(Animator.StringToHash("Straight Climb Up"));
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
             {
-                if (_climbHandler.CheckClimbDown())
+                if (_climbHandler.CheckLedgeBelow(ClimbingState.Down, DirectionFacing.None))
                     Animator.Play(Animator.StringToHash("Climb Down"));
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+            {
+                if (_climbHandler.CheckLedgeBelow(ClimbingState.MoveToEdge, DirectionFacing.Left))
+                {
+                    Animator.Play(Animator.StringToHash("MoveToEdge"));
+                    _climbHandler.NextClimbingState = ClimbingState.AcrossLeft;
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+            {
+                if (_climbHandler.CheckLedgeBelow(ClimbingState.MoveToEdge, DirectionFacing.Right))
+                {
+                    Animator.Play(Animator.StringToHash("MoveToEdge"));
+                    _climbHandler.NextClimbingState = ClimbingState.AcrossRight;
+                }
             }
             else if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E)))
             {

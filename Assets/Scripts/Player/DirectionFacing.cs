@@ -2,6 +2,7 @@
 {
     public enum DirectionFacing
     {
+        None,
         Right,
         Left
     }

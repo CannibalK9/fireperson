@@ -15,30 +15,39 @@ namespace Assets.Scripts.Player
 
         private void SwitchClimbingState()
         {
-            _animator.SetBool("transitionUp", false);
-            _animator.SetBool("transitionDown", false);
-            _animator.SetBool("transitionAcross", false);
-
             _nextState = PlayerMotor.SwitchClimbingState();
 
             switch (_nextState)
             {
                 case ClimbingState.Up:
-                    _animator.SetBool("transitionUp", true);
+                    _animator.SetTrigger("transitionUp");
                     break;
                 case ClimbingState.Down:
-                    _animator.SetBool("transitionDown", true);
+                    _animator.SetTrigger("transitionDown");
                     break;
                 case ClimbingState.AcrossRight:
                 case ClimbingState.AcrossLeft:
-                    _animator.SetBool("transitionAcross", true);
+                    _animator.SetTrigger("transitionAcross");
+                    break;
+                case ClimbingState.Jump:
+                    _animator.SetTrigger("jump");
                     break;
                 case ClimbingState.None:
                 default:
                     break;
             }
+        }
 
-            
+        private void FlipSpriteTowardsEdge()
+        {
+            if (PlayerMotor.ClimbingSide == PlayerMotor.GetDirectionFacing())
+                PlayerMotor.FlipSprite();
+        }
+
+        private void FlipSpriteAwayFromEdge()
+        {
+            if (PlayerMotor.ClimbingSide != PlayerMotor.GetDirectionFacing())
+                PlayerMotor.FlipSprite();
         }
     }
 }
