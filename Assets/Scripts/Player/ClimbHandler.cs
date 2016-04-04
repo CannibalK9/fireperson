@@ -71,13 +71,13 @@ namespace Assets.Scripts.Player
             if (ClimbingSide == DirectionFacing.Right)
             {
                 _target = GetTopRight(_climbCollider);
-                _player = GetBottomLeft(_playerCollider);
+                _player = GetBottomRight(_playerCollider);
 
             }
             else
             {
                 _target = GetTopLeft(_climbCollider);
-                _player = GetBottomRight(_playerCollider);
+                _player = GetBottomLeft(_playerCollider);
             }
         }
 
@@ -304,7 +304,7 @@ namespace Assets.Scripts.Player
 
         private bool NotMoving()
         {
-            bool notMoving = _previousPosition == null ? false : _previousPosition == _player;
+            bool notMoving = _previousPosition == null ? false : Vector2.Distance((Vector2)_previousPosition, _player) < 0.1f;
             _previousPosition = _player;
             return notMoving;
         }

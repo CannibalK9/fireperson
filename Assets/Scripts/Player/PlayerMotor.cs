@@ -105,10 +105,10 @@ namespace Assets.Scripts.Player
 
             if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             {
-                var edgeRay = new Vector2(_controller.BoxCollider.bounds.max.x + 0.2f, _controller.BoxCollider.bounds.min.y);
+                var edgeRay = new Vector2(_controller.BoxCollider.bounds.max.x + 0.8f, _controller.BoxCollider.bounds.min.y);
                 RaycastHit2D edgeHit = Physics2D.Raycast(edgeRay, Vector2.down, 2f, _controller.PlatformMask);
 
-                _normalizedHorizontalSpeed = edgeHit ? 1 : 0;
+                _normalizedHorizontalSpeed = edgeHit && !_controller.CollisionState.right ? 1 : 0;
                 if (_controller.CollisionState.right && GetDirectionFacing() == DirectionFacing.Right)
                     ;//BackToWallAnimation
                 else if (GetDirectionFacing() == DirectionFacing.Left)
@@ -119,7 +119,7 @@ namespace Assets.Scripts.Player
                 var edgeRay = new Vector2(_controller.BoxCollider.bounds.min.x - 0.2f, _controller.BoxCollider.bounds.center.y);
                 RaycastHit2D edgeHit = Physics2D.Raycast(edgeRay, Vector2.down, 5f, _controller.PlatformMask);
 
-                _normalizedHorizontalSpeed = edgeHit ? -1 : 0;
+                _normalizedHorizontalSpeed = edgeHit && !_controller.CollisionState.left ? -1 : 0;
                 if (_controller.CollisionState.left && GetDirectionFacing() == DirectionFacing.Left)
                     ;//BackToWallAnimation
                 else if (GetDirectionFacing() == DirectionFacing.Right)
@@ -141,23 +141,21 @@ namespace Assets.Scripts.Player
                 if (_climbHandler.CheckLedgeBelow(ClimbingState.Down, DirectionFacing.None))
                     Animator.Play(Animator.StringToHash("Climb Down"));
             }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+            else if (Input.GetKeyDown(KeyCode.Space))
             {
                 if (_climbHandler.CheckLedgeBelow(ClimbingState.MoveToEdge, DirectionFacing.Left))
                 {
                     Animator.Play(Animator.StringToHash("MoveToEdge"));
                     _climbHandler.NextClimbingState = ClimbingState.AcrossLeft;
                 }
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-            {
+
                 if (_climbHandler.CheckLedgeBelow(ClimbingState.MoveToEdge, DirectionFacing.Right))
                 {
                     Animator.Play(Animator.StringToHash("MoveToEdge"));
                     _climbHandler.NextClimbingState = ClimbingState.AcrossRight;
                 }
             }
-            else if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E)))
+            else if (Input.GetKeyDown(KeyCode.E))
             {
                 _controller.CreatePilotedLight();
                 //_animator.Play(Animator.StringToHash("Create light"));
