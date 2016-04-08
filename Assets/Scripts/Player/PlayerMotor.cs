@@ -55,6 +55,9 @@ namespace Assets.Scripts.Player
 
         void Update()
         {
+            if (_animator == null)
+                _animator = transform.parent.parent.GetComponent<Animator>();
+
             if (_climbHandler.CurrentClimbingState != ClimbingState.None)
             {
                 if (_climbHandler.CurrentClimbingState != ClimbingState.MoveToEdge && _climbHandler.CurrentClimbingState != ClimbingState.Jump)

@@ -118,7 +118,7 @@ public class Skin2D : MonoBehaviour {
     // Use this for initialization
     void Start() {
 #if UNITY_EDITOR
-        CalculateVertexColors();
+        //CalculateVertexColors();
 #endif
 		if (Application.isPlaying) {
 			Mesh oldMesh = GetComponent<SkinnedMeshRenderer>().sharedMesh;
@@ -196,7 +196,7 @@ public class Skin2D : MonoBehaviour {
     void OnDrawGizmos() {
 
         if (Application.isEditor && MeshFilter.sharedMesh != null) {
-            CalculateVertexColors();
+            //CalculateVertexColors();
             GL.wireframe = true;
             LineMaterial.SetPass(0);
             Graphics.DrawMeshNow(MeshFilter.sharedMesh, transform.position, transform.rotation);
