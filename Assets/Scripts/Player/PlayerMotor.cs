@@ -71,6 +71,12 @@ namespace Assets.Scripts.Player
                     else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
                         _climbHandler.NextClimbingState = ClimbingState.Down;
                 }
+                else if (_climbHandler.CurrentClimbingState == ClimbingState.Jump && _normalizedHorizontalSpeed != 0)
+                {
+                    SetHorizontalVelocityInAir();
+                    Move(_velocity * Time.deltaTime);
+                    _velocity = _controller.Velocity;
+                }
                 _climbHandler.ClimbAnimation();
             }
             else if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Straight Climb Up") == false)
@@ -80,13 +86,29 @@ namespace Assets.Scripts.Player
                 HandleMovementInputs();
 
                 if (_controller.IsGrounded)
-                    _velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * RunSpeed, ref _velocity.x, Time.deltaTime * GroundDamping);
+                    SetHorizontalVelocityOnGround();
 
                 _velocity.y += Gravity * Time.deltaTime;
                 Move(_velocity * Time.deltaTime);
                 _velocity = _controller.Velocity;
             }
             _controller.HeatIce();
+        }
+
+        public void SetHorizontalVelocityOnGround()
+        {
+            _velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * RunSpeed, ref _velocity.x, Time.deltaTime * GroundDamping);
+        }
+
+        public void SetHorizontalVelocityInAir()
+        {
+            _velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * 10, ref _velocity.x, Time.deltaTime);
+        }
+
+        public void SetHorizontalVelocity(float velocity)
+        {
+            _normalizedHorizontalSpeed = GetDirectionFacing() == DirectionFacing.Right ? 1 : -1;
+            _velocity.x = Mathf.SmoothDamp(velocity, _normalizedHorizontalSpeed * 10, ref velocity, Time.deltaTime);
         }
 
         public void Move(Vector2 deltaMovement)

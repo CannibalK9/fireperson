@@ -49,5 +49,10 @@ namespace Assets.Scripts.Player
             if (PlayerMotor.ClimbingSide != PlayerMotor.GetDirectionFacing())
                 PlayerMotor.FlipSprite();
         }
+
+        private void ApplyJumpVelocity()
+        {
+            PlayerMotor.SetHorizontalVelocity(3);
+        }
     }
 }
