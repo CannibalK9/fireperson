@@ -79,7 +79,7 @@ namespace Assets.Scripts.Player
                 }
                 _climbHandler.ClimbAnimation();
             }
-            else if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Straight Climb Up") == false)
+            else if (Animator.GetCurrentAnimatorStateInfo(0).IsName("ClimbUp") == false)
             {
                 _climbHandler.SetNotClimbing();
 
@@ -159,12 +159,12 @@ namespace Assets.Scripts.Player
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
             {
                 if (_climbHandler.CheckLedgeAbove())
-                    Animator.Play(Animator.StringToHash("Straight Climb Up"));
+                    Animator.Play(Animator.StringToHash("ClimbUp"));
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
             {
                 if (_climbHandler.CheckLedgeBelow(ClimbingState.Down, DirectionFacing.None))
-                    Animator.Play(Animator.StringToHash("Climb Down"));
+                    Animator.Play(Animator.StringToHash("ClimbDown"));
             }
             else if (Input.GetKeyDown(KeyCode.Space))
             {

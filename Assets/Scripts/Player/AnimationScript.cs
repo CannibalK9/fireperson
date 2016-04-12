@@ -20,7 +20,7 @@ namespace Assets.Scripts.Player
             switch (_nextState)
             {
                 case ClimbingState.Up:
-                    _animator.SetTrigger("transitionUp");
+                    _animator.SetTrigger("climbUp");
                     break;
                 case ClimbingState.Down:
                     _animator.SetTrigger("transitionDown");
