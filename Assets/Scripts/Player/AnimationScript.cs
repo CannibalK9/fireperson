@@ -52,7 +52,17 @@ namespace Assets.Scripts.Player
 
         private void ApplyJumpVelocity()
         {
-            PlayerMotor.SetHorizontalVelocity(3);
+            PlayerMotor.SetHorizontalVelocity(1);
+        }
+
+        private void AllowMovement()
+        {
+            PlayerMotor.AllowMovement();
+        }
+
+        private void StopMovement()
+        {
+            PlayerMotor.StopMovement();
         }
     }
 }

@@ -15,18 +15,22 @@ namespace Assets.Scripts.Player
         public ClimbingState CurrentClimbingState { get; set; }
         public ClimbingState NextClimbingState { get; set; }
         public DirectionFacing ClimbingSide { get; set; }
+        public bool MovementAllowed { get; set; }
 
         public ClimbHandler(PlayerMotor motor)
         {
             _motor = motor;
             _climbCollider = null;
             _playerCollider = _motor.Collider;
+            MovementAllowed = true;
         }
 
         public void ClimbAnimation()
         {
             if (CurrentClimbingState == ClimbingState.None || _hasMoved)
                 return;
+
+            float climbingSpeed = 0.5f;
 
             switch (CurrentClimbingState)
             {
@@ -39,6 +43,7 @@ namespace Assets.Scripts.Player
                 case ClimbingState.AcrossLeft:
                 case ClimbingState.AcrossRight:
                     Across();
+                    climbingSpeed = 0.2f;
                     break;
                 case ClimbingState.MoveToEdge:
                     MoveToEdge();
@@ -47,7 +52,8 @@ namespace Assets.Scripts.Player
                 default:
                     break;
             }
-            ClimbMovement();
+            if (MovementAllowed)
+                ClimbMovement(climbingSpeed);
             if (NotMoving())
                 _hasMoved = true;
         }
@@ -205,7 +211,7 @@ namespace Assets.Scripts.Player
                xCast,
                _playerCollider.bounds.min.y - checkDepth / 2);
 
-            Vector2 size = new Vector2(1f, checkDepth);
+            Vector2 size = new Vector2(1f, checkLength);
 
             Vector2 castDirection = direction == DirectionFacing.Left ? Vector2.left : Vector2.right;
 
@@ -309,11 +315,9 @@ namespace Assets.Scripts.Player
             return notMoving;
         }
 
-        public float ClimbingSpeed = 0.5f;
-
-        private void ClimbMovement()
+        private void ClimbMovement(float climbingSpeed)
         {
-            _motor.Move((_target - _player) * ClimbingSpeed);
+            _motor.Move((_target - _player) * climbingSpeed);
         }
 
         private Vector2 GetTopRight(Collider2D col)

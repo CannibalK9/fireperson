@@ -239,5 +239,15 @@ namespace Assets.Scripts.Player
         {
             return _climbHandler.SwitchClimbingState();
         }
+
+        public void AllowMovement()
+        {
+            _climbHandler.MovementAllowed = true;
+        }
+
+        public void StopMovement()
+        {
+            _climbHandler.MovementAllowed = false;
+        }
     }
 }
