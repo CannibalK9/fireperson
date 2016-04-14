@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Scripts.Heat
 {
     public class HeatHandler
     {
-        private IVariableHeater _heater;
+        private readonly IVariableHeater _heater;
 
         public HeatHandler(IVariableHeater heater)
         {
@@ -39,7 +40,7 @@ namespace Assets.Scripts.Heat
             return 1 << LayerMask.NameToLayer("Melting");
         }
 
-        private void SendRaycastMessages(RaycastHit2D[] hits, Vector4 value)
+        private void SendRaycastMessages(IEnumerable<RaycastHit2D> hits, Vector4 value)
         {
             foreach (RaycastHit2D hit in hits)
             {

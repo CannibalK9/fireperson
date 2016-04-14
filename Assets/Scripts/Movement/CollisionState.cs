@@ -2,43 +2,43 @@
 {
     public class CollisionState
     {
-        public bool right;
-        public bool left;
-        public bool above;
-        public bool below;
-        public bool becameGroundedThisFrame;
-        public bool wasGroundedLastFrame;
-        public bool movingDownSlope;
-        public float slopeAngle;
+        public bool Right;
+        public bool Left;
+        public bool Above;
+        public bool Below;
+        public bool BecameGroundedThisFrame;
+        public bool WasGroundedLastFrame;
+        public bool MovingDownSlope;
+        public float SlopeAngle;
 
         public CollisionState()
         {
-            reset();
+            Reset();
         }
 
-        public bool hasCollision()
+        public bool HasCollision()
         {
-            return below || right || left || above;
+            return Below || Right || Left || Above;
         }
 
-        public void reset()
+        public void Reset()
         {
-            right = left = above = below = becameGroundedThisFrame = movingDownSlope = false;
-            slopeAngle = 0f;
+            Right = Left = Above = Below = BecameGroundedThisFrame = MovingDownSlope = false;
+            SlopeAngle = 0f;
         }
 
         public override string ToString()
         {
             return string.Format(
                 "[CharacterCollisionState2D] r: {0}, l: {1}, a: {2}, b: {3}, movingDownSlope: {4}, angle: {5}, wasGroundedLastFrame: {6}, becameGroundedThisFrame: {7}",
-                 right,
-                 left,
-                 above,
-                 below,
-                 movingDownSlope,
-                 slopeAngle,
-                 wasGroundedLastFrame,
-                 becameGroundedThisFrame);
+                 Right,
+                 Left,
+                 Above,
+                 Below,
+                 MovingDownSlope,
+                 SlopeAngle,
+                 WasGroundedLastFrame,
+                 BecameGroundedThisFrame);
         }
     }
 }

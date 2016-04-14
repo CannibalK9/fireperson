@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Heat;
+﻿using System;
+using Assets.Scripts.Heat;
 using Assets.Scripts.Movement;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,13 +53,13 @@ namespace Assets.Scripts.Player
         public Transform Transform { get; set; }
         public BoxCollider2D BoxCollider { get; set; }
         public CollisionState CollisionState { get; set; }
-        public bool IsGrounded { get { return CollisionState.below; } }
+        public bool IsGrounded { get { return CollisionState.Below; } }
         public Vector3 Velocity { get; set; }
         public List<RaycastHit2D> RaycastHitsThisFrame { get; set; } 
         public float VerticalDistanceBetweenRays { get; set; }
         public float HorizontalDistanceBetweenRays { get; set; }
 
-        public MovementHandler _movement;
+        public MovementHandler Movement;
         private HeatHandler _heatHandler;
 
         public GameObject PilotedLight;
@@ -72,7 +73,7 @@ namespace Assets.Scripts.Player
 
             SkinWidth = _skinWidth;
 
-            _movement = new MovementHandler(this);
+            Movement = new MovementHandler(this);
             _heatHandler = new HeatHandler(this);
 
             IgnoreCollisionLayersOutsideTriggerMask();
@@ -83,7 +84,7 @@ namespace Assets.Scripts.Player
 
         void Update()
         {
-            if (_currentHeatRayDistance == _heatRayDistance)
+            if (Math.Abs(_currentHeatRayDistance - _heatRayDistance) < 0.01f)
                 _heatRayDistance = _defaultHeatRayDistance;
             else
                 _currentHeatRayDistance = _heatRayDistance;
@@ -106,7 +107,7 @@ namespace Assets.Scripts.Player
 
         public void CreatePilotedLight()
         {
-            Vector3 pilotedLightPosition = _movement.IsFacingRight
+            Vector3 pilotedLightPosition = Movement.IsFacingRight
                 ? transform.position + new Vector3(0.4f, 0, 0)
                 : transform.position + new Vector3(-0.4f, 0, 0);
 
@@ -125,7 +126,7 @@ namespace Assets.Scripts.Player
         {
             while (!IsGrounded)
             {
-                _movement.Move(new Vector3(0, -1f, 0));
+                Movement.Move(new Vector3(0, -1f, 0));
             }
         }
 
@@ -141,7 +142,7 @@ namespace Assets.Scripts.Player
         void OnDrawGizmos()
         {
             Gizmos.color = new Color(1, 0, 0, 0.5F);
-            BoxCollider2D box = GetComponent<BoxCollider2D>();
+            var box = GetComponent<BoxCollider2D>();
             Gizmos.DrawCube(box.bounds.center, new Vector3(box.bounds.size.x, box.bounds.size.y, 1));
         }
     }

@@ -8,7 +8,7 @@ namespace Assets.Scripts.Denizens
         public float RunSpeed = 3f;
         public float GroundDamping = 7f;
         public float HazardWarningDistance = 1f;
-        public DirectionTravelling directionTravelling;
+        public DirectionTravelling DirectionTravelling;
 
         private float _normalizedHorizontalSpeed = 0;
 
@@ -27,7 +27,7 @@ namespace Assets.Scripts.Denizens
         {
             _animator = GetComponent<Animator>();
             _controller = GetComponent<DenizenController>();
-            directionTravelling = DirectionTravelling.None;
+            DirectionTravelling = DirectionTravelling.None;
         }
 
         void Update()
@@ -36,7 +36,7 @@ namespace Assets.Scripts.Denizens
             {
                 _waitingToMove = true;
                 _velocity = Vector3.zero;
-                directionTravelling = DirectionTravelling.None;
+                DirectionTravelling = DirectionTravelling.None;
             }
             else if (_waitingToMove)
             {
@@ -51,7 +51,7 @@ namespace Assets.Scripts.Denizens
 
         void MoveToFireplace(DirectionTravelling direction)
         {
-            directionTravelling = direction;
+            DirectionTravelling = direction;
         }
 
         private void DetermineMovement()
@@ -59,39 +59,39 @@ namespace Assets.Scripts.Denizens
             if (_controller.IsGrounded)
             {
                 _velocity.y = 0;
-                if (_controller.CollisionState.becameGroundedThisFrame)
+                if (_controller.CollisionState.BecameGroundedThisFrame)
                     SetTravelInDirectionFacing();
             }
             else
             {
-                directionTravelling = DirectionTravelling.None;
+                DirectionTravelling = DirectionTravelling.None;
                 //SetAnimationWhenFalling();
             }
 
-            if (directionTravelling == DirectionTravelling.Right)
+            if (DirectionTravelling == DirectionTravelling.Right)
             {
                 SetAnimationWhenGrounded();
                 var hazardRay = new Vector2(
                     _controller.BoxCollider.bounds.max.x + HazardWarningDistance,
                     _controller.BoxCollider.bounds.min.y);
 
-                if (ApproachingEdge(hazardRay) || ApproachingSnow(hazardRay) || _controller.CollisionState.right)
-                    directionTravelling = DirectionTravelling.Left;
+                if (ApproachingEdge(hazardRay) || ApproachingSnow(hazardRay) || _controller.CollisionState.Right)
+                    DirectionTravelling = DirectionTravelling.Left;
                 else
                     _normalizedHorizontalSpeed = 1;
 
                 if (GetDirectionFacing() == DirectionFacing.Left)
                     FlipSprite();
             }
-            else if (directionTravelling == DirectionTravelling.Left)
+            else if (DirectionTravelling == DirectionTravelling.Left)
             {
                 SetAnimationWhenGrounded();
                 var hazardRay = new Vector2(
                     _controller.BoxCollider.bounds.min.x - HazardWarningDistance,
                     _controller.BoxCollider.bounds.min.y);
 
-                if (ApproachingEdge(hazardRay) || ApproachingSnow(hazardRay) || _controller.CollisionState.left)
-                    directionTravelling = DirectionTravelling.Right;
+                if (ApproachingEdge(hazardRay) || ApproachingSnow(hazardRay) || _controller.CollisionState.Left)
+                    DirectionTravelling = DirectionTravelling.Right;
                 else
                     _normalizedHorizontalSpeed = -1;
 
@@ -106,7 +106,7 @@ namespace Assets.Scripts.Denizens
 
         private void SetTravelInDirectionFacing()
         {
-            directionTravelling = GetDirectionFacing() == DirectionFacing.Right
+            DirectionTravelling = GetDirectionFacing() == DirectionFacing.Right
                         ? DirectionTravelling.Right
                         : DirectionTravelling.Left;
         }
@@ -191,13 +191,9 @@ namespace Assets.Scripts.Denizens
 
         private DirectionFacing GetDirectionFacing()
         {
-            DirectionFacing directionFacing;
-            if (transform.localScale.x > 0f)
-                directionFacing = DirectionFacing.Right;
-            else
-                directionFacing = DirectionFacing.Left;
-
-            return directionFacing;
+			return transform.localScale.x > 0f
+		        ? DirectionFacing.Right
+		        : DirectionFacing.Left;
         }
     }
 }

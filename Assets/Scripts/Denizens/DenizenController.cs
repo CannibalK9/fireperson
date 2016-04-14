@@ -47,7 +47,7 @@ namespace Assets.Scripts.Denizens
         public Transform Transform { get; set; }
         public BoxCollider2D BoxCollider { get; set; }
         public CollisionState CollisionState { get; set; }
-        public bool IsGrounded { get { return CollisionState.below; } }
+        public bool IsGrounded { get { return CollisionState.Below; } }
         public Vector3 Velocity { get; set; }
         public List<RaycastHit2D> RaycastHitsThisFrame { get; set; }
         public float VerticalDistanceBetweenRays { get; set; }

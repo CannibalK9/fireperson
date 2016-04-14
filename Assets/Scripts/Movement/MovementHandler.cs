@@ -7,7 +7,7 @@ namespace Assets.Scripts.Movement
     {
         public bool IsFacingRight = true;
 
-        private IController _controller;
+        private readonly IController _controller;
         private RaycastHit2D _raycastHit;
         private CharacterRaycastOrigins _raycastOrigins;
 
@@ -21,14 +21,14 @@ namespace Assets.Scripts.Movement
 
         public void Move(Vector3 deltaMovement)
         {
-            _controller.CollisionState.wasGroundedLastFrame = _controller.CollisionState.below;
-            _controller.CollisionState.reset();
+            _controller.CollisionState.WasGroundedLastFrame = _controller.CollisionState.Below;
+            _controller.CollisionState.Reset();
             _controller.RaycastHitsThisFrame.Clear();
             _isGoingUpSlope = false;
 
             PrimeRaycastOrigins();
 
-            if (deltaMovement.y < 0f && _controller.CollisionState.wasGroundedLastFrame)
+            if (deltaMovement.y < 0f && _controller.CollisionState.WasGroundedLastFrame)
                 HandleVerticalSlope(ref deltaMovement);
 
             if (deltaMovement.x != 0f)
@@ -42,8 +42,8 @@ namespace Assets.Scripts.Movement
             if (Time.deltaTime > 0f)
                 _controller.Velocity = deltaMovement / Time.deltaTime;
 
-            if (!_controller.CollisionState.wasGroundedLastFrame && _controller.CollisionState.below)
-                _controller.CollisionState.becameGroundedThisFrame = true;
+            if (!_controller.CollisionState.WasGroundedLastFrame && _controller.CollisionState.Below)
+                _controller.CollisionState.BecameGroundedThisFrame = true;
 
             if (_isGoingUpSlope)
                 _controller.Velocity = new Vector3(_controller.Velocity.x, 0, _controller.Velocity.z);
@@ -60,7 +60,7 @@ namespace Assets.Scripts.Movement
             IsFacingRight = deltaMovement.x > 0;
             var rayDistance = Mathf.Abs(deltaMovement.x) + _controller.SkinWidth;
             var rayDirection = IsFacingRight ? Vector2.right : -Vector2.right;
-            var initialRayOrigin = IsFacingRight ? _raycastOrigins.bottomRight : _raycastOrigins.bottomLeft;
+            var initialRayOrigin = IsFacingRight ? _raycastOrigins.BottomRight : _raycastOrigins.BottomLeft;
 
             for (var i = 0; i < _controller.TotalHorizontalRays; i++)
             {
@@ -87,12 +87,12 @@ namespace Assets.Scripts.Movement
                     if (IsFacingRight)
                     {
                         deltaMovement.x -= _controller.SkinWidth;
-                        _controller.CollisionState.right = true;
+                        _controller.CollisionState.Right = true;
                     }
                     else
                     {
                         deltaMovement.x += _controller.SkinWidth;
-                        _controller.CollisionState.left = true;
+                        _controller.CollisionState.Left = true;
                     }
 
                     _controller.RaycastHitsThisFrame.Add(_raycastHit);
@@ -120,11 +120,11 @@ namespace Assets.Scripts.Movement
             // if we can walk on slopes and our angle is small enough we need to move up
             if (angle < _controller.SlopeLimit)
             {
-                // we only need to adjust the deltaMovement if we are not jumping
+	            // we only need to adjust the deltaMovement if we are not jumping
                 // TODO: this uses a magic number which isn't ideal! The alternative is to have the user pass in if there is a jump this frame
-                float jumpingThreshold = 0.07f;
+	            const float jumpingThreshold = 0.07f;
 
-                if (deltaMovement.y < jumpingThreshold)
+	            if (deltaMovement.y < jumpingThreshold)
                 {
                     // apply the slopeModifier to slow our movement up the slope
                     var slopeModifier = _controller.SlopeSpeedMultiplier.Evaluate(angle);
@@ -138,7 +138,7 @@ namespace Assets.Scripts.Movement
 
                     // safety check. we fire a ray in the direction of movement just in case the diagonal we calculated above ends up
                     // going through a wall. if the ray hits, we back off the horizontal movement to stay in bounds.
-                    var ray = isGoingRight ? _raycastOrigins.bottomRight : _raycastOrigins.bottomLeft;
+                    var ray = isGoingRight ? _raycastOrigins.BottomRight : _raycastOrigins.BottomLeft;
                     RaycastHit2D raycastHit = Physics2D.Raycast(ray, deltaMovement.normalized, deltaMovement.magnitude, _controller.PlatformMask);
 
                     if (raycastHit)
@@ -152,7 +152,7 @@ namespace Assets.Scripts.Movement
                     }
 
                     _isGoingUpSlope = true;
-                    _controller.CollisionState.below = true;
+                    _controller.CollisionState.Below = true;
                 }
             }
             else // too steep. get out of here
@@ -168,7 +168,7 @@ namespace Assets.Scripts.Movement
             var isGoingUp = deltaMovement.y > 0;
             var rayDistance = Mathf.Abs(deltaMovement.y) + _controller.SkinWidth;
             var rayDirection = isGoingUp ? Vector2.up : -Vector2.up;
-            var initialRayOrigin = isGoingUp ? _raycastOrigins.topLeft : _raycastOrigins.bottomLeft;
+            var initialRayOrigin = isGoingUp ? _raycastOrigins.TopLeft : _raycastOrigins.BottomLeft;
 
             // apply our horizontal deltaMovement here so that we do our raycast from the actual position we would be in if we had moved
             initialRayOrigin.x += deltaMovement.x;
@@ -193,12 +193,12 @@ namespace Assets.Scripts.Movement
                     if (isGoingUp)
                     {
                         deltaMovement.y -= _controller.SkinWidth;
-                        _controller.CollisionState.above = true;
+                        _controller.CollisionState.Above = true;
                     }
                     else
                     {
                         deltaMovement.y += _controller.SkinWidth;
-                        _controller.CollisionState.below = true;
+                        _controller.CollisionState.Below = true;
                     }
 
                     _controller.RaycastHitsThisFrame.Add(_raycastHit);
@@ -224,14 +224,14 @@ namespace Assets.Scripts.Movement
         private void HandleVerticalSlope(ref Vector3 deltaMovement)
         {
             // slope check from the center of our collider
-            var centerOfCollider = (_raycastOrigins.bottomLeft.x + _raycastOrigins.bottomRight.x) * 0.5f;
+            var centerOfCollider = (_raycastOrigins.BottomLeft.x + _raycastOrigins.BottomRight.x) * 0.5f;
             var rayDirection = -Vector2.up;
 
             // the ray distance is based on our slopeLimit
             float slopeLimitTangent = Mathf.Tan(75f * Mathf.Deg2Rad);
-            var slopeCheckRayDistance = slopeLimitTangent * (_raycastOrigins.bottomRight.x - centerOfCollider);
+            var slopeCheckRayDistance = slopeLimitTangent * (_raycastOrigins.BottomRight.x - centerOfCollider);
 
-            var slopeRay = new Vector2(centerOfCollider, _raycastOrigins.bottomLeft.y);
+            var slopeRay = new Vector2(centerOfCollider, _raycastOrigins.BottomLeft.y);
             DrawRay(slopeRay, rayDirection * slopeCheckRayDistance, Color.yellow);
             _raycastHit = Physics2D.Raycast(slopeRay, rayDirection, slopeCheckRayDistance, _controller.PlatformMask);
             if (_raycastHit)
@@ -250,8 +250,8 @@ namespace Assets.Scripts.Movement
                     // we add the extra downward movement here to ensure we "stick" to the surface below
                     deltaMovement.y += _raycastHit.point.y - slopeRay.y - _controller.SkinWidth;
                     deltaMovement.x *= slopeModifier;
-                    _controller.CollisionState.movingDownSlope = true;
-                    _controller.CollisionState.slopeAngle = angle;
+                    _controller.CollisionState.MovingDownSlope = true;
+                    _controller.CollisionState.SlopeAngle = angle;
                 }
             }
         }
@@ -274,9 +274,9 @@ namespace Assets.Scripts.Movement
 
             _raycastOrigins = new CharacterRaycastOrigins
             {
-                topLeft = new Vector2(modifiedBounds.min.x, modifiedBounds.max.y),
-                bottomRight = new Vector2(modifiedBounds.max.x, modifiedBounds.min.y),
-                bottomLeft = modifiedBounds.min
+                TopLeft = new Vector2(modifiedBounds.min.x, modifiedBounds.max.y),
+                BottomRight = new Vector2(modifiedBounds.max.x, modifiedBounds.min.y),
+                BottomLeft = modifiedBounds.min
             };
         }
     }

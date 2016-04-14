@@ -4,30 +4,30 @@ namespace Assets.Scripts.Sprites
 {
     public class MeshSortingOrder : MonoBehaviour
     {
-        public string layerName;
-        public int order;
+        public string LayerName;
+        public int Order;
 
-        private SkinnedMeshRenderer rend;
+        private SkinnedMeshRenderer _rend;
         void Awake()
         {
-            rend = GetComponent<SkinnedMeshRenderer>();
-            rend.sortingLayerName = layerName;
-            rend.sortingOrder = order;
+            _rend = GetComponent<SkinnedMeshRenderer>();
+            _rend.sortingLayerName = LayerName;
+            _rend.sortingOrder = Order;
         }
 
         public void Update()
         {
-            if (rend.sortingLayerName != layerName)
-                rend.sortingLayerName = layerName;
-            if (rend.sortingOrder != order)
-                rend.sortingOrder = order;
+            if (_rend.sortingLayerName != LayerName)
+                _rend.sortingLayerName = LayerName;
+            if (_rend.sortingOrder != Order)
+                _rend.sortingOrder = Order;
         }
 
         public void OnValidate()
         {
-            rend = GetComponent<SkinnedMeshRenderer>();
-            rend.sortingLayerName = layerName;
-            rend.sortingOrder = order;
+            _rend = GetComponent<SkinnedMeshRenderer>();
+            _rend.sortingLayerName = LayerName;
+            _rend.sortingOrder = Order;
         }
     }
 }
