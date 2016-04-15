@@ -6,7 +6,6 @@ namespace Assets.Scripts.Player
 	{
 		public PlayerMotor PlayerMotor;
 		private Animator _animator;
-		private ClimbingState _nextState;
 
 		void Awake()
 		{
@@ -15,9 +14,9 @@ namespace Assets.Scripts.Player
 
 		private void SwitchClimbingState()
 		{
-			_nextState = PlayerMotor.SwitchClimbingState();
+            ClimbingState nextState = PlayerMotor.SwitchClimbingState();
 
-			switch (_nextState)
+			switch (nextState)
 			{
 				case ClimbingState.Up:
 					_animator.SetTrigger("climbUp");

@@ -58,41 +58,24 @@ namespace Assets.Scripts.Player
 			if (_animator == null)
 				_animator = transform.parent.parent.GetComponent<Animator>();
 
-			if (_climbHandler.CurrentClimbingState != ClimbingState.None)
+			if (_climbHandler.CurrentClimbingState == ClimbingState.None)
 			{
-				if (_climbHandler.CurrentClimbingState != ClimbingState.MoveToEdge && _climbHandler.CurrentClimbingState != ClimbingState.Jump)
-				{
-					if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
-						_climbHandler.NextClimbingState = ClimbingState.AcrossLeft;
-					else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-						_climbHandler.NextClimbingState = ClimbingState.AcrossRight;
-					else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
-						_climbHandler.NextClimbingState = ClimbingState.Up;
-					else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-						_climbHandler.NextClimbingState = ClimbingState.Down;
-				}
-				else if (_climbHandler.CurrentClimbingState == ClimbingState.Jump && _normalizedHorizontalSpeed != 0)
-				{
-					SetHorizontalVelocityInAir();
-					Move(_velocity * Time.deltaTime);
-					_velocity = _controller.Velocity;
-				}
-				_climbHandler.ClimbAnimation();
-			}
-			else if (Animator.GetCurrentAnimatorStateInfo(0).IsName("ClimbUp") == false)
-			{
-				_climbHandler.SetNotClimbing();
+                ReapplyPlatformMask();
 
-				HandleMovementInputs();
-
-				if (_controller.IsGrounded)
-					SetHorizontalVelocityOnGround();
-
+                if (_controller.IsGrounded)
+                {
+				    HandleMovementInputs();
+                    SetHorizontalVelocityOnGround();
+                }
 				_velocity.y += Gravity * Time.deltaTime;
 				Move(_velocity * Time.deltaTime);
 				_velocity = _controller.Velocity;
 			}
-			_controller.HeatIce();
+            else
+            {
+                _climbHandler.ClimbAnimation();
+            }
+            _controller.HeatIce();
 		}
 
 		public void SetHorizontalVelocityOnGround()
@@ -241,7 +224,22 @@ namespace Assets.Scripts.Player
 
 		public ClimbingState SwitchClimbingState()
 		{
-			return _climbHandler.SwitchClimbingState();
+            if (_climbHandler.CurrentClimbingState == ClimbingState.Jump)
+            {
+                _climbHandler.NextClimbingState = ClimbingState.None;
+            }
+            else
+            {
+                if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+                    _climbHandler.NextClimbingState = ClimbingState.AcrossLeft;
+                else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+                    _climbHandler.NextClimbingState = ClimbingState.AcrossRight;
+                else if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
+                    _climbHandler.NextClimbingState = ClimbingState.Up;
+                else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+                    _climbHandler.NextClimbingState = ClimbingState.Down;
+            }
+            return _climbHandler.SwitchClimbingState();
 		}
 
 		public void AllowMovement()

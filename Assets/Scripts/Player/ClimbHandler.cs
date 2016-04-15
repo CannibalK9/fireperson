@@ -10,7 +10,6 @@ namespace Assets.Scripts.Player
 		private Collider2D _climbCollider;
 		private readonly Collider2D _playerCollider;
 
-		private bool _hasMoved;
 		private Vector2 _target;
 		private Vector2 _player;
 
@@ -29,7 +28,7 @@ namespace Assets.Scripts.Player
 
 		public void ClimbAnimation()
 		{
-			if (CurrentClimbingState == ClimbingState.None || _hasMoved)
+			if (CurrentClimbingState == ClimbingState.None)
 				return;
 
 			float climbingSpeed = 0.5f;
@@ -41,7 +40,8 @@ namespace Assets.Scripts.Player
 					break;
 				case ClimbingState.Down:
 					ClimbDown();
-					break;
+					climbingSpeed = 1f;
+                    break;
 				case ClimbingState.AcrossLeft:
 				case ClimbingState.AcrossRight:
 					Across();
@@ -49,7 +49,8 @@ namespace Assets.Scripts.Player
 					break;
 				case ClimbingState.MoveToEdge:
 					MoveToEdge();
-					break;
+					climbingSpeed = 1f;
+                    break;
 			}
 			if (MovementAllowed)
 				ClimbMovement(climbingSpeed);
@@ -116,11 +117,11 @@ namespace Assets.Scripts.Player
 		public bool CheckLedgeAbove()
 		{
 			const float checkWidth = 5f;
-			const float checkHeight = 3f;
+			const float checkHeight = 5f;
 
 			var origin = new Vector2(
 			   _playerCollider.bounds.center.x,
-			   _playerCollider.bounds.max.y);
+			   _playerCollider.bounds.center.y);
 
 			var size = new Vector2(checkWidth, 1f);
 
@@ -263,13 +264,6 @@ namespace Assets.Scripts.Player
 				: _motor.transform.position.x > _climbCollider.transform.position.x - overhangDistance;
 		}
 
-		public void SetNotClimbing()
-		{
-			CurrentClimbingState = ClimbingState.None;
-			_hasMoved = false;
-			_motor.ReapplyPlatformMask();
-		}
-
 		public ClimbingState SwitchClimbingState()
 		{
 			bool isTransition = false;
@@ -290,7 +284,6 @@ namespace Assets.Scripts.Player
 					break;
 			}
 
-			_hasMoved = false;
 			CurrentClimbingState = isTransition ? NextClimbingState : ClimbingState.None;
 			NextClimbingState = ClimbingState.None;
 			return CurrentClimbingState;
