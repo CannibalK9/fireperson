@@ -10,23 +10,9 @@ namespace Assets.Scripts.Player
 
 		private float _normalizedHorizontalSpeed;
 
-		private Animator _animator;
-		public Animator Animator
-		{
-			get
-			{
-				return _animator;
-			}
-		}
-
-		private BoxCollider2D _collider;
-		public BoxCollider2D Collider
-		{
-			get
-			{
-				return _collider;
-			}
-		}
+		public Animator Animator { get; private set; }
+		public BoxCollider2D Collider { get; private set; }
+        public bool AcceptInput { get; set; }
 
 		public DirectionFacing ClimbingSide
 		{
@@ -44,38 +30,46 @@ namespace Assets.Scripts.Player
 
 		void Awake()
 		{
-			_animator = transform.parent.parent.GetComponent<Animator>();
+			Animator = transform.parent.parent.GetComponent<Animator>();
 			_controller = GetComponent<PlayerController>();
-			_collider = GetComponent<BoxCollider2D>();
+			Collider = GetComponent<BoxCollider2D>();
 			_transform = transform.parent.parent;
 
 			_climbHandler = new ClimbHandler(this);
 			_defaultPlatformMask = _controller.PlatformMask;
+            AcceptInput = true;
 		}
 
 		void Update()
 		{
-			if (_animator == null)
-				_animator = transform.parent.parent.GetComponent<Animator>();
+			if (Animator == null)
+				Animator = transform.parent.parent.GetComponent<Animator>();
 
-			if (_climbHandler.CurrentClimbingState == ClimbingState.None)
+            if (AcceptInput && _climbHandler.CurrentClimbingState != ClimbingState.None)
+            {
+                CancelVelocity();
+                RemovePlatformMask();
+                AcceptInput = false;
+            }
+
+			if (AcceptInput)
 			{
-                ReapplyPlatformMask();
+				ReapplyPlatformMask();
 
-                if (_controller.IsGrounded)
-                {
-				    HandleMovementInputs();
-                    SetHorizontalVelocityOnGround();
-                }
+				if (_controller.IsGrounded)
+				{
+					HandleMovementInputs();
+					SetHorizontalVelocityOnGround();
+				}
 				_velocity.y += Gravity * Time.deltaTime;
 				Move(_velocity * Time.deltaTime);
 				_velocity = _controller.Velocity;
 			}
-            else
-            {
-                _climbHandler.ClimbAnimation();
-            }
-            _controller.HeatIce();
+			else
+			{
+				_climbHandler.ClimbAnimation();
+			}
+			_controller.HeatIce();
 		}
 
 		public void SetHorizontalVelocityOnGround()
@@ -107,11 +101,11 @@ namespace Assets.Scripts.Player
 		{
 			if (_controller.IsGrounded == false)
 			{
-				_animator.SetBool("falling", true);
-				_animator.SetBool("moving", false);
+				Animator.SetBool("falling", true);
+				Animator.SetBool("moving", false);
 				return;
 			}
-			_animator.SetBool("falling", false);
+			Animator.SetBool("falling", false);
 
 			_velocity.y = 0;
 
@@ -155,16 +149,12 @@ namespace Assets.Scripts.Player
 			}
 			else if (Input.GetKeyDown(KeyCode.Space))
 			{
-				if (_climbHandler.CheckLedgeBelow(ClimbingState.MoveToEdge, DirectionFacing.Left))
+				if (_climbHandler.CheckLedgeBelow(ClimbingState.MoveToEdge, GetDirectionFacing()))
 				{
 					Animator.Play(Animator.StringToHash("MoveToEdge"));
-					_climbHandler.NextClimbingState = ClimbingState.AcrossLeft;
-				}
-
-				if (_climbHandler.CheckLedgeBelow(ClimbingState.MoveToEdge, DirectionFacing.Right))
-				{
-					Animator.Play(Animator.StringToHash("MoveToEdge"));
-					_climbHandler.NextClimbingState = ClimbingState.AcrossRight;
+					_climbHandler.NextClimbingState = GetDirectionFacing() == DirectionFacing.Left
+                        ? ClimbingState.AcrossLeft
+                        : ClimbingState.AcrossRight;
 				}
 			}
 			else if (Input.GetKeyDown(KeyCode.E))
@@ -182,10 +172,10 @@ namespace Assets.Scripts.Player
 		private void SetAnimationWhenGrounded()
 		{
 			if (_controller.IsGrounded && _normalizedHorizontalSpeed == 0)
-				_animator.SetBool("moving", false);
+				Animator.SetBool("moving", false);
 			else
 			{
-				_animator.SetBool("moving", true);
+				Animator.SetBool("moving", true);
 			}
 		}
 
@@ -194,9 +184,9 @@ namespace Assets.Scripts.Player
 			return GameObject.Find("PilotedLight(Clone)");
 		}
 
-		public void CancelHorizontalVelocity()
+		public void CancelVelocity()
 		{
-			_animator.SetBool("moving", false);
+            Animator.SetBool("moving", false);
 			_normalizedHorizontalSpeed = 0;
 			_velocity = Vector3.zero;
 		}
@@ -224,23 +214,34 @@ namespace Assets.Scripts.Player
 
 		public ClimbingState SwitchClimbingState()
 		{
-            if (_climbHandler.CurrentClimbingState == ClimbingState.Jump)
+			if (_climbHandler.CurrentClimbingState == ClimbingState.Jump)
+			{
+				_climbHandler.NextClimbingState = ClimbingState.None;
+			}
+            else if (_climbHandler.CurrentClimbingState != ClimbingState.MoveToEdge)
+			{
+				if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+					_climbHandler.NextClimbingState = ClimbingState.AcrossLeft;
+				else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+					_climbHandler.NextClimbingState = ClimbingState.AcrossRight;
+				else if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
+					_climbHandler.NextClimbingState = ClimbingState.Up;
+				else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+					_climbHandler.NextClimbingState = ClimbingState.Down;
+			}
+			return _climbHandler.SwitchClimbingState();
+		}
+
+        public bool TryClimbDown()
+        {
+            if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
             {
-                _climbHandler.NextClimbingState = ClimbingState.None;
+                _climbHandler.CurrentClimbingState = ClimbingState.Down;
+                return true;
             }
             else
-            {
-                if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-                    _climbHandler.NextClimbingState = ClimbingState.AcrossLeft;
-                else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-                    _climbHandler.NextClimbingState = ClimbingState.AcrossRight;
-                else if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
-                    _climbHandler.NextClimbingState = ClimbingState.Up;
-                else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-                    _climbHandler.NextClimbingState = ClimbingState.Down;
-            }
-            return _climbHandler.SwitchClimbingState();
-		}
+                return false;
+        }
 
 		public void AllowMovement()
 		{

@@ -14,7 +14,7 @@ namespace Assets.Scripts.Player
 
 		private void SwitchClimbingState()
 		{
-            ClimbingState nextState = PlayerMotor.SwitchClimbingState();
+			ClimbingState nextState = PlayerMotor.SwitchClimbingState();
 
 			switch (nextState)
 			{
@@ -34,7 +34,13 @@ namespace Assets.Scripts.Player
 			}
 		}
 
-		private void FlipSpriteTowardsEdge()
+        private void TryClimbDown()
+        {
+            if (PlayerMotor.TryClimbDown())
+                _animator.SetTrigger("transitionDown");
+        }
+
+        private void FlipSpriteTowardsEdge()
 		{
 			if (PlayerMotor.ClimbingSide == PlayerMotor.GetDirectionFacing())
 				PlayerMotor.FlipSprite();
@@ -65,5 +71,10 @@ namespace Assets.Scripts.Player
 		{
 			PlayerMotor.StopMovement();
 		}
+
+        private void AcceptInput()
+        {
+            PlayerMotor.AcceptInput = true;
+        }
 	}
 }

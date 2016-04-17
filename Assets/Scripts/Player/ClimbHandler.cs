@@ -28,9 +28,6 @@ namespace Assets.Scripts.Player
 
 		public void ClimbAnimation()
 		{
-			if (CurrentClimbingState == ClimbingState.None)
-				return;
-
 			float climbingSpeed = 0.5f;
 
 			switch (CurrentClimbingState)
@@ -41,7 +38,7 @@ namespace Assets.Scripts.Player
 				case ClimbingState.Down:
 					ClimbDown();
 					climbingSpeed = 1f;
-                    break;
+					break;
 				case ClimbingState.AcrossLeft:
 				case ClimbingState.AcrossRight:
 					Across();
@@ -50,7 +47,7 @@ namespace Assets.Scripts.Player
 				case ClimbingState.MoveToEdge:
 					MoveToEdge();
 					climbingSpeed = 1f;
-                    break;
+					break;
 			}
 			if (MovementAllowed)
 				ClimbMovement(climbingSpeed);
@@ -104,13 +101,13 @@ namespace Assets.Scripts.Player
 		{
 			if (ClimbingSide == DirectionFacing.Right)
 			{
-				_target = GetTopLeft(_climbCollider);
-				_player = GetBottomLeft(_playerCollider);
+				_target = GetTopRight(_climbCollider);
+				_player = GetTopLeft(_playerCollider);
 			}
 			else
 			{
-				_target = GetTopRight(_climbCollider);
-				_player = GetBottomRight(_playerCollider);
+				_target = GetTopLeft(_climbCollider);
+				_player = GetTopRight(_playerCollider);
 			}
 		}
 
@@ -129,8 +126,8 @@ namespace Assets.Scripts.Player
 
 			if (hit)
 			{
-				SetClimbingParameters(hit);
 				CurrentClimbingState = ClimbingState.Up;
+				SetClimbingParameters(hit);
 			}
 			return hit;
 		}
@@ -152,8 +149,8 @@ namespace Assets.Scripts.Player
 
 			if (hit)
 			{
-				SetClimbingParameters(hit);
 				CurrentClimbingState = intendedClimbingState;
+				SetClimbingParameters(hit);
 			}
 			return hit;
 		}
@@ -221,10 +218,10 @@ namespace Assets.Scripts.Player
 
 			if (hit)
 			{
-				SetClimbingParameters(hit);
 				NextClimbingState = direction == DirectionFacing.Left
 					? ClimbingState.AcrossLeft
 					: ClimbingState.AcrossRight;
+				SetClimbingParameters(hit);
 			}
 			else
 			{
@@ -240,11 +237,8 @@ namespace Assets.Scripts.Player
 		}
 
 		private void SetClimbingParameters(RaycastHit2D hit)
-		{
-			_motor.CancelHorizontalVelocity();
-			_motor.RemovePlatformMask();
+		{			
 			_climbCollider = hit.collider;
-
 			SetClimbingSide();
 		}
 
@@ -274,7 +268,7 @@ namespace Assets.Scripts.Player
 					isTransition = CheckLedgeAbove();
 					break;
 				case ClimbingState.Down:
-					isTransition = CheckLedgeBelow(ClimbingState.Down, DirectionFacing.None);
+					isTransition = CurrentClimbingState != ClimbingState.Down && CheckLedgeBelow(ClimbingState.Down, DirectionFacing.None);
 					break;
 				case ClimbingState.AcrossLeft:
 					isTransition = CheckLedgeAcross(DirectionFacing.Left);
