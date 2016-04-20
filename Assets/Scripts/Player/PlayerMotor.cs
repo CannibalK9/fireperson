@@ -10,9 +10,9 @@ namespace Assets.Scripts.Player
 
 		private float _normalizedHorizontalSpeed;
 
-		public Animator Animator { get; private set; }
+        public AnimationScript Anim { get; private set; }
 		public BoxCollider2D Collider { get; private set; }
-        public bool AcceptInput { get; set; }
+		public bool AcceptInput { get; set; }
 
 		public DirectionFacing ClimbingSide
 		{
@@ -30,29 +30,34 @@ namespace Assets.Scripts.Player
 
 		void Awake()
 		{
-			Animator = transform.parent.parent.GetComponent<Animator>();
+			Anim = transform.parent.parent.GetComponent<AnimationScript>();
 			_controller = GetComponent<PlayerController>();
 			Collider = GetComponent<BoxCollider2D>();
 			_transform = transform.parent.parent;
 
 			_climbHandler = new ClimbHandler(this);
 			_defaultPlatformMask = _controller.PlatformMask;
-            AcceptInput = true;
+			AcceptInput = true;
 		}
 
 		void Update()
 		{
-			if (Animator == null)
-				Animator = transform.parent.parent.GetComponent<Animator>();
+			if (AcceptInput && _climbHandler.CurrentClimbingState != ClimbingState.None)
+			{
+				CancelVelocity();
+				RemovePlatformMask();
+				AcceptInput = false;
+			}
 
-            if (AcceptInput && _climbHandler.CurrentClimbingState != ClimbingState.None)
+            if (_climbHandler.CurrentClimbingState == ClimbingState.Jump)
             {
-                CancelVelocity();
-                RemovePlatformMask();
-                AcceptInput = false;
+                SetHorizontalVelocityInAir();
+                _velocity.y += Gravity * Time.deltaTime;
+                Move(_velocity * Time.deltaTime);
+                _velocity = _controller.Velocity;
             }
 
-			if (AcceptInput)
+            if (AcceptInput)
 			{
 				ReapplyPlatformMask();
 
@@ -82,14 +87,17 @@ namespace Assets.Scripts.Player
 			_velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * 10, ref _velocity.x, Time.deltaTime);
 		}
 
-		public void SetHorizontalVelocity(float velocity, bool forwards)
+		public void SetJumpingVelocity(bool forwards)
 		{
+			float velocity = 1f;
+
 			if (forwards)
 				_normalizedHorizontalSpeed = GetDirectionFacing() == DirectionFacing.Right ? 1 : -1;
 			else
 				_normalizedHorizontalSpeed = GetDirectionFacing() == DirectionFacing.Left ? 1 : -1;
 				
 			_velocity.x = Mathf.SmoothDamp(velocity, _normalizedHorizontalSpeed * 10, ref velocity, Time.deltaTime);
+			_velocity.y = 1f;
 		}
 
 		public void Move(Vector2 deltaMovement)
@@ -101,17 +109,17 @@ namespace Assets.Scripts.Player
 		{
 			if (_controller.IsGrounded == false)
 			{
-				Animator.SetBool("falling", true);
-				Animator.SetBool("moving", false);
+				Anim.SetBool("falling", true);
+				Anim.SetBool("moving", false);
 				return;
 			}
-			Animator.SetBool("falling", false);
+			Anim.SetBool("falling", false);
 
 			_velocity.y = 0;
 
 			if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
 			{
-				var edgeRay = new Vector2(_controller.BoxCollider.bounds.max.x + 0.8f, _controller.BoxCollider.bounds.min.y);
+				var edgeRay = new Vector2(_controller.BoxCollider.bounds.max.x + 0.2f, _controller.BoxCollider.bounds.min.y);
 				RaycastHit2D edgeHit = Physics2D.Raycast(edgeRay, Vector2.down, 2f, _controller.PlatformMask);
 
 				_normalizedHorizontalSpeed = edgeHit && !_controller.CollisionState.Right ? 1 : 0;
@@ -123,7 +131,7 @@ namespace Assets.Scripts.Player
 			else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
 			{
 				var edgeRay = new Vector2(_controller.BoxCollider.bounds.min.x - 0.2f, _controller.BoxCollider.bounds.center.y);
-				RaycastHit2D edgeHit = Physics2D.Raycast(edgeRay, Vector2.down, 5f, _controller.PlatformMask);
+				RaycastHit2D edgeHit = Physics2D.Raycast(edgeRay, Vector2.down, 2f, _controller.PlatformMask);
 
 				_normalizedHorizontalSpeed = edgeHit && !_controller.CollisionState.Left ? -1 : 0;
 				if (_controller.CollisionState.Left && GetDirectionFacing() == DirectionFacing.Left)
@@ -137,31 +145,23 @@ namespace Assets.Scripts.Player
 			}
 			SetAnimationWhenGrounded();
 
-			if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
-			{
-				if (_climbHandler.CheckLedgeAbove())
-					Animator.Play(Animator.StringToHash("ClimbUp"));
-			}
-			else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-			{
-				if (_climbHandler.CheckLedgeBelow(ClimbingState.Down, DirectionFacing.None))
-					Animator.Play(Animator.StringToHash("ClimbDown"));
-			}
-			else if (Input.GetKeyDown(KeyCode.Space))
-			{
-				if (_climbHandler.CheckLedgeBelow(ClimbingState.MoveToEdge, GetDirectionFacing()))
-				{
-					Animator.Play(Animator.StringToHash("MoveToEdge"));
-					_climbHandler.NextClimbingState = GetDirectionFacing() == DirectionFacing.Left
-                        ? ClimbingState.AcrossLeft
-                        : ClimbingState.AcrossRight;
-				}
-			}
-			else if (Input.GetKeyDown(KeyCode.E))
-			{
-				_controller.CreatePilotedLight();
-				//_animator.Play(Animator.StringToHash("Create light"));
-			}
+            if (KeyBindings.GetKey(Control.Up))
+                _climbHandler.CheckLedgeAbove();
+            else if (KeyBindings.GetKey(Control.Down) && _climbHandler.CheckLedgeBelow(ClimbingState.Down, DirectionFacing.None))
+                Anim.PlayAnimation("ClimbDown");
+            else if (KeyBindings.GetKey(Control.Jump) && _climbHandler.CheckLedgeBelow(ClimbingState.MoveToEdge, GetDirectionFacing()))
+            {
+                Anim.PlayAnimation("MoveToEdge");
+                _climbHandler.NextClimbingStates.Add(
+                    GetDirectionFacing() == DirectionFacing.Left
+                    ? ClimbingState.AcrossLeft
+                    : ClimbingState.AcrossRight);
+            }
+            else if (KeyBindings.GetKey(Control.Action))
+            {
+                _controller.CreatePilotedLight();
+                //_animator.Play(Animator.StringToHash("Create light"));
+            }
 		}
 
 		public void FlipSprite()
@@ -171,12 +171,10 @@ namespace Assets.Scripts.Player
 
 		private void SetAnimationWhenGrounded()
 		{
-			if (_controller.IsGrounded && _normalizedHorizontalSpeed == 0)
-				Animator.SetBool("moving", false);
+			if ( _normalizedHorizontalSpeed == 0)
+				Anim.SetBool("moving", false);
 			else
-			{
-				Animator.SetBool("moving", true);
-			}
+				Anim.SetBool("moving", true);
 		}
 
 		private bool PilotedLightExists()
@@ -186,18 +184,16 @@ namespace Assets.Scripts.Player
 
 		public void CancelVelocity()
 		{
-            Animator.SetBool("moving", false);
+			Anim.SetBool("moving", false);
 			_normalizedHorizontalSpeed = 0;
 			_velocity = Vector3.zero;
 		}
 
 		public DirectionFacing GetDirectionFacing()
 		{
-			DirectionFacing directionFacing;
-			if (_transform.localScale.x > 0f)
-				directionFacing = DirectionFacing.Right;
-			else
-				directionFacing = DirectionFacing.Left;
+			DirectionFacing directionFacing = _transform.localScale.x > 0f
+				? DirectionFacing.Right
+				: DirectionFacing.Left;
 
 			return directionFacing;
 		}
@@ -214,34 +210,31 @@ namespace Assets.Scripts.Player
 
 		public ClimbingState SwitchClimbingState()
 		{
-			if (_climbHandler.CurrentClimbingState == ClimbingState.Jump)
+			ClimbingState climbingState = _climbHandler.CurrentClimbingState;
+			if (climbingState != ClimbingState.MoveToEdge && climbingState != ClimbingState.Jump)
 			{
-				_climbHandler.NextClimbingState = ClimbingState.None;
-			}
-            else if (_climbHandler.CurrentClimbingState != ClimbingState.MoveToEdge)
-			{
-				if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-					_climbHandler.NextClimbingState = ClimbingState.AcrossLeft;
-				else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-					_climbHandler.NextClimbingState = ClimbingState.AcrossRight;
-				else if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
-					_climbHandler.NextClimbingState = ClimbingState.Up;
-				else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-					_climbHandler.NextClimbingState = ClimbingState.Down;
+				if (KeyBindings.GetKey(Control.Left))
+					_climbHandler.NextClimbingStates.Add(ClimbingState.AcrossLeft);
+				if (KeyBindings.GetKey(Control.Right))
+					_climbHandler.NextClimbingStates.Add(ClimbingState.AcrossRight);
+				if (KeyBindings.GetKey(Control.Up))
+					_climbHandler.NextClimbingStates.Add( ClimbingState.Up);
+				if (KeyBindings.GetKey(Control.Down))
+					_climbHandler.NextClimbingStates.Add(ClimbingState.Down);
 			}
 			return _climbHandler.SwitchClimbingState();
 		}
 
-        public bool TryClimbDown()
-        {
-            if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-            {
-                _climbHandler.CurrentClimbingState = ClimbingState.Down;
-                return true;
-            }
-            else
-                return false;
-        }
+		public bool TryClimbDown()
+		{
+			if (KeyBindings.GetKey(Control.Down))
+			{
+				_climbHandler.CurrentClimbingState = ClimbingState.Down;
+				return true;
+			}
+			else
+				return false;
+		}
 
 		public void AllowMovement()
 		{
@@ -252,5 +245,10 @@ namespace Assets.Scripts.Player
 		{
 			_climbHandler.MovementAllowed = false;
 		}
-	}
+
+        public void CancelClimbingState()
+        {
+            _climbHandler.CurrentClimbingState = ClimbingState.None;
+        }
+    }
 }

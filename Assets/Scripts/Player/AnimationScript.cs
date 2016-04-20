@@ -12,7 +12,32 @@ namespace Assets.Scripts.Player
 			_animator = GetComponent<Animator>();
 		}
 
-		private void SwitchClimbingState()
+		void Update()
+		{
+			if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || _animator.GetCurrentAnimatorStateInfo(0).IsName("Falling"))
+			{
+				_animator.ResetTrigger("climbUp");
+				_animator.ResetTrigger("transitionDown");
+				_animator.ResetTrigger("transitionAcross");
+				_animator.ResetTrigger("jump");
+				_animator.ResetTrigger("flipUp");
+				AllowMovement();
+				AcceptInput();
+                PlayerMotor.CancelClimbingState();
+            }
+        }
+
+        public void SetBool(string boolName, bool value)
+        {
+            _animator.SetBool(boolName, value);
+        }
+
+        public void PlayAnimation(string animation)
+        {
+            _animator.Play(Animator.StringToHash(animation));
+        }
+
+        private void SwitchClimbingState()
 		{
 			ClimbingState nextState = PlayerMotor.SwitchClimbingState();
 
@@ -21,26 +46,31 @@ namespace Assets.Scripts.Player
 				case ClimbingState.Up:
 					_animator.SetTrigger("climbUp");
 					break;
-				case ClimbingState.Down:
+                case ClimbingState.Flip:
+                    _animator.SetTrigger("flipUp");
+                    break;
+                case ClimbingState.Down:
 					_animator.SetTrigger("transitionDown");
 					break;
 				case ClimbingState.AcrossRight:
 				case ClimbingState.AcrossLeft:
+                case ClimbingState.SwingRight:
+                case ClimbingState.SwingLeft:
 					_animator.SetTrigger("transitionAcross");
 					break;
 				case ClimbingState.Jump:
 					_animator.SetTrigger("jump");
-					break;
+                    break;
 			}
 		}
 
-        private void TryClimbDown()
-        {
-            if (PlayerMotor.TryClimbDown())
-                _animator.SetTrigger("transitionDown");
-        }
+		private void TryClimbDown()
+		{
+			if (PlayerMotor.TryClimbDown())
+				_animator.SetTrigger("transitionDown");
+		}
 
-        private void FlipSpriteTowardsEdge()
+		private void FlipSpriteTowardsEdge()
 		{
 			if (PlayerMotor.ClimbingSide == PlayerMotor.GetDirectionFacing())
 				PlayerMotor.FlipSprite();
@@ -52,14 +82,19 @@ namespace Assets.Scripts.Player
 				PlayerMotor.FlipSprite();
 		}
 
-		private void ApplyJumpVelocity()
+        private void FlipSprite()
+        {
+            PlayerMotor.FlipSprite();
+        }
+
+        private void ApplyJumpVelocity()
 		{
-			PlayerMotor.SetHorizontalVelocity(1, true);
+			PlayerMotor.SetJumpingVelocity(true);
 		}
 
 		private void ApplyJumpVelocityBackwards()
 		{
-			PlayerMotor.SetHorizontalVelocity(1, false);
+			PlayerMotor.SetJumpingVelocity(false);
 		}
 
 		private void AllowMovement()
@@ -72,9 +107,9 @@ namespace Assets.Scripts.Player
 			PlayerMotor.StopMovement();
 		}
 
-        private void AcceptInput()
-        {
-            PlayerMotor.AcceptInput = true;
-        }
+		private void AcceptInput()
+		{
+			PlayerMotor.AcceptInput = true;
+		}
 	}
 }
