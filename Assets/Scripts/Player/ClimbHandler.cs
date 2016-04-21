@@ -136,11 +136,11 @@ namespace Assets.Scripts.Player
 		public bool CheckLedgeAbove()
 		{
 			const float checkWidth = 5f;
-			const float checkHeight = 5f;
+			const float checkHeight = 4f;
 
 			var origin = new Vector2(
 			   _playerCollider.bounds.center.x,
-			   _playerCollider.bounds.center.y);
+			   _playerCollider.bounds.max.y);
 
 			var size = new Vector2(checkWidth, 1f);
 
