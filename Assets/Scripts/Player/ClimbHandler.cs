@@ -36,6 +36,7 @@ namespace Assets.Scripts.Player
 			switch (CurrentClimbingState)
 			{
 				case ClimbingState.Up:
+                case ClimbingState.Flip:
 					ClimbUp();
 					break;
 				case ClimbingState.Down:
@@ -149,6 +150,9 @@ namespace Assets.Scripts.Player
 			if (hit)
 			{
                 SetClimbingParameters(hit);
+                if (ShouldStraightClimb() == false && hit.collider.name.Contains("corner"))
+                    return false;
+
                 if (CurrentClimbingState == ClimbingState.None)
                 {
                     CurrentClimbingState = ClimbingState.Up;
@@ -172,12 +176,13 @@ namespace Assets.Scripts.Player
 
 			var size = new Vector2(checkWidth, 1f);
 
-			RaycastHit2D hit = intendedClimbingState == ClimbingState.Down
-				? GetNearestHit(Physics2D.BoxCastAll(origin, size, 0, Vector2.down, checkDepth, GetClimbMask()))
-				: GetCorrectSideHit(Physics2D.BoxCastAll(origin, size, 0, Vector2.down, checkDepth, GetClimbMask()), direction);
+			RaycastHit2D hit = GetCorrectSideHit(Physics2D.BoxCastAll(origin, size, 0, Vector2.down, checkDepth, GetClimbMask()), direction);
 
 			if (hit)
 			{
+                if (intendedClimbingState == ClimbingState.Down && hit.collider.name.Contains("less")
+                    || intendedClimbingState == ClimbingState.MoveToEdge && hit.collider.name.Contains("jumpless"))
+                    return false;
 				CurrentClimbingState = intendedClimbingState;
 				SetClimbingParameters(hit);
 			}
@@ -294,11 +299,9 @@ namespace Assets.Scripts.Player
 
 		private bool ShouldStraightClimb()
 		{
-			const float overhangDistance = 1f;
-
 			return ClimbingSide == DirectionFacing.Left
-				? _motor.transform.position.x < _climbCollider.transform.position.x + overhangDistance
-				: _motor.transform.position.x > _climbCollider.transform.position.x - overhangDistance;
+				? _motor.transform.position.x < _climbCollider.transform.position.x
+				: _motor.transform.position.x > _climbCollider.transform.position.x;
 		}
 
 		public ClimbingState SwitchClimbingState()
@@ -324,29 +327,33 @@ namespace Assets.Scripts.Player
 			{
 				if (NextClimbingStates.Contains(ClimbingState.Up))
 					nextClimbingState = ClimbingState.Up;
-                else if (NextClimbingStates.Contains(ClimbingState.AcrossLeft))
+                else if (NextClimbingStates.Contains(ClimbingState.AcrossLeft)
+                    && (_climbCollider.name.Contains("corner") == false
+                    || DirectionFacing.Left == _motor.GetDirectionFacing()))
                     nextClimbingState = CheckLedgeSwing(DirectionFacing.Left)
                         ? ClimbingState.SwingLeft
                         : ClimbingState.Jump;
-                else if (NextClimbingStates.Contains(ClimbingState.AcrossRight))
+                else if (NextClimbingStates.Contains(ClimbingState.AcrossRight)
+                    && (_climbCollider.name.Contains("corner") == false
+                    || DirectionFacing.Right == _motor.GetDirectionFacing()))
                     nextClimbingState = CheckLedgeSwing(DirectionFacing.Right)
                         ? ClimbingState.SwingRight
                         : ClimbingState.Jump;
             }
 			else if (CurrentClimbingState == ClimbingState.AcrossLeft)
             {
-				if (NextClimbingStates.Contains(ClimbingState.AcrossRight))
+				if (NextClimbingStates.Contains(ClimbingState.AcrossRight) && ClimbingSide != DirectionFacing.Right)
                     nextClimbingState = CheckLedgeAcross(DirectionFacing.Right)
                         ? ClimbingState.AcrossRight
                         : ClimbingState.Jump;
                 else if (NextClimbingStates.Contains(ClimbingState.Up) && CheckLedgeAbove())
                     nextClimbingState = ShouldStraightClimb() ? ClimbingState.Up : ClimbingState.Flip;
-                else if (NextClimbingStates.Contains(ClimbingState.Down))
+                else if (NextClimbingStates.Contains(ClimbingState.Down)) //check tag hereish, don't drop always
 					nextClimbingState = ClimbingState.Down;
 			}
 			else if (CurrentClimbingState == ClimbingState.AcrossRight)
             {
-				if (NextClimbingStates.Contains(ClimbingState.AcrossLeft))
+				if (NextClimbingStates.Contains(ClimbingState.AcrossLeft) && ClimbingSide != DirectionFacing.Left)
                     nextClimbingState = CheckLedgeAcross(DirectionFacing.Left)
                         ? ClimbingState.AcrossLeft
                         : ClimbingState.Jump;
@@ -357,7 +364,7 @@ namespace Assets.Scripts.Player
 			}
             else if (CurrentClimbingState == ClimbingState.SwingLeft)
             {
-                if (NextClimbingStates.Contains(ClimbingState.AcrossRight))
+                if (NextClimbingStates.Contains(ClimbingState.AcrossRight) && ClimbingSide != DirectionFacing.Right)
                     nextClimbingState = CheckLedgeAcross(DirectionFacing.Right)
                         ? ClimbingState.AcrossRight
                         : ClimbingState.Jump;
@@ -368,7 +375,7 @@ namespace Assets.Scripts.Player
             }
             else if (CurrentClimbingState == ClimbingState.SwingRight)
             {
-                if (NextClimbingStates.Contains(ClimbingState.AcrossLeft))
+                if (NextClimbingStates.Contains(ClimbingState.AcrossLeft) && ClimbingSide != DirectionFacing.Left)
                     nextClimbingState = CheckLedgeAcross(DirectionFacing.Left)
                         ? ClimbingState.AcrossLeft
                         : ClimbingState.Jump;

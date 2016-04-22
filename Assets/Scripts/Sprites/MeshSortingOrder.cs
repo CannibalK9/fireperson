@@ -7,10 +7,10 @@ namespace Assets.Scripts.Sprites
         public string LayerName;
         public int Order;
 
-        private SkinnedMeshRenderer _rend;
+        private Renderer _rend;
         void Awake()
         {
-            _rend = GetComponent<SkinnedMeshRenderer>();
+            _rend = GetComponent<Renderer>();
             _rend.sortingLayerName = LayerName;
             _rend.sortingOrder = Order;
         }
@@ -25,7 +25,7 @@ namespace Assets.Scripts.Sprites
 
         public void OnValidate()
         {
-            _rend = GetComponent<SkinnedMeshRenderer>();
+            _rend = GetComponent<Renderer>();
             _rend.sortingLayerName = LayerName;
             _rend.sortingOrder = Order;
         }

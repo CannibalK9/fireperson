@@ -147,7 +147,7 @@ namespace Assets.Scripts.Player
 
             if (KeyBindings.GetKey(Control.Up))
                 _climbHandler.CheckLedgeAbove();
-            else if (KeyBindings.GetKey(Control.Down) && _climbHandler.CheckLedgeBelow(ClimbingState.Down, DirectionFacing.None))
+            else if (KeyBindings.GetKey(Control.Down) && _climbHandler.CheckLedgeBelow(ClimbingState.Down, GetDirectionFacing()))
                 Anim.PlayAnimation("ClimbDown");
             else if (KeyBindings.GetKey(Control.Jump) && _climbHandler.CheckLedgeBelow(ClimbingState.MoveToEdge, GetDirectionFacing()))
             {
