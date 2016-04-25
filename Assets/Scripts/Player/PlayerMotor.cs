@@ -13,6 +13,20 @@ namespace Assets.Scripts.Player
         public AnimationScript Anim { get; private set; }
 		public BoxCollider2D Collider { get; private set; }
 		public bool AcceptInput { get; set; }
+        private Transform _buildingTransform;
+        public Transform BuildingTransform
+        {
+            get
+            {
+                return _buildingTransform;
+            }
+            set
+            {
+                _buildingTransform = value;
+                _previousBuildingPosition = _buildingTransform.position;
+                _controller.RaycastHitsThisFrame.Clear();
+            }
+        }
 
 		public DirectionFacing ClimbingSide
 		{
@@ -27,6 +41,7 @@ namespace Assets.Scripts.Player
 		private Vector3 _velocity;
 		private LayerMask _defaultPlatformMask;
 		private Transform _transform;
+        private Vector3 _previousBuildingPosition;
 
 		void Awake()
 		{
@@ -42,6 +57,7 @@ namespace Assets.Scripts.Player
 
 		void Update()
 		{
+            
 			if (AcceptInput && _climbHandler.CurrentClimbingState != ClimbingState.None)
 			{
 				CancelVelocity();
@@ -74,15 +90,33 @@ namespace Assets.Scripts.Player
 			{
 				_climbHandler.ClimbAnimation();
 			}
-			_controller.HeatIce();
+
+            if (_controller.RaycastHitsThisFrame.Count > 0)
+                BuildingTransform = _controller.RaycastHitsThisFrame[0].transform.parent.parent;
+
+            MoveWithBuilding();
+
+            _controller.HeatIce();
 		}
 
-		public void SetHorizontalVelocityOnGround()
+        private void MoveWithBuilding()
+        {
+            if (BuildingTransform != null)
+            {
+                Anim.transform.position += new Vector3(
+                    BuildingTransform.position.x - _previousBuildingPosition.x,
+                    BuildingTransform.position.y - _previousBuildingPosition.y);
+                
+                _previousBuildingPosition = BuildingTransform.position;
+            }
+        }
+
+		private void SetHorizontalVelocityOnGround()
 		{
 			_velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * RunSpeed, ref _velocity.x, Time.deltaTime * GroundDamping);
 		}
 
-		public void SetHorizontalVelocityInAir()
+		private void SetHorizontalVelocityInAir()
 		{
 			_velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * 10, ref _velocity.x, Time.deltaTime);
 		}

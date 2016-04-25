@@ -15,7 +15,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="wood.svg"
+   sodipodi:docname="wood_normal.svg"
    inkscape:export-filename="C:\code\fireperson\Assets\Sprites\crossection\cross-section.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
@@ -29,8 +29,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.7699913"
-     inkscape:cx="60.175137"
-     inkscape:cy="2005.4507"
+     inkscape:cx="95.612416"
+     inkscape:cy="2040.2573"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -39,12 +39,31 @@
      inkscape:window-x="1358"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     units="px">
+     units="px"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     gridtolerance="10">
     <inkscape:grid
        type="xygrid"
        id="grid4136"
        spacingx="64"
        spacingy="64" />
+    <sodipodi:guide
+       position="0,2048"
+       orientation="1,0"
+       id="guide4171" />
+    <sodipodi:guide
+       position="0,2048"
+       orientation="1,0"
+       id="guide4173" />
+    <sodipodi:guide
+       position="0,2048"
+       orientation="1,0"
+       id="guide4175" />
+    <sodipodi:guide
+       position="0,1984"
+       orientation="1,0"
+       id="guide4180" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -54,7 +73,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -64,7 +83,7 @@
      id="layer1"
      transform="translate(0,995.63784)">
     <rect
-       style="opacity:1;fill:#784421;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:#080808;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect4149"
        width="128"
        height="64"
@@ -106,5 +125,33 @@
        cx="364.66208"
        cy="-948.34882"
        r="10" />
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4207"
+       width="67.591087"
+       height="2.9462783"
+       x="43.500931"
+       y="-978.49011" />
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4209"
+       width="60.138737"
+       height="3.1195889"
+       x="37.608376"
+       y="-957.17291" />
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4211"
+       width="98.267044"
+       height="2.9462783"
+       x="17.850981"
+       y="-945.38782" />
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4213"
+       width="50.26004"
+       height="2.4263468"
+       x="73.483643"
+       y="-969.47797" />
   </g>
 </svg>

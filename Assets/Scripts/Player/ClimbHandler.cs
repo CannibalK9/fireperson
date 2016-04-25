@@ -396,6 +396,12 @@ namespace Assets.Scripts.Player
 
 			CurrentClimbingState = nextClimbingState;
 			NextClimbingStates.Clear();
+
+            if (_climbCollider != null)
+            {
+                _motor.BuildingTransform = _climbCollider.transform.parent.parent;
+            }
+
 			return CurrentClimbingState;
 		}
 

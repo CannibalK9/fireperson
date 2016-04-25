@@ -12,6 +12,7 @@ namespace Assets.Scripts.Sprites
 			var childSprite = childPrefab.AddComponent<SpriteRenderer>();
 
 			childSprite.sprite = sprite.sprite;
+            childSprite.material = sprite.material;
 			childSprite.sortingLayerID = sprite.sortingLayerID;
 			childSprite.sortingOrder = sprite.sortingOrder;
 
