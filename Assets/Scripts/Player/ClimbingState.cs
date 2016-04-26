@@ -4,7 +4,7 @@
 	{
 		None,
 		Up,
-        Flip,
+		Flip,
 		Down,
 		AcrossLeft,
 		AcrossRight,

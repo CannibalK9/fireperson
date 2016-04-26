@@ -7,6 +7,7 @@
 		Up,
 		Down,
 		Action,
-		Jump
+		Jump,
+		Destroy
 	}
 }

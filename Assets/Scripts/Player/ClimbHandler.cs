@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Movement;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -9,23 +10,21 @@ namespace Assets.Scripts.Player
 		private readonly PlayerMotor _motor;
 		private Collider2D _climbCollider;
 		private readonly Collider2D _playerCollider;
-        private AnimationScript _anim;
+		private readonly AnimationScript _anim;
 
-        private Vector2 _target;
+		private Vector2 _target;
 		private Vector2 _player;
 
 		public ClimbingState CurrentClimbingState { get; set; }
 		public List<ClimbingState> NextClimbingStates { get; set; }
 		public DirectionFacing ClimbingSide { get; set; }
-		public bool MovementAllowed { get; set; }
 
 		public ClimbHandler(PlayerMotor motor)
 		{
 			_motor = motor;
-            _anim = _motor.Anim;
+			_anim = _motor.Anim;
 			_climbCollider = null;
 			_playerCollider = _motor.Collider;
-			MovementAllowed = true;
 			NextClimbingStates = new List<ClimbingState>();
 		}
 
@@ -36,7 +35,7 @@ namespace Assets.Scripts.Player
 			switch (CurrentClimbingState)
 			{
 				case ClimbingState.Up:
-                case ClimbingState.Flip:
+				case ClimbingState.Flip:
 					ClimbUp();
 					break;
 				case ClimbingState.Down:
@@ -58,21 +57,20 @@ namespace Assets.Scripts.Player
 					climbingSpeed = 1f;
 					break;
 			}
-			if (MovementAllowed)
-				ClimbMovement(climbingSpeed);
+			_motor.LinearMovement(_target, _player, climbingSpeed);
 		}
 
 		private void ClimbUp()
 		{
 			if (ClimbingSide == DirectionFacing.Right)
 			{
-				_target = GetTopRight(_climbCollider);
-				_player = GetTopLeft(_playerCollider);
+				_target = _climbCollider.GetTopRight();
+				_player = _playerCollider.GetTopLeft();
 			}
 			else
 			{
-				_target = GetTopLeft(_climbCollider);
-				_player = GetTopRight(_playerCollider);
+				_target = _climbCollider.GetTopLeft();
+				_player = _playerCollider.GetTopRight();
 			}
 		}
 
@@ -80,14 +78,14 @@ namespace Assets.Scripts.Player
 		{
 			if (ClimbingSide == DirectionFacing.Right)
 			{
-				_target = GetTopRight(_climbCollider);
-				_player = GetBottomRight(_playerCollider);
+				_target = _climbCollider.GetTopRight();
+				_player = _playerCollider.GetBottomRight();
 
 			}
 			else
 			{
-				_target = GetTopLeft(_climbCollider);
-				_player = GetBottomLeft(_playerCollider);
+				_target = _climbCollider.GetTopLeft();
+				_player = _playerCollider.GetBottomLeft();
 			}
 		}
 
@@ -95,14 +93,14 @@ namespace Assets.Scripts.Player
 		{
 			if (ClimbingSide == DirectionFacing.Right)
 			{
-				_target = GetTopRight(_climbCollider);
-				_player = GetBottomRight(_playerCollider);
+				_target = _climbCollider.GetTopRight();
+				_player = _playerCollider.GetBottomRight();
 
 			}
 			else
 			{
-				_target = GetTopLeft(_climbCollider);
-				_player = GetBottomLeft(_playerCollider);
+				_target = _climbCollider.GetTopLeft();
+				_player = _playerCollider.GetBottomLeft();
 			}
 		}
 
@@ -110,13 +108,13 @@ namespace Assets.Scripts.Player
 		{
 			if (ClimbingSide == DirectionFacing.Right)
 			{
-				_target = GetTopRight(_climbCollider);
-				_player = GetTopLeft(_playerCollider);
+				_target = _climbCollider.GetTopRight();
+				_player = _playerCollider.GetTopLeft();
 			}
 			else
 			{
-				_target = GetTopLeft(_climbCollider);
-				_player = GetTopRight(_playerCollider);
+				_target = _climbCollider.GetTopLeft();
+				_player = _playerCollider.GetTopRight();
 			}
 		}
 
@@ -124,13 +122,13 @@ namespace Assets.Scripts.Player
 		{
 			if (ClimbingSide == DirectionFacing.Right)
 			{
-				_target = GetTopRight(_climbCollider);
-				_player = GetBottomRight(_playerCollider);
+				_target = _climbCollider.GetTopRight();
+				_player = _playerCollider.GetBottomRight();
 			}
 			else
 			{
-				_target = GetTopLeft(_climbCollider);
-				_player = GetBottomLeft(_playerCollider);
+				_target = _climbCollider.GetTopLeft();
+				_player = _playerCollider.GetBottomLeft();
 			}
 		}
 
@@ -149,18 +147,15 @@ namespace Assets.Scripts.Player
 
 			if (hit)
 			{
-                SetClimbingParameters(hit);
-                if (ShouldStraightClimb() == false && hit.collider.name.Contains("corner"))
-                    return false;
+				SetClimbingParameters(hit);
+				if (ShouldStraightClimb() == false && hit.collider.name.Contains("corner"))
+					return false;
 
-                if (CurrentClimbingState == ClimbingState.None)
-                {
-                    CurrentClimbingState = ClimbingState.Up;
-                    if (ShouldStraightClimb())
-                        _anim.PlayAnimation("ClimbUp");
-                    else
-                        _anim.PlayAnimation("FlipUp");
-                }
+				if (CurrentClimbingState == ClimbingState.None)
+				{
+					CurrentClimbingState = ClimbingState.Up;
+					_anim.PlayAnimation(ShouldStraightClimb() ? "ClimbUp" : "FlipUp");
+				}
 			}
 			return hit;
 		}
@@ -180,9 +175,9 @@ namespace Assets.Scripts.Player
 
 			if (hit)
 			{
-                if (intendedClimbingState == ClimbingState.Down && hit.collider.name.Contains("less")
-                    || intendedClimbingState == ClimbingState.MoveToEdge && hit.collider.name.Contains("jumpless"))
-                    return false;
+				if (intendedClimbingState == ClimbingState.Down && hit.collider.name.Contains("less")
+					|| intendedClimbingState == ClimbingState.MoveToEdge && hit.collider.name.Contains("jumpless"))
+					return false;
 				CurrentClimbingState = intendedClimbingState;
 				SetClimbingParameters(hit);
 			}
@@ -224,13 +219,13 @@ namespace Assets.Scripts.Player
 
 		public bool CheckLedgeAcross(DirectionFacing direction)
 		{
-            NextClimbingStates.Clear();
+			NextClimbingStates.Clear();
 
 			const float checkLength = 10f;
-			const float checkDepth = 2f;
+			const float checkDepth = 4f;
 
 			var origin = new Vector2(
-               _playerCollider.bounds.center.x,
+			   _playerCollider.bounds.center.x,
 			   _playerCollider.bounds.min.y);
 
 			var size = new Vector2(0.01f, checkDepth);
@@ -242,24 +237,24 @@ namespace Assets.Scripts.Player
 
 			foreach (RaycastHit2D h in hits.Where(h => h.collider != _climbCollider))
 			{
-                hit = h;
+				hit = h;
 				SetClimbingParameters(hit);
+                return hit;
 			}
-            return hit;
+			return hit;
 		}
 
 		public bool CheckLedgeSwing(DirectionFacing direction)
 		{
-            if (direction == _motor.GetDirectionFacing())
-                _anim.SetBool("swing", false);
-            else
-                _anim.SetBool("swing", true);
+			_anim.SetBool(
+				"swing",
+				direction != _motor.GetDirectionFacing());
 
-            const float checkLength = 5f;
+			const float checkLength = 5f;
 			const float checkDepth = 5f;
 
 			var origin = new Vector2(
-               _playerCollider.bounds.center.x,
+			   _playerCollider.bounds.center.x,
 			   _playerCollider.bounds.min.y - checkDepth/2 + 1);
 
 			var size = new Vector2(0.01f, checkDepth);
@@ -273,7 +268,7 @@ namespace Assets.Scripts.Player
 			{
 				hit = h;
 				SetClimbingParameters(hit);
-            }
+			}
 			return hit;
 		}
 
@@ -287,10 +282,10 @@ namespace Assets.Scripts.Player
 		{			
 			_climbCollider = hit.collider;
 			SetClimbingSide();
-            _anim.SetBool("falling", true);
-        }
+			_anim.SetBool("falling", true);
+		}
 
-        private void SetClimbingSide()
+		private void SetClimbingSide()
 		{
 			ClimbingSide = _climbCollider.gameObject.layer == LayerMask.NameToLayer("Right Climb Spot")
 					? DirectionFacing.Right
@@ -310,81 +305,81 @@ namespace Assets.Scripts.Player
 
 			if (CurrentClimbingState == ClimbingState.Up || CurrentClimbingState == ClimbingState.Flip)
 			{
-                if (NextClimbingStates.Contains(ClimbingState.Down))
-                    nextClimbingState = ClimbingState.Down;
-                else if (NextClimbingStates.Contains(ClimbingState.Up) && CheckLedgeAbove())
-                    nextClimbingState = ShouldStraightClimb() ? ClimbingState.Up : ClimbingState.Flip;
-                else if (NextClimbingStates.Contains(ClimbingState.AcrossLeft) && ClimbingSide == DirectionFacing.Left)
-                    nextClimbingState = CheckLedgeAcross(DirectionFacing.Left)
-                        ? ClimbingState.AcrossLeft
-                        : ClimbingState.Jump;
-                else if (NextClimbingStates.Contains(ClimbingState.AcrossRight) && ClimbingSide == DirectionFacing.Right)
-                    nextClimbingState = CheckLedgeAcross(DirectionFacing.Right)
-                        ? ClimbingState.AcrossRight
-                        : ClimbingState.Jump;
-            }
+				if (NextClimbingStates.Contains(ClimbingState.Down))
+					nextClimbingState = ClimbingState.Down;
+				else if (NextClimbingStates.Contains(ClimbingState.Up) && CheckLedgeAbove())
+					nextClimbingState = ShouldStraightClimb() ? ClimbingState.Up : ClimbingState.Flip;
+				else if (NextClimbingStates.Contains(ClimbingState.AcrossLeft) && ClimbingSide == DirectionFacing.Left)
+					nextClimbingState = CheckLedgeAcross(DirectionFacing.Left)
+						? ClimbingState.AcrossLeft
+						: ClimbingState.Jump;
+				else if (NextClimbingStates.Contains(ClimbingState.AcrossRight) && ClimbingSide == DirectionFacing.Right)
+					nextClimbingState = CheckLedgeAcross(DirectionFacing.Right)
+						? ClimbingState.AcrossRight
+						: ClimbingState.Jump;
+			}
 			else if (CurrentClimbingState == ClimbingState.Down)
 			{
 				if (NextClimbingStates.Contains(ClimbingState.Up))
 					nextClimbingState = ClimbingState.Up;
-                else if (NextClimbingStates.Contains(ClimbingState.AcrossLeft)
-                    && (_climbCollider.name.Contains("corner") == false
-                    || DirectionFacing.Left == _motor.GetDirectionFacing()))
-                    nextClimbingState = CheckLedgeSwing(DirectionFacing.Left)
-                        ? ClimbingState.SwingLeft
-                        : ClimbingState.Jump;
-                else if (NextClimbingStates.Contains(ClimbingState.AcrossRight)
-                    && (_climbCollider.name.Contains("corner") == false
-                    || DirectionFacing.Right == _motor.GetDirectionFacing()))
-                    nextClimbingState = CheckLedgeSwing(DirectionFacing.Right)
-                        ? ClimbingState.SwingRight
-                        : ClimbingState.Jump;
-            }
+				else if (NextClimbingStates.Contains(ClimbingState.AcrossLeft)
+					&& (_climbCollider.name.Contains("corner") == false
+					|| DirectionFacing.Left == _motor.GetDirectionFacing()))
+					nextClimbingState = CheckLedgeSwing(DirectionFacing.Left)
+						? ClimbingState.SwingLeft
+						: ClimbingState.Jump;
+				else if (NextClimbingStates.Contains(ClimbingState.AcrossRight)
+					&& (_climbCollider.name.Contains("corner") == false
+					|| DirectionFacing.Right == _motor.GetDirectionFacing()))
+					nextClimbingState = CheckLedgeSwing(DirectionFacing.Right)
+						? ClimbingState.SwingRight
+						: ClimbingState.Jump;
+			}
 			else if (CurrentClimbingState == ClimbingState.AcrossLeft)
-            {
+			{
 				if (NextClimbingStates.Contains(ClimbingState.AcrossRight) && ClimbingSide != DirectionFacing.Right)
-                    nextClimbingState = CheckLedgeAcross(DirectionFacing.Right)
-                        ? ClimbingState.AcrossRight
-                        : ClimbingState.Jump;
-                else if (NextClimbingStates.Contains(ClimbingState.Up) && CheckLedgeAbove())
-                    nextClimbingState = ShouldStraightClimb() ? ClimbingState.Up : ClimbingState.Flip;
-                else if (NextClimbingStates.Contains(ClimbingState.Down)) //check tag hereish, don't drop always
+					nextClimbingState = CheckLedgeAcross(DirectionFacing.Right)
+						? ClimbingState.AcrossRight
+						: ClimbingState.Jump;
+				else if (NextClimbingStates.Contains(ClimbingState.Up) && CheckLedgeAbove())
+					nextClimbingState = ShouldStraightClimb() ? ClimbingState.Up : ClimbingState.Flip;
+				else if (NextClimbingStates.Contains(ClimbingState.Down)) //check tag hereish, don't drop always
 					nextClimbingState = ClimbingState.Down;
 			}
 			else if (CurrentClimbingState == ClimbingState.AcrossRight)
-            {
+			{
 				if (NextClimbingStates.Contains(ClimbingState.AcrossLeft) && ClimbingSide != DirectionFacing.Left)
-                    nextClimbingState = CheckLedgeAcross(DirectionFacing.Left)
-                        ? ClimbingState.AcrossLeft
-                        : ClimbingState.Jump;
-                else if (NextClimbingStates.Contains(ClimbingState.Up) && CheckLedgeAbove())
-                    nextClimbingState = ShouldStraightClimb() ? ClimbingState.Up : ClimbingState.Flip;
-                else if (NextClimbingStates.Contains(ClimbingState.Down))
+					nextClimbingState = CheckLedgeAcross(DirectionFacing.Left)
+						? ClimbingState.AcrossLeft
+						: ClimbingState.Jump;
+				else if (NextClimbingStates.Contains(ClimbingState.Up) && CheckLedgeAbove())
+					nextClimbingState = ShouldStraightClimb() ? ClimbingState.Up : ClimbingState.Flip;
+				else if (NextClimbingStates.Contains(ClimbingState.Down))
 					nextClimbingState = ClimbingState.Down;
 			}
-            else if (CurrentClimbingState == ClimbingState.SwingLeft)
-            {
-                if (NextClimbingStates.Contains(ClimbingState.AcrossRight) && ClimbingSide != DirectionFacing.Right)
-                    nextClimbingState = CheckLedgeAcross(DirectionFacing.Right)
-                        ? ClimbingState.AcrossRight
-                        : ClimbingState.Jump;
-                else if (NextClimbingStates.Contains(ClimbingState.Up) && CheckLedgeAbove())
-                    nextClimbingState = ShouldStraightClimb() ? ClimbingState.Up : ClimbingState.Flip;
-                else if (NextClimbingStates.Contains(ClimbingState.Down))
-                    nextClimbingState = ClimbingState.Down;
-            }
-            else if (CurrentClimbingState == ClimbingState.SwingRight)
-            {
-                if (NextClimbingStates.Contains(ClimbingState.AcrossLeft) && ClimbingSide != DirectionFacing.Left)
-                    nextClimbingState = CheckLedgeAcross(DirectionFacing.Left)
-                        ? ClimbingState.AcrossLeft
-                        : ClimbingState.Jump;
-                else if (NextClimbingStates.Contains(ClimbingState.Up) && CheckLedgeAbove())
-                    nextClimbingState = ShouldStraightClimb() ? ClimbingState.Up : ClimbingState.Flip;
-                else if (NextClimbingStates.Contains(ClimbingState.Down))
-                    nextClimbingState = ClimbingState.Down;
-            }
-            else if (CurrentClimbingState == ClimbingState.MoveToEdge)
+			else if (CurrentClimbingState == ClimbingState.SwingLeft)
+			{
+				if (NextClimbingStates.Contains(ClimbingState.AcrossRight) && ClimbingSide != DirectionFacing.Right)
+					nextClimbingState = CheckLedgeAcross(DirectionFacing.Right)
+						? ClimbingState.AcrossRight
+						: ClimbingState.Jump;
+				else if (NextClimbingStates.Contains(ClimbingState.Up) && CheckLedgeAbove())
+					nextClimbingState = ShouldStraightClimb() ? ClimbingState.Up : ClimbingState.Flip;
+				else if (NextClimbingStates.Contains(ClimbingState.Down))
+					nextClimbingState = ClimbingState.Down;
+			}
+			else if (CurrentClimbingState == ClimbingState.SwingRight)
+			{
+				if (NextClimbingStates.Contains(ClimbingState.AcrossLeft) && ClimbingSide != DirectionFacing.Left)
+					nextClimbingState = CheckLedgeAcross(DirectionFacing.Left)
+						? ClimbingState.AcrossLeft
+						: ClimbingState.Jump;
+				else if (NextClimbingStates.Contains(ClimbingState.Up) && CheckLedgeAbove())
+					nextClimbingState = ShouldStraightClimb() ? ClimbingState.Up : ClimbingState.Flip;
+				else if (NextClimbingStates.Contains(ClimbingState.Down))
+					nextClimbingState = ClimbingState.Down;
+			}
+			else if (CurrentClimbingState == ClimbingState.MoveToEdge)
 			{
 				if (NextClimbingStates.Contains(ClimbingState.AcrossLeft) && CheckLedgeAcross(DirectionFacing.Left))
 					nextClimbingState = ClimbingState.AcrossLeft;
@@ -397,41 +392,12 @@ namespace Assets.Scripts.Player
 			CurrentClimbingState = nextClimbingState;
 			NextClimbingStates.Clear();
 
-            if (_climbCollider != null)
-            {
-                _motor.BuildingTransform = _climbCollider.transform.parent.parent;
-            }
+			if (_climbCollider != null)
+			{
+				_motor.BuildingTransform = _climbCollider.transform.parent.parent;
+			}
 
 			return CurrentClimbingState;
-		}
-
-		private void ClimbMovement(float climbingSpeed)
-		{
-			_motor.Move((_target - _player) * climbingSpeed);
-		}
-
-		private Vector2 GetTopRight(Collider2D col)
-		{
-			return col.bounds.max;
-		}
-
-		private Vector2 GetTopLeft(Collider2D col)
-		{
-			return new Vector2(
-				col.bounds.min.x,
-				col.bounds.max.y);
-		}
-
-		private Vector2 GetBottomRight(Collider2D col)
-		{
-			return new Vector2(
-				col.bounds.max.x,
-				col.bounds.min.y);
-		}
-
-		private Vector2 GetBottomLeft(Collider2D col)
-		{
-			return col.bounds.min;
 		}
 	}
 }

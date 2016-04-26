@@ -23,21 +23,21 @@ namespace Assets.Scripts.Player
 				_animator.ResetTrigger("flipUp");
 				AllowMovement();
 				AcceptInput();
-                PlayerMotor.CancelClimbingState();
-            }
-        }
+				PlayerMotor.CancelClimbingState();
+			}
+		}
 
-        public void SetBool(string boolName, bool value)
-        {
-            _animator.SetBool(boolName, value);
-        }
+		public void SetBool(string boolName, bool value)
+		{
+			_animator.SetBool(boolName, value);
+		}
 
-        public void PlayAnimation(string animation)
-        {
-            _animator.Play(Animator.StringToHash(animation));
-        }
+		public void PlayAnimation(string anim)
+		{
+			_animator.Play(Animator.StringToHash(anim));
+		}
 
-        private void SwitchClimbingState()
+		private void SwitchClimbingState()
 		{
 			ClimbingState nextState = PlayerMotor.SwitchClimbingState();
 
@@ -46,21 +46,21 @@ namespace Assets.Scripts.Player
 				case ClimbingState.Up:
 					_animator.SetTrigger("climbUp");
 					break;
-                case ClimbingState.Flip:
-                    _animator.SetTrigger("flipUp");
-                    break;
-                case ClimbingState.Down:
+				case ClimbingState.Flip:
+					_animator.SetTrigger("flipUp");
+					break;
+				case ClimbingState.Down:
 					_animator.SetTrigger("transitionDown");
 					break;
 				case ClimbingState.AcrossRight:
 				case ClimbingState.AcrossLeft:
-                case ClimbingState.SwingRight:
-                case ClimbingState.SwingLeft:
+				case ClimbingState.SwingRight:
+				case ClimbingState.SwingLeft:
 					_animator.SetTrigger("transitionAcross");
 					break;
 				case ClimbingState.Jump:
 					_animator.SetTrigger("jump");
-                    break;
+					break;
 			}
 		}
 
@@ -82,12 +82,12 @@ namespace Assets.Scripts.Player
 				PlayerMotor.FlipSprite();
 		}
 
-        private void FlipSprite()
-        {
-            PlayerMotor.FlipSprite();
-        }
+		private void FlipSprite()
+		{
+			PlayerMotor.FlipSprite();
+		}
 
-        private void ApplyJumpVelocity()
+		private void ApplyJumpVelocity()
 		{
 			PlayerMotor.SetJumpingVelocity(true);
 		}
@@ -99,17 +99,27 @@ namespace Assets.Scripts.Player
 
 		private void AllowMovement()
 		{
-			PlayerMotor.AllowMovement();
+			PlayerMotor.MovementAllowed = true;
 		}
 
 		private void StopMovement()
 		{
-			PlayerMotor.StopMovement();
+			PlayerMotor.MovementAllowed = false;
 		}
 
 		private void AcceptInput()
 		{
 			PlayerMotor.AcceptInput = true;
+		}
+
+		private void IgnoreInput()
+		{
+			PlayerMotor.AcceptInput = false;
+		}
+
+		private void DestroyStilt()
+		{
+			PlayerMotor.DestroyStilt();
 		}
 	}
 }

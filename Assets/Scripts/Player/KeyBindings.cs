@@ -20,6 +20,8 @@ namespace Assets.Scripts.Player
 				case Control.Action:
 					return Input.GetKey(KeyCode.E);
 				case Control.Jump:
+					return Input.GetKey(KeyCode.Space);
+				case Control.Destroy:
 					return Input.GetKey(KeyCode.Q);
 				default:
 					throw new ArgumentOutOfRangeException("control");
