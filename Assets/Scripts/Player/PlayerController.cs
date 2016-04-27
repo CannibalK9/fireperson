@@ -122,11 +122,6 @@ namespace Assets.Scripts.Player
 			_heatRayDistance -= Time.deltaTime * 0.3f;
 		}
 
-		public void DestroyStilt()
-		{
-			
-		}
-
 		public void WarpToGrounded()
 		{
 			while (!IsGrounded)

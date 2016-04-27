@@ -19,10 +19,7 @@ namespace Assets.Scripts.Player
 		private Transform _buildingTransform;
 		public Transform BuildingTransform
 		{
-			get
-			{
-				return _buildingTransform;
-			}
+			get { return _buildingTransform; }
 			set
 			{
 				_buildingTransform = value;
@@ -33,10 +30,7 @@ namespace Assets.Scripts.Player
 
 		public DirectionFacing ClimbingSide
 		{
-			get
-			{
-				return _climbHandler.ClimbingSide;
-			}
+			get { return _climbHandler.ClimbingSide; }
 		}
 
 		private PlayerController _controller;
@@ -92,13 +86,13 @@ namespace Assets.Scripts.Player
 			else
 			{
 				_climbHandler.ClimbAnimation();
-                if (_targetCollider != null)
-                {
-                    Vector2 player = GetDirectionFacing() == DirectionFacing.Left
-                        ? Collider.GetBottomLeft()
-                        : Collider.GetBottomRight();
-                    LinearMovement(_targetCollider.GetBottomCenter(), player, 0.5f);
-                }
+				if (_targetCollider != null)
+				{
+					Vector2 player = GetDirectionFacing() == DirectionFacing.Left
+						? Collider.GetBottomLeft()
+						: Collider.GetBottomRight();
+					LinearMovement(_targetCollider.GetBottomCenter(), player, 0.5f);
+				}
 			}
 
 			if (_controller.RaycastHitsThisFrame.Count > 0 && BuildingTransform != _controller.RaycastHitsThisFrame[0].transform)
@@ -174,7 +168,7 @@ namespace Assets.Scripts.Player
 			}
 			else if (KeyBindings.GetKey(Control.Left))
 			{
-				var edgeRay = new Vector2(_controller.BoxCollider.bounds.min.x - 0.2f, _controller.BoxCollider.bounds.center.y);
+				var edgeRay = new Vector2(_controller.BoxCollider.bounds.min.x - 0.2f, _controller.BoxCollider.bounds.min.y);
 				RaycastHit2D edgeHit = Physics2D.Raycast(edgeRay, Vector2.down, 2f, _controller.PlatformMask);
 
 				_normalizedHorizontalSpeed = edgeHit && !_controller.CollisionState.Left ? -1 : 0;
@@ -217,7 +211,7 @@ namespace Assets.Scripts.Player
 			Vector3 target = Collider.bounds.center;
 			_transform.localScale = new Vector3(-_transform.localScale.x, _transform.localScale.y, _transform.localScale.z);
 			Vector3 moving = Collider.bounds.center;
-            _transform.position += target - moving;
+			_transform.position += target - moving;
 		}
 
 		private void SetAnimationWhenGrounded()
@@ -289,7 +283,7 @@ namespace Assets.Scripts.Player
 		public void CancelClimbingState()
 		{
 			_climbHandler.CurrentClimbingState = ClimbingState.None;
-            _targetCollider = null;
+			_targetCollider = null;
 		}
 
 		public void LinearMovement(Vector2 targetPoint, Vector2 movingPoint, float speed)
@@ -322,9 +316,9 @@ namespace Assets.Scripts.Player
 			return hit;
 		}
 
-		public void DestroyStilt()
+		public void BurnStilt()
 		{
-			_targetCollider.GetComponent<StiltDestruction>().DestroyStilt();
+            _targetCollider.GetComponent<StiltDestruction>().IsBurning = true;
 		}
 	}
 }

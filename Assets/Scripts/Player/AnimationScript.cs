@@ -119,7 +119,7 @@ namespace Assets.Scripts.Player
 
 		private void DestroyStilt()
 		{
-			PlayerMotor.DestroyStilt();
+			PlayerMotor.BurnStilt();
 		}
 	}
 }

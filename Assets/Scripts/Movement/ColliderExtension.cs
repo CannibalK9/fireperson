@@ -34,5 +34,20 @@ namespace Assets.Scripts.Movement
 				col.bounds.center.x,
 				col.bounds.min.y);
 		}
+
+		public static bool CanClimbDown(this Collider2D col)
+		{
+			return col.name.Contains("less") == false;
+		}
+
+		public static bool CanCross(this Collider2D col)
+		{
+			return col.name.Contains("jumpless") == false;
+		}
+
+		public static bool CanSwing(this Collider2D col)
+		{
+			return col.name.Contains("corner") == false;
+		}
 	}
 }

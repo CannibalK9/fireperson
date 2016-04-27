@@ -11,7 +11,8 @@ namespace Assets.Scripts.Player
 		private Collider2D _climbCollider;
 		private readonly Collider2D _playerCollider;
 		private readonly AnimationScript _anim;
-
+		private readonly int _rightClimbLayer;
+		private readonly int _leftClimbLayer;
 		private Vector2 _target;
 		private Vector2 _player;
 
@@ -25,6 +26,8 @@ namespace Assets.Scripts.Player
 			_anim = _motor.Anim;
 			_climbCollider = null;
 			_playerCollider = _motor.Collider;
+			_rightClimbLayer = LayerMask.NameToLayer("Right Climb Spot");
+			_leftClimbLayer = LayerMask.NameToLayer("Left Climb Spot");
 			NextClimbingStates = new List<ClimbingState>();
 		}
 
@@ -148,7 +151,7 @@ namespace Assets.Scripts.Player
 			if (hit)
 			{
 				SetClimbingParameters(hit);
-				if (ShouldStraightClimb() == false && hit.collider.name.Contains("corner"))
+				if (ShouldStraightClimb() == false && hit.collider.CanSwing() == false)
 					return false;
 
 				if (CurrentClimbingState == ClimbingState.None)
@@ -175,8 +178,8 @@ namespace Assets.Scripts.Player
 
 			if (hit)
 			{
-				if (intendedClimbingState == ClimbingState.Down && hit.collider.name.Contains("less")
-					|| intendedClimbingState == ClimbingState.MoveToEdge && hit.collider.name.Contains("jumpless"))
+				if (intendedClimbingState == ClimbingState.Down && hit.collider.CanClimbDown() == false
+					|| intendedClimbingState == ClimbingState.MoveToEdge && hit.collider.CanCross() == false)
 					return false;
 				CurrentClimbingState = intendedClimbingState;
 				SetClimbingParameters(hit);
@@ -207,7 +210,7 @@ namespace Assets.Scripts.Player
 			var hit = new RaycastHit2D();
 			foreach (RaycastHit2D h in hits)
 			{
-				DirectionFacing edge = h.collider.gameObject.layer == LayerMask.NameToLayer("Right Climb Spot")
+				DirectionFacing edge = h.collider.gameObject.layer == _rightClimbLayer
 					? DirectionFacing.Right
 					: DirectionFacing.Left;
 
@@ -239,7 +242,7 @@ namespace Assets.Scripts.Player
 			{
 				hit = h;
 				SetClimbingParameters(hit);
-                return hit;
+				return hit;
 			}
 			return hit;
 		}
@@ -274,8 +277,7 @@ namespace Assets.Scripts.Player
 
 		private LayerMask GetClimbMask()
 		{
-			return 1 << LayerMask.NameToLayer("Right Climb Spot")
-				| 1 << LayerMask.NameToLayer("Left Climb Spot");
+			return 1 << _rightClimbLayer | 1 << _leftClimbLayer;
 		}
 
 		private void SetClimbingParameters(RaycastHit2D hit)
@@ -287,7 +289,7 @@ namespace Assets.Scripts.Player
 
 		private void SetClimbingSide()
 		{
-			ClimbingSide = _climbCollider.gameObject.layer == LayerMask.NameToLayer("Right Climb Spot")
+			ClimbingSide = _climbCollider.gameObject.layer == _rightClimbLayer
 					? DirectionFacing.Right
 					: DirectionFacing.Left;
 		}
@@ -323,13 +325,13 @@ namespace Assets.Scripts.Player
 				if (NextClimbingStates.Contains(ClimbingState.Up))
 					nextClimbingState = ClimbingState.Up;
 				else if (NextClimbingStates.Contains(ClimbingState.AcrossLeft)
-					&& (_climbCollider.name.Contains("corner") == false
+					&& (_climbCollider.CanSwing()
 					|| DirectionFacing.Left == _motor.GetDirectionFacing()))
 					nextClimbingState = CheckLedgeSwing(DirectionFacing.Left)
 						? ClimbingState.SwingLeft
 						: ClimbingState.Jump;
 				else if (NextClimbingStates.Contains(ClimbingState.AcrossRight)
-					&& (_climbCollider.name.Contains("corner") == false
+					&& (_climbCollider.CanSwing()
 					|| DirectionFacing.Right == _motor.GetDirectionFacing()))
 					nextClimbingState = CheckLedgeSwing(DirectionFacing.Right)
 						? ClimbingState.SwingRight
@@ -343,7 +345,7 @@ namespace Assets.Scripts.Player
 						: ClimbingState.Jump;
 				else if (NextClimbingStates.Contains(ClimbingState.Up) && CheckLedgeAbove())
 					nextClimbingState = ShouldStraightClimb() ? ClimbingState.Up : ClimbingState.Flip;
-				else if (NextClimbingStates.Contains(ClimbingState.Down)) //check tag hereish, don't drop always
+				else if (NextClimbingStates.Contains(ClimbingState.Down) && _climbCollider.CanClimbDown())
 					nextClimbingState = ClimbingState.Down;
 			}
 			else if (CurrentClimbingState == ClimbingState.AcrossRight)
@@ -354,7 +356,7 @@ namespace Assets.Scripts.Player
 						: ClimbingState.Jump;
 				else if (NextClimbingStates.Contains(ClimbingState.Up) && CheckLedgeAbove())
 					nextClimbingState = ShouldStraightClimb() ? ClimbingState.Up : ClimbingState.Flip;
-				else if (NextClimbingStates.Contains(ClimbingState.Down))
+				else if (NextClimbingStates.Contains(ClimbingState.Down) && _climbCollider.CanClimbDown()) 
 					nextClimbingState = ClimbingState.Down;
 			}
 			else if (CurrentClimbingState == ClimbingState.SwingLeft)
@@ -365,7 +367,7 @@ namespace Assets.Scripts.Player
 						: ClimbingState.Jump;
 				else if (NextClimbingStates.Contains(ClimbingState.Up) && CheckLedgeAbove())
 					nextClimbingState = ShouldStraightClimb() ? ClimbingState.Up : ClimbingState.Flip;
-				else if (NextClimbingStates.Contains(ClimbingState.Down))
+				else if (NextClimbingStates.Contains(ClimbingState.Down) && _climbCollider.CanClimbDown())
 					nextClimbingState = ClimbingState.Down;
 			}
 			else if (CurrentClimbingState == ClimbingState.SwingRight)
@@ -376,7 +378,7 @@ namespace Assets.Scripts.Player
 						: ClimbingState.Jump;
 				else if (NextClimbingStates.Contains(ClimbingState.Up) && CheckLedgeAbove())
 					nextClimbingState = ShouldStraightClimb() ? ClimbingState.Up : ClimbingState.Flip;
-				else if (NextClimbingStates.Contains(ClimbingState.Down))
+				else if (NextClimbingStates.Contains(ClimbingState.Down) && _climbCollider.CanClimbDown())
 					nextClimbingState = ClimbingState.Down;
 			}
 			else if (CurrentClimbingState == ClimbingState.MoveToEdge)

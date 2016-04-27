@@ -73,11 +73,10 @@ namespace Assets.Scripts.Movement
 				if (_raycastHit)
 				{
 					// the bottom ray can hit a slope but no other ray can so we have special handling for these cases
-					if (i == 0)
+					if (i == 0 && HandleHorizontalSlope(ref deltaMovement, Vector2.Angle(_raycastHit.normal, Vector2.up)))
 					{
-                        _controller.RaycastHitsThisFrame.Add(_raycastHit);
-                        if (HandleHorizontalSlope(ref deltaMovement, Vector2.Angle(_raycastHit.normal, Vector2.up)))
-						continue;
+						_controller.RaycastHitsThisFrame.Add(_raycastHit);
+						break;
 					}
 
 					// set our new deltaMovement and recalculate the rayDistance taking it into account
