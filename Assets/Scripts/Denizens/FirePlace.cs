@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace Assets.Scripts.Denizens
 {
-    public class Fireplace : MonoBehaviour
+    public class FirePlace : MonoBehaviour
     {
         public bool IsLit;
         public bool IsAccessible;
         public bool IsHeatSource;
 
-        public Fireplace Left;
-        public Fireplace Right;
-        public Fireplace Up;
-        public Fireplace Down;
+        public FirePlace Left;
+        public FirePlace Right;
+        public FirePlace Up;
+        public FirePlace Down;
 
         private Vector2 _origin;
         private Vector2 _rotation;
@@ -42,9 +42,9 @@ namespace Assets.Scripts.Denizens
             hit.collider.SendMessage("MoveToFireplace", direction, SendMessageOptions.DontRequireReceiver);
         }
 
-        public List<Fireplace> GetConnectedFireplaces()
+        public List<FirePlace> GetConnectedFireplaces()
         {
-            return new List<Fireplace> { Left, Right, Up, Down };
+            return new List<FirePlace> { Left, Right, Up, Down };
         }
     }
 }

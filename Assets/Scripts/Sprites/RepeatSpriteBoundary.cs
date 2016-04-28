@@ -12,7 +12,7 @@ namespace Assets.Scripts.Sprites
 			var childSprite = childPrefab.AddComponent<SpriteRenderer>();
 
 			childSprite.sprite = sprite.sprite;
-            childSprite.material = sprite.material;
+			childSprite.material = sprite.material;
 			childSprite.sortingLayerID = sprite.sortingLayerID;
 			childSprite.sortingOrder = sprite.sortingOrder;
 
@@ -37,7 +37,7 @@ namespace Assets.Scripts.Sprites
 						child.transform.position.x - 0.5f + 0.5f / width + i / width,
 						child.transform.position.y);
 
-					child.transform.localScale = new Vector2(1 / width, 1);
+					child.transform.localScale = new Vector3(1 / width, 1, 1);
 				}
 				else
 				{
@@ -45,13 +45,13 @@ namespace Assets.Scripts.Sprites
 						child.transform.position.x,
 						child.transform.position.y - 0.5f + 0.5f / height + i / height);
 
-					child.transform.localScale = new Vector2(1, 1 / height);
+					child.transform.localScale = new Vector3(1, 1 / height, 1);
 				}
 			}
 			middleChild.transform.parent = transform;
 			middleChild.transform.localRotation = new Quaternion();
-			middleChild.transform.localScale = new Vector2(1, 1);
-			middleChild.transform.localPosition = new Vector2(0, 0);
+			middleChild.transform.localScale = Vector3.one;
+			middleChild.transform.localPosition = Vector3.zero;
 
 			Destroy(childPrefab);
 			sprite.enabled = false;

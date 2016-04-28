@@ -96,7 +96,7 @@ namespace Assets.Scripts.Denizens
         void OnTriggerStay2D(Collider2D col)
         {
             if (col.gameObject.layer == LayerMask.NameToLayer("PL Spot"))
-                SatAtFireplace = col.gameObject.GetComponent<Fireplace>().IsLit;
+                SatAtFireplace = col.gameObject.GetComponent<FirePlace>().IsLit;
         }
 
         private void RecalculateDistanceBetweenRays()

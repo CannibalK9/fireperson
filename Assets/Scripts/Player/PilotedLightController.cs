@@ -65,7 +65,7 @@ namespace Assets.Scripts.Player
 		public List<RaycastHit2D> RaycastHitsThisFrame { get; set; }
 		public float VerticalDistanceBetweenRays { get; set; }
 		public float HorizontalDistanceBetweenRays { get; set; }
-		public Fireplace Fireplace { get; set; }
+		public FirePlace Fireplace { get; set; }
 
 		private SpriteRenderer _renderer;
 
@@ -137,7 +137,7 @@ namespace Assets.Scripts.Player
 
 				_renderer.enabled = false;
 
-				Fireplace = CollidingPoint.gameObject.GetComponent<Fireplace>();
+				Fireplace = CollidingPoint.gameObject.GetComponent<FirePlace>();
 				Fireplace.IsLit = true;
 			}
 		}
@@ -180,7 +180,7 @@ namespace Assets.Scripts.Player
 		{
 			if (col.gameObject.layer == LayerMask.NameToLayer("PL Spot"))
 			{
-				if (col.GetComponent<Fireplace>().IsAccessible)
+				if (col.GetComponent<FirePlace>().IsAccessible)
 				{
 					CollidingPoint = col;
 					IsMovementOverridden = true;

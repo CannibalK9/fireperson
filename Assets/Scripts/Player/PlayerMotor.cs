@@ -43,10 +43,10 @@ namespace Assets.Scripts.Player
 
 		void Awake()
 		{
-			Anim = transform.parent.parent.GetComponent<AnimationScript>();
+			_transform = transform.parent.parent;
+			Anim = _transform.GetComponent<AnimationScript>();
 			_controller = GetComponent<PlayerController>();
 			Collider = GetComponent<BoxCollider2D>();
-			_transform = transform.parent.parent;
 
 			_climbHandler = new ClimbHandler(this);
 			_defaultPlatformMask = _controller.PlatformMask;
