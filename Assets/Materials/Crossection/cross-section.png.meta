@@ -1,11 +1,22 @@
 fileFormatVersion: 2
 guid: 6035b6603a26f22438faf9707668550e
-timeCreated: 1461707607
+timeCreated: 1462195347
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: cross-section_0
     21300002: cross-section_1
+    21300004: cross-section_2
+    21300006: cross-section_3
+    21300008: cross-section_4
+    21300010: cross-section_5
+    21300012: cross-section_6
+    21300014: cross-section_7
+    21300016: cross-section_8
+    21300018: cross-section_9
+    21300020: cross-section_10
+    21300022: cross-section_11
+    21300024: cross-section_12
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -63,34 +74,146 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -64, y: 32}
+      - - {x: -41, y: 32}
+        - {x: -64, y: 3}
         - {x: -64, y: -32}
-        - {x: 64, y: -32}
+        - {x: 41, y: -32}
+        - {x: 64, y: -3}
         - {x: 64, y: 32}
     - name: cross-section_1
       rect:
         serializedVersion: 2
         x: 128
-        y: 1917
+        y: 1984
         width: 512
-        height: 128
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 256, y: -63}
-        - {x: 256, y: -27}
-        - {x: 222, y: -23}
-        - {x: 256, y: 30}
-        - {x: 256, y: 64}
-        - {x: -256, y: 64}
-        - {x: -256, y: 30}
-        - {x: -243, y: 10}
-        - {x: -229, y: -13}
-        - {x: -220, y: -27}
-        - {x: -256, y: -27}
-        - {x: -256, y: -62}
-        - {x: -246, y: -63}
+      - - {x: 242, y: 0}
+        - {x: 256, y: 13}
+        - {x: 256, y: 32}
+        - {x: -256, y: 32}
+        - {x: -256, y: 12}
+        - {x: -229, y: -10}
+        - {x: -222, y: -14}
+        - {x: -256, y: -14}
+        - {x: -256, y: -32}
+        - {x: 256, y: -32}
+        - {x: 256, y: -14}
+        - {x: 222, y: -14}
+    - name: cross-section_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1920
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 12, y: -32}
+        - {x: 32, y: -3}
+        - {x: 32, y: 32}
+    - name: cross-section_3
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1920
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 9, y: -32}
+        - {x: 32, y: -3}
+        - {x: 32, y: 32}
+    - name: cross-section_4
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 2016
+        width: 128
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -64, y: 16}
+        - {x: -64, y: -16}
+        - {x: 64, y: -16}
+        - {x: 64, y: 16}
+    - name: cross-section_5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1920
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -64, y: 32}
+        - {x: -64, y: -32}
+        - {x: 46, y: -32}
+        - {x: 64, y: -12}
+        - {x: 64, y: 12}
+        - {x: 46, y: 32}
+    - name: cross-section_6
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1920
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -10, y: 32}
+        - {x: -32, y: 3}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+    - name: cross-section_7
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1920
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -9, y: 32}
+        - {x: -32, y: 3}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+    - name: cross-section_8
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1920
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -64, y: 32}
+        - {x: -64, y: -32}
+        - {x: 64, y: -32}
+        - {x: 64, y: 32}
     outline: []
   spritePackingTag: 
   userData: 

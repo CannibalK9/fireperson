@@ -2,7 +2,8 @@
 
 namespace Assets.Scripts.Sprites
 {
-	public class ClimbableEdges : MonoBehaviour
+    [RequireComponent(typeof(BoxCollider2D))]
+    public class ClimbableEdges : MonoBehaviour
 	{
 		public bool LeftEdge;
 		public bool RightEdge;
@@ -13,8 +14,11 @@ namespace Assets.Scripts.Sprites
 		private GameObject _leftEdge;
 		private GameObject _rightEdge;
 
+        private BoxCollider2D _col;
+
 		void Awake()
 		{
+            _col = gameObject.GetComponent<BoxCollider2D>();
 			CreateEdges();
 		}
 
@@ -28,25 +32,27 @@ namespace Assets.Scripts.Sprites
 
 		private void CreateEdges()
 		{
-			if (LeftEdge && LeftEdgeObject != null && _leftEdge == null)
+            Quaternion currentRotation = gameObject.transform.rotation;
+            gameObject.transform.rotation = new Quaternion();
+
+            if (LeftEdge && LeftEdgeObject != null && _leftEdge == null)
 			{
 				_leftEdge = Instantiate(LeftEdgeObject);
 
 				_leftEdge.transform.parent = transform;
-				_leftEdge.transform.localScale = new Vector2(1 / transform.lossyScale.x, 1);
-				_leftEdge.transform.localRotation = new Quaternion();
-				_leftEdge.transform.localPosition = new Vector2(-0.5f, 0);
-			}
+                //_leftEdge.transform.localRotation = new Quaternion();
+                _leftEdge.transform.position = new Vector3(_col.bounds.min.x, _col.bounds.max.y);
+            }
 
-			if (RightEdge && RightEdgeObject != null && _rightEdge == null)
+            if (RightEdge && RightEdgeObject != null && _rightEdge == null)
 			{
 				_rightEdge = Instantiate(RightEdgeObject);
 
 				_rightEdge.transform.parent = transform;
-				_rightEdge.transform.localScale = new Vector2(1 / transform.lossyScale.x, 1);
-				_rightEdge.transform.localRotation = new Quaternion();
-				_rightEdge.transform.localPosition = new Vector2(0.5f, 0);
-			}
-		}
-	}
+				//_rightEdge.transform.localRotation = new Quaternion();
+                _rightEdge.transform.position = _col.bounds.max;
+            }
+            gameObject.transform.rotation = currentRotation;
+        }
+    }
 }
