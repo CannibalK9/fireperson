@@ -40,7 +40,6 @@ namespace Assets.Scripts.Sprites
 				_leftEdge = Instantiate(LeftEdgeObject);
 
 				_leftEdge.transform.parent = transform;
-                //_leftEdge.transform.localRotation = new Quaternion();
                 _leftEdge.transform.position = new Vector3(_col.bounds.min.x, _col.bounds.max.y);
             }
 
@@ -49,7 +48,6 @@ namespace Assets.Scripts.Sprites
 				_rightEdge = Instantiate(RightEdgeObject);
 
 				_rightEdge.transform.parent = transform;
-				//_rightEdge.transform.localRotation = new Quaternion();
                 _rightEdge.transform.position = _col.bounds.max;
             }
             gameObject.transform.rotation = currentRotation;

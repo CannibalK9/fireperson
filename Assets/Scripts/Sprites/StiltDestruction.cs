@@ -26,48 +26,48 @@ namespace Assets.Scripts.Sprites
             if (IsBurning)
                 _burnUpDuration -= Time.deltaTime;
 
-            if (_burnUpDuration < 3f)
-            {
-                ParticleSystem.EmissionModule emission = _particles[0].emission;
-                emission.enabled = true;
-            }
-            else if (_burnUpDuration < 2.5f)
-            {
-                ParticleSystem.EmissionModule emission = _particles[1].emission;
-                emission.enabled = true;
-            }
+            //if (_burnUpDuration < 3f)
+            //{
+            //    ParticleSystem.EmissionModule emission = _particles[0].emission;
+            //    emission.enabled = true;
+            //}
+            //else if (_burnUpDuration < 2.5f)
+            //{
+            //    ParticleSystem.EmissionModule emission = _particles[1].emission;
+            //    emission.enabled = true;
+            //}
 
-            else if (_burnUpDuration < 2f)
-            {
-                ParticleSystem.EmissionModule emission = _particles[2].emission;
-                emission.enabled = true;
-            }
+            //else if (_burnUpDuration < 2f)
+            //{
+            //    ParticleSystem.EmissionModule emission = _particles[2].emission;
+            //    emission.enabled = true;
+            //}
 
-            else if (_burnUpDuration < 1.5f)
-            {
-                ParticleSystem.EmissionModule emission = _particles[3].emission;
-                emission.enabled = true;
-            }
+            //else if (_burnUpDuration < 1.5f)
+            //{
+            //    ParticleSystem.EmissionModule emission = _particles[3].emission;
+            //    emission.enabled = true;
+            //}
 
-            else if (_burnUpDuration < 1f)
-            {
-                ParticleSystem.EmissionModule emission = _particles[4].emission;
-                emission.enabled = true;
-            }
+            //else if (_burnUpDuration < 1f)
+            //{
+            //    ParticleSystem.EmissionModule emission = _particles[4].emission;
+            //    emission.enabled = true;
+            //}
 
-            else if (_burnUpDuration < 0.5f)
-            {
-                ParticleSystem.EmissionModule emission = _particles[5].emission;
-                emission.enabled = true;
-            }
+            //else if (_burnUpDuration < 0.5f)
+            //{
+            //    ParticleSystem.EmissionModule emission = _particles[5].emission;
+            //    emission.enabled = true;
+            //}
 
-            else if (_burnUpDuration < 0)
+            if (_burnUpDuration < 0)
             {
                 IsBurning = false;
                 BurnStilt();
 
-                ParticleSystem.EmissionModule emission = _particles[6].emission;
-                emission.enabled = true;
+                //ParticleSystem.EmissionModule emission = _particles[6].emission;
+                //emission.enabled = true;
             }
         }
 
@@ -81,6 +81,7 @@ namespace Assets.Scripts.Sprites
 					joint.enabled = false;
 				}
 			}
+            Destroy(_stilt);
 			_hingeJoint.enabled = false;
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
 			gameObject.layer = LayerMask.NameToLayer("Background");
