@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Heat;
 using UnityEngine;
 
 namespace Assets.Scripts.Ice
@@ -32,27 +32,53 @@ namespace Assets.Scripts.Ice
 		{
 			SetPolyColliderPoints();
 			_initialPoints = _polyCollider.points;
-            SetMeshFilterToPolyColliderPoints();
+			SetMeshFilterToPolyColliderPoints();
 		}
 
 		private void SetPolyColliderPoints()
 		{
-            var newPoints = new List<Vector2>();
+			var newPoints = new List<Vector2>();
 
-            for (int i = 0; i < _polyCollider.points.Length; i++)
-            {
-                Vector2 start = _polyCollider.points[i];
-                Vector2 end = i + 1 == _polyCollider.points.Length ? _polyCollider.points[0] : _polyCollider.points[i + 1];
+			for (int i = 0; i < _polyCollider.points.Length; i++)
+			{
+				Vector2 start = _polyCollider.points[i];
+				Vector2 end = i + 1 == _polyCollider.points.Length ? _polyCollider.points[0] : _polyCollider.points[i + 1];
 
-                float distanceBetweenPoints = ActualDistanceBetweenPoints / Vector2.Distance(start, end);
-                while (Vector2.Distance(start, end) > distanceBetweenPoints)
-                {
-                    newPoints.Add(start);
-                    start = Vector2.MoveTowards(start, end, distanceBetweenPoints);
-                }
-            }
-            _polyCollider.points = newPoints.ToArray();
-        }
+				float distanceBetweenPoints = ActualDistanceBetweenPoints / Vector2.Distance(start, end);
+				while (Vector2.Distance(start, end) > distanceBetweenPoints)
+				{
+					newPoints.Add(start);
+					start = Vector2.MoveTowards(start, end, distanceBetweenPoints);
+				}
+			}
+			_polyCollider.points = newPoints.ToArray();
+		}
+
+		private void SetMeshFilterToPolyColliderPoints()
+		{
+			_mesh.Clear();
+			_mesh.vertices = GetNewMeshFilterVertices();
+			_mesh.triangles = GetNewMeshFilterTriangles();
+		}
+
+		private Vector3[] GetNewMeshFilterVertices()
+		{
+			var vertices = new Vector3[_polyCollider.GetTotalPointCount()];
+			for (int j = 0; j < vertices.Length; j++)
+			{
+				vertices[j] = new Vector3(
+					_polyCollider.points[j].x,
+					_polyCollider.points[j].y,
+					0);
+			}
+			return vertices;
+		}
+
+		private int[] GetNewMeshFilterTriangles()
+		{
+			var tr = new Triangulator(_polyCollider.points);
+			return tr.Triangulate();
+		}
 
 		void Update()
 		{
@@ -80,100 +106,82 @@ namespace Assets.Scripts.Ice
 			return newPoints;
 		}
 
-		void Melt(Vector4 hitBox)
+		void Melt(HeatMessage message)
 		{
-			OnCollisionLowerPointsWithinBox(hitBox);
+			_polyCollider.points = MovePointsAwayFromOrigin(message);
 			SetMeshFilterToPolyColliderPoints();
 		}
 
-		private void OnCollisionLowerPointsWithinBox(Vector4 hitBox)
-		{
-			_polyCollider.points = MovePointsToCentre(hitBox);
-        }
+		//A message arrives at the ice. A single raycasthit and the origin of the cast. The points of the ice that are within the distance to the origin, and that are not
+		//on the wrong side of the normal, move away from the origin proportionally to the distance. If moving would break the polycollider then the point does not move
 
-        private Vector2[] MovePointsToCentre(Vector4 hitBox)
-        {
-            Vector2[] newPoints = _polyCollider.points;
-            Vector2 centrePoint = _polyCollider.bounds.center;
-
-            for (int i = 0; i < _polyCollider.points.Length; i++)
-            {
-                Vector2 point = _polyCollider.points[i];
-                Vector2 worldPoint = transform.TransformPoint(point);
-
-                if (hitBox.w == 0)
-                {
-                    float distance = Vector2.Distance(worldPoint, hitBox);
-                    if (distance >= hitBox.z)
-                        continue;
-                }
-                else
-                {
-                    var difference = new Vector2(worldPoint.x - hitBox.x, worldPoint.y - hitBox.y);
-                    if (Mathf.Abs(difference.x) >= hitBox.z || Mathf.Abs(difference.y) >= hitBox.w)
-                        continue;
-                }
-                point = Vector2.MoveTowards(point, centrePoint, DefaultDistanceToLowerPoints);// - UnityEngine.Random.value / 10);
-                newPoints[i] = point;
-            }
-            return newPoints;
-        }
-
-        private Vector2[] GetPointsLoweredByBox(Vector4 hitBox)
+		private Vector2[] MovePointsAwayFromOrigin(HeatMessage message)
 		{
 			Vector2[] newPoints = _polyCollider.points;
 
-			for (int i = 0; i < _polyCollider.points.Length; i++)
+            int a = _polyCollider.shapeCount;
+
+			int nearestIndex = GetNearestIndex(message.Origin);
+			Vector2 nearestWorldPoint = transform.TransformPoint(_polyCollider.points[nearestIndex]);
+			int numberOfPointsToMove = Mathf.RoundToInt(message.CastDistance / Vector2.Distance(nearestWorldPoint, message.Origin)); //may need recalibrating
+
+			foreach (int i in GetIndecesToMove(nearestIndex, numberOfPointsToMove))
 			{
-				Vector2 point = _polyCollider.points[i];
-				if (point.y <= -0.3f)
-				{
-					continue;
-				}
+				int index = i;
+				if (i < 0)
+					index = _polyCollider.points.Length + i;
+				else if (i >= _polyCollider.points.Length)
+					index = i - _polyCollider.points.Length;
 
-				Vector2 worldPoint = transform.TransformPoint(point);
+                Vector2 point = Vector2.MoveTowards(transform.TransformPoint(_polyCollider.points[index]), message.Origin, -DefaultDistanceToLowerPoints);// - UnityEngine.Random.value / 10);
 
-				if (hitBox.w == 0)
-				{
-					float distance = Vector2.Distance(worldPoint, hitBox);
-					if (distance >= hitBox.z)
-						continue;
-				}
-				else
-				{
-					var difference = new Vector2(worldPoint.x - hitBox.x, worldPoint.y - hitBox.y);
-					if (Mathf.Abs(difference.x) >= hitBox.z || Mathf.Abs(difference.y) >= hitBox.w)
-						continue;
-				}
-				newPoints[i] = new Vector2(point.x, point.y - DefaultDistanceToLowerPoints - UnityEngine.Random.value / 10);
+				bool tooClose = false;
+                foreach (Vector2 p in _polyCollider.points)
+                {
+                    if (_polyCollider.points[index] != p && Vector2.Distance(transform.TransformPoint(p), point) < 0.03f) //find out how close is too close
+                    {
+                        tooClose = true;
+                        break;
+                    }
+                }
+                if (tooClose == false)
+                {
+                    newPoints[index] = transform.InverseTransformPoint(point);
+                }
 			}
+
 			return newPoints;
 		}
 
-		private void SetMeshFilterToPolyColliderPoints()
+		private int GetNearestIndex(Vector2 origin)
 		{
-			_mesh.Clear();
-			_mesh.vertices = GetNewMeshFilterVertices();
-			_mesh.triangles = GetNewMeshFilterTriangles();
-		}
+			Vector2 nearestPoint = _polyCollider.points[0];
+			int nearestIndex = 0;
 
-		private Vector3[] GetNewMeshFilterVertices()
-		{
-			var vertices = new Vector3[_polyCollider.GetTotalPointCount()];
-			for (int j = 0; j < vertices.Length; j++)
+			for (int i = 1; i < _polyCollider.points.Length; i++)
 			{
-				vertices[j] = new Vector3(
-					_polyCollider.points[j].x,
-					_polyCollider.points[j].y,
-					0);
+				Vector2 point = _polyCollider.points[i];
+				Vector2 worldPoint = transform.TransformPoint(point);
+
+				if (Vector2.Distance(worldPoint, origin) < Vector2.Distance(transform.TransformPoint(nearestPoint), origin))
+				{
+					nearestPoint = point;
+					nearestIndex = i;
+				}
 			}
-			return vertices;
+
+			return nearestIndex;
 		}
 
-		private int[] GetNewMeshFilterTriangles()
+		private IEnumerable<int> GetIndecesToMove(int nearestIndex, int numberOfPointsToMove)
 		{
-			var tr = new Triangulator(_polyCollider.points);
-			return tr.Triangulate();
+			var indexes = new List<int>();
+			for (int i = 0; i <= numberOfPointsToMove; i++)
+			{
+				indexes.Add(nearestIndex + i);
+				indexes.Add(nearestIndex - i);
+			}
+			return indexes;
 		}
 	}
 }
