@@ -8,6 +8,7 @@ namespace Assets.Scripts.Sprites
         public int Order;
 
         private Renderer _rend;
+
         void Awake()
         {
             _rend = GetComponent<Renderer>();

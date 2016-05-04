@@ -2,8 +2,8 @@
 
 namespace Assets.Scripts.Sprites
 {
-    [RequireComponent(typeof(BoxCollider2D))]
-    public class ClimbableEdges : MonoBehaviour
+	[RequireComponent(typeof(BoxCollider2D))]
+	public class ClimbableEdges : MonoBehaviour
 	{
 		public bool LeftEdge;
 		public bool RightEdge;
@@ -14,11 +14,14 @@ namespace Assets.Scripts.Sprites
 		private GameObject _leftEdge;
 		private GameObject _rightEdge;
 
-        private BoxCollider2D _col;
+		private BoxCollider2D _col;
 
 		void Awake()
 		{
-            _col = gameObject.GetComponent<BoxCollider2D>();
+			_col = gameObject.GetComponent<BoxCollider2D>();
+		}
+		void Start()
+		{
 			CreateEdges();
 		}
 
@@ -30,27 +33,36 @@ namespace Assets.Scripts.Sprites
 			CreateEdges();
 		}
 
+		public void DeactiveEdges()
+		{
+			LeftEdge = false;
+			RightEdge = false;
+
+			Destroy(_leftEdge);
+			Destroy(_rightEdge);
+		}
+
 		private void CreateEdges()
 		{
-            Quaternion currentRotation = gameObject.transform.rotation;
-            gameObject.transform.rotation = new Quaternion();
+			Quaternion currentRotation = gameObject.transform.rotation;
+			gameObject.transform.rotation = new Quaternion();
 
-            if (LeftEdge && LeftEdgeObject != null && _leftEdge == null)
+			if (LeftEdge && LeftEdgeObject != null && _leftEdge == null)
 			{
 				_leftEdge = Instantiate(LeftEdgeObject);
 
 				_leftEdge.transform.parent = transform;
-                _leftEdge.transform.position = new Vector3(_col.bounds.min.x, _col.bounds.max.y);
-            }
+				_leftEdge.transform.position = new Vector3(_col.bounds.min.x, _col.bounds.max.y);
+			}
 
-            if (RightEdge && RightEdgeObject != null && _rightEdge == null)
+			if (RightEdge && RightEdgeObject != null && _rightEdge == null)
 			{
 				_rightEdge = Instantiate(RightEdgeObject);
 
 				_rightEdge.transform.parent = transform;
-                _rightEdge.transform.position = _col.bounds.max;
-            }
-            gameObject.transform.rotation = currentRotation;
-        }
-    }
+				_rightEdge.transform.position = _col.bounds.max;
+			}
+			gameObject.transform.rotation = currentRotation;
+		}
+	}
 }

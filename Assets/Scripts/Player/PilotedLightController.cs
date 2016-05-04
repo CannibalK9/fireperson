@@ -71,20 +71,20 @@ namespace Assets.Scripts.Player
 
 		void Awake()
 		{
+			IsMovementOverridden = false;
+			_initialScale = transform.localScale;
+			_remainingDurationInSeconds = DurationInSeconds;
+
+			RaycastHitsThisFrame = new List<RaycastHit2D>(2);
+			CollisionState = new CollisionState();
 			_movement = new MovementHandler(this);
 			_heatHandler = new HeatHandler(this);
 
-			_initialScale = transform.localScale;
-			IsMovementOverridden = false;
-			_remainingDurationInSeconds = DurationInSeconds;
-
 			BoxCollider = GetComponent<BoxCollider2D>();
-			CollisionState = new CollisionState();
 			Transform = GetComponent<Transform>();
-			RaycastHitsThisFrame = new List<RaycastHit2D>(2);
-			IgnoreCollisionLayersOutsideTriggerMask();
-
 			_renderer = GetComponent<SpriteRenderer>();
+
+			IgnoreCollisionLayersOutsideTriggerMask();
 		}
 
 		private void IgnoreCollisionLayersOutsideTriggerMask()

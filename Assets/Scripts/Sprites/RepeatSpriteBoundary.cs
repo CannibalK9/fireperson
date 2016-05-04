@@ -5,7 +5,7 @@ namespace Assets.Scripts.Sprites
 	[RequireComponent(typeof(SpriteRenderer))]
 	public class RepeatSpriteBoundary : MonoBehaviour
 	{
-		void Awake()
+		void Start()
 		{
 			var sprite = GetComponent<SpriteRenderer>();
 			var childPrefab = new GameObject();
