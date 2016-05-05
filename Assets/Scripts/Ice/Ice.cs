@@ -16,6 +16,7 @@ namespace Assets.Scripts.Ice
 		private PolygonCollider2D _polyCollider;
 		private Mesh _mesh;
 		private Vector2[] _initialPoints;
+        private Dictionary<int, Vector2> _normalsBeforeMelt;
 
 		public Vector2[] GetCurrentPoints()
 		{
@@ -58,7 +59,8 @@ namespace Assets.Scripts.Ice
 		{
 			_mesh.Clear();
 			_mesh.vertices = GetNewMeshFilterVertices();
-			_mesh.triangles = GetNewMeshFilterTriangles();
+			_mesh.triangles = GetNewMeshFilterTriangles(_polyCollider.points);
+            _mesh.RecalculateNormals();
 		}
 
 		private Vector3[] GetNewMeshFilterVertices()
@@ -74,9 +76,9 @@ namespace Assets.Scripts.Ice
 			return vertices;
 		}
 
-		private int[] GetNewMeshFilterTriangles()
+		private int[] GetNewMeshFilterTriangles(Vector2[] points)
 		{
-			var tr = new Triangulator(_polyCollider.points);
+			var tr = new Triangulator(points);
 			return tr.Triangulate();
 		}
 
@@ -119,69 +121,81 @@ namespace Assets.Scripts.Ice
 		{
 			Vector2[] newPoints = _polyCollider.points;
 
-            int a = _polyCollider.shapeCount;
+			List<int> allIndices = GetIndicesInRange(message.Origin, message.CastDistance);
+            List<int> indices = GetIndicesWithNormalTowardsOrigin(allIndices, message.Origin);
 
-			int nearestIndex = GetNearestIndex(message.Origin);
-			Vector2 nearestWorldPoint = transform.TransformPoint(_polyCollider.points[nearestIndex]);
-			int numberOfPointsToMove = Mathf.RoundToInt(message.CastDistance / Vector2.Distance(nearestWorldPoint, message.Origin)); //may need recalibrating
-
-			foreach (int i in GetIndecesToMove(nearestIndex, numberOfPointsToMove))
+			foreach (int i in indices)
 			{
-				int index = i;
-				if (i < 0)
-					index = _polyCollider.points.Length + i;
-				else if (i >= _polyCollider.points.Length)
-					index = i - _polyCollider.points.Length;
-
-                Vector2 point = Vector2.MoveTowards(transform.TransformPoint(_polyCollider.points[index]), message.Origin, -DefaultDistanceToLowerPoints);// - UnityEngine.Random.value / 10);
+                Vector2 point = Vector2.MoveTowards(transform.TransformPoint(_polyCollider.points[i]), message.Origin, -DefaultDistanceToLowerPoints);// - UnityEngine.Random.value / 10);
 
 				bool tooClose = false;
-                foreach (Vector2 p in _polyCollider.points)
-                {
-                    if (_polyCollider.points[index] != p && Vector2.Distance(transform.TransformPoint(p), point) < 0.03f) //find out how close is too close
-                    {
-                        tooClose = true;
-                        break;
-                    }
-                }
+                //foreach (Vector2 p in _polyCollider.points)
+                //{
+                //    if (_polyCollider.points[i] != p && Vector2.Distance(transform.TransformPoint(p), point) < 0.03f) //find out how close is too close
+                //    {
+                //        tooClose = true;
+                //        break;
+                //    }
+                //}
                 if (tooClose == false)
                 {
-                    newPoints[index] = transform.InverseTransformPoint(point);
+                    newPoints[i] = transform.InverseTransformPoint(point);
                 }
 			}
+            _mesh.Clear();
+            var vertices = new Vector3[newPoints.Length];
+            for (int j = 0; j < vertices.Length; j++)
+            {
+                vertices[j] = new Vector3(
+                    newPoints[j].x,
+                    newPoints[j].y,
+                    0);
+            }
+            _mesh.vertices = vertices;
+            _mesh.triangles = GetNewMeshFilterTriangles(newPoints);
+            _mesh.RecalculateNormals();
+            foreach (int i in indices)
+            {
+                if (Vector2.Angle(_mesh.normals[i], _normalsBeforeMelt[i]) > 180)
+                    newPoints[i] = _polyCollider.points[i];
+            }
 
 			return newPoints;
 		}
 
-		private int GetNearestIndex(Vector2 origin)
+		private List<int> GetIndicesInRange(Vector2 origin, float distance)
 		{
-			Vector2 nearestPoint = _polyCollider.points[0];
-			int nearestIndex = 0;
+            var indices = new List<int>();
 
-			for (int i = 1; i < _polyCollider.points.Length; i++)
+			for (int i = 0; i < _polyCollider.points.Length; i++)
 			{
-				Vector2 point = _polyCollider.points[i];
-				Vector2 worldPoint = transform.TransformPoint(point);
+				Vector2 worldPoint = transform.TransformPoint(_polyCollider.points[i]);
 
-				if (Vector2.Distance(worldPoint, origin) < Vector2.Distance(transform.TransformPoint(nearestPoint), origin))
-				{
-					nearestPoint = point;
-					nearestIndex = i;
-				}
+                if (Vector2.Distance(worldPoint, origin) < distance)
+                    indices.Add(i);
 			}
 
-			return nearestIndex;
+			return indices;
 		}
 
-		private IEnumerable<int> GetIndecesToMove(int nearestIndex, int numberOfPointsToMove)
-		{
-			var indexes = new List<int>();
-			for (int i = 0; i <= numberOfPointsToMove; i++)
-			{
-				indexes.Add(nearestIndex + i);
-				indexes.Add(nearestIndex - i);
-			}
-			return indexes;
-		}
+        private List<int> GetIndicesWithNormalTowardsOrigin(List<int> allIndices, Vector2 origin)
+        {
+            var indices = new List<int>();
+            _normalsBeforeMelt = new Dictionary<int, Vector2>();
+
+            foreach (int i in allIndices)
+            {
+                Vector2 vertex = _mesh.vertices[i];
+                Vector2 direction = vertex - origin;
+                Vector2 normal = _mesh.normals[i];
+
+                if (Vector2.Angle(direction, normal) < 180)
+                {
+                    indices.Add(i);
+                    _normalsBeforeMelt.Add(i, normal);
+                }
+            }
+            return indices;
+        }
 	}
 }
