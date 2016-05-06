@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Heat;
 using UnityEngine;
+using System.Linq;
 
 namespace Assets.Scripts.Ice
 {
@@ -11,26 +12,26 @@ namespace Assets.Scripts.Ice
 		public float DefaultDistanceToLowerPoints = 0.1f;
 
 		public bool GrowsBack;
+        public bool AnyJointEnabled { get; set; }
 
 		private PolygonCollider2D _polyCollider;
 		private Mesh _mesh;
 		private Vector2[] _initialPoints;
+		private Vector2[] _newPoints;
 		private Dictionary<int, Vector2> _normalsBeforeMelt;
-
-		public Vector2[] GetCurrentPoints()
-		{
-			return _polyCollider.points;
-		}
+        private Joint2D[] _joints;
 
 		void Awake()
 		{
 			_polyCollider = GetComponent<PolygonCollider2D>();
 			_mesh = GetComponent<MeshFilter>().mesh;
+            _joints = GetComponents<FixedJoint2D>();
+            AnyJointEnabled = true;
 		}
 
 		void Start()
 		{
-			_polyCollider.points = GetColliderPointsAtIntervals(ActualDistanceBetweenPoints);
+            _polyCollider.points = GetColliderPointsAtIntervals(ActualDistanceBetweenPoints);
 			_initialPoints = _polyCollider.points;
 			SetMeshFilterToPolyColliderPoints();
 		}
@@ -83,6 +84,24 @@ namespace Assets.Scripts.Ice
 
 		void Update()
 		{
+            foreach (FixedJoint2D joint in _joints)
+            {
+                if (_polyCollider.OverlapPoint(transform.TransformPoint(joint.anchor)) == false)
+                    joint.enabled = false;
+            }
+
+            if (_joints.Length > 0 && _joints.Where(j => j.enabled == true).Any() == false)
+                AnyJointEnabled = false;
+
+			if (_polyCollider.bounds.size.x < 0.5 || _polyCollider.bounds.size.y < 0.5)
+			{
+				_polyCollider.enabled = false;
+			}
+			else
+			{
+				_polyCollider.enabled = true;
+			}
+
 			if (GrowsBack)
 			{
 				_polyCollider.points = RaisePoints();
@@ -109,15 +128,8 @@ namespace Assets.Scripts.Ice
 
 		void Melt(HeatMessage message)
 		{
-            var newPoints = MovePointsInwards(message);
-            for (int i = 0; i < _polyCollider.points.Length; i++)
-            {
-                if (_polyCollider.OverlapPoint(transform.TransformPoint(newPoints[i])) == false)
-                    newPoints[i] = _polyCollider.points[i];
-            }
-            _polyCollider.points = newPoints;
-
-            SetMeshFilterToPolyColliderPoints();
+			_polyCollider.points = MovePointsInwards(message);
+			SetMeshFilterToPolyColliderPoints();
 		}
 
 		//A message arrives at the ice. A single raycasthit and the origin of the cast. The points of the ice that are within the distance to the origin, and that are not
@@ -125,32 +137,87 @@ namespace Assets.Scripts.Ice
 
 		private Vector2[] MovePointsInwards(HeatMessage message)
 		{
-			Vector2[] newPoints = _polyCollider.points;
-			IEnumerable<int> allIndices = GetIndicesInRange(message.Origin, message.CastDistance);
+			_newPoints = _polyCollider.points;
+			List<int> allIndices = GetIndicesInRange(message.Origin, message.CastDistance);
 
-            foreach (int i in allIndices)
+			foreach (int i in allIndices)
+			{
+				int beforeIndex = GetBeforeIndex(i);
+				int afterIndex = GetAfterIndex(i);
+
+				Vector2 point = _polyCollider.points[i];
+				Vector2 beforePoint = _polyCollider.points[beforeIndex];
+				Vector2 afterPoint = _polyCollider.points[afterIndex];
+
+				Vector2 centre = Vector2.Lerp(beforePoint, afterPoint, 0.5f);
+
+				Vector2 direction = _polyCollider.OverlapPoint(transform.TransformPoint(centre))
+					? centre - point
+					: point - centre;
+
+				Vector2 newPoint = Vector2.MoveTowards(point, direction.normalized*10, DefaultDistanceToLowerPoints);// - UnityEngine.Random.value / 10);
+
+				_newPoints[i] = newPoint;
+			}
+
+            for (int i = 0; i < _polyCollider.points.Length; i++)
             {
-                int beforeIndex = i == 0 ? _polyCollider.points.Length - 1 : i - 1;
-                int afterIndex = i == _polyCollider.points.Length - 1 ? 0 : i + 1;
-
-                Vector2 point = _polyCollider.points[i];
-                Vector2 beforePoint = _polyCollider.points[beforeIndex];
-                Vector2 afterPoint = _polyCollider.points[afterIndex];
-
-                Vector2 centre = Vector2.Lerp(beforePoint, afterPoint, 0.5f);
-
-                Vector2 direction = _polyCollider.OverlapPoint(transform.TransformPoint(centre))
-                    ? centre - point
-                    : point - centre;
-
-                Vector2 newPoint = Vector2.MoveTowards(point, direction.normalized*10, DefaultDistanceToLowerPoints);// - UnityEngine.Random.value / 10);
-
-                newPoints[i] = newPoint;
+                if (_polyCollider.OverlapPoint(transform.TransformPoint(_newPoints[i])) == false)
+                {
+                    allIndices.Remove(i);
+                    _newPoints[i] = _polyCollider.points[i];
+                }
             }
-			return newPoints;
+
+			foreach (int i in allIndices)
+			{
+				int currentIndex = i;
+                int count = 0;
+				while (AcuteAngleFlattened(currentIndex, GetBeforeIndex(currentIndex), GetAfterIndex(currentIndex)) && count < _polyCollider.points.Length)
+				{
+					currentIndex = GetBeforeIndex(currentIndex);
+                    count++;
+				}
+
+				currentIndex = GetAfterIndex(i);
+                count = 0;
+                while (AcuteAngleFlattened(currentIndex, GetBeforeIndex(currentIndex), GetAfterIndex(currentIndex)) && count < _polyCollider.points.Length)
+				{
+					currentIndex = GetAfterIndex(currentIndex);
+                    count++;
+				}
+			}
+
+			return _newPoints;
 		}
 
-		private IEnumerable<int> GetIndicesInRange(Vector2 origin, float distance)
+		private bool AcuteAngleFlattened(int currentIndex, int beforeIndex, int afterIndex)
+		{
+            Vector2 point = _newPoints[currentIndex];
+            Vector2 beforePoint = _newPoints[beforeIndex];
+            Vector2 afterPoint = _newPoints[afterIndex];
+			Vector2 centre = Vector2.Lerp(beforePoint, afterPoint, 0.5f);
+
+			if (Vector2.Angle(beforePoint - point, afterPoint - point) < 90)
+			{
+				Vector2 direction = centre - point;
+				_newPoints[currentIndex] = Vector2.MoveTowards(_newPoints[currentIndex], direction.normalized * 10, DefaultDistanceToLowerPoints);// - UnityEngine.Random.value / 10);
+				return true;
+			}
+			return false;
+		}
+
+		private int GetBeforeIndex(int currentIndex)
+		{
+			return currentIndex == 0 ? _polyCollider.points.Length - 1 : currentIndex - 1;			
+		}
+
+		private int GetAfterIndex(int currentIndex)
+		{
+			return currentIndex == _polyCollider.points.Length - 1 ? 0 : currentIndex + 1;
+		}
+
+		private List<int> GetIndicesInRange(Vector2 origin, float distance)
 		{
 			var indices = new List<int>();
 

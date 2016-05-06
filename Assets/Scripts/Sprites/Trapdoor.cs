@@ -18,13 +18,8 @@ namespace Assets.Scripts.Sprites
 
 		void Update()
 		{
-			if (_fallen == false)
+			if (_fallen == false && _ice.AnyJointEnabled == false)
 			{
-				if (_ice.GetCurrentPoints().Any(point => point.y > 0))
-				{
-					return;
-				}
-
 				_fallen = true;
 				CreateFallenTrapdoor();
 				AddEdges();
