@@ -39,8 +39,8 @@ namespace Assets.Scripts.Heat
 			{
 				Vector2 direction = Rotate(Vector2.up, i * (360 / numberOfCasts));
 				RaycastHit2D hit = Physics2D.Raycast(origin, direction, radius, GetMeltingMask());
-                Debug.DrawRay(origin, direction * radius, Color.green);
-                if (hit)
+				Debug.DrawRay(origin, direction * radius, Color.green);
+				if (hit)
 					hits.Add(hit);
 			}
 			SendRaycastMessages(hits, origin, radius);
