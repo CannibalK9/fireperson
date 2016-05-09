@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Helpers;
+using UnityEngine;
 
 namespace Assets.Scripts.Denizens
 {
 	public class DenizenMotor : MonoBehaviour
 	{
 		public float Gravity = -25f;
-		public float RunSpeed = 3f;
+		public float RunSpeed = 2f;
 		public float GroundDamping = 7f;
 		public float HazardWarningDistance = 1f;
 		public DirectionTravelling DirectionTravelling;
@@ -46,7 +47,8 @@ namespace Assets.Scripts.Denizens
 
 			DetermineMovement();
 			HandleMovement();
-			SpotPlayer();
+            _controller.Movement.MoveWithBuilding();
+            SpotPlayer();
 		}
 
 		void MoveToFireplace(DirectionTravelling direction)
@@ -70,39 +72,47 @@ namespace Assets.Scripts.Denizens
 
 			if (DirectionTravelling == DirectionTravelling.Right)
 			{
-				SetAnimationWhenGrounded();
-				var hazardRay = new Vector2(
+                if (GetDirectionFacing() == DirectionFacing.Left)
+                    FlipSprite();
+
+                var hazardRay = new Vector2(
 					_controller.BoxCollider.bounds.max.x + HazardWarningDistance,
 					_controller.BoxCollider.bounds.min.y);
 
-				if (ApproachingEdge(hazardRay) || ApproachingSnow(hazardRay) || _controller.CollisionState.Right)
-					DirectionTravelling = DirectionTravelling.Left;
-				else
-					_normalizedHorizontalSpeed = 1;
-
-				if (GetDirectionFacing() == DirectionFacing.Left)
-					FlipSprite();
+                if (ApproachingEdge(hazardRay) || ApproachingSnow(hazardRay) || _controller.CollisionState.Right)
+                {
+                    DirectionTravelling = DirectionTravelling.Left;
+                    FlipSprite();
+                    _normalizedHorizontalSpeed = -_normalizedHorizontalSpeed;
+                }
+                else
+                    _normalizedHorizontalSpeed = 1;
 			}
 			else if (DirectionTravelling == DirectionTravelling.Left)
 			{
-				SetAnimationWhenGrounded();
-				var hazardRay = new Vector2(
+                if (GetDirectionFacing() == DirectionFacing.Right)
+                    FlipSprite();
+
+                var hazardRay = new Vector2(
 					_controller.BoxCollider.bounds.min.x - HazardWarningDistance,
 					_controller.BoxCollider.bounds.min.y);
 
-				if (ApproachingEdge(hazardRay) || ApproachingSnow(hazardRay) || _controller.CollisionState.Left)
-					DirectionTravelling = DirectionTravelling.Right;
-				else
-					_normalizedHorizontalSpeed = -1;
-
-				if (GetDirectionFacing() == DirectionFacing.Right)
-					FlipSprite();
+                if (ApproachingEdge(hazardRay) || ApproachingSnow(hazardRay) || _controller.CollisionState.Left)
+                {
+                    DirectionTravelling = DirectionTravelling.Right;
+                    FlipSprite();
+                    _normalizedHorizontalSpeed = -_normalizedHorizontalSpeed;
+                }
+                else
+                    _normalizedHorizontalSpeed = -1;
 			}
 			else
 			{
 				_normalizedHorizontalSpeed = 0;
 			}
-		}
+
+            SetAnimationWhenGrounded();
+        }
 
 		private void SetTravelInDirectionFacing()
 		{
@@ -113,20 +123,20 @@ namespace Assets.Scripts.Denizens
 
 		private bool ApproachingEdge(Vector2 edgeRay)
 		{
-			return Physics2D.Raycast(edgeRay, Vector2.down, 1f, _controller.PlatformMask) == false;
+			return Physics2D.Raycast(edgeRay, Vector2.down, 2f, _controller.PlatformMask) == false;
 		}
 
 		private bool _hitSnow;
 
 		private bool ApproachingSnow(Vector2 snowRay)
 		{
-			LayerMask mask = 1 << LayerMask.NameToLayer("Melting");
+			LayerMask mask = 1 << LayerMask.NameToLayer(Layers.Ice);
 			RaycastHit2D hit = Physics2D.Raycast(snowRay, Vector2.down, 0.1f, mask);
 			if (hit && _hitSnow == false)
 			{
 				_hitSnow = true;
 				_movementPaused = true;
-				_animator.Play(Animator.StringToHash("Shiver"));
+				_animator.Play(Animator.StringToHash(Animations.Shiver));
 			}
 			else
 			{
@@ -142,10 +152,10 @@ namespace Assets.Scripts.Denizens
 
 		private void SetAnimationWhenGrounded()
 		{
-			if (_controller.IsGrounded && _normalizedHorizontalSpeed == 0)
-				_animator.Play(Animator.StringToHash("Idle"));
+			if (_normalizedHorizontalSpeed == 0)
+				_animator.Play(Animator.StringToHash(Animations.Idle));
 			else
-				_animator.Play(Animator.StringToHash("Idle"));
+				_animator.Play(Animator.StringToHash(Animations.Moving));
 		}
 
 		private void HandleMovement()
@@ -156,6 +166,11 @@ namespace Assets.Scripts.Denizens
 					_normalizedHorizontalSpeed * RunSpeed,
 					ref _velocity.x,
 					Time.deltaTime * GroundDamping);
+
+            if (_velocity.x > 0 && _velocity.x > RunSpeed)
+                _velocity.x = RunSpeed;
+            else if (_velocity.x < 0 && _velocity.x < -RunSpeed)
+                _velocity.x = -RunSpeed;
 
 			_velocity.y += Gravity * Time.deltaTime;
 			_controller.Movement.Move(_velocity * Time.deltaTime);
@@ -174,12 +189,12 @@ namespace Assets.Scripts.Denizens
 			{
 				_playerSpotted = true;
 				_movementPaused = true;
-				_animator.Play(Animator.StringToHash("Gasp"));
+				_animator.Play(Animator.StringToHash(Animations.Gasp));
 			}
 			else if (_playerSpotted)
 			{
 				_playerSpotted = false;
-				_animator.Play(Animator.StringToHash("Relief"));
+				_animator.Play(Animator.StringToHash(Animations.Relief));
 			}
 		}
 

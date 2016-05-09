@@ -37,7 +37,7 @@ namespace Assets.Scripts.Player
 				_velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * FlySpeed, ref _velocity.x, Time.deltaTime * AirDamping);
 				_velocity.y = Mathf.SmoothDamp(_velocity.y, _normalizedVerticalSpeed * FlySpeed - appliedGravity, ref _velocity.y, Time.deltaTime * AirDamping);
 
-				_controller._movement.Move(_velocity * Time.deltaTime);
+				_controller.Movement.Move(_velocity * Time.deltaTime);
 				_velocity = _controller.Velocity;
 			}
 			else
@@ -46,7 +46,8 @@ namespace Assets.Scripts.Player
 				_normalizedVerticalSpeed = 0;
 				_velocity = Vector3.zero;
 			}
-			_controller.HeatIce();
+            _controller.Movement.MoveWithBuilding();
+            _controller.HeatIce();
 		}
 
 		private void HandleMovementInputs()

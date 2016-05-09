@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Movement;
+using Assets.Scripts.Helpers;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -26,8 +26,8 @@ namespace Assets.Scripts.Player
 			_anim = _motor.Anim;
 			_climbCollider = null;
 			_playerCollider = _motor.Collider;
-			_rightClimbLayer = LayerMask.NameToLayer("Right Climb Spot");
-			_leftClimbLayer = LayerMask.NameToLayer("Left Climb Spot");
+			_rightClimbLayer = LayerMask.NameToLayer(Layers.RightClimbSpot);
+			_leftClimbLayer = LayerMask.NameToLayer(Layers.LeftClimbSpot);
 			NextClimbingStates = new List<ClimbingState>();
 		}
 
@@ -135,6 +135,16 @@ namespace Assets.Scripts.Player
 			}
 		}
 
+        private bool IsEdgeUnblocked(RaycastHit2D originalHit)
+        {
+            Vector3 origin = _playerCollider.bounds.center;
+            Vector3 direction = originalHit.collider.bounds.center - origin;
+
+            RaycastHit2D hit = Physics2D.Raycast(origin, direction, 10f, _motor.DefaultPlatformMask);
+
+            return originalHit.collider.transform.parent == hit.collider.transform;
+        }
+
 		public bool CheckLedgeAbove()
 		{
 			const float checkWidth = 5f;
@@ -148,7 +158,7 @@ namespace Assets.Scripts.Player
 
 			RaycastHit2D hit = GetNearestHit(Physics2D.BoxCastAll(origin, size, 0, Vector2.up, checkHeight, GetClimbMask()));
 
-			if (hit)
+			if (hit && IsEdgeUnblocked(hit))
 			{
 				SetClimbingParameters(hit);
 				if (ShouldStraightClimb() == false && hit.collider.CanSwing() == false)
@@ -157,7 +167,7 @@ namespace Assets.Scripts.Player
 				if (CurrentClimbingState == ClimbingState.None)
 				{
 					CurrentClimbingState = ClimbingState.Up;
-					_anim.PlayAnimation(ShouldStraightClimb() ? "ClimbUp" : "FlipUp");
+					_anim.PlayAnimation(ShouldStraightClimb() ? Animations.ClimbUp : Animations.FlipUp);
 				}
 			}
 			return hit;
@@ -176,7 +186,7 @@ namespace Assets.Scripts.Player
 
 			RaycastHit2D hit = GetCorrectSideHit(Physics2D.BoxCastAll(origin, size, 0, Vector2.down, checkDepth, GetClimbMask()), direction);
 
-			if (hit)
+			if (hit && IsEdgeUnblocked(hit))
 			{
 				if (intendedClimbingState == ClimbingState.Down && hit.collider.CanClimbDown() == false
 					|| intendedClimbingState == ClimbingState.MoveToEdge && hit.collider.CanCross() == false)
@@ -224,7 +234,7 @@ namespace Assets.Scripts.Player
 		{
 			NextClimbingStates.Clear();
 
-			const float checkLength = 10f;
+			const float checkLength = 7f;
 			const float checkDepth = 4f;
 
 			var origin = new Vector2(
@@ -240,9 +250,12 @@ namespace Assets.Scripts.Player
 
 			foreach (RaycastHit2D h in hits.Where(h => h.collider != _climbCollider))
 			{
-				hit = h;
-				SetClimbingParameters(hit);
-				return hit;
+                if (IsEdgeUnblocked(h))
+                {
+                    hit = h;
+                    SetClimbingParameters(hit);
+                    return hit;
+                }
 			}
 			return hit;
 		}
@@ -269,8 +282,11 @@ namespace Assets.Scripts.Player
 
 			foreach (RaycastHit2D h in hits.Where(h => h.collider != _climbCollider))
 			{
-				hit = h;
-				SetClimbingParameters(hit);
+                if (IsEdgeUnblocked(h))
+                {
+                    hit = h;
+                    SetClimbingParameters(hit);
+                }
 			}
 			return hit;
 		}
@@ -396,7 +412,7 @@ namespace Assets.Scripts.Player
 
 			if (_climbCollider != null)
 			{
-				_motor.BuildingTransform = _climbCollider.transform.parent.parent;
+                _motor.SetBuildingTransform(_climbCollider.transform.parent.parent);
 			}
 
 			return CurrentClimbingState;

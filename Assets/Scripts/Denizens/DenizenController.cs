@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Movement;
+﻿using Assets.Scripts.Helpers;
+using Assets.Scripts.Movement;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -79,12 +80,12 @@ namespace Assets.Scripts.Denizens
 
         public bool SpotPlayer(Vector2 direction)
         {
-            LayerMask mask = 1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Static Environment");
+            LayerMask mask = 1 << LayerMask.NameToLayer(Layers.Player) | 1 << LayerMask.NameToLayer(Layers.OutdoorWood);
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 20f, mask);
             if (hit)
             {
-                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer(Layers.Player))
                 {
                     hit.collider.SendMessage("Spotted", SendMessageOptions.RequireReceiver);
                     return true;
@@ -95,7 +96,7 @@ namespace Assets.Scripts.Denizens
 
         void OnTriggerStay2D(Collider2D col)
         {
-            if (col.gameObject.layer == LayerMask.NameToLayer("PL Spot"))
+            if (col.gameObject.layer == LayerMask.NameToLayer(Layers.PlSpot))
                 SatAtFireplace = col.gameObject.GetComponent<FirePlace>().IsLit;
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.Helpers;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Sprites
@@ -84,7 +85,7 @@ namespace Assets.Scripts.Sprites
             Destroy(_stilt);
 			_hingeJoint.enabled = false;
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
-			gameObject.layer = LayerMask.NameToLayer("Background");
+			gameObject.layer = LayerMask.NameToLayer(Layers.Background);
 		}
 	}
 }

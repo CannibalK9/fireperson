@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Assets.Scripts.Helpers;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Sprites
@@ -30,7 +31,7 @@ namespace Assets.Scripts.Sprites
 		{
 			Destroy(_ice.gameObject);
 			gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
-			gameObject.layer = LayerMask.NameToLayer("Default");
+			gameObject.layer = LayerMask.NameToLayer(Layers.Background);
 		}
 
 		private void AddEdges()

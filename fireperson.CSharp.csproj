@@ -68,26 +68,28 @@
     <Compile Include="Assets\AnimationHierarchyEditor.cs" />
     <Compile Include="Assets\Scripts\Denizens\DenizenController.cs" />
     <Compile Include="Assets\Scripts\Denizens\DenizenMotor.cs" />
-    <Compile Include="Assets\Scripts\Denizens\DirectionTravelling.cs" />
+    <Compile Include="Assets\Scripts\Helpers\DirectionTravelling.cs" />
     <Compile Include="Assets\Scripts\Denizens\FirePlace.cs" />
     <Compile Include="Assets\Scripts\Fire\Fire.cs" />
     <Compile Include="Assets\Scripts\Heat\HeatHandler.cs" />
     <Compile Include="Assets\Scripts\Heat\HeatMessage.cs" />
     <Compile Include="Assets\Scripts\Heat\IVariableHeater.cs" />
+    <Compile Include="Assets\Scripts\Helpers\Animations.cs" />
+    <Compile Include="Assets\Scripts\Helpers\Layers.cs" />
     <Compile Include="Assets\Scripts\Ice\Ice.cs" />
     <Compile Include="Assets\Scripts\Ice\Triangulator.cs" />
     <Compile Include="Assets\Scripts\Movement\CharacterRaycastOrigins.cs" />
-    <Compile Include="Assets\Scripts\Movement\ColliderExtension.cs" />
+    <Compile Include="Assets\Scripts\Helpers\ColliderExtension.cs" />
     <Compile Include="Assets\Scripts\Movement\CollisionState.cs" />
     <Compile Include="Assets\Scripts\Movement\IController.cs" />
     <Compile Include="Assets\Scripts\Movement\MovementHandler.cs" />
     <Compile Include="Assets\Scripts\Player\AnimationScript.cs" />
     <Compile Include="Assets\Scripts\Player\ClimbHandler.cs" />
     <Compile Include="Assets\Scripts\Player\ClimbingState.cs" />
-    <Compile Include="Assets\Scripts\Player\Controls.cs" />
+    <Compile Include="Assets\Scripts\Player\Config\Controls.cs" />
     <Compile Include="Assets\Scripts\Player\DirectionFacing.cs" />
     <Compile Include="Assets\Scripts\Player\FollowingLight.cs" />
-    <Compile Include="Assets\Scripts\Player\KeyBindings.cs" />
+    <Compile Include="Assets\Scripts\Player\Config\KeyBindings.cs" />
     <Compile Include="Assets\Scripts\Player\PilotedLightController.cs" />
     <Compile Include="Assets\Scripts\Player\PilotedLightMotor.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
@@ -221,5 +223,6 @@
     <None Include="Assets\SpritesAndBones\Shader\LinesColoredBlended.shader" />
     <None Include="Assets\SpritesAndBones\license-attributions.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

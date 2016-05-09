@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.Movement
+namespace Assets.Scripts.Helpers
 {
 	public static class ColliderExtension
 	{

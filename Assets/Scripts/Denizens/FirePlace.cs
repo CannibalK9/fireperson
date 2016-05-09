@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.Helpers;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Denizens
@@ -23,7 +24,7 @@ namespace Assets.Scripts.Denizens
             if (IsLit == false || IsHeatSource == false)
                 return;
 
-            LayerMask mask = 1 << LayerMask.NameToLayer("Denizens") | 1 << LayerMask.NameToLayer("Static Environment");
+            LayerMask mask = 1 << LayerMask.NameToLayer(Layers.Denizens) | 1 << LayerMask.NameToLayer(Layers.OutdoorWood);
 
             _origin = transform.position;
             _rotation = new Vector2(transform.rotation.x, transform.rotation.y);

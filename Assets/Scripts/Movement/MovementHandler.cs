@@ -10,14 +10,41 @@ namespace Assets.Scripts.Movement
 		private readonly IController _controller;
 		private RaycastHit2D _raycastHit;
 		private CharacterRaycastOrigins _raycastOrigins;
+		private Vector3 _previousBuildingPosition;
+        private Transform _buildingTransform;
+        public Transform BuildingTransform
+        {
+            get { return _buildingTransform; }
+            set
+            {
+                _buildingTransform = value;
+                _previousBuildingPosition = _buildingTransform.position;
+                _controller.RaycastHitsThisFrame.Clear();
+            }
+        }
 
-		private const float _kSkinWidthFloatFudgeFactor = 0.001f;
+        private const float _kSkinWidthFloatFudgeFactor = 0.001f;
 		private bool _isGoingUpSlope;
 
 		public MovementHandler(IController controller)
 		{
 			_controller = controller;
 		}
+
+        public void MoveWithBuilding()
+        {
+            if (_controller.RaycastHitsThisFrame.Count > 0 && BuildingTransform != _controller.RaycastHitsThisFrame[0].transform)
+                BuildingTransform = _controller.RaycastHitsThisFrame[0].transform;
+
+            if (BuildingTransform != null)
+            {
+                _controller.Transform.position += new Vector3(
+                    BuildingTransform.position.x - _previousBuildingPosition.x,
+                    BuildingTransform.position.y - _previousBuildingPosition.y);
+
+                _previousBuildingPosition = _buildingTransform.position;
+            }
+        }
 
 		public void Move(Vector3 deltaMovement)
 		{

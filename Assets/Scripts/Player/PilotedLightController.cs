@@ -3,6 +3,7 @@ using Assets.Scripts.Heat;
 using Assets.Scripts.Movement;
 using UnityEngine;
 using Assets.Scripts.Denizens;
+using Assets.Scripts.Helpers;
 
 namespace Assets.Scripts.Player
 {
@@ -56,7 +57,7 @@ namespace Assets.Scripts.Player
 		public LayerMask _platformMask = 0;
 		public LayerMask PlatformMask { get { return _platformMask; } }
 
-		public MovementHandler _movement;
+		public MovementHandler Movement;
 		public BoxCollider2D BoxCollider { get; set; }
 		public CollisionState CollisionState { get; set; }
 		public Transform Transform { get; set; }
@@ -77,7 +78,7 @@ namespace Assets.Scripts.Player
 
 			RaycastHitsThisFrame = new List<RaycastHit2D>(2);
 			CollisionState = new CollisionState();
-			_movement = new MovementHandler(this);
+			Movement = new MovementHandler(this);
 			_heatHandler = new HeatHandler(this);
 
 			BoxCollider = GetComponent<BoxCollider2D>();
@@ -128,7 +129,7 @@ namespace Assets.Scripts.Player
 
 		private void MoveTowardsPoint()
 		{
-			_movement.Move((CollidingPoint.transform.position - transform.position) * 0.2f);
+			Movement.Move((CollidingPoint.transform.position - transform.position) * 0.2f);
 			if (OnPoint())
 			{
 				transform.localScale = _initialScale;
@@ -178,7 +179,7 @@ namespace Assets.Scripts.Player
 
 		void OnTriggerEnter2D(Collider2D col)
 		{
-			if (col.gameObject.layer == LayerMask.NameToLayer("PL Spot"))
+			if (col.gameObject.layer == LayerMask.NameToLayer(Layers.PlSpot))
 			{
 				if (col.GetComponent<FirePlace>().IsAccessible)
 				{

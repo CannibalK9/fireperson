@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Helpers;
+using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
@@ -14,7 +15,7 @@ namespace Assets.Scripts.Player
 
 		void Update()
 		{
-			if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || _animator.GetCurrentAnimatorStateInfo(0).IsName("Falling"))
+			if (_animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Idle) || _animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Falling))
 			{
 				_animator.ResetTrigger("climbUp");
 				_animator.ResetTrigger("transitionDown");

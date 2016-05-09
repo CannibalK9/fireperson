@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Denizens
+﻿namespace Assets.Scripts.Helpers
 {
     public enum DirectionTravelling
     {

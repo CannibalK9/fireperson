@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Movement;
+﻿using Assets.Scripts.Helpers;
 using Assets.Scripts.Sprites;
 using UnityEngine;
 
@@ -16,29 +16,23 @@ namespace Assets.Scripts.Player
 		public BoxCollider2D Collider { get; private set; }
 		public bool AcceptInput { get; set; }
 		public bool MovementAllowed { get; set; }
-		private Transform _buildingTransform;
-		public Transform BuildingTransform
-		{
-			get { return _buildingTransform; }
-			set
-			{
-				_buildingTransform = value;
-				_previousBuildingPosition = _buildingTransform.position;
-				_controller.RaycastHitsThisFrame.Clear();
-			}
-		}
+		
 
 		public DirectionFacing ClimbingSide
 		{
 			get { return _climbHandler.ClimbingSide; }
 		}
 
+        public LayerMask DefaultPlatformMask
+        {
+            get { return _defaultPlatformMask; }
+        }
+
 		private PlayerController _controller;
 		private ClimbHandler _climbHandler;
 		private Vector3 _velocity;
 		private LayerMask _defaultPlatformMask;
 		private Transform _transform;
-		private Vector3 _previousBuildingPosition;
 		private Collider2D _targetCollider;
 
 		void Awake()
@@ -95,27 +89,17 @@ namespace Assets.Scripts.Player
 				}
 			}
 
-			if (_controller.RaycastHitsThisFrame.Count > 0 && BuildingTransform != _controller.RaycastHitsThisFrame[0].transform)
-				BuildingTransform = _controller.RaycastHitsThisFrame[0].transform;
-
-			MoveWithBuilding();
+			_controller.Movement.MoveWithBuilding();
 
 			_controller.HeatIce();
 		}
 
-		private void MoveWithBuilding()
-		{
-			if (BuildingTransform != null)
-			{
-				Anim.transform.position += new Vector3(
-					BuildingTransform.position.x - _previousBuildingPosition.x,
-					BuildingTransform.position.y - _previousBuildingPosition.y);
-				
-				_previousBuildingPosition = BuildingTransform.position;
-			}
-		}
+        public void SetBuildingTransform(Transform t)
+        {
+            _controller.Movement.BuildingTransform = t;
+        }
 
-		private void SetHorizontalVelocityOnGround()
+        private void SetHorizontalVelocityOnGround()
 		{
 			_velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * RunSpeed, ref _velocity.x, Time.deltaTime * GroundDamping);
 		}
@@ -186,23 +170,23 @@ namespace Assets.Scripts.Player
 			if (KeyBindings.GetKey(Control.Up))
 				_climbHandler.CheckLedgeAbove();
 			else if (KeyBindings.GetKey(Control.Down) && _climbHandler.CheckLedgeBelow(ClimbingState.Down, GetDirectionFacing()))
-				Anim.PlayAnimation("ClimbDown");
+				Anim.PlayAnimation(Animations.ClimbDown);
 			else if (KeyBindings.GetKey(Control.Jump) && _climbHandler.CheckLedgeBelow(ClimbingState.MoveToEdge, GetDirectionFacing()))
 			{
-				Anim.PlayAnimation("MoveToEdge");
+				Anim.PlayAnimation(Animations.MoveToEdge);
 				_climbHandler.NextClimbingStates.Add(
 					GetDirectionFacing() == DirectionFacing.Left
 					? ClimbingState.AcrossLeft
 					: ClimbingState.AcrossRight);
 			}
-			else if (KeyBindings.GetKey(Control.Action))
+			else if (KeyBindings.GetKey(Control.Action) && NoPilotedLightExists())
 			{
 				_controller.CreatePilotedLight();
 				//Anim.PlayAnimation("CreateLight");
 			}
 			else if (KeyBindings.GetKey(Control.Destroy) && CheckStiltInFront(GetDirectionFacing()))
 			{
-				Anim.PlayAnimation("DestroyStilt");
+				Anim.PlayAnimation(Animations.DestroyStilt);
 			}
 		}
 
@@ -221,9 +205,9 @@ namespace Assets.Scripts.Player
 				_normalizedHorizontalSpeed != 0);
 		}
 
-		private bool PilotedLightExists()
+		private bool NoPilotedLightExists()
 		{
-			return GameObject.Find("PilotedLight(Clone)");
+			return GameObject.Find("PilotedLight(Clone)") == false;
 		}
 
 		public void CancelVelocity()
@@ -307,7 +291,7 @@ namespace Assets.Scripts.Player
 
 			var size = new Vector2(checkLength, checkDepth);
 
-			RaycastHit2D hit = Physics2D.BoxCast(origin, size, 0, Vector2.down, 0.01f, 1 << LayerMask.NameToLayer("Destructable"));
+			RaycastHit2D hit = Physics2D.BoxCast(origin, size, 0, Vector2.down, 0.01f, 1 << LayerMask.NameToLayer(Layers.Destructable));
 
 			if (hit)
 			{

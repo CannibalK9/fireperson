@@ -18,14 +18,15 @@ namespace Assets.Scripts.Ice
 		private Mesh _mesh;
 		private Vector2[] _initialPoints;
 		private Vector2[] _newPoints;
-		private Dictionary<int, Vector2> _normalsBeforeMelt;
         private Joint2D[] _joints;
+        private MeshRenderer _meshRenderer;
 
 		void Awake()
 		{
 			_polyCollider = GetComponent<PolygonCollider2D>();
 			_mesh = GetComponent<MeshFilter>().mesh;
             _joints = GetComponents<FixedJoint2D>();
+            _meshRenderer = GetComponent<MeshRenderer>();
             AnyJointEnabled = true;
 		}
 
@@ -93,16 +94,20 @@ namespace Assets.Scripts.Ice
             if (_joints.Length > 0 && _joints.Where(j => j.enabled == true).Any() == false)
                 AnyJointEnabled = false;
 
+            _polyCollider.enabled = true;
+
 			if (_polyCollider.bounds.size.x < 0.5 || _polyCollider.bounds.size.y < 0.5)
 			{
 				_polyCollider.enabled = false;
+                _meshRenderer.enabled = false;
 			}
 			else
 			{
 				_polyCollider.enabled = true;
-			}
+                _meshRenderer.enabled = true;
+            }
 
-			if (GrowsBack)
+            if (GrowsBack)
 			{
 				_polyCollider.points = RaisePoints();
 				SetMeshFilterToPolyColliderPoints();

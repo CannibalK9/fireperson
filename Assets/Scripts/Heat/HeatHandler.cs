@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.Helpers;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -53,7 +54,7 @@ namespace Assets.Scripts.Heat
 
 		private LayerMask GetMeltingMask()
 		{
-			return 1 << LayerMask.NameToLayer("Melting");
+			return 1 << LayerMask.NameToLayer(Layers.Ice);
 		}
 
 		private void SendRaycastMessages(IEnumerable<RaycastHit2D> hits, Vector2 origin, float castDistance)
