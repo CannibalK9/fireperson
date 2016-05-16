@@ -96,7 +96,7 @@ namespace Assets.Scripts.Ice
 
             _polyCollider.enabled = true;
 
-			if (_polyCollider.bounds.size.x < 0.5 || _polyCollider.bounds.size.y < 0.5)
+			if (_polyCollider.bounds.size.x < 0.3 || _polyCollider.bounds.size.y < 0.3)
 			{
 				_polyCollider.enabled = false;
                 _meshRenderer.enabled = false;
@@ -134,6 +134,7 @@ namespace Assets.Scripts.Ice
 		void Melt(HeatMessage message)
 		{
 			_polyCollider.points = MovePointsInwards(message);
+            _polyCollider.points = FlattenAngles();
 			SetMeshFilterToPolyColliderPoints();
 		}
 
@@ -160,7 +161,7 @@ namespace Assets.Scripts.Ice
 					? centre - point
 					: point - centre;
 
-				Vector2 newPoint = Vector2.MoveTowards(point, direction.normalized*10, DefaultDistanceToLowerPoints);// - UnityEngine.Random.value / 10);
+				Vector2 newPoint = Vector2.MoveTowards(point, direction, DefaultDistanceToLowerPoints);// - UnityEngine.Random.value / 10);
 
 				_newPoints[i] = newPoint;
 			}
@@ -174,43 +175,45 @@ namespace Assets.Scripts.Ice
                 }
             }
 
-			foreach (int i in allIndices)
-			{
-				int currentIndex = i;
-                int count = 0;
-				while (AcuteAngleFlattened(currentIndex, GetBeforeIndex(currentIndex), GetAfterIndex(currentIndex)) && count < _polyCollider.points.Length)
-				{
-					currentIndex = GetBeforeIndex(currentIndex);
-                    count++;
-				}
-
-				currentIndex = GetAfterIndex(i);
-                count = 0;
-                while (AcuteAngleFlattened(currentIndex, GetBeforeIndex(currentIndex), GetAfterIndex(currentIndex)) && count < _polyCollider.points.Length)
-				{
-					currentIndex = GetAfterIndex(currentIndex);
-                    count++;
-				}
-			}
-
-			return _newPoints;
+            return _newPoints;
 		}
 
-		private bool AcuteAngleFlattened(int currentIndex, int beforeIndex, int afterIndex)
+        private Vector2[] FlattenAngles()
+        {
+            _newPoints = _polyCollider.points;
+            int currentIndex = 0;
+            int count = 0;
+            while (count < _polyCollider.points.Length)
+            {
+                AcuteAngleFlattened(currentIndex, GetBeforeIndex(currentIndex), GetAfterIndex(currentIndex));
+                currentIndex = GetBeforeIndex(currentIndex);
+                count++;
+            }
+
+            return _newPoints;
+        }
+
+		private void AcuteAngleFlattened(int currentIndex, int beforeIndex, int afterIndex)
 		{
             Vector2 point = _newPoints[currentIndex];
             Vector2 beforePoint = _newPoints[beforeIndex];
             Vector2 afterPoint = _newPoints[afterIndex];
 			Vector2 centre = Vector2.Lerp(beforePoint, afterPoint, 0.5f);
 
-			if (Vector2.Angle(beforePoint - point, afterPoint - point) < 90)
+            float angle = Angle(beforePoint, afterPoint, point);
+
+            while (angle < 90)
 			{
-				Vector2 direction = centre - point;
-				_newPoints[currentIndex] = Vector2.MoveTowards(_newPoints[currentIndex], direction.normalized * 10, DefaultDistanceToLowerPoints);// - UnityEngine.Random.value / 10);
-				return true;
-			}
-			return false;
-		}
+				point = Vector2.MoveTowards(point, centre, DefaultDistanceToLowerPoints);// - UnityEngine.Random.value / 10);
+                angle = Angle(beforePoint, afterPoint, point);
+            }
+            _newPoints[currentIndex] = point;
+        }
+
+        private float Angle(Vector2 beforePoint, Vector2 afterPoint, Vector2 point)
+        {
+            return Vector2.Angle(beforePoint - point, afterPoint - point);
+        }
 
 		private int GetBeforeIndex(int currentIndex)
 		{
