@@ -4,19 +4,18 @@ using Assets.Scripts.Movement;
 using UnityEngine;
 using Assets.Scripts.Denizens;
 using Assets.Scripts.Helpers;
+using Assets.Scripts.Player.Config;
 
 namespace Assets.Scripts.Player
 {
 	public class PilotedLightController : MonoBehaviour, IVariableHeater, IController
 	{
-		public float DurationInSeconds = 5f;
+		public float DurationInSeconds;
 		private float _remainingDurationInSeconds;
 		private const float _minimumScale = 1f;
 		private Vector2 _initialScale;
 
 		private HeatHandler _heatHandler;
-		public float _heatRayDistance = 0.2f;
-		public float HeatRayDistance { get { return _heatRayDistance; } }
 
 		[Range(2, 20)]
 		public int _totalHorizontalRays = 4;
@@ -53,7 +52,15 @@ namespace Assets.Scripts.Player
 			}
 		}
 
-		public LayerMask _triggerMask = 0;
+        [Range(1, 10)]
+        public float _heatRayDistance;
+        public float HeatRayDistance { get { return _heatRayDistance; } }
+
+        [Range(1, 10)]
+        public float _heatIntensity;
+        public float HeatIntensity { get { return _heatIntensity; } }
+
+        public LayerMask _triggerMask = 0;
 		public LayerMask _platformMask = 0;
 		public LayerMask PlatformMask { get { return _platformMask; } }
 
@@ -74,7 +81,6 @@ namespace Assets.Scripts.Player
 		{
 			IsMovementOverridden = false;
 			_initialScale = transform.localScale;
-			_remainingDurationInSeconds = DurationInSeconds;
 
 			RaycastHitsThisFrame = new List<RaycastHit2D>(2);
 			CollisionState = new CollisionState();
@@ -88,7 +94,16 @@ namespace Assets.Scripts.Player
 			IgnoreCollisionLayersOutsideTriggerMask();
 		}
 
-		private void IgnoreCollisionLayersOutsideTriggerMask()
+        void Start()
+        {
+            _heatRayDistance = PlayerPrefs.GetFloat(Variable.PlRange.ToString());
+            _heatIntensity = PlayerPrefs.GetFloat(Variable.PlIntensity.ToString());
+            DurationInSeconds = PlayerPrefs.GetFloat(Variable.PlDuration.ToString());
+
+			_remainingDurationInSeconds = DurationInSeconds;
+        }
+
+        private void IgnoreCollisionLayersOutsideTriggerMask()
 		{
 			for (var i = 0; i < 32; i++)
 			{

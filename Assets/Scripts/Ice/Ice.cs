@@ -12,6 +12,7 @@ namespace Assets.Scripts.Ice
 		public float DefaultDistanceToLowerPoints = 0.1f;
 
 		public bool GrowsBack;
+        public bool ExtraPoints;
         public bool AnyJointEnabled { get; set; }
 
 		private PolygonCollider2D _polyCollider;
@@ -32,7 +33,8 @@ namespace Assets.Scripts.Ice
 
 		void Start()
 		{
-            _polyCollider.points = GetColliderPointsAtIntervals(ActualDistanceBetweenPoints);
+            if (ExtraPoints)
+                _polyCollider.points = GetColliderPointsAtIntervals(ActualDistanceBetweenPoints);
 			_initialPoints = _polyCollider.points;
 			SetMeshFilterToPolyColliderPoints();
 		}
@@ -151,27 +153,23 @@ namespace Assets.Scripts.Ice
 				int beforeIndex = GetBeforeIndex(i);
 				int afterIndex = GetAfterIndex(i);
 
-				Vector2 point = _polyCollider.points[i];
-				Vector2 beforePoint = _polyCollider.points[beforeIndex];
-				Vector2 afterPoint = _polyCollider.points[afterIndex];
+				Vector2 point = transform.TransformPoint(_polyCollider.points[i]);
+				Vector2 beforePoint = transform.TransformPoint(_polyCollider.points[beforeIndex]);
+				Vector2 afterPoint = transform.TransformPoint(_polyCollider.points[afterIndex]);
 
-				Vector2 centre = Vector2.Lerp(beforePoint, afterPoint, 0.5f);
 
-				Vector2 direction = _polyCollider.OverlapPoint(transform.TransformPoint(centre))
-					? centre - point
-					: point - centre;
+                Vector2 offSet = beforePoint - afterPoint;
+                Vector2 perpendicular = new Vector2(-offSet.y, offSet.x) / (offSet.magnitude * 100f);
+                Vector2 perpendicular2 = new Vector2(-offSet.y, offSet.x) / (offSet.magnitude * -100f);
 
-				Vector2 newPoint = Vector2.MoveTowards(point, direction, DefaultDistanceToLowerPoints);// - UnityEngine.Random.value / 10);
-
-				_newPoints[i] = newPoint;
-			}
-
-            for (int i = 0; i < _polyCollider.points.Length; i++)
-            {
-                if (_polyCollider.OverlapPoint(transform.TransformPoint(_newPoints[i])) == false)
+                Vector2 newPoint = Vector2.MoveTowards(point, perpendicular, message.DistanceToMove - Random.value / 10);
+                if (_polyCollider.OverlapPoint(newPoint))
+                    _newPoints[i] = transform.InverseTransformPoint(newPoint);
+                else
                 {
-                    allIndices.Remove(i);
-                    _newPoints[i] = _polyCollider.points[i];
+                    newPoint = Vector2.MoveTowards(point, perpendicular2, message.DistanceToMove - Random.value / 10);
+                    if (_polyCollider.OverlapPoint(newPoint))
+                        _newPoints[i] = transform.InverseTransformPoint(newPoint);
                 }
             }
 
@@ -195,19 +193,19 @@ namespace Assets.Scripts.Ice
 
 		private void AcuteAngleFlattened(int currentIndex, int beforeIndex, int afterIndex)
 		{
-            Vector2 point = _newPoints[currentIndex];
-            Vector2 beforePoint = _newPoints[beforeIndex];
-            Vector2 afterPoint = _newPoints[afterIndex];
+            Vector2 point = transform.TransformPoint(_newPoints[currentIndex]);
+            Vector2 beforePoint = transform.TransformPoint(_newPoints[beforeIndex]);
+            Vector2 afterPoint = transform.TransformPoint(_newPoints[afterIndex]);
 			Vector2 centre = Vector2.Lerp(beforePoint, afterPoint, 0.5f);
 
             float angle = Angle(beforePoint, afterPoint, point);
 
             while (angle < 90)
 			{
-				point = Vector2.MoveTowards(point, centre, DefaultDistanceToLowerPoints);// - UnityEngine.Random.value / 10);
+				point = Vector2.MoveTowards(point, centre, 100f);
                 angle = Angle(beforePoint, afterPoint, point);
             }
-            _newPoints[currentIndex] = point;
+            _newPoints[currentIndex] = transform.InverseTransformPoint(point);
         }
 
         private float Angle(Vector2 beforePoint, Vector2 afterPoint, Vector2 point)

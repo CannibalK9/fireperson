@@ -6,5 +6,6 @@ namespace Assets.Scripts.Heat
     {
         BoxCollider2D BoxCollider { get; set; }
         float HeatRayDistance { get; }
+        float HeatIntensity { get; }
     }
 }

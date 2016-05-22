@@ -61,5 +61,10 @@
         {
             get { return "Background"; }
         }
+
+        public static string BackgroundIce
+        {
+            get { return "BackgroundIce"; }
+        }
     }
 }

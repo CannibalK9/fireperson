@@ -8,10 +8,12 @@ namespace Assets.Scripts.Heat
 	public class HeatHandler
 	{
 		private readonly IVariableHeater _heater;
+        private GameObject _steam;
 
 		public HeatHandler(IVariableHeater heater)
 		{
 			_heater = heater;
+            _steam = (GameObject)Resources.Load("particles/steam");
 		}
 
 		public void OneCircleHeat()
@@ -34,7 +36,7 @@ namespace Assets.Scripts.Heat
 		{
 			const int numberOfCasts = 20;
 
-			float radius = _heater.BoxCollider.bounds.extents.x + _heater.HeatRayDistance;
+			float radius = _heater.BoxCollider.bounds.extents.x + _heater.HeatRayDistance / 10;
 			var hits = new List<RaycastHit2D>();
 			for (int i = 0; i < numberOfCasts; i++)
 			{
@@ -54,15 +56,20 @@ namespace Assets.Scripts.Heat
 
 		private LayerMask GetMeltingMask()
 		{
-			return 1 << LayerMask.NameToLayer(Layers.Ice);
+			return 1 << LayerMask.NameToLayer(Layers.Ice) | 1 << LayerMask.NameToLayer(Layers.BackgroundIce);
 		}
 
 		private void SendRaycastMessages(IEnumerable<RaycastHit2D> hits, Vector2 origin, float castDistance)
 		{
+            foreach (RaycastHit2D hit in hits)
+            {
+                Object.Instantiate(_steam, hit.point, new Quaternion());
+            }
+
 			IEnumerable<RaycastHit2D> uniqueHits = hits.GroupBy(hit => hit.collider).Select(h => h.First()).ToList();
 			foreach (RaycastHit2D hit in uniqueHits)
 			{
-				hit.collider.SendMessage("Melt", new HeatMessage { Hit = hit, Origin = origin, CastDistance = castDistance}, SendMessageOptions.RequireReceiver);
+				hit.collider.SendMessage("Melt", new HeatMessage { Hit = hit, Origin = origin, CastDistance = castDistance, DistanceToMove = _heater.HeatIntensity / 10}, SendMessageOptions.RequireReceiver);
 			}
 		}
 	}

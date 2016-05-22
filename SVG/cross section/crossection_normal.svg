@@ -452,7 +452,7 @@
        x2="832"
        y2="-994.93195"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(-1,0,0,0.5,1536,-498.17193)" />
+       gradientTransform="matrix(-1,0,0,-0.5,1536,-1461.1037)" />
     <linearGradient
        inkscape:collect="always"
        id="linearGradient4498">
@@ -474,14 +474,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.02"
-     inkscape:cx="527.68133"
+     inkscape:cx="360.52447"
      inkscape:cy="1978.0231"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1366"
-     inkscape:window-height="705"
-     inkscape:window-x="-8"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1358"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      units="px"
@@ -942,7 +942,7 @@
     </g>
     <path
        style="fill:url(#linearGradient4504);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 768,-963.63791 0,-31.97403 -128,-0.0259 0,16.15685 0,15.84315 z"
+       d="m 768,-995.63777 0,31.97403 -128,0.0259 0,-16.15685 0,-15.84315 z"
        id="path4485"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccccc" />

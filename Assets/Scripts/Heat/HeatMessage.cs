@@ -7,5 +7,6 @@ namespace Assets.Scripts.Heat
 		public RaycastHit2D Hit;
 		public Vector2 Origin;
 		public float CastDistance;
+        public float DistanceToMove;
 	}
 }

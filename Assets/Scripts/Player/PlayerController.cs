@@ -1,6 +1,7 @@
-﻿using System;
-using Assets.Scripts.Heat;
+﻿using Assets.Scripts.Heat;
 using Assets.Scripts.Movement;
+using Assets.Scripts.Player.Config;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,12 +46,16 @@ namespace Assets.Scripts.Player
 		public int _totalVerticalRays = 4;
 		public int TotalVerticalRays { get { return _totalVerticalRays; } }
 
-		private float _defaultHeatRayDistance;
-		private float _currentHeatRayDistance;
-		public float _heatRayDistance = 0.2f;
+        [Range(1, 10)]
+        public float _defaultHeatRayDistance;
+        private float _heatRayDistance;
 		public float HeatRayDistance { get { return _heatRayDistance; } }
 
-		public Transform Transform { get; set; }
+        [Range(1, 10)]
+        public float _heatIntensity;
+        public float HeatIntensity { get { return _heatIntensity; } }
+
+        public Transform Transform { get; set; }
 		public BoxCollider2D BoxCollider { get; set; }
 		public CollisionState CollisionState { get; set; }
 		public bool IsGrounded { get { return CollisionState.Below; } }
@@ -66,7 +71,9 @@ namespace Assets.Scripts.Player
 
 		void Awake()
 		{
-			Transform = transform.parent.parent;
+            SetupVariables();
+
+            Transform = transform.parent.parent;
 			BoxCollider = GetComponent<BoxCollider2D>();
 			CollisionState = new CollisionState();
 			RaycastHitsThisFrame = new List<RaycastHit2D>(2);
@@ -77,18 +84,43 @@ namespace Assets.Scripts.Player
 			_heatHandler = new HeatHandler(this);
 
 			IgnoreCollisionLayersOutsideTriggerMask();
+            SetHeatRayDistanceToDefault();
+        }
 
-			_defaultHeatRayDistance = _heatRayDistance;
-			_currentHeatRayDistance = _heatRayDistance;
-		}
+        void Start()
+        {
+            _defaultHeatRayDistance = PlayerPrefs.GetFloat(Variable.PlayerRange.ToString());
+            _heatIntensity = PlayerPrefs.GetFloat(Variable.PlayerIntensity.ToString());
+        }
 
-		void Update()
-		{
-			if (Math.Abs(_currentHeatRayDistance - _heatRayDistance) < 0.01f)
-				_heatRayDistance = _defaultHeatRayDistance;
-			else
-				_currentHeatRayDistance = _heatRayDistance;
-		}
+        private void SetupVariables()
+        {
+            foreach (Variable variable in Enum.GetValues(typeof(Variable)))
+            {
+                if (PlayerPrefs.HasKey(variable.ToString()) == false)
+                    PlayerPrefs.SetFloat(variable.ToString(), 1f);
+            }
+        }
+
+        private float _heatRayDistanceLastFrame;
+
+        void Update()
+        {
+            if (_heatRayDistanceLastFrame == _heatRayDistance && _heatRayDistance != 0)
+            {
+                SetHeatRayDistanceToDefault();
+            }
+            else if (_heatRayDistance < 0)
+                _heatRayDistance = 0;
+
+            _heatRayDistanceLastFrame = _heatRayDistance;
+        }
+
+        private void SetHeatRayDistanceToDefault()
+        {
+            _heatRayDistance = _defaultHeatRayDistance;
+            _heatRayDistanceLastFrame = _defaultHeatRayDistance;
+        }
 
 		private void IgnoreCollisionLayersOutsideTriggerMask()
 		{
@@ -119,7 +151,7 @@ namespace Assets.Scripts.Player
 
 		public void Spotted()
 		{
-			_heatRayDistance -= Time.deltaTime * 0.3f;
+			_heatRayDistance -= Time.deltaTime * 3f;
 		}
 
 		public void WarpToGrounded()
