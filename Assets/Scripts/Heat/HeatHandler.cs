@@ -63,7 +63,7 @@ namespace Assets.Scripts.Heat
 		{
             foreach (RaycastHit2D hit in hits)
             {
-                Object.Instantiate(_steam, hit.point, new Quaternion());
+                Object.Instantiate(_steam, hit.point, _steam.transform.rotation);
             }
 
 			IEnumerable<RaycastHit2D> uniqueHits = hits.GroupBy(hit => hit.collider).Select(h => h.First()).ToList();
