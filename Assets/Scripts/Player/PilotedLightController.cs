@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Heat;
-using Assets.Scripts.Movement;
-using UnityEngine;
 using Assets.Scripts.Denizens;
+using Assets.Scripts.Heat;
 using Assets.Scripts.Helpers;
+using Assets.Scripts.Movement;
 using Assets.Scripts.Player.Config;
+using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
@@ -52,16 +52,15 @@ namespace Assets.Scripts.Player
 			}
 		}
 
-        [Range(1, 10)]
-        public float _heatRayDistance;
-        public float HeatRayDistance { get { return _heatRayDistance; } }
+		[Range(1, 10)]
+		public float _heatRayDistance;
+		public float HeatRayDistance { get { return _heatRayDistance; } }
 
-        [Range(1, 10)]
-        public float _heatIntensity;
-        public float HeatIntensity { get { return _heatIntensity; } }
+		[Range(1, 10)]
+		public float _heatIntensity;
+		public float HeatIntensity { get { return _heatIntensity; } }
 
-        public LayerMask _triggerMask = 0;
-		public LayerMask _platformMask = 0;
+		private LayerMask _platformMask = Layers.Platforms;
 		public LayerMask PlatformMask { get { return _platformMask; } }
 
 		public MovementHandler Movement;
@@ -90,26 +89,15 @@ namespace Assets.Scripts.Player
 			BoxCollider = GetComponent<BoxCollider2D>();
 			Transform = GetComponent<Transform>();
 			_renderer = GetComponent<SpriteRenderer>();
-
-			IgnoreCollisionLayersOutsideTriggerMask();
 		}
 
-        void Start()
-        {
-            _heatRayDistance = PlayerPrefs.GetFloat(Variable.PlRange.ToString());
-            _heatIntensity = PlayerPrefs.GetFloat(Variable.PlIntensity.ToString());
-            DurationInSeconds = PlayerPrefs.GetFloat(Variable.PlDuration.ToString());
+		void Start()
+		{
+			_heatRayDistance = PlayerPrefs.GetFloat(Variable.PlRange.ToString());
+			_heatIntensity = PlayerPrefs.GetFloat(Variable.PlIntensity.ToString());
+			DurationInSeconds = PlayerPrefs.GetFloat(Variable.PlDuration.ToString());
 
 			_remainingDurationInSeconds = DurationInSeconds;
-        }
-
-        private void IgnoreCollisionLayersOutsideTriggerMask()
-		{
-			for (var i = 0; i < 32; i++)
-			{
-				if ((_triggerMask.value & 1 << i) == 0)
-					Physics2D.IgnoreLayerCollision(gameObject.layer, i);
-			}
 		}
 
 		public bool NoGravity;

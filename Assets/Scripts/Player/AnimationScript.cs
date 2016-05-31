@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Helpers;
+﻿using Assets.Scripts.CameraHandler;
+using Assets.Scripts.Helpers;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -6,12 +7,18 @@ namespace Assets.Scripts.Player
 	public class AnimationScript : MonoBehaviour
 	{
 		public PlayerMotor PlayerMotor;
+        public SmoothCamera2D CameraScript;
 		private Animator _animator;
 
 		void Awake()
 		{
 			_animator = GetComponent<Animator>();
 		}
+
+        void Start()
+        {
+            CameraScript.Target = transform;
+        }
 
 		void Update()
 		{
@@ -122,5 +129,21 @@ namespace Assets.Scripts.Player
 		{
 			PlayerMotor.BurnStilt();
 		}
-	}
+
+        void OnTriggerEnter2D(Collider2D col)
+        {
+            if (col.gameObject.layer == LayerMask.NameToLayer(Layers.CameraSpot))
+            {
+                CameraScript.Target = col.transform;
+            }
+        }
+
+        void OnTriggerExit2D(Collider2D col)
+        {
+            if (col.gameObject.layer == LayerMask.NameToLayer(Layers.CameraSpot))
+            {
+                CameraScript.Target = transform;
+            }
+        }
+    }
 }

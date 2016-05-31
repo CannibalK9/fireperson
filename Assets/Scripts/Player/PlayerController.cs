@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Heat;
+using Assets.Scripts.Helpers;
 using Assets.Scripts.Movement;
 using Assets.Scripts.Player.Config;
 using System;
@@ -22,8 +23,7 @@ namespace Assets.Scripts.Player
 			}
 		}
 
-		public LayerMask _triggerMask = 0;
-		public LayerMask _platformMask = 0;
+		public LayerMask _platformMask = Layers.Platforms;
 		public LayerMask PlatformMask { get { return _platformMask; } }
 
 		[Range(0f, 90f)]
@@ -46,16 +46,16 @@ namespace Assets.Scripts.Player
 		public int _totalVerticalRays = 4;
 		public int TotalVerticalRays { get { return _totalVerticalRays; } }
 
-        [Range(1, 10)]
-        public float _defaultHeatRayDistance;
-        private float _heatRayDistance;
+		[Range(1, 10)]
+		public float _defaultHeatRayDistance;
+		private float _heatRayDistance;
 		public float HeatRayDistance { get { return _heatRayDistance; } }
 
-        [Range(1, 10)]
-        public float _heatIntensity;
-        public float HeatIntensity { get { return _heatIntensity; } }
+		[Range(1, 10)]
+		public float _heatIntensity;
+		public float HeatIntensity { get { return _heatIntensity; } }
 
-        public Transform Transform { get; set; }
+		public Transform Transform { get; set; }
 		public BoxCollider2D BoxCollider { get; set; }
 		public CollisionState CollisionState { get; set; }
 		public bool IsGrounded { get { return CollisionState.Below; } }
@@ -71,9 +71,9 @@ namespace Assets.Scripts.Player
 
 		void Awake()
 		{
-            SetupVariables();
+			SetupVariables();
 
-            Transform = transform.parent.parent;
+			Transform = transform.parent.parent;
 			BoxCollider = GetComponent<BoxCollider2D>();
 			CollisionState = new CollisionState();
 			RaycastHitsThisFrame = new List<RaycastHit2D>(2);
@@ -83,52 +83,42 @@ namespace Assets.Scripts.Player
 			Movement = new MovementHandler(this);
 			_heatHandler = new HeatHandler(this);
 
-			IgnoreCollisionLayersOutsideTriggerMask();
-            SetHeatRayDistanceToDefault();
-        }
+			SetHeatRayDistanceToDefault();
+		}
 
-        void Start()
-        {
-            _defaultHeatRayDistance = PlayerPrefs.GetFloat(Variable.PlayerRange.ToString());
-            _heatIntensity = PlayerPrefs.GetFloat(Variable.PlayerIntensity.ToString());
-        }
-
-        private void SetupVariables()
-        {
-            foreach (Variable variable in Enum.GetValues(typeof(Variable)))
-            {
-                if (PlayerPrefs.HasKey(variable.ToString()) == false)
-                    PlayerPrefs.SetFloat(variable.ToString(), 1f);
-            }
-        }
-
-        private float _heatRayDistanceLastFrame;
-
-        void Update()
-        {
-            if (_heatRayDistanceLastFrame == _heatRayDistance && _heatRayDistance != 0)
-            {
-                SetHeatRayDistanceToDefault();
-            }
-            else if (_heatRayDistance < 0)
-                _heatRayDistance = 0;
-
-            _heatRayDistanceLastFrame = _heatRayDistance;
-        }
-
-        private void SetHeatRayDistanceToDefault()
-        {
-            _heatRayDistance = _defaultHeatRayDistance;
-            _heatRayDistanceLastFrame = _defaultHeatRayDistance;
-        }
-
-		private void IgnoreCollisionLayersOutsideTriggerMask()
+		void Start()
 		{
-			for (var i = 0; i < 32; i++)
+			_defaultHeatRayDistance = PlayerPrefs.GetFloat(Variable.PlayerRange.ToString());
+			_heatIntensity = PlayerPrefs.GetFloat(Variable.PlayerIntensity.ToString());
+		}
+
+		private void SetupVariables()
+		{
+			foreach (Variable variable in Enum.GetValues(typeof(Variable)))
 			{
-				if ((_triggerMask.value & 1 << i) == 0)
-					Physics2D.IgnoreLayerCollision(gameObject.layer, i);
+				if (PlayerPrefs.HasKey(variable.ToString()) == false)
+					PlayerPrefs.SetFloat(variable.ToString(), 1f);
 			}
+		}
+
+		private float _heatRayDistanceLastFrame;
+
+		void Update()
+		{
+			if (_heatRayDistanceLastFrame == _heatRayDistance && _heatRayDistance != 0)
+			{
+				SetHeatRayDistanceToDefault();
+			}
+			else if (_heatRayDistance < 0)
+				_heatRayDistance = 0;
+
+			_heatRayDistanceLastFrame = _heatRayDistance;
+		}
+
+		private void SetHeatRayDistanceToDefault()
+		{
+			_heatRayDistance = _defaultHeatRayDistance;
+			_heatRayDistanceLastFrame = _defaultHeatRayDistance;
 		}
 
 		public void HeatIce()

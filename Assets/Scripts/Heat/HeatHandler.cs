@@ -8,12 +8,12 @@ namespace Assets.Scripts.Heat
 	public class HeatHandler
 	{
 		private readonly IVariableHeater _heater;
-        private GameObject _steam;
+		private readonly GameObject _steam;
 
 		public HeatHandler(IVariableHeater heater)
 		{
 			_heater = heater;
-            _steam = (GameObject)Resources.Load("particles/steam");
+			_steam = (GameObject)Resources.Load("particles/steam");
 		}
 
 		public void OneCircleHeat()
@@ -59,12 +59,13 @@ namespace Assets.Scripts.Heat
 			return 1 << LayerMask.NameToLayer(Layers.Ice) | 1 << LayerMask.NameToLayer(Layers.BackgroundIce);
 		}
 
-		private void SendRaycastMessages(IEnumerable<RaycastHit2D> hits, Vector2 origin, float castDistance)
+		private void SendRaycastMessages(List<RaycastHit2D> hits, Vector2 origin, float castDistance)
 		{
-            foreach (RaycastHit2D hit in hits)
-            {
-                Object.Instantiate(_steam, hit.point, _steam.transform.rotation);
-            }
+			foreach (RaycastHit2D hit in hits)
+			{
+                if (Physics2D.CircleCast(hit.point, 0.01f, Vector2.up, 0.01f, 1 << LayerMask.NameToLayer(Layers.Steam)) == false)
+				    Object.Instantiate(_steam, new Vector3(hit.point.x, hit.point.y, -10), _steam.transform.rotation);
+			}
 
 			IEnumerable<RaycastHit2D> uniqueHits = hits.GroupBy(hit => hit.collider).Select(h => h.First()).ToList();
 			foreach (RaycastHit2D hit in uniqueHits)

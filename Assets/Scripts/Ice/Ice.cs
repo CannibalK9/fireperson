@@ -1,40 +1,38 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Heat;
 using UnityEngine;
-using System.Linq;
 
 namespace Assets.Scripts.Ice
 {
 	[RequireComponent(typeof(PolygonCollider2D), typeof(MeshFilter), typeof(MeshRenderer))]
 	public class Ice : MonoBehaviour
 	{
-		public float ActualDistanceBetweenPoints = 2f;
-		public float DefaultDistanceToLowerPoints = 0.1f;
+		public float ActualDistanceBetweenPoints = 0.2f;
 
 		public bool GrowsBack;
-        public bool ExtraPoints;
-        public bool AnyJointEnabled { get; set; }
+		public bool ExtraPoints;
+		public bool AnyJointEnabled { get; set; }
 
 		private PolygonCollider2D _polyCollider;
 		private Mesh _mesh;
 		private Vector2[] _initialPoints;
-		private Vector2[] _newPoints;
-        private Joint2D[] _joints;
-        private MeshRenderer _meshRenderer;
+		private FixedJoint2D[] _joints;
+		private MeshRenderer _meshRenderer;
 
 		void Awake()
 		{
 			_polyCollider = GetComponent<PolygonCollider2D>();
 			_mesh = GetComponent<MeshFilter>().mesh;
-            _joints = GetComponents<FixedJoint2D>();
-            _meshRenderer = GetComponent<MeshRenderer>();
-            AnyJointEnabled = true;
+			_joints = GetComponents<FixedJoint2D>();
+			_meshRenderer = GetComponent<MeshRenderer>();
+			AnyJointEnabled = true;
 		}
 
 		void Start()
 		{
-            if (ExtraPoints)
-                _polyCollider.points = GetColliderPointsAtIntervals(ActualDistanceBetweenPoints);
+			if (ExtraPoints)
+				_polyCollider.points = GetColliderPointsAtIntervals(ActualDistanceBetweenPoints);
 			_initialPoints = _polyCollider.points;
 			SetMeshFilterToPolyColliderPoints();
 		}
@@ -48,7 +46,7 @@ namespace Assets.Scripts.Ice
 				Vector2 start = _polyCollider.points[i];
 				Vector2 end = i + 1 == _polyCollider.points.Length ? _polyCollider.points[0] : _polyCollider.points[i + 1];
 
-				float distanceBetweenPoints = ActualDistanceBetweenPoints / Vector2.Distance(start, end);
+				float distanceBetweenPoints = interval / Vector2.Distance(start, end);
 				while (Vector2.Distance(start, end) > distanceBetweenPoints)
 				{
 					newPoints.Add(start);
@@ -87,29 +85,29 @@ namespace Assets.Scripts.Ice
 
 		void Update()
 		{
-            foreach (FixedJoint2D joint in _joints)
-            {
-                if (_polyCollider.OverlapPoint(transform.TransformPoint(joint.anchor)) == false)
-                    joint.enabled = false;
-            }
+			foreach (FixedJoint2D joint in _joints)
+			{
+				if (_polyCollider.OverlapPoint(transform.TransformPoint(joint.anchor)) == false)
+					joint.enabled = false;
+			}
 
-            if (_joints.Length > 0 && _joints.Where(j => j.enabled == true).Any() == false)
-                AnyJointEnabled = false;
+			if (_joints.Length > 0 && _joints.Any(j => j.enabled) == false)
+				AnyJointEnabled = false;
 
-            _polyCollider.enabled = true;
+			_polyCollider.enabled = true;
 
 			if (_polyCollider.bounds.size.x < 0.3 || _polyCollider.bounds.size.y < 0.3)
 			{
 				_polyCollider.enabled = false;
-                _meshRenderer.enabled = false;
+				_meshRenderer.enabled = false;
 			}
 			else
 			{
 				_polyCollider.enabled = true;
-                _meshRenderer.enabled = true;
-            }
+				_meshRenderer.enabled = true;
+			}
 
-            if (GrowsBack)
+			if (GrowsBack)
 			{
 				_polyCollider.points = RaisePoints();
 				SetMeshFilterToPolyColliderPoints();
@@ -136,7 +134,7 @@ namespace Assets.Scripts.Ice
 		void Melt(HeatMessage message)
 		{
 			_polyCollider.points = MovePointsInwards(message);
-            _polyCollider.points = FlattenAngles();
+			_polyCollider.points = FlattenAngles();
 			SetMeshFilterToPolyColliderPoints();
 		}
 
@@ -145,8 +143,8 @@ namespace Assets.Scripts.Ice
 
 		private Vector2[] MovePointsInwards(HeatMessage message)
 		{
-			_newPoints = _polyCollider.points;
-			List<int> allIndices = GetIndicesInRange(message.Origin, message.CastDistance);
+			Vector2[] newPoints = _polyCollider.points;
+			IEnumerable<int> allIndices = GetIndicesInRange(message.Origin, message.CastDistance);
 
 			foreach (int i in allIndices)
 			{
@@ -157,61 +155,59 @@ namespace Assets.Scripts.Ice
 				Vector2 beforePoint = transform.TransformPoint(_polyCollider.points[beforeIndex]);
 				Vector2 afterPoint = transform.TransformPoint(_polyCollider.points[afterIndex]);
 
+				Vector2 offSet = beforePoint - afterPoint;
+				Vector2 perpendicular = new Vector2(-offSet.y, offSet.x) / (offSet.magnitude * 100f);
 
-                Vector2 offSet = beforePoint - afterPoint;
-                Vector2 perpendicular = new Vector2(-offSet.y, offSet.x) / (offSet.magnitude * 100f);
-                Vector2 perpendicular2 = new Vector2(-offSet.y, offSet.x) / (offSet.magnitude * -100f);
-
-                Vector2 newPoint = Vector2.MoveTowards(point, perpendicular, message.DistanceToMove - Random.value / 10);
-                if (_polyCollider.OverlapPoint(newPoint))
-                    _newPoints[i] = transform.InverseTransformPoint(newPoint);
-                else
-                {
-                    newPoint = Vector2.MoveTowards(point, perpendicular2, message.DistanceToMove - Random.value / 10);
-                    if (_polyCollider.OverlapPoint(newPoint))
-                        _newPoints[i] = transform.InverseTransformPoint(newPoint);
-                }
-            }
-
-            return _newPoints;
+				Vector2 newPoint = Vector2.MoveTowards(point, perpendicular, message.DistanceToMove);
+				if (_polyCollider.OverlapPoint(newPoint))
+				{
+					newPoints[i] = transform.InverseTransformPoint(newPoint);
+				}
+				else
+				{
+					Vector2 perpendicular2 = new Vector2(-offSet.y, offSet.x) / (offSet.magnitude * -100f);
+					newPoint = Vector2.MoveTowards(point, perpendicular2, message.DistanceToMove);
+					if (_polyCollider.OverlapPoint(newPoint))
+						newPoints[i] = transform.InverseTransformPoint(newPoint);
+				}
+			}
+			return newPoints;
 		}
 
-        private Vector2[] FlattenAngles()
-        {
-            _newPoints = _polyCollider.points;
-            int currentIndex = 0;
-            int count = 0;
-            while (count < _polyCollider.points.Length)
-            {
-                AcuteAngleFlattened(currentIndex, GetBeforeIndex(currentIndex), GetAfterIndex(currentIndex));
-                currentIndex = GetBeforeIndex(currentIndex);
-                count++;
-            }
-
-            return _newPoints;
-        }
-
-		private void AcuteAngleFlattened(int currentIndex, int beforeIndex, int afterIndex)
+		private Vector2[] FlattenAngles()
 		{
-            Vector2 point = transform.TransformPoint(_newPoints[currentIndex]);
-            Vector2 beforePoint = transform.TransformPoint(_newPoints[beforeIndex]);
-            Vector2 afterPoint = transform.TransformPoint(_newPoints[afterIndex]);
+			Vector2[] newPoints = _polyCollider.points;
+			int currentIndex = 0;
+			int count = 0;
+			while (count < _polyCollider.points.Length)
+			{
+				newPoints[currentIndex] = AcuteAngleFlattened(
+					transform.TransformPoint(newPoints[currentIndex]),
+					transform.TransformPoint(newPoints[GetBeforeIndex(currentIndex)]),
+					transform.TransformPoint(newPoints[GetAfterIndex(currentIndex)]));
+				currentIndex = GetBeforeIndex(currentIndex);
+				count++;
+			}
+			return newPoints;
+		}
+
+		private Vector2 AcuteAngleFlattened(Vector2 point, Vector2 beforePoint, Vector2 afterPoint)
+		{
 			Vector2 centre = Vector2.Lerp(beforePoint, afterPoint, 0.5f);
+			float angle = Angle(beforePoint, afterPoint, point);
 
-            float angle = Angle(beforePoint, afterPoint, point);
-
-            while (angle < 90)
+			while (angle < 90)
 			{
 				point = Vector2.MoveTowards(point, centre, 100f);
-                angle = Angle(beforePoint, afterPoint, point);
-            }
-            _newPoints[currentIndex] = transform.InverseTransformPoint(point);
-        }
+				angle = Angle(beforePoint, afterPoint, point);
+			}
+			return transform.InverseTransformPoint(point);
+		}
 
-        private float Angle(Vector2 beforePoint, Vector2 afterPoint, Vector2 point)
-        {
-            return Vector2.Angle(beforePoint - point, afterPoint - point);
-        }
+		private float Angle(Vector2 beforePoint, Vector2 afterPoint, Vector2 point)
+		{
+			return Vector2.Angle(beforePoint - point, afterPoint - point);
+		}
 
 		private int GetBeforeIndex(int currentIndex)
 		{
@@ -223,7 +219,7 @@ namespace Assets.Scripts.Ice
 			return currentIndex == _polyCollider.points.Length - 1 ? 0 : currentIndex + 1;
 		}
 
-		private List<int> GetIndicesInRange(Vector2 origin, float distance)
+		private IEnumerable<int> GetIndicesInRange(Vector2 origin, float distance)
 		{
 			var indices = new List<int>();
 

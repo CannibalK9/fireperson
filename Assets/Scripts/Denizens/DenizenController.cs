@@ -21,8 +21,7 @@ namespace Assets.Scripts.Denizens
             }
         }
 
-        public LayerMask _triggerMask = 0;
-        public LayerMask _platformMask = 0;
+        private LayerMask _platformMask = Layers.Platforms;
         public LayerMask PlatformMask { get { return _platformMask; } }
 
         [Range(0f, 90f)]
@@ -66,25 +65,16 @@ namespace Assets.Scripts.Denizens
             CollisionState = new CollisionState();
             RaycastHitsThisFrame = new List<RaycastHit2D>(2);
             SkinWidth = _skinWidth;
-            IgnoreCollisionLayersOutsideTriggerMask();
-        }
-
-        private void IgnoreCollisionLayersOutsideTriggerMask()
-        {
-            for (var i = 0; i < 32; i++)
-            {
-                if ((_triggerMask.value & 1 << i) == 0)
-                    Physics2D.IgnoreLayerCollision(gameObject.layer, i);
-            }
         }
 
         public bool SpotPlayer(Vector2 direction)
         {
-            LayerMask mask = 1 << LayerMask.NameToLayer(Layers.Player) | 1 << LayerMask.NameToLayer(Layers.OutdoorWood);
+            LayerMask mask = 1 << LayerMask.NameToLayer(Layers.Player) | Layers.Platforms | 1 << LayerMask.NameToLayer(Layers.Steam);
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 20f, mask);
             if (hit)
             {
+                Debug.Log(hit.collider);
                 if (hit.collider.gameObject.layer == LayerMask.NameToLayer(Layers.Player))
                 {
                     hit.collider.SendMessage("Spotted", SendMessageOptions.RequireReceiver);

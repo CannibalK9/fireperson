@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\AnimationHierarchyEditor.cs" />
+    <Compile Include="Assets\Scripts\CameraHandler\SmoothCamera2D.cs" />
     <Compile Include="Assets\Scripts\Denizens\DenizenController.cs" />
     <Compile Include="Assets\Scripts\Denizens\DenizenMotor.cs" />
     <Compile Include="Assets\Scripts\Helpers\DirectionTravelling.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Assets\Scripts\Helpers\Animations.cs" />
     <Compile Include="Assets\Scripts\Helpers\Layers.cs" />
     <Compile Include="Assets\Scripts\Ice\Ice.cs" />
+    <Compile Include="Assets\Scripts\Ice\Steam.cs" />
     <Compile Include="Assets\Scripts\Ice\Triangulator.cs" />
     <Compile Include="Assets\Scripts\Movement\CharacterRaycastOrigins.cs" />
     <Compile Include="Assets\Scripts\Helpers\ColliderExtension.cs" />
@@ -100,6 +102,7 @@
     <Compile Include="Assets\Scripts\Sprites\MeshSortingOrder.cs" />
     <Compile Include="Assets\Scripts\Sprites\RepeatSpriteBoundary.cs" />
     <Compile Include="Assets\Scripts\Sprites\StiltDestruction.cs" />
+    <Compile Include="Assets\Scripts\Sprites\TextureTilingController.cs" />
     <Compile Include="Assets\Scripts\Sprites\Trapdoor.cs" />
     <Compile Include="Assets\Scripts\UI\PlDuration.cs" />
     <Compile Include="Assets\Scripts\UI\PlHeatRangeSlider.cs" />
