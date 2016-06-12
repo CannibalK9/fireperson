@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Helpers;
-using Assets.Scripts.Sprites;
+using Assets.Scripts.Interactable;
+using Assets.Scripts.Rendering;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -90,8 +91,6 @@ namespace Assets.Scripts.Player
 			}
 
 			_controller.Movement.MoveWithBuilding();
-
-			_controller.HeatIce();
 		}
 
         public void SetBuildingTransform(Transform t)
@@ -126,6 +125,8 @@ namespace Assets.Scripts.Player
 		{
 			_controller.Movement.Move(deltaMovement);
 		}
+
+        public float ChannelingTime { get; set; }
 
 		private void HandleMovementInputs()
 		{
@@ -179,18 +180,37 @@ namespace Assets.Scripts.Player
 					? ClimbingState.AcrossLeft
 					: ClimbingState.AcrossRight);
 			}
-			else if (KeyBindings.GetKey(Control.Action) && NoPilotedLightExists())
+			else if (KeyBindings.GetKeyDown(Control.Light) && _controller.ActivePilotedLight == null)
+            {
+                ChannelingTime += Time.deltaTime;
+            }
+            else if (KeyBindings.GetKey(Control.Light) && _controller.ActivePilotedLight == null)
 			{
-				_controller.CreatePilotedLight();
-				//Anim.PlayAnimation("CreateLight");
+                if (ChannelingTime != 0 && ChannelingTime < 3f)
+                    ChannelingTime += Time.deltaTime;
+				Anim.PlayAnimation(Animations.CreatePL);
 			}
-			else if (KeyBindings.GetKey(Control.Destroy) && CheckStiltInFront(GetDirectionFacing()))
-			{
-				Anim.PlayAnimation(Animations.DestroyStilt);
-			}
-		}
+			else if (KeyBindings.GetKey(Control.Action))
+            {
+                RaycastHit2D hit = CheckInteractableInFront(GetDirectionFacing());
+                if (hit == false)
+                    return;
 
-		public void FlipSprite()
+                if (hit.transform.name.Contains(Interactables.Stilt))
+                    Anim.PlayAnimation(Animations.DestroyStilt);
+                else if (hit.transform.name.Contains(Interactables.ChimneyLid))
+                    Anim.PlayAnimation(Animations.OpenChimney);
+                else if (hit.transform.name.Contains(Interactables.Stove))
+                    Anim.PlayAnimation(Animations.OpenStove);
+            }
+        }
+
+        public void CreateLight()
+        {
+            _controller.CreateLight();
+        }
+
+        public void FlipSprite()
 		{
 			Vector3 target = Collider.bounds.center;
 			_transform.localScale = new Vector3(-_transform.localScale.x, _transform.localScale.y, _transform.localScale.z);
@@ -203,11 +223,6 @@ namespace Assets.Scripts.Player
 			Anim.SetBool(
 				"moving",
 				_normalizedHorizontalSpeed != 0);
-		}
-
-		private bool NoPilotedLightExists()
-		{
-			return GameObject.Find("PilotedLight(Clone)") == false;
 		}
 
 		public void CancelVelocity()
@@ -246,7 +261,7 @@ namespace Assets.Scripts.Player
 				if (KeyBindings.GetKey(Control.Right))
 					_climbHandler.NextClimbingStates.Add(ClimbingState.AcrossRight);
 				if (KeyBindings.GetKey(Control.Up))
-					_climbHandler.NextClimbingStates.Add( ClimbingState.Up);
+					_climbHandler.NextClimbingStates.Add(ClimbingState.Up);
 				if (KeyBindings.GetKey(Control.Down))
 					_climbHandler.NextClimbingStates.Add(ClimbingState.Down);
 			}
@@ -267,7 +282,6 @@ namespace Assets.Scripts.Player
 		public void CancelClimbingState()
 		{
 			_climbHandler.CurrentClimbingState = ClimbingState.None;
-			_targetCollider = null;
 		}
 
 		public void LinearMovement(Vector2 targetPoint, Vector2 movingPoint, float speed)
@@ -276,7 +290,7 @@ namespace Assets.Scripts.Player
 				Move((targetPoint - movingPoint) * speed);
 		}
 
-		public bool CheckStiltInFront(DirectionFacing direction)
+		public RaycastHit2D CheckInteractableInFront(DirectionFacing direction)
 		{
 			const float checkLength = 2f;
 			const float checkDepth = 3f;
@@ -291,7 +305,7 @@ namespace Assets.Scripts.Player
 
 			var size = new Vector2(checkLength, checkDepth);
 
-			RaycastHit2D hit = Physics2D.BoxCast(origin, size, 0, Vector2.down, 0.01f, 1 << LayerMask.NameToLayer(Layers.Destructable));
+			RaycastHit2D hit = Physics2D.BoxCast(origin, size, 0, Vector2.down, 0.01f, 1 << LayerMask.NameToLayer(Layers.Interactable));
 
 			if (hit)
 			{
@@ -304,5 +318,15 @@ namespace Assets.Scripts.Player
 		{
             _targetCollider.GetComponent<StiltDestruction>().IsBurning = true;
 		}
-	}
+
+        public void SwitchChimney()
+        {
+            _targetCollider.GetComponent<ChimneyLid>().Switch();
+        }
+
+        public void SwitchStove()
+        {
+            _targetCollider.GetComponent<StoveDoor>().Switch();
+        }
+    }
 }

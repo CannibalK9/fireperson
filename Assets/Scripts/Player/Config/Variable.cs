@@ -6,6 +6,6 @@
         PlayerIntensity,
         PlRange,
         PlIntensity,
-        PlDuration
+        PlDistance
     }
 }

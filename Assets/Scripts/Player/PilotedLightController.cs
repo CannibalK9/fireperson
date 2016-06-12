@@ -1,19 +1,16 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Denizens;
 using Assets.Scripts.Heat;
 using Assets.Scripts.Helpers;
 using Assets.Scripts.Movement;
 using Assets.Scripts.Player.Config;
 using UnityEngine;
+using Assets.Scripts.Interactable;
 
 namespace Assets.Scripts.Player
 {
 	public class PilotedLightController : MonoBehaviour, IVariableHeater, IController
 	{
-		public float DurationInSeconds;
-		private float _remainingDurationInSeconds;
-		private const float _minimumScale = 1f;
-		private Vector2 _initialScale;
+		public float DistanceFromPlayer;
 
 		private HeatHandler _heatHandler;
 
@@ -75,11 +72,11 @@ namespace Assets.Scripts.Player
 		public FirePlace Fireplace { get; set; }
 
 		private SpriteRenderer _renderer;
+        private PlayerMotor _player;
 
 		void Awake()
 		{
 			IsMovementOverridden = false;
-			_initialScale = transform.localScale;
 
 			RaycastHitsThisFrame = new List<RaycastHit2D>(2);
 			CollisionState = new CollisionState();
@@ -93,14 +90,18 @@ namespace Assets.Scripts.Player
 
 		void Start()
 		{
-			_heatRayDistance = PlayerPrefs.GetFloat(Variable.PlRange.ToString());
-			_heatIntensity = PlayerPrefs.GetFloat(Variable.PlIntensity.ToString());
-			DurationInSeconds = PlayerPrefs.GetFloat(Variable.PlDuration.ToString());
+            _player = FindObjectOfType<PlayerMotor>();
+            float charge = _player.ChannelingTime < 1 ? 1 : _player.ChannelingTime;
 
-			_remainingDurationInSeconds = DurationInSeconds;
+			_heatRayDistance = PlayerPrefs.GetFloat(Variable.PlayerRange.ToString()) * charge;
+			_heatIntensity = PlayerPrefs.GetFloat(Variable.PlayerIntensity.ToString()) * charge;
+			DistanceFromPlayer = PlayerPrefs.GetFloat(Variable.PlayerIntensity.ToString()) * charge;
+
+            _player.ChannelingTime = 0f;
 		}
 
 		public bool NoGravity;
+        private bool _firstUpdate = true;
 
 		void Update()
 		{
@@ -109,7 +110,11 @@ namespace Assets.Scripts.Player
 				MoveTowardsPoint();
 				NoGravity = true;
 			}
-			else if (OnPoint() == false)
+            else if (OnPoint())
+            {
+                MoveTowardsPoint();
+            }
+            else if (OnPoint() == false)
 			{
 				_renderer.enabled = true;
 
@@ -118,14 +123,24 @@ namespace Assets.Scripts.Player
 					NoGravity = false;
 					Fireplace.IsLit = false;
 				}
-				DecreaseLifeSpan();
-				DecreaseScale();
 
-				if (_remainingDurationInSeconds <= 0)
+				if (Vector2.Distance(_player.transform.position, transform.position) > DistanceFromPlayer * 5)
 				{
 					DestroyObject(gameObject);
 				}
 			}
+
+            EmberEffect effect = EmberEffect.None;
+            if (_firstUpdate)
+            {
+                effect = EmberEffect.Strong;
+                _firstUpdate = false;
+            }
+
+            if (effect == EmberEffect.None && Random.value > 0.999f)
+                effect = EmberEffect.Light;
+
+            HeatIce(effect);
 		}
 
 		public Collider2D CollidingPoint;
@@ -135,8 +150,6 @@ namespace Assets.Scripts.Player
 			Movement.Move((CollidingPoint.transform.position - transform.position) * 0.2f);
 			if (OnPoint())
 			{
-				transform.localScale = _initialScale;
-				_remainingDurationInSeconds = DurationInSeconds;
 				IsMovementOverridden = false;
 
 				_renderer.enabled = false;
@@ -151,24 +164,9 @@ namespace Assets.Scripts.Player
 			return CollidingPoint != null && CollidingPoint.transform.position == transform.position;
 		}
 
-		private void DecreaseLifeSpan()
+		public void HeatIce(EmberEffect effect)
 		{
-			_remainingDurationInSeconds -= Time.deltaTime;
-		}
-
-		private void DecreaseScale()
-		{
-			Vector2 newScale = Vector2.one * (_remainingDurationInSeconds + _minimumScale);
-			if (newScale.x < _initialScale.x)
-			{
-				transform.localScale = newScale;
-				RecalculateDistanceBetweenRays();
-			}
-		}
-
-		public void HeatIce()
-		{
-			_heatHandler.OneCircleHeat();
+			_heatHandler.OneCircleHeat(effect);
 		}
 
 		private void RecalculateDistanceBetweenRays()

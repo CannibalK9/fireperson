@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Helpers;
+using Assets.Scripts.Interactable;
 using Assets.Scripts.Movement;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,6 +56,7 @@ namespace Assets.Scripts.Denizens
         public bool SatAtFireplace { get; set; }
 
         public MovementHandler Movement;
+        private DenizenMotor _motor;
 
         void Awake()
         {
@@ -65,6 +67,7 @@ namespace Assets.Scripts.Denizens
             CollisionState = new CollisionState();
             RaycastHitsThisFrame = new List<RaycastHit2D>(2);
             SkinWidth = _skinWidth;
+            _motor = GetComponent<DenizenMotor>();
         }
 
         public bool SpotPlayer(Vector2 direction)
@@ -74,7 +77,6 @@ namespace Assets.Scripts.Denizens
             RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 20f, mask);
             if (hit)
             {
-                Debug.Log(hit.collider);
                 if (hit.collider.gameObject.layer == LayerMask.NameToLayer(Layers.Player))
                 {
                     hit.collider.SendMessage("Spotted", SendMessageOptions.RequireReceiver);
@@ -87,7 +89,22 @@ namespace Assets.Scripts.Denizens
         void OnTriggerStay2D(Collider2D col)
         {
             if (col.gameObject.layer == LayerMask.NameToLayer(Layers.PlSpot))
-                SatAtFireplace = col.gameObject.GetComponent<FirePlace>().IsLit;
+            {
+                FirePlace fireplace = col.gameObject.GetComponent<FirePlace>();
+                if (fireplace.IsLit == false)
+                {
+                    Stove stove = fireplace as Stove;
+                    if (stove != null)
+                    {
+                        if (stove.CanBeLitByDenizens())
+                            _motor.BeginLightingStove(stove);
+                    }
+                }
+                else
+                {
+                    SatAtFireplace = true;
+                }
+            }
         }
 
         private void RecalculateDistanceBetweenRays()

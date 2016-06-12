@@ -28,6 +28,9 @@ namespace Assets.Scripts.Player
 			if (_timeToWake < 0)
 				IsReadyToMove = true;
 
+            if (IsReadyToMove)
+                HandleActions();
+
 			if (IsReadyToMove && _controller.IsMovementOverridden == false)
 			{
 				HandleMovementInputs();
@@ -47,12 +50,30 @@ namespace Assets.Scripts.Player
 				_velocity = Vector3.zero;
 			}
             _controller.Movement.MoveWithBuilding();
-            _controller.HeatIce();
 		}
+
+        private float _lightPressTime;
+
+        private void HandleActions()
+        {
+            if (_lightPressTime > 2f)
+                Destroy(transform.root.gameObject);
+
+            if (KeyBindings.GetKey(Control.Light))
+            {
+                _lightPressTime += Time.deltaTime;
+            }
+
+            if (KeyBindings.GetKeyUp(Control.Light))
+            {
+                _lightPressTime = 0f;
+                //burst
+            }
+        }
 
 		private void HandleMovementInputs()
 		{
-			if (_controller.OnPoint())
+            if (_controller.OnPoint())
 			{
 				if (Input.GetAxis("Mouse X") > 0)
 				{

@@ -9,30 +9,34 @@ namespace Assets.Scripts.Heat
 	{
 		private readonly IVariableHeater _heater;
 		private readonly GameObject _steam;
+        private readonly GameObject _emberLight;
+        private readonly GameObject _emberStrong;
 
-		public HeatHandler(IVariableHeater heater)
+        public HeatHandler(IVariableHeater heater)
 		{
 			_heater = heater;
 			_steam = (GameObject)Resources.Load("particles/steam");
-		}
+			_emberLight = (GameObject)Resources.Load("particles/emberLight");
+			_emberStrong = (GameObject)Resources.Load("particles/emberStrong");
+        }
 
-		public void OneCircleHeat()
+        public void OneCircleHeat(EmberEffect effect)
 		{
-			CastMeltingCircle(_heater.BoxCollider.bounds.center);
+			CastMeltingCircle(_heater.BoxCollider.bounds.center, effect);
 		}
 
-		public void TwoCirclesHeat()
+		public void TwoCirclesHeat(EmberEffect effect)
 		{
 			CastMeltingCircle(new Vector2(
 				_heater.BoxCollider.bounds.center.x,
-				_heater.BoxCollider.bounds.min.y + _heater.BoxCollider.bounds.extents.x));
+				_heater.BoxCollider.bounds.min.y + _heater.BoxCollider.bounds.extents.x), effect);
 
 			CastMeltingCircle(new Vector2(
 				_heater.BoxCollider.bounds.center.x,
-				_heater.BoxCollider.bounds.max.y - _heater.BoxCollider.bounds.extents.x));
+				_heater.BoxCollider.bounds.max.y - _heater.BoxCollider.bounds.extents.x), effect);
 		}
 
-		private void CastMeltingCircle(Vector2 origin)
+		private void CastMeltingCircle(Vector2 origin, EmberEffect effect)
 		{
 			const int numberOfCasts = 20;
 
@@ -43,6 +47,17 @@ namespace Assets.Scripts.Heat
 				Vector2 direction = Rotate(Vector2.up, i * (360 / numberOfCasts));
 				RaycastHit2D hit = Physics2D.Raycast(origin, direction, radius, GetMeltingMask());
 				Debug.DrawRay(origin, direction * radius, Color.green);
+
+                if (effect != EmberEffect.None)
+                {
+                    Vector2 point = origin + direction * radius;
+                    if (_heater.BoxCollider.OverlapPoint(point) == false)
+                    {
+                        GameObject particle = effect == EmberEffect.Light ? _emberLight : _emberStrong;
+                        Object.Instantiate(particle, point, Quaternion.Euler(direction));
+                    }
+                }
+
 				if (hit)
 					hits.Add(hit);
 			}
@@ -63,6 +78,7 @@ namespace Assets.Scripts.Heat
 		{
 			foreach (RaycastHit2D hit in hits)
 			{
+                //icy embers or something go here
                 if (Physics2D.CircleCast(hit.point, 0.01f, Vector2.up, 0.01f, 1 << LayerMask.NameToLayer(Layers.Steam)) == false)
 				    Object.Instantiate(_steam, new Vector3(hit.point.x, hit.point.y, -10), _steam.transform.rotation);
 			}
@@ -70,7 +86,14 @@ namespace Assets.Scripts.Heat
 			IEnumerable<RaycastHit2D> uniqueHits = hits.GroupBy(hit => hit.collider).Select(h => h.First()).ToList();
 			foreach (RaycastHit2D hit in uniqueHits)
 			{
-				hit.collider.SendMessage("Melt", new HeatMessage { Hit = hit, Origin = origin, CastDistance = castDistance, DistanceToMove = _heater.HeatIntensity / 10}, SendMessageOptions.RequireReceiver);
+				hit.collider.SendMessage("Melt", new HeatMessage
+                {
+                    Hit = hit,
+                    Origin = origin,
+                    CastDistance = castDistance,
+                    DistanceToMove = _heater.HeatIntensity / 10
+                },
+                SendMessageOptions.RequireReceiver);
 			}
 		}
 	}

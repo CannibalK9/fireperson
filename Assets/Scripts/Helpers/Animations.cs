@@ -22,6 +22,11 @@
             get { return "Gasp"; }
         }
 
+        public static string LightStove
+        {
+            get { return "LightStove"; }
+        }
+
         public static string Relief
         {
             get { return "Relief"; }
@@ -55,6 +60,41 @@
         public static string DestroyStilt
         {
             get { return "DestroyStilt"; }
+        }
+
+        public static string Open
+        {
+            get { return "Open"; }
+        }
+
+        public static string OpenChimney
+        {
+            get { return "OpenChimney"; }
+        }
+
+        public static string OpenStove
+        {
+            get { return "OpenStove"; }
+        }
+
+        public static string Close
+        {
+            get { return "Close"; }
+        }
+
+        public static string CloseChimney
+        {
+            get { return "CloseChimney"; }
+        }
+
+        public static string CloseStove
+        {
+            get { return "CloseStove"; }
+        }
+
+        public static string CreatePL
+        {
+            get { return "CreatePL"; }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Helpers;
+using Assets.Scripts.Interactable;
 using UnityEngine;
 
 namespace Assets.Scripts.Denizens
@@ -198,7 +199,27 @@ namespace Assets.Scripts.Denizens
 			}
 		}
 
-		private enum DirectionFacing
+        public void BeginLightingStove(Stove stove)
+        {
+            _stove = stove;
+            _movementPaused = true;
+            _animator.Play(Animator.StringToHash(Animations.LightStove));
+        }
+
+        private Stove _stove;
+
+        private void LightStove()
+        {
+            if (_stove.CanBeLitByDenizens())
+                _stove.IsLit = true;
+        }
+
+        private void StartMoving()
+        {
+            _movementPaused = false;
+        }
+
+        private enum DirectionFacing
 		{
 			Right,
 			Left

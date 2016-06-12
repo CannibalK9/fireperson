@@ -22,7 +22,8 @@ namespace Assets.Scripts.Player
 
 		void Update()
 		{
-			if (_animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Idle) || _animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Falling))
+			if (_animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Idle) 
+                || _animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Falling))
 			{
 				_animator.ResetTrigger("climbUp");
 				_animator.ResetTrigger("transitionDown");
@@ -129,6 +130,21 @@ namespace Assets.Scripts.Player
 		{
 			PlayerMotor.BurnStilt();
 		}
+
+        private void CreateLight()
+        {
+            PlayerMotor.CreateLight();
+        }
+
+        private void SwitchChimney()
+        {
+            PlayerMotor.SwitchChimney();
+        }
+
+        private void SwitchStove()
+        {
+            PlayerMotor.SwitchStove();
+        }
 
         void OnTriggerEnter2D(Collider2D col)
         {

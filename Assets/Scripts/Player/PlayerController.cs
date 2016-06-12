@@ -68,6 +68,7 @@ namespace Assets.Scripts.Player
 		private HeatHandler _heatHandler;
 
 		public GameObject PilotedLight;
+        public GameObject ActivePilotedLight;
 
 		void Awake()
 		{
@@ -105,14 +106,27 @@ namespace Assets.Scripts.Player
 
 		void Update()
 		{
-			if (_heatRayDistanceLastFrame == _heatRayDistance && _heatRayDistance != 0)
-			{
-				SetHeatRayDistanceToDefault();
-			}
-			else if (_heatRayDistance < 0)
-				_heatRayDistance = 0;
+            EmberEffect effect = EmberEffect.None;
 
+            if (_heatRayDistance != _defaultHeatRayDistance && _heatRayDistanceLastFrame == _heatRayDistance && _heatRayDistance != 0)
+            {
+                SetHeatRayDistanceToDefault();
+                effect = EmberEffect.Strong;
+                //play a sound
+            }
+            else if (_heatRayDistanceLastFrame != _heatRayDistance)
+                effect = EmberEffect.Light;
+            else if (_heatRayDistance < 0)
+            {
+                _heatRayDistance = 0;
+                //frozen
+            }
 			_heatRayDistanceLastFrame = _heatRayDistance;
+
+            if (effect == EmberEffect.None && UnityEngine.Random.value > 0.999f)
+                effect = EmberEffect.Light;
+
+            HeatIce(effect);
 		}
 
 		private void SetHeatRayDistanceToDefault()
@@ -121,19 +135,19 @@ namespace Assets.Scripts.Player
 			_heatRayDistanceLastFrame = _defaultHeatRayDistance;
 		}
 
-		public void HeatIce()
+		public void HeatIce(EmberEffect effect)
 		{
-			_heatHandler.OneCircleHeat();
-			_heatHandler.TwoCirclesHeat();
+			_heatHandler.OneCircleHeat(effect);
+			_heatHandler.TwoCirclesHeat(effect);
 		}
 
-		public void CreatePilotedLight()
+		public void CreateLight()
 		{
 			Vector3 pilotedLightPosition = Movement.IsFacingRight
 				? transform.position + new Vector3(0.4f, 0, 0)
 				: transform.position + new Vector3(-0.4f, 0, 0);
 
-			Instantiate(
+			ActivePilotedLight = (GameObject)Instantiate(
 				PilotedLight,
 				pilotedLightPosition,
 				transform.rotation);

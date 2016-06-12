@@ -17,15 +17,37 @@ namespace Assets.Scripts.Player
 					return Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W);
 				case Control.Down:
 					return Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S);
-				case Control.Action:
-					return Input.GetKey(KeyCode.E);
-				case Control.Jump:
+                case Control.Jump:
 					return Input.GetKey(KeyCode.Space);
-				case Control.Destroy:
+				case Control.Action:
 					return Input.GetKey(KeyCode.Q);
-				default:
+                case Control.Light:
+                    return Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.Mouse0);
+                default:
 					throw new ArgumentOutOfRangeException("control");
 			}
 		}
-	}
+
+        public static bool GetKeyDown(Control control)
+        {
+            switch (control)
+            {
+                case Control.Light:
+                    return Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse0);
+                default:
+                    throw new ArgumentOutOfRangeException("control");
+            }
+        }
+
+        public static bool GetKeyUp(Control control)
+        {
+            switch (control)
+            {
+                case Control.Light:
+                    return Input.GetKeyUp(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse0);
+                default:
+                    throw new ArgumentOutOfRangeException("control");
+            }
+        }
+    }
 }

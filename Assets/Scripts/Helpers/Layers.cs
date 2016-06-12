@@ -54,9 +54,9 @@ namespace Assets.Scripts.Helpers
 			get { return "Left Climb Spot"; }
 		}
 
-		public static string Destructable
+		public static string Interactable
 		{
-			get { return "Destructable"; }
+			get { return "Interactable"; }
 		}
 
 		public static string Background

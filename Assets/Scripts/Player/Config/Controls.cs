@@ -6,8 +6,8 @@
 		Right,
 		Up,
 		Down,
-		Action,
+		Light,
 		Jump,
-		Destroy
+		Action
 	}
 }

@@ -14,13 +14,13 @@ namespace Assets.Scripts.UI
         public void Start()
         {
             mainSlider = GetComponent<Slider>();
-            mainSlider.value = PlayerPrefs.GetFloat(Variable.PlDuration.ToString());
+            mainSlider.value = PlayerPrefs.GetFloat(Variable.PlDistance.ToString());
             mainSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(mainSlider.value); });
         }
 
         public void ValueChangeCheck(float val)
         {
-            PlayerPrefs.SetFloat(Variable.PlDuration.ToString(), val);
+            PlayerPrefs.SetFloat(Variable.PlDistance.ToString(), val);
 
             if (Pl == null)
             {
@@ -29,7 +29,7 @@ namespace Assets.Scripts.UI
                     Pl = pilotedLight.GetComponent<PilotedLightController>();
             }
             if (Pl != null)
-                Pl.DurationInSeconds = val;
+                Pl.DistanceFromPlayer = val;
         }
     }
 }
