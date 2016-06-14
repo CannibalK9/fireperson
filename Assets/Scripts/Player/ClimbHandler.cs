@@ -137,8 +137,15 @@ namespace Assets.Scripts.Player
 
 		private bool IsEdgeUnblocked(RaycastHit2D originalHit)
 		{
-			Vector3 origin = _playerCollider.bounds.center;
-			Vector3 direction = originalHit.collider.bounds.center - origin;
+			Vector2 origin = _playerCollider.bounds.center;
+
+			Vector2 direction;
+			if (IsUpright(originalHit.collider))
+				direction = new Vector2(originalHit.collider.bounds.center.x, originalHit.collider.bounds.max.y);
+			else
+				direction = originalHit.collider.name.Contains("left")
+					? originalHit.collider.GetTopLeft() - origin
+					: originalHit.collider.GetTopRight() - origin;
 
 			RaycastHit2D hit = Physics2D.Raycast(origin, direction, 10f, _motor.DefaultPlatformMask);
 
@@ -305,9 +312,19 @@ namespace Assets.Scripts.Player
 
 		private void SetClimbingSide()
 		{
-			ClimbingSide = _climbCollider.gameObject.layer == _rightClimbLayer
+			if (IsUpright(_climbCollider))
+				ClimbingSide = _motor.transform.position.x < _climbCollider.transform.position.x
+					? DirectionFacing.Left
+					: DirectionFacing.Right;
+			else
+				ClimbingSide = _climbCollider.gameObject.layer == _rightClimbLayer
 					? DirectionFacing.Right
 					: DirectionFacing.Left;
+		}
+
+		private bool IsUpright(Collider2D col)
+		{
+			return col.transform.rotation.eulerAngles.z > 70f;
 		}
 
 		private bool ShouldStraightClimb()
@@ -329,7 +346,7 @@ namespace Assets.Scripts.Player
 						nextClimbingState = ClimbingState.Down;
 					else if (NextClimbingStates.Contains(ClimbingState.Up) && CheckLedgeAbove())
 						nextClimbingState = ShouldStraightClimb() ? ClimbingState.Up : ClimbingState.Flip;
-					else if (NextClimbingStates.Contains(ClimbingState.AcrossLeft) && ClimbingSide == DirectionFacing.Left)
+					else if ((NextClimbingStates.Contains(ClimbingState.AcrossLeft) && ClimbingSide == DirectionFacing.Left) || IsUpright(_climbCollider))
 						nextClimbingState = CheckLedgeAcross(DirectionFacing.Left)
 							? ClimbingState.AcrossLeft
 							: ClimbingState.Jump;
@@ -355,7 +372,7 @@ namespace Assets.Scripts.Player
 							: ClimbingState.Jump;
 					break;
 				case ClimbingState.AcrossLeft:
-					if (NextClimbingStates.Contains(ClimbingState.AcrossRight) && ClimbingSide != DirectionFacing.Right)
+					if ((NextClimbingStates.Contains(ClimbingState.AcrossRight) && ClimbingSide != DirectionFacing.Right) || IsUpright(_climbCollider))
 						nextClimbingState = CheckLedgeAcross(DirectionFacing.Right)
 							? ClimbingState.AcrossRight
 							: ClimbingState.Jump;
@@ -365,7 +382,7 @@ namespace Assets.Scripts.Player
 						nextClimbingState = ClimbingState.Down;
 					break;
 				case ClimbingState.AcrossRight:
-					if (NextClimbingStates.Contains(ClimbingState.AcrossLeft) && ClimbingSide != DirectionFacing.Left)
+					if ((NextClimbingStates.Contains(ClimbingState.AcrossLeft) && ClimbingSide != DirectionFacing.Left) || IsUpright(_climbCollider))
 						nextClimbingState = CheckLedgeAcross(DirectionFacing.Left)
 							? ClimbingState.AcrossLeft
 							: ClimbingState.Jump;
@@ -375,7 +392,7 @@ namespace Assets.Scripts.Player
 						nextClimbingState = ClimbingState.Down;
 					break;
 				case ClimbingState.SwingLeft:
-					if (NextClimbingStates.Contains(ClimbingState.AcrossRight) && ClimbingSide != DirectionFacing.Right)
+					if ((NextClimbingStates.Contains(ClimbingState.AcrossRight) && ClimbingSide != DirectionFacing.Right) || IsUpright(_climbCollider))
 						nextClimbingState = CheckLedgeAcross(DirectionFacing.Right)
 							? ClimbingState.AcrossRight
 							: ClimbingState.Jump;
@@ -385,7 +402,7 @@ namespace Assets.Scripts.Player
 						nextClimbingState = ClimbingState.Down;
 					break;
 				case ClimbingState.SwingRight:
-					if (NextClimbingStates.Contains(ClimbingState.AcrossLeft) && ClimbingSide != DirectionFacing.Left)
+					if ((NextClimbingStates.Contains(ClimbingState.AcrossLeft) && ClimbingSide != DirectionFacing.Left) || IsUpright(_climbCollider))
 						nextClimbingState = CheckLedgeAcross(DirectionFacing.Left)
 							? ClimbingState.AcrossLeft
 							: ClimbingState.Jump;

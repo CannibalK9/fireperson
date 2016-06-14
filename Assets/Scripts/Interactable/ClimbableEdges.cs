@@ -15,14 +15,37 @@ namespace Assets.Scripts.Interactable
 		private GameObject _rightEdge;
 
 		private BoxCollider2D _col;
+		private const float _slopeLimit = 70f;
 
 		void Awake()
 		{
 			_col = gameObject.GetComponent<BoxCollider2D>();
 		}
+
 		void Start()
 		{
 			CreateEdges();
+		}
+
+		void Update()
+		{
+			if (_leftEdge != null)
+			{
+				if ((_leftEdge.name.Contains("corner") && _leftEdge.transform.rotation.eulerAngles.z > 90f - _slopeLimit)
+					|| (_leftEdge.transform.rotation.eulerAngles.z > _slopeLimit && _leftEdge.transform.rotation.eulerAngles.z < 360f - _slopeLimit)
+					_leftEdge.SetActive(false);
+				else
+					_leftEdge.SetActive(true);
+			}
+
+			if (_rightEdge != null)
+			{
+				if ((_rightEdge.name.Contains("corner") && _rightEdge.transform.rotation.eulerAngles.z > 90f - _slopeLimit)
+					|| (_rightEdge.transform.rotation.eulerAngles.z > _slopeLimit && _rightEdge.transform.rotation.eulerAngles.z < 360f - _slopeLimit)
+					_rightEdge.SetActive(false);
+				else
+					_rightEdge.SetActive(true);
+			}
 		}
 
 		public void ActivateEdges()
