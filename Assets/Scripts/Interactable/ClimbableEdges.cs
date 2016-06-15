@@ -32,7 +32,7 @@ namespace Assets.Scripts.Interactable
 			if (_leftEdge != null)
 			{
 				if ((_leftEdge.name.Contains("corner") && _leftEdge.transform.rotation.eulerAngles.z > 90f - _slopeLimit)
-					|| (_leftEdge.transform.rotation.eulerAngles.z > _slopeLimit && _leftEdge.transform.rotation.eulerAngles.z < 360f - _slopeLimit)
+					|| (_leftEdge.transform.rotation.eulerAngles.z > _slopeLimit && _leftEdge.transform.rotation.eulerAngles.z < 360f - _slopeLimit))
 					_leftEdge.SetActive(false);
 				else
 					_leftEdge.SetActive(true);
@@ -41,7 +41,7 @@ namespace Assets.Scripts.Interactable
 			if (_rightEdge != null)
 			{
 				if ((_rightEdge.name.Contains("corner") && _rightEdge.transform.rotation.eulerAngles.z > 90f - _slopeLimit)
-					|| (_rightEdge.transform.rotation.eulerAngles.z > _slopeLimit && _rightEdge.transform.rotation.eulerAngles.z < 360f - _slopeLimit)
+					|| (_rightEdge.transform.rotation.eulerAngles.z > _slopeLimit && _rightEdge.transform.rotation.eulerAngles.z < 360f - _slopeLimit))
 					_rightEdge.SetActive(false);
 				else
 					_rightEdge.SetActive(true);

@@ -65,6 +65,8 @@ namespace Assets.Scripts.Player
 				_velocity = _controller.Velocity;
 			}
 
+			_controller.Movement.MoveWithBuilding();
+
 			if (AcceptInput)
 			{
 				ReapplyPlatformMask();
@@ -89,8 +91,6 @@ namespace Assets.Scripts.Player
 					LinearMovement(_targetCollider.GetBottomCenter(), player, 0.5f);
 				}
 			}
-
-			_controller.Movement.MoveWithBuilding();
 		}
 
         public void SetBuildingTransform(Transform t)

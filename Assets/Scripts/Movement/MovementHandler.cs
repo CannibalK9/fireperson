@@ -127,7 +127,29 @@ namespace Assets.Scripts.Movement
 					// we add a small fudge factor for the float operations here. if our rayDistance is smaller
 					// than the width + fudge bail out because we have a direct impact
 					if (rayDistance < _controller.SkinWidth + _kSkinWidthFloatFudgeFactor)
+					{
+						float x = IsFacingRight
+							? _controller.SkinWidth + _kSkinWidthFloatFudgeFactor
+							: -_controller.SkinWidth + _kSkinWidthFloatFudgeFactor;
+
+						Vector2 origin = IsFacingRight
+							? _controller.BoxCollider.bounds.max
+							: _raycastOrigins.TopLeft;
+
+						float colliderHeight = _controller.BoxCollider.bounds.size.y;
+
+						float xMove = IsFacingRight
+							? 0.3f
+							: -0.3f;
+
+						RaycastHit2D hit = Physics2D.Raycast(origin + new Vector2(x, 0), Vector2.down, colliderHeight, _controller.PlatformMask);
+
+						if (hit && colliderHeight - hit.distance < 1f)
+						{
+							_controller.Transform.position += new Vector3(xMove, hit.point.y - _controller.BoxCollider.bounds.min.y);
+						}
 						break;
+					}
 				}
 			}
 		}
