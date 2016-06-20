@@ -4,7 +4,7 @@ namespace Assets.Scripts.Heat
 {
     public interface IVariableHeater
     {
-        BoxCollider2D BoxCollider { get; set; }
+        Collider2D Collider { get; set; }
         float HeatRayDistance { get; }
         float HeatIntensity { get; }
     }

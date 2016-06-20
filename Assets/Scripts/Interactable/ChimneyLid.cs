@@ -3,30 +3,28 @@ using UnityEngine;
 
 namespace Assets.Scripts.Interactable
 {
-    public class ChimneyLid : MonoBehaviour
+    public class ChimneyLid : FirePlace
     {
         public bool IsOpen { get; private set; }
         private Animator _anim;
-        private FirePlace _plSpot;
 
-        void Awake()
+        void Start()
         {
-            _anim = GetComponent<Animator>();
-            _plSpot = GetComponentInChildren<FirePlace>();
+            _anim = GetComponentInParent<Animator>();
         }
 
         public void Switch()
         {
-            if (_plSpot.IsAccessible)
+            if (IsAccessible)
             {
                 _anim.Play(Animator.StringToHash(Animations.Close));
-                _plSpot.IsAccessible = false;
+                IsAccessible = false;
                 IsOpen = false;
             }
             else
             {
                 _anim.Play(Animator.StringToHash(Animations.Open));
-                _plSpot.IsAccessible = true;
+                IsAccessible = true;
                 IsOpen = true;
             }
         }

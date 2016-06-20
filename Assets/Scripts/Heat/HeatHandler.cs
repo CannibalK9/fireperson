@@ -22,25 +22,25 @@ namespace Assets.Scripts.Heat
 
         public void OneCircleHeat(EmberEffect effect)
 		{
-			CastMeltingCircle(_heater.BoxCollider.bounds.center, effect);
+			CastMeltingCircle(_heater.Collider.bounds.center, effect);
 		}
 
 		public void TwoCirclesHeat(EmberEffect effect)
 		{
 			CastMeltingCircle(new Vector2(
-				_heater.BoxCollider.bounds.center.x,
-				_heater.BoxCollider.bounds.min.y + _heater.BoxCollider.bounds.extents.x), effect);
+				_heater.Collider.bounds.center.x,
+				_heater.Collider.bounds.min.y + _heater.Collider.bounds.extents.x), effect);
 
 			CastMeltingCircle(new Vector2(
-				_heater.BoxCollider.bounds.center.x,
-				_heater.BoxCollider.bounds.max.y - _heater.BoxCollider.bounds.extents.x), effect);
+				_heater.Collider.bounds.center.x,
+				_heater.Collider.bounds.max.y - _heater.Collider.bounds.extents.x), effect);
 		}
 
 		private void CastMeltingCircle(Vector2 origin, EmberEffect effect)
 		{
 			const int numberOfCasts = 20;
 
-			float radius = _heater.BoxCollider.bounds.extents.x + _heater.HeatRayDistance / 10;
+			float radius = _heater.Collider.bounds.extents.x + _heater.HeatRayDistance / 10;
 			var hits = new List<RaycastHit2D>();
 			for (int i = 0; i < numberOfCasts; i++)
 			{
@@ -51,7 +51,7 @@ namespace Assets.Scripts.Heat
                 if (effect != EmberEffect.None)
                 {
                     Vector2 point = origin + direction * radius;
-                    if (_heater.BoxCollider.OverlapPoint(point) == false)
+                    if (_heater.Collider.OverlapPoint(point) == false)
                     {
                         GameObject particle = effect == EmberEffect.Light ? _emberLight : _emberStrong;
                         Object.Instantiate(particle, point, Quaternion.Euler(direction));

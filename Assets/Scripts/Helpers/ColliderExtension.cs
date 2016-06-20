@@ -35,6 +35,27 @@ namespace Assets.Scripts.Helpers
 				col.bounds.min.y);
 		}
 
+		public static Vector2 GetRightFace(this Collider2D col)
+		{
+			return new Vector2(
+				col.bounds.max.x,
+				col.bounds.center.y);
+		}
+
+		public static Vector2 GetLeftFace(this Collider2D col)
+		{
+			return new Vector2(
+				col.bounds.min.x,
+				col.bounds.center.y);
+		}
+
+		public static Vector2 GetTopFace(this Collider2D col)
+		{
+			return new Vector2(
+				col.bounds.center.x,
+				col.bounds.max.y);
+		}
+
 		public static bool CanClimbDown(this Collider2D col)
 		{
 			return col.name.Contains("less") == false;
@@ -45,9 +66,14 @@ namespace Assets.Scripts.Helpers
 			return col.name.Contains("jumpless") == false;
 		}
 
-		public static bool CanSwing(this Collider2D col)
+		public static bool IsCorner(this Collider2D col)
 		{
-			return col.name.Contains("corner") == false;
+			return col.name.Contains("corner");
+		}
+
+		public static bool IsUpright(this Collider2D col)
+		{
+			return col.name.Contains("upright");
 		}
 	}
 }

@@ -47,7 +47,12 @@
             get { return "FlipUp"; }
         }
 
-        public static string ClimbDown
+		public static string Mantle
+		{
+			get { return "Mantle"; }
+		}
+
+		public static string ClimbDown
         {
             get { return "ClimbDown"; }
         }

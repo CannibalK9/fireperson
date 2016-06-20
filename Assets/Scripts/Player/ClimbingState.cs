@@ -5,6 +5,7 @@
 		None,
 		Up,
 		Flip,
+		Mantle,
 		Down,
 		AcrossLeft,
 		AcrossRight,

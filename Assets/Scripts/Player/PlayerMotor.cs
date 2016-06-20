@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Helpers;
 using Assets.Scripts.Interactable;
-using Assets.Scripts.Rendering;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -169,7 +168,7 @@ namespace Assets.Scripts.Player
 			SetAnimationWhenGrounded();
 
 			if (KeyBindings.GetKey(Control.Up))
-				_climbHandler.CheckLedgeAbove();
+				_climbHandler.CheckLedgeAbove(GetDirectionFacing());
 			else if (KeyBindings.GetKey(Control.Down) && _climbHandler.CheckLedgeBelow(ClimbingState.Down, GetDirectionFacing()))
 				Anim.PlayAnimation(Animations.ClimbDown);
 			else if (KeyBindings.GetKey(Control.Jump) && _climbHandler.CheckLedgeBelow(ClimbingState.MoveToEdge, GetDirectionFacing()))
@@ -254,18 +253,26 @@ namespace Assets.Scripts.Player
 		public ClimbingState SwitchClimbingState()
 		{
 			ClimbingState climbingState = _climbHandler.CurrentClimbingState;
+			var direction = DirectionFacing.None;
+
 			if (climbingState != ClimbingState.MoveToEdge && climbingState != ClimbingState.Jump)
 			{
 				if (KeyBindings.GetKey(Control.Left))
+				{
 					_climbHandler.NextClimbingStates.Add(ClimbingState.AcrossLeft);
+					direction = DirectionFacing.Left;
+				}
 				if (KeyBindings.GetKey(Control.Right))
+				{
 					_climbHandler.NextClimbingStates.Add(ClimbingState.AcrossRight);
+					direction = DirectionFacing.Right;
+				}
 				if (KeyBindings.GetKey(Control.Up))
 					_climbHandler.NextClimbingStates.Add(ClimbingState.Up);
 				if (KeyBindings.GetKey(Control.Down))
 					_climbHandler.NextClimbingStates.Add(ClimbingState.Down);
 			}
-			return _climbHandler.SwitchClimbingState();
+			return _climbHandler.SwitchClimbingState(direction);
 		}
 
 		public bool TryClimbDown()
@@ -321,7 +328,7 @@ namespace Assets.Scripts.Player
 
         public void SwitchChimney()
         {
-            _targetCollider.GetComponent<ChimneyLid>().Switch();
+            _targetCollider.GetComponentInChildren<ChimneyLid>().Switch();
         }
 
         public void SwitchStove()

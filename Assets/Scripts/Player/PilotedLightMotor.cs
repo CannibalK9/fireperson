@@ -67,6 +67,7 @@ namespace Assets.Scripts.Player
             if (KeyBindings.GetKeyUp(Control.Light))
             {
                 _lightPressTime = 0f;
+				_controller.Burst();
                 //burst
             }
         }
@@ -75,51 +76,10 @@ namespace Assets.Scripts.Player
 		{
             if (_controller.OnPoint())
 			{
-				if (Input.GetAxis("Mouse X") > 0)
-				{
-					if (_controller.Fireplace.Right != null)
-					{
-						_controller.Fireplace.IsLit = false;
-						_controller.CollidingPoint = _controller.Fireplace.Right.GetComponent<Collider2D>();
-						_controller.IsMovementOverridden = true;
-						return;
-					}
-				}
+				float x = Input.GetAxis("Mouse X");
+				float y = Input.GetAxis("Mouse Y");
 
-				if (Input.GetAxis("Mouse X") < 0)
-				{
-					if (_controller.Fireplace.Left != null)
-					{
-						_controller.Fireplace.IsLit = false;
-						_controller.CollidingPoint = _controller.Fireplace.Left.GetComponent<Collider2D>();
-						_controller.IsMovementOverridden = true;
-						return;
-					}
-				}
-
-				if (Input.GetAxis("Mouse Y") > 0)
-				{
-					if (_controller.Fireplace.Up != null)
-					{
-						_controller.Fireplace.IsLit = false;
-						_controller.CollidingPoint = _controller.Fireplace.Up.GetComponent<Collider2D>();
-						_controller.IsMovementOverridden = true;
-						return;
-					}
-				}
-
-				if (Input.GetAxis("Mouse Y") < 0)
-				{
-					if (_controller.Fireplace.Down != null)
-					{
-						_controller.Fireplace.IsLit = false;
-						_controller.CollidingPoint = _controller.Fireplace.Down.GetComponent<Collider2D>();
-						_controller.IsMovementOverridden = true;
-						return;
-					}
-				}
-
-				if (_controller.Fireplace.IsAccessible == false)
+				if (_controller.SwitchFireplace(new Vector2(x, y)) || _controller.Fireplace.IsAccessible == false)
 					return;
 			}
 

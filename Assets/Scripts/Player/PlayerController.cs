@@ -5,6 +5,7 @@ using Assets.Scripts.Player.Config;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Player
 {
@@ -56,6 +57,7 @@ namespace Assets.Scripts.Player
 		public float HeatIntensity { get { return _heatIntensity; } }
 
 		public Transform Transform { get; set; }
+		public Collider2D Collider { get; set; }
 		public BoxCollider2D BoxCollider { get; set; }
 		public CollisionState CollisionState { get; set; }
 		public bool IsGrounded { get { return CollisionState.Below; } }
@@ -75,6 +77,7 @@ namespace Assets.Scripts.Player
 			SetupVariables();
 
 			Transform = transform.parent.parent;
+			Collider = GetComponent<BoxCollider2D>();
 			BoxCollider = GetComponent<BoxCollider2D>();
 			CollisionState = new CollisionState();
 			RaycastHitsThisFrame = new List<RaycastHit2D>(2);
@@ -103,6 +106,7 @@ namespace Assets.Scripts.Player
 		}
 
 		private float _heatRayDistanceLastFrame;
+		private float _emberEffectTime;
 
 		void Update()
 		{
@@ -123,8 +127,13 @@ namespace Assets.Scripts.Player
             }
 			_heatRayDistanceLastFrame = _heatRayDistance;
 
-            if (effect == EmberEffect.None && UnityEngine.Random.value > 0.999f)
-                effect = EmberEffect.Light;
+			_emberEffectTime -= Time.deltaTime;
+
+			if (_emberEffectTime < 0)
+			{
+				effect = EmberEffect.Light;
+				_emberEffectTime = Random.Range(10, 60);
+			}
 
             HeatIce(effect);
 		}

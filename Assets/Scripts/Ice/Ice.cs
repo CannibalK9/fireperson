@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Heat;
+using Assets.Scripts.Helpers;
 using UnityEngine;
 
 namespace Assets.Scripts.Ice
@@ -19,6 +20,7 @@ namespace Assets.Scripts.Ice
 		private Vector2[] _initialPoints;
 		private FixedJoint2D[] _joints;
 		private MeshRenderer _meshRenderer;
+		private bool _meltedThisFrame;
 
 		void Awake()
 		{
@@ -27,6 +29,7 @@ namespace Assets.Scripts.Ice
 			_joints = GetComponents<FixedJoint2D>();
 			_meshRenderer = GetComponent<MeshRenderer>();
 			AnyJointEnabled = true;
+			GrowsBack = true;
 		}
 
 		void Start()
@@ -107,11 +110,13 @@ namespace Assets.Scripts.Ice
 				_meshRenderer.enabled = true;
 			}
 
-			if (GrowsBack)
+			if (GrowsBack && _meltedThisFrame == false)
 			{
 				_polyCollider.points = RaisePoints();
 				SetMeshFilterToPolyColliderPoints();
 			}
+
+			_meltedThisFrame = false;
 		}
 
 		private Vector2[] RaisePoints()
@@ -133,6 +138,7 @@ namespace Assets.Scripts.Ice
 
 		void Melt(HeatMessage message)
 		{
+			_meltedThisFrame = true;
 			_polyCollider.points = MovePointsInwards(message);
 			_polyCollider.points = FlattenAngles();
 			SetMeshFilterToPolyColliderPoints();
@@ -232,6 +238,14 @@ namespace Assets.Scripts.Ice
 			}
 
 			return indices;
+		}
+
+		void OnTriggerEnter2D(Collider2D col)
+		{
+			if (col.gameObject.layer == LayerMask.NameToLayer(Layers.Background))
+			{
+				GrowsBack = false;
+			}
 		}
 	}
 }
