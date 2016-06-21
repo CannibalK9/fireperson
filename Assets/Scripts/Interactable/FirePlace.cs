@@ -89,8 +89,8 @@ namespace Assets.Scripts.Interactable
 
 		public void PlEnter(PilotedLightController pl)
 		{
-			HeatIntensity += pl.HeatIntensity;
-			HeatRayDistance += pl.HeatRayDistance;
+			HeatIntensity += pl.Intensity;
+			HeatRayDistance += pl.Stability;
 			_firstUpdate = true;
 			IsLit = true;
 

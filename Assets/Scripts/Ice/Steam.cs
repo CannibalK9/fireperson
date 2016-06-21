@@ -10,7 +10,7 @@ namespace Assets.Scripts.Ice
 
 		void Awake()
 		{
-			_duration = PlayerPrefs.GetFloat(Variable.PlayerIntensity.ToString()) + 5;
+			_duration = PlayerPrefs.GetFloat(Variable.Control.ToString()) + 5;
             _particles = GetComponent<ParticleSystem>();
 		}
 

@@ -10,7 +10,10 @@ namespace Assets.Scripts.Player
 {
 	public class PilotedLightController : MonoBehaviour, IVariableHeater, IController
 	{
-		public float DistanceFromPlayer;
+		public float DistanceFromPlayer
+		{
+			get; set;
+		}
 
 		private HeatHandler _heatHandler;
 
@@ -49,13 +52,12 @@ namespace Assets.Scripts.Player
 			}
 		}
 
-		[Range(1, 10)]
-		public float _heatRayDistance;
-		public float HeatRayDistance { get { return _heatRayDistance; } }
+		public float Stability;
+		public float Intensity;
+		public float Control;
 
-		[Range(1, 10)]
-		public float _heatIntensity;
-		public float HeatIntensity { get { return _heatIntensity; } }
+		public float HeatIntensity { get { return Intensity; } }
+		public float HeatRayDistance { get { return Stability; } }
 
 		private LayerMask _platformMask = Layers.Platforms;
 		public LayerMask PlatformMask { get { return _platformMask; } }
@@ -73,7 +75,7 @@ namespace Assets.Scripts.Player
 		public FirePlace Fireplace { get; set; }
 
 		private SpriteRenderer _renderer;
-        private PlayerMotor _player;
+        public PlayerController Player;
 
 		void Awake()
 		{
@@ -92,14 +94,9 @@ namespace Assets.Scripts.Player
 
 		void Start()
 		{
-            _player = FindObjectOfType<PlayerMotor>();
-            float charge = _player.ChannelingTime < 1 ? 1 : _player.ChannelingTime;
-
-			_heatRayDistance = PlayerPrefs.GetFloat(Variable.PlayerRange.ToString()) * charge;
-			_heatIntensity = PlayerPrefs.GetFloat(Variable.PlayerIntensity.ToString()) * charge;
-			DistanceFromPlayer = PlayerPrefs.GetFloat(Variable.PlayerIntensity.ToString()) * charge;
-
-            _player.ChannelingTime = 0f;
+			Stability = ChannelingHandler.PlStability();
+			Intensity = ChannelingHandler.PlIntensity();
+			Control = ChannelingHandler.PlControl();
 		}
 
 		public bool NoGravity;
@@ -128,7 +125,7 @@ namespace Assets.Scripts.Player
 			{
 				DeactivatePoint();
 
-				if (Vector2.Distance(_player.transform.position, transform.position) > DistanceFromPlayer * 5)
+				if (Vector2.Distance(Player.transform.position, transform.position) > DistanceFromPlayer * 5)
 				{
 					DestroyObject(gameObject);
 				}
@@ -153,18 +150,18 @@ namespace Assets.Scripts.Player
             HeatIce(effect);
 		}
 
-		public Collider2D CollidingPoint;
+		private Collider2D _collidingPoint;
 
 		private void MoveTowardsPoint()
 		{
-			Movement.Move((CollidingPoint.transform.position - transform.position) * 0.2f);
+			Movement.Move((_collidingPoint.transform.position - transform.position) * 0.2f);
 		}
 
 		private void ActivatePoint()
 		{
 			IsMovementOverridden = false;
 			_renderer.enabled = false;
-			Fireplace = CollidingPoint.gameObject.GetComponent<FirePlace>();
+			Fireplace = _collidingPoint.gameObject.GetComponent<FirePlace>();
 			Fireplace.PlEnter(this);
 		}
 
@@ -175,14 +172,14 @@ namespace Assets.Scripts.Player
 				_renderer.enabled = true;
 				Fireplace.PlLeave();
 				NoGravity = false;
-				CollidingPoint = null;
+				_collidingPoint = null;
 				Fireplace = null;
 			}
 		}
 
 		public bool OnPoint()
 		{
-			return CollidingPoint != null && Vector2.Distance(CollidingPoint.transform.position, transform.position) < 0.1f;
+			return _collidingPoint != null && Vector2.Distance(_collidingPoint.transform.position, transform.position) < 0.1f;
 		}
 
 		public bool SwitchFireplace(Vector2 direction)
@@ -194,7 +191,7 @@ namespace Assets.Scripts.Player
 					if (Vector2.Angle(direction, fireplace.transform.position - transform.position) < 10f)
 					{
 						Fireplace.PlLeave();
-						CollidingPoint = fireplace.GetComponent<Collider2D>();
+						_collidingPoint = fireplace.GetComponent<Collider2D>();
 						Fireplace = null;
 						IsMovementOverridden = true;
 						return true;
@@ -246,7 +243,7 @@ namespace Assets.Scripts.Player
 			{
 				if (col.GetComponent<FirePlace>().IsAccessible)
 				{
-					CollidingPoint = col;
+					_collidingPoint = col;
 					IsMovementOverridden = true;
 				}
 			}

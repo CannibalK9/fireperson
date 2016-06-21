@@ -48,13 +48,24 @@ namespace Assets.Scripts.Player
 		public int TotalVerticalRays { get { return _totalVerticalRays; } }
 
 		[Range(1, 10)]
-		public float _defaultHeatRayDistance;
-		private float _heatRayDistance;
-		public float HeatRayDistance { get { return _heatRayDistance; } }
+		public float BaseStability;
 
 		[Range(1, 10)]
-		public float _heatIntensity;
-		public float HeatIntensity { get { return _heatIntensity; } }
+		public float BaseIntensity;
+
+		[Range(1, 10)]
+		public float BaseControl;
+
+		private float _stability;
+		private float _currentHeatRayDistance;
+		public float HeatRayDistance { get { return _currentHeatRayDistance; } }
+
+		
+		private float _intensity;
+		private float _currentHeatIntensity;
+		public float HeatIntensity { get { return _currentHeatIntensity; } }
+
+		private float _control;
 
 		public Transform Transform { get; set; }
 		public Collider2D Collider { get; set; }
@@ -70,7 +81,6 @@ namespace Assets.Scripts.Player
 		private HeatHandler _heatHandler;
 
 		public GameObject PilotedLight;
-        public GameObject ActivePilotedLight;
 
 		void Awake()
 		{
@@ -92,8 +102,9 @@ namespace Assets.Scripts.Player
 
 		void Start()
 		{
-			_defaultHeatRayDistance = PlayerPrefs.GetFloat(Variable.PlayerRange.ToString());
-			_heatIntensity = PlayerPrefs.GetFloat(Variable.PlayerIntensity.ToString());
+			BaseStability = PlayerPrefs.GetFloat(Variable.Stability.ToString());
+			BaseIntensity = PlayerPrefs.GetFloat(Variable.Intensity.ToString());
+			BaseControl = PlayerPrefs.GetFloat(Variable.Control.ToString());
 		}
 
 		private void SetupVariables()
@@ -110,22 +121,26 @@ namespace Assets.Scripts.Player
 
 		void Update()
 		{
-            EmberEffect effect = EmberEffect.None;
+			_stability = ChannelingHandler.Stability(BaseStability);
+			_intensity = ChannelingHandler.Intensity(BaseIntensity);
+			_control = ChannelingHandler.Control(BaseControl);
 
-            if (_heatRayDistance != _defaultHeatRayDistance && _heatRayDistanceLastFrame == _heatRayDistance && _heatRayDistance != 0)
+            var effect = EmberEffect.None;
+
+            if (_currentHeatRayDistance != _stability && _heatRayDistanceLastFrame == _currentHeatRayDistance && _currentHeatRayDistance != 0)
             {
                 SetHeatRayDistanceToDefault();
                 effect = EmberEffect.Strong;
                 //play a sound
             }
-            else if (_heatRayDistanceLastFrame != _heatRayDistance)
+            else if (_heatRayDistanceLastFrame != _currentHeatRayDistance)
                 effect = EmberEffect.Light;
-            else if (_heatRayDistance < 0)
+            else if (_currentHeatRayDistance < 0)
             {
-                _heatRayDistance = 0;
+                _currentHeatRayDistance = 0;
                 //frozen
             }
-			_heatRayDistanceLastFrame = _heatRayDistance;
+			_heatRayDistanceLastFrame = _currentHeatRayDistance;
 
 			_emberEffectTime -= Time.deltaTime;
 
@@ -140,8 +155,8 @@ namespace Assets.Scripts.Player
 
 		private void SetHeatRayDistanceToDefault()
 		{
-			_heatRayDistance = _defaultHeatRayDistance;
-			_heatRayDistanceLastFrame = _defaultHeatRayDistance;
+			_currentHeatRayDistance = _stability;
+			_heatRayDistanceLastFrame = _stability;
 		}
 
 		public void HeatIce(EmberEffect effect)
@@ -152,27 +167,23 @@ namespace Assets.Scripts.Player
 
 		public void CreateLight()
 		{
+			ChannelingHandler.StopChanneling(_stability, _intensity, _control);
+
 			Vector3 pilotedLightPosition = Movement.IsFacingRight
 				? transform.position + new Vector3(0.4f, 0, 0)
 				: transform.position + new Vector3(-0.4f, 0, 0);
 
-			ActivePilotedLight = (GameObject)Instantiate(
+			var pl = (GameObject)Instantiate(
 				PilotedLight,
 				pilotedLightPosition,
 				transform.rotation);
+
+			pl.GetComponent<PilotedLightController>().Player = this;
 		}
 
 		public void Spotted()
 		{
-			_heatRayDistance -= Time.deltaTime * 3f;
-		}
-
-		public void WarpToGrounded()
-		{
-			while (!IsGrounded)
-			{
-				Movement.Move(new Vector3(0, -1f, 0));
-			}
+			_currentHeatRayDistance -= Time.deltaTime * 3f;
 		}
 
 		private void RecalculateDistanceBetweenRays()

@@ -10,18 +10,6 @@ namespace Assets.Scripts.Movement
 		private readonly IController _controller;
 		private RaycastHit2D _raycastHit;
 		private CharacterRaycastOrigins _raycastOrigins;
-		private Vector3 _previousBuildingPosition;
-        private Transform _buildingTransform;
-        public Transform BuildingTransform
-        {
-            get { return _buildingTransform; }
-            set
-            {
-                _buildingTransform = value;
-                _previousBuildingPosition = _buildingTransform.position;
-                _controller.RaycastHitsThisFrame.Clear();
-            }
-        }
 
         private const float _kSkinWidthFloatFudgeFactor = 0.001f;
 		private bool _isGoingUpSlope;
@@ -31,20 +19,34 @@ namespace Assets.Scripts.Movement
 			_controller = controller;
 		}
 
-        public void MoveWithBuilding()
-        {
-            if (_controller.RaycastHitsThisFrame.Count > 0 && BuildingTransform != _controller.RaycastHitsThisFrame[0].transform)
-                BuildingTransform = _controller.RaycastHitsThisFrame[0].transform;
+		//as the floor moves, pivot around the point where it touches. have an opion to function like the ceiling for PL
+		//as the ceiling moves, slide away in the direction of the normal on contact
+		//walls also push left/right
+		//if the floor becomes too steep, slide down it
+		//if moving, slide pivot point along surface
+		//when platforms connect, favour the one in the direction of movement unless the other clips
 
-            if (BuildingTransform != null)
-            {
-                _controller.Transform.position += new Vector3(
-                    BuildingTransform.position.x - _previousBuildingPosition.x,
-                    BuildingTransform.position.y - _previousBuildingPosition.y);
+		public void BoxCastMove(Vector3 deltaMovement)
+		{
+			Bounds bounds = _controller.BoxCollider.bounds;
 
-                _previousBuildingPosition = _buildingTransform.position;
-            }
-        }
+			RaycastHit2D hitLeft = Physics2D.BoxCast(new Vector2(bounds.min.x + 1, bounds.center.y), new Vector2(0.001f, bounds.size.y - 2), 0, Vector2.left, 1, _controller.PlatformMask);
+			RaycastHit2D hitRight = Physics2D.BoxCast(new Vector2(bounds.max.x - 1, bounds.center.y), new Vector2(0.001f, bounds.size.y - 2), 0, Vector2.right, 1, _controller.PlatformMask);
+			RaycastHit2D hitUp = Physics2D.BoxCast(new Vector2(bounds.center.x, bounds.max.y - 1), new Vector2(bounds.size.x, 0.001f), 0, Vector2.up, 1, _controller.PlatformMask);
+			RaycastHit2D hitDown = Physics2D.BoxCast(new Vector2(bounds.center.x, bounds.min.y + 1), new Vector2(bounds.size.x, 0.001f), 0, Vector2.down, 1, _controller.PlatformMask);
+
+			if (hitUp)
+			{
+				if (_controller.BoxCollider.OverlapPoint(hitUp.point))
+					_controller.Transform.Translate(hitUp.normal * (hitUp.point.y - bounds.max.y), Space.World);
+			}
+
+			if (hitDown)
+			{
+				if (_controller.BoxCollider.OverlapPoint(hitDown.point))
+					_controller.Transform.Translate(hitDown.normal * (hitDown.point.y - bounds.min.y), Space.World);
+			}
+		}
 
 		public void Move(Vector3 deltaMovement)
 		{

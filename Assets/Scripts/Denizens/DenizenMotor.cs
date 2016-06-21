@@ -48,7 +48,6 @@ namespace Assets.Scripts.Denizens
 
 			DetermineMovement();
 			HandleMovement();
-            _controller.Movement.MoveWithBuilding();
             SpotPlayer();
 		}
 

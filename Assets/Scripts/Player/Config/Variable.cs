@@ -2,10 +2,8 @@
 {
     public enum Variable
     {
-        PlayerRange,
-        PlayerIntensity,
-        PlRange,
-        PlIntensity,
-        PlDistance
+        Intensity,
+		Stability,
+		Control
     }
 }

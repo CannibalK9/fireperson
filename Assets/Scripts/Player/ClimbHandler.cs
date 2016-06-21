@@ -149,9 +149,7 @@ namespace Assets.Scripts.Player
 
 			RaycastHit2D hit = Physics2D.Raycast(origin, direction, 10f, Layers.Platforms);
 
-			return hit
-				? originalHit.collider.transform.parent == hit.collider.transform
-				: false;
+			return hit && originalHit.collider.transform.parent == hit.collider.transform;
 		}
 
 		public bool CheckLedgeAbove(DirectionFacing direction)
@@ -318,12 +316,16 @@ namespace Assets.Scripts.Player
 
 		public ClimbingState SwitchClimbingState(DirectionFacing direction)
 		{
+			if (NextClimbingStates.Count == 0)
+				_climbCollider = null;
+
 			var nextClimbingState = ClimbingState.None;
 			if (direction == DirectionFacing.None)
 				direction = _motor.GetDirectionFacing();
 
 			switch (CurrentClimbingState)
 			{
+				case ClimbingState.Mantle:
 				case ClimbingState.Flip:
 				case ClimbingState.Up:
 					if (NextClimbingStates.Contains(ClimbingState.Down))
@@ -407,11 +409,6 @@ namespace Assets.Scripts.Player
 
 			CurrentClimbingState = nextClimbingState;
 			NextClimbingStates.Clear();
-
-			if (_climbCollider != null)
-			{
-				_motor.SetBuildingTransform(_climbCollider.transform.parent.parent);
-			}
 
 			return CurrentClimbingState;
 		}

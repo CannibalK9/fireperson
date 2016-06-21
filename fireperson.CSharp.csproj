@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.5f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -60,12 +58,6 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -92,17 +84,17 @@
     <Compile Include="Assets\Scripts\Interactable\ClimbableEdges.cs" />
     <Compile Include="Assets\Scripts\Interactable\FirePlace.cs" />
     <Compile Include="Assets\Scripts\Interactable\Orientation.cs" />
-    <Compile Include="Assets\Scripts\Interactable\spin.cs" />
     <Compile Include="Assets\Scripts\Interactable\StiltDestruction.cs" />
     <Compile Include="Assets\Scripts\Interactable\Stove.cs" />
     <Compile Include="Assets\Scripts\Interactable\StoveDoor.cs" />
     <Compile Include="Assets\Scripts\Interactable\Trapdoor.cs" />
+    <Compile Include="Assets\Scripts\Interactable\spin.cs" />
     <Compile Include="Assets\Scripts\Movement\CharacterRaycastOrigins.cs" />
     <Compile Include="Assets\Scripts\Movement\CollisionState.cs" />
     <Compile Include="Assets\Scripts\Movement\IController.cs" />
     <Compile Include="Assets\Scripts\Movement\MovementHandler.cs" />
     <Compile Include="Assets\Scripts\Player\AnimationScript.cs" />
-    <Compile Include="Assets\Scripts\Player\AuraOrbit.cs" />
+    <Compile Include="Assets\Scripts\Player\ChannelingHandler.cs" />
     <Compile Include="Assets\Scripts\Player\ClimbHandler.cs" />
     <Compile Include="Assets\Scripts\Player\ClimbingState.cs" />
     <Compile Include="Assets\Scripts\Player\Config\Controls.cs" />
@@ -118,11 +110,9 @@
     <Compile Include="Assets\Scripts\Rendering\ParticleSystemAutoDestroy.cs" />
     <Compile Include="Assets\Scripts\Rendering\RepeatSpriteBoundary.cs" />
     <Compile Include="Assets\Scripts\Rendering\TextureTilingController.cs" />
-    <Compile Include="Assets\Scripts\UI\PlDuration.cs" />
-    <Compile Include="Assets\Scripts\UI\PlHeatIntensitySlider.cs" />
-    <Compile Include="Assets\Scripts\UI\PlHeatRangeSlider.cs" />
-    <Compile Include="Assets\Scripts\UI\PlayerHeatIntensitySlider.cs" />
-    <Compile Include="Assets\Scripts\UI\PlayerHeatRangeSlider.cs" />
+    <Compile Include="Assets\Scripts\UI\ControlSlider.cs" />
+    <Compile Include="Assets\Scripts\UI\IntensitySlider.cs" />
+    <Compile Include="Assets\Scripts\UI\StabilitySlider.cs" />
     <Compile Include="Assets\SpritesAndBones\Scripts\AnimationWindowUtils.cs" />
     <Compile Include="Assets\SpritesAndBones\Scripts\Bone.cs" />
     <Compile Include="Assets\SpritesAndBones\Scripts\ControlPoint.cs" />

@@ -64,8 +64,6 @@ namespace Assets.Scripts.Player
 				_velocity = _controller.Velocity;
 			}
 
-			_controller.Movement.MoveWithBuilding();
-
 			if (AcceptInput)
 			{
 				ReapplyPlatformMask();
@@ -92,11 +90,6 @@ namespace Assets.Scripts.Player
 			}
 		}
 
-        public void SetBuildingTransform(Transform t)
-        {
-            _controller.Movement.BuildingTransform = t;
-        }
-
         private void SetHorizontalVelocityOnGround()
 		{
 			_velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * RunSpeed, ref _velocity.x, Time.deltaTime * GroundDamping);
@@ -122,10 +115,8 @@ namespace Assets.Scripts.Player
 
 		public void Move(Vector2 deltaMovement)
 		{
-			_controller.Movement.Move(deltaMovement);
+			_controller.Movement.BoxCastMove(deltaMovement);
 		}
-
-        public float ChannelingTime { get; set; }
 
 		private void HandleMovementInputs()
 		{
@@ -179,15 +170,13 @@ namespace Assets.Scripts.Player
 					? ClimbingState.AcrossLeft
 					: ClimbingState.AcrossRight);
 			}
-			else if (KeyBindings.GetKeyDown(Control.Light) && _controller.ActivePilotedLight == null)
+			else if (ChannelingHandler.ChannelingSet == false && KeyBindings.GetKeyDown(Control.Light))
             {
-                ChannelingTime += Time.deltaTime;
-            }
-            else if (KeyBindings.GetKey(Control.Light) && _controller.ActivePilotedLight == null)
-			{
-                if (ChannelingTime != 0 && ChannelingTime < 3f)
-                    ChannelingTime += Time.deltaTime;
 				Anim.PlayAnimation(Animations.CreatePL);
+			}
+			else if (ChannelingHandler.ChannelingSet == false && KeyBindings.GetKey(Control.Light))
+			{
+                ChannelingHandler.Channel();
 			}
 			else if (KeyBindings.GetKey(Control.Action))
             {

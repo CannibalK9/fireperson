@@ -49,24 +49,26 @@ namespace Assets.Scripts.Player
 				_normalizedVerticalSpeed = 0;
 				_velocity = Vector3.zero;
 			}
-            _controller.Movement.MoveWithBuilding();
 		}
 
         private float _lightPressTime;
 
         private void HandleActions()
         {
-            if (_lightPressTime > 2f)
-                Destroy(transform.root.gameObject);
+			if (ChannelingHandler.ChannelingSet == false)
+			{
+				ChannelingHandler.StopBreaking();
+				Destroy(transform.root.gameObject);
+			}
 
             if (KeyBindings.GetKey(Control.Light))
             {
-                _lightPressTime += Time.deltaTime;
+				ChannelingHandler.BreakChannel();
             }
 
             if (KeyBindings.GetKeyUp(Control.Light))
             {
-                _lightPressTime = 0f;
+                ChannelingHandler.StopBreaking();
 				_controller.Burst();
                 //burst
             }

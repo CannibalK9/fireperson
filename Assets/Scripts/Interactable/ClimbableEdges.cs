@@ -67,7 +67,9 @@ namespace Assets.Scripts.Interactable
 		private void CreateEdges(float rotation)
 		{
 			Quaternion currentRotation = transform.rotation;
-			transform.rotation = new Quaternion(0,0,0,0);
+			Transform currentParent = transform.parent;
+			transform.parent = null;
+			transform.rotation = new Quaternion();
 
 			if (LeftEdgeObject != null && LeftEdgeObject.GetComponent<Collider2D>().IsCorner())
 			{
@@ -93,8 +95,9 @@ namespace Assets.Scripts.Interactable
 				CreateLeftEdge();
 				CreateRightEdge();
 			}
-
+			
 			transform.rotation = currentRotation;
+			transform.parent = currentParent;
 		}
 
 		private bool CreateLeftEdge()
@@ -105,7 +108,6 @@ namespace Assets.Scripts.Interactable
 				_leftEdge.transform.position = _orientation == Orientation.UpsideDown
 					? UpsideDownLeft(_col)
 					: FlatLeft(_col);
-				_leftEdge.transform.rotation = transform.rotation;
 				_leftEdge.transform.parent = transform;
 				return true;
 			}
@@ -118,10 +120,10 @@ namespace Assets.Scripts.Interactable
 			{
 				_rightEdge = Instantiate(RightEdgeObject);
 
-				_rightEdge.transform.parent = transform;
 				_rightEdge.transform.position = _orientation == Orientation.UpsideDown
 					? UpsideDownRight(_col)
 					: FlatRight(_col);
+				_rightEdge.transform.parent = transform;
 				return true;
 			}
 			return false;
