@@ -68,6 +68,9 @@ namespace Assets.Scripts.Player
 			{
 				ReapplyPlatformMask();
 
+				//while (_controller.IsGrounded == false)
+				//	Move(Vector2.down);
+
 				if (_controller.IsGrounded)
 				{
 					HandleMovementInputs();
@@ -115,7 +118,7 @@ namespace Assets.Scripts.Player
 
 		public void Move(Vector2 deltaMovement)
 		{
-			_controller.Movement.BoxCastMove(deltaMovement);
+			_controller.Movement.BoxCastMove(deltaMovement, false);
 		}
 
 		private void HandleMovementInputs()

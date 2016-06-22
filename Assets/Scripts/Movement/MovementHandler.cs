@@ -17,6 +17,7 @@ namespace Assets.Scripts.Movement
 		public MovementHandler(IController controller)
 		{
 			_controller = controller;
+			PivotPoint = new GameObject();
 		}
 
 		//as the floor moves, pivot around the point where it touches. have an opion to function like the ceiling for PL
@@ -26,25 +27,98 @@ namespace Assets.Scripts.Movement
 		//if moving, slide pivot point along surface
 		//when platforms connect, favour the one in the direction of movement unless the other clips
 
-		public void BoxCastMove(Vector3 deltaMovement)
+		public void BoxCastMove(Vector3 deltaMovement, bool movementHandled)
 		{
-			Bounds bounds = _controller.BoxCollider.bounds;
-
-			RaycastHit2D hitLeft = Physics2D.BoxCast(new Vector2(bounds.min.x + 1, bounds.center.y), new Vector2(0.001f, bounds.size.y - 2), 0, Vector2.left, 1, _controller.PlatformMask);
-			RaycastHit2D hitRight = Physics2D.BoxCast(new Vector2(bounds.max.x - 1, bounds.center.y), new Vector2(0.001f, bounds.size.y - 2), 0, Vector2.right, 1, _controller.PlatformMask);
-			RaycastHit2D hitUp = Physics2D.BoxCast(new Vector2(bounds.center.x, bounds.max.y - 1), new Vector2(bounds.size.x, 0.001f), 0, Vector2.up, 1, _controller.PlatformMask);
-			RaycastHit2D hitDown = Physics2D.BoxCast(new Vector2(bounds.center.x, bounds.min.y + 1), new Vector2(bounds.size.x, 0.001f), 0, Vector2.down, 1, _controller.PlatformMask);
-
-			if (hitUp)
+			if (movementHandled == false)
 			{
-				if (_controller.BoxCollider.OverlapPoint(hitUp.point))
-					_controller.Transform.Translate(hitUp.normal * (hitUp.point.y - bounds.max.y), Space.World);
+				Bounds bounds = _controller.BoxCollider.bounds;
+
+				RaycastHit2D hitLeft = Physics2D.BoxCast(new Vector2(bounds.min.x + 1, bounds.center.y + 1), new Vector2(0.001f, bounds.size.y - 2), 0, Vector2.left, 1, _controller.PlatformMask);
+				RaycastHit2D hitRight = Physics2D.BoxCast(new Vector2(bounds.max.x - 1, bounds.center.y + 1), new Vector2(0.001f, bounds.size.y - 2), 0, Vector2.right, 1, _controller.PlatformMask);
+				RaycastHit2D hitUp = Physics2D.BoxCast(new Vector2(bounds.center.x, bounds.max.y - 1), new Vector2(bounds.size.x - 0.1f, 0.001f), 0, Vector2.up, 1, _controller.PlatformMask);
+				RaycastHit2D[] hitDown = Physics2D.BoxCastAll(new Vector2(bounds.center.x, bounds.min.y + 1), new Vector2(bounds.size.x, 0.001f), 0, Vector2.down, 1, _controller.PlatformMask);
+
+				SetDownHit(hitDown, ref deltaMovement);
+
+				if (hitLeft)
+				{
+					MoveAlongSurface(hitLeft.fraction);
+				}
+				else if (hitRight)
+				{
+					MoveAlongSurface(-hitRight.fraction);
+				}
+				MoveWithPivotPoint(ref deltaMovement);
+			}
+			else
+			{
+				deltaMovement.y = 0;
 			}
 
-			if (hitDown)
+			
+			_controller.Transform.Translate(deltaMovement, Space.World);
+
+		}
+
+		private RaycastHit2D _downHit;
+
+		public Collider2D CurrentCollider { get; set; }
+		public GameObject PivotPoint { get; set; }
+
+		private Collider2D _previousCollider;
+		private Vector3 _previousPivotPoint;
+
+		private void SetDownHit(RaycastHit2D[] hits, ref Vector3 deltaMovement)
+		{
+			foreach (RaycastHit2D hit in hits)
 			{
-				if (_controller.BoxCollider.OverlapPoint(hitDown.point))
-					_controller.Transform.Translate(hitDown.normal * (hitDown.point.y - bounds.min.y), Space.World);
+				if (Vector2.Angle(hit.normal, Vector2.up) < _controller.SlopeLimit)
+				{
+					deltaMovement.y = 0;
+					_downHit = hit;
+					SetPivotPoint(hit.collider, hit.point);
+					break;
+				}
+			}
+		}
+
+		public void SetPivotPoint(Collider2D col, Vector2 point)
+		{
+			CurrentCollider = col;
+			if (CurrentCollider != _previousCollider)
+			{
+				PivotPoint.transform.position = point;
+				PivotPoint.transform.parent = CurrentCollider.transform;
+			}
+			DrawRay(point, _downHit.normal, Color.yellow);
+		}
+
+		private void MoveWithPivotPoint(ref Vector3 deltaMovement)
+		{
+			if (CurrentCollider != null)
+			{ 
+				if (_previousCollider == CurrentCollider)
+					deltaMovement += PivotPoint.transform.position - _previousPivotPoint;
+
+				_previousCollider = CurrentCollider;
+				_previousPivotPoint = PivotPoint.transform.position;
+
+				CurrentCollider = null;
+			}
+		}
+
+		private void MoveAlongSurface(float x)
+		{
+			if (CurrentCollider != null)
+			{
+				if (_previousCollider == CurrentCollider)
+				{
+					Vector3 direction = x > 0
+						? Quaternion.Euler(0, 0, -90) * _downHit.normal
+						: Quaternion.Euler(0, 0, 90) * _downHit.normal;
+
+					PivotPoint.transform.position += direction * x;
+				}
 			}
 		}
 
@@ -57,13 +131,13 @@ namespace Assets.Scripts.Movement
 
 			PrimeRaycastOrigins();
 
-			if (deltaMovement.y < 0f && _controller.CollisionState.WasGroundedLastFrame)
+			//if (deltaMovement.y < 0f && _controller.CollisionState.WasGroundedLastFrame)
 				HandleVerticalSlope(ref deltaMovement);
 
-			if (deltaMovement.x != 0f)
+			//if (deltaMovement.x != 0f)
 				MoveHorizontally(ref deltaMovement);
 
-			if (deltaMovement.y != 0f)
+			//if (deltaMovement.y != 0f)
 				MoveVertically(ref deltaMovement);
 
 			_controller.Transform.Translate(deltaMovement, Space.World);
@@ -146,7 +220,7 @@ namespace Assets.Scripts.Movement
 
 						RaycastHit2D hit = Physics2D.Raycast(origin + new Vector2(x, 0), Vector2.down, colliderHeight, _controller.PlatformMask);
 
-						if (hit && colliderHeight - hit.distance < 1f)
+						if (Vector2.Angle(hit.normal, Vector2.up) < _controller.SlopeLimit && hit && colliderHeight - hit.distance < 1f)
 						{
 							_controller.Transform.position += new Vector3(xMove, hit.point.y - _controller.BoxCollider.bounds.min.y);
 						}
