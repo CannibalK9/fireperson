@@ -1,4 +1,5 @@
 ﻿#define DEBUG_CC2D_RAYS
+using Assets.Scripts.Helpers;
 using UnityEngine;
 
 namespace Assets.Scripts.Movement
@@ -11,13 +12,15 @@ namespace Assets.Scripts.Movement
 		private RaycastHit2D _raycastHit;
 		private CharacterRaycastOrigins _raycastOrigins;
 
-        private const float _kSkinWidthFloatFudgeFactor = 0.001f;
+		private const float _kSkinWidthFloatFudgeFactor = 0.001f;
 		private bool _isGoingUpSlope;
+		private MovementState _movementState;
 
 		public MovementHandler(IController controller)
 		{
 			_controller = controller;
-			PivotPoint = new GameObject();
+			_movementState = new MovementState();
+			_hitObject = new GameObject();
 		}
 
 		//as the floor moves, pivot around the point where it touches. have an opion to function like the ceiling for PL
@@ -29,97 +32,198 @@ namespace Assets.Scripts.Movement
 
 		public void BoxCastMove(Vector3 deltaMovement, bool movementHandled)
 		{
+			_movementState.Reset();
+			deltaMovement.y = -0.4f;
+
 			if (movementHandled == false)
 			{
 				Bounds bounds = _controller.BoxCollider.bounds;
 
-				RaycastHit2D hitLeft = Physics2D.BoxCast(new Vector2(bounds.min.x + 1, bounds.center.y + 1), new Vector2(0.001f, bounds.size.y - 2), 0, Vector2.left, 1, _controller.PlatformMask);
-				RaycastHit2D hitRight = Physics2D.BoxCast(new Vector2(bounds.max.x - 1, bounds.center.y + 1), new Vector2(0.001f, bounds.size.y - 2), 0, Vector2.right, 1, _controller.PlatformMask);
-				RaycastHit2D hitUp = Physics2D.BoxCast(new Vector2(bounds.center.x, bounds.max.y - 1), new Vector2(bounds.size.x - 0.1f, 0.001f), 0, Vector2.up, 1, _controller.PlatformMask);
-				RaycastHit2D[] hitDown = Physics2D.BoxCastAll(new Vector2(bounds.center.x, bounds.min.y + 1), new Vector2(bounds.size.x, 0.001f), 0, Vector2.down, 1, _controller.PlatformMask);
+				RaycastHit2D[] otherHits = Physics2D.BoxCastAll(new Vector2(bounds.center.x, bounds.max.y), new Vector2(bounds.size.x, 0.001f), 0, Vector2.down, bounds.size.y, _controller.PlatformMask);
 
-				SetDownHit(hitDown, ref deltaMovement);
+				_downHit = GetDownwardsHit(otherHits, ref deltaMovement);
 
-				if (hitLeft)
+				if (_downHit)
 				{
-					MoveAlongSurface(hitLeft.fraction);
+					deltaMovement.y = bounds.size.y - _downHit.distance;
+					if (_downHit.normal == Vector2.up)
+						SetPivotPoint(_downHit.collider, _controller.BoxCollider.GetBottomCenter(), true);
+					else
+						SetPivotPoint(_downHit.collider, _downHit.point, false);
 				}
-				else if (hitRight)
+
+				_otherHit = GetOtherHit(otherHits);
+				if (_otherHit)
 				{
-					MoveAlongSurface(-hitRight.fraction);
+					if (_otherHit.normal == Vector2.right)
+						SetOtherPivotPoint(_otherHit.collider, _controller.BoxCollider.GetLeftFace(), true);
+					else if (_otherHit.normal == Vector2.left)
+						SetOtherPivotPoint(_otherHit.collider, _controller.BoxCollider.GetRightFace(), true);
+					else if (_otherHit.normal == Vector2.down)
+						SetOtherPivotPoint(_otherHit.collider, _controller.BoxCollider.GetTopFace(), true);
+					else
+						SetOtherPivotPoint(_otherHit.collider, _downHit.point, false);
 				}
 				MoveWithPivotPoint(ref deltaMovement);
+
+				//if not grounded, give the other collider a pivot point for now
+
+				if (_otherHit && _movementState.IsGrounded)
+				{
+					MoveAlongSurface(_otherHit, ref deltaMovement);
+				}
+				else if (_movementState.IsOnSlope)
+				{
+					MoveAlongSurface(ref deltaMovement);
+				}
+				else if (_otherHit)
+				{
+					Vector3 direction = _otherHit.normal.normalized * DistanceOnHit();
+					deltaMovement += direction;
+					//MoveWithPivotPoint(ref deltaMovement); //repurpose this to accept the hit point - hit point needs to also account for flat sides
+				}
 			}
 			else
 			{
 				deltaMovement.y = 0;
 			}
-
 			
 			_controller.Transform.Translate(deltaMovement, Space.World);
-
 		}
 
 		private RaycastHit2D _downHit;
+		private RaycastHit2D _otherHit;
 
-		public Collider2D CurrentCollider { get; set; }
-		public GameObject PivotPoint { get; set; }
+		public Collider2D PivotCollider { get; set; }
+
+		private Collider2D _hitCollider;
+		private Collider2D _previousHitCollider;
+		private Vector3 _previousHitPivotPoint;
+		private GameObject _hitObject;
+		private bool _hitOnBase;
 
 		private Collider2D _previousCollider;
 		private Vector3 _previousPivotPoint;
+		private bool _pivotPointOnBase;
 
-		private void SetDownHit(RaycastHit2D[] hits, ref Vector3 deltaMovement)
+		private RaycastHit2D GetDownwardsHit(RaycastHit2D[] hits, ref Vector3 deltaMovement)
 		{
 			foreach (RaycastHit2D hit in hits)
 			{
-				if (Vector2.Angle(hit.normal, Vector2.up) < _controller.SlopeLimit)
+				if (Vector2.Angle(hit.normal, Vector2.up) < _controller.SlopeLimit && hit.fraction < 0.25f)
 				{
-					deltaMovement.y = 0;
-					_downHit = hit;
-					SetPivotPoint(hit.collider, hit.point);
-					break;
+					_movementState.IsGrounded = true;
+					return hit;
 				}
 			}
+
+			foreach (RaycastHit2D hit in hits)
+			{
+				if (Vector2.Angle(hit.normal, Vector2.up) < 90)
+				{
+					_movementState.IsOnSlope = true;
+					return hit;
+				}
+			}
+
+			return new RaycastHit2D();
 		}
 
-		public void SetPivotPoint(Collider2D col, Vector2 point)
+		private RaycastHit2D GetOtherHit(RaycastHit2D[] hits)
 		{
-			CurrentCollider = col;
-			if (CurrentCollider != _previousCollider)
+			foreach (RaycastHit2D hit in hits)
 			{
-				PivotPoint.transform.position = point;
-				PivotPoint.transform.parent = CurrentCollider.transform;
+				if (hit.collider != _downHit.collider)
+				{
+					return hit;
+				}
+			}
+			return new RaycastHit2D();
+		}
+
+		public void SetPivotPoint(Collider2D col, Vector2 point, bool movingToBase)
+		{
+			PivotCollider = col;
+			if (_pivotPointOnBase != movingToBase || PivotCollider != _previousCollider)
+			{
+				_movementState.GroundPivot.transform.position = point;
+				_movementState.GroundPivot.transform.parent = PivotCollider.transform;
+				_pivotPointOnBase = movingToBase;
+				_previousCollider = null;
 			}
 			DrawRay(point, _downHit.normal, Color.yellow);
 		}
 
+		public void SetOtherPivotPoint(Collider2D col, Vector2 point, bool movingToBase)
+		{
+			_hitCollider = col;
+			if (_hitOnBase != movingToBase || _hitCollider != _previousHitCollider)
+			{
+				_hitObject.transform.position = point;
+				_hitObject.transform.parent = _hitCollider.transform;
+				_hitOnBase = movingToBase;
+				_previousHitCollider = null;
+			}
+			DrawRay(point, _downHit.normal, Color.white);
+		}
+
 		private void MoveWithPivotPoint(ref Vector3 deltaMovement)
 		{
-			if (CurrentCollider != null)
-			{ 
-				if (_previousCollider == CurrentCollider)
-					deltaMovement += PivotPoint.transform.position - _previousPivotPoint;
+			if (PivotCollider != null)
+			{
+				if (_previousCollider == PivotCollider)
+				{
+					deltaMovement += _movementState.GroundPivot.transform.position - _previousPivotPoint;
 
-				_previousCollider = CurrentCollider;
-				_previousPivotPoint = PivotPoint.transform.position;
+				}
+				_previousCollider = PivotCollider;
+				_previousPivotPoint = _movementState.GroundPivot.transform.position;
 
-				CurrentCollider = null;
+				PivotCollider = null;
 			}
 		}
 
-		private void MoveAlongSurface(float x)
+		private void MoveAlongSurface(RaycastHit2D hit, ref Vector3 deltaMovement)
 		{
-			if (CurrentCollider != null)
-			{
-				if (_previousCollider == CurrentCollider)
-				{
-					Vector3 direction = x > 0
+			float ang = Vector2.Angle(_downHit.normal, hit.normal);
+			Vector3 cross = Vector3.Cross(_downHit.normal, hit.normal);
+
+			if (cross.z > 0)
+				ang = 360 - ang;
+
+			Vector3 direction = ang < 180
 						? Quaternion.Euler(0, 0, -90) * _downHit.normal
 						: Quaternion.Euler(0, 0, 90) * _downHit.normal;
 
-					PivotPoint.transform.position += direction * x;
-				}
+			float distance = DistanceOnHit();
+
+			_movementState.GroundPivot.transform.position += direction.normalized * distance;
+			deltaMovement += _movementState.GroundPivot.transform.position - _previousPivotPoint;
+		}
+
+		private float DistanceOnHit()
+		{
+			float distance = 0;
+			if (_previousHitCollider == _hitCollider)
+			{
+				distance = Vector2.Distance(_movementState.GroundPivot.transform.position, _previousPivotPoint);
 			}
+			_previousHitCollider = _hitCollider;
+			_previousHitPivotPoint = _hitObject.transform.position;
+
+			_hitCollider = null;
+
+			return distance;
+		}
+
+		private void MoveAlongSurface(ref Vector3 deltaMovement)
+		{
+			Vector3 direction = _downHit.normal.x > 0
+				? Quaternion.Euler(0, 0, -90) * _downHit.normal
+				: Quaternion.Euler(0, 0, 90) * _downHit.normal;
+
+			_movementState.GroundPivot.transform.position += direction.normalized * 0.05f;
+			deltaMovement += _movementState.GroundPivot.transform.position - _previousPivotPoint;
 		}
 
 		public void Move(Vector3 deltaMovement)

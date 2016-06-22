@@ -8,9 +8,18 @@ namespace Assets.Scripts.Interactable
 {
 	public class spin : MonoBehaviour
 	{
+		public bool Spin;
+		public bool Left;
+		[Range(0.01f, 5f)]
+		public float Speed;
+
 		void Update()
 		{
-			transform.Rotate(0, 0, 0.2f);
+			var speed = Speed;
+			if (Left)
+				speed = -Speed;
+			if (Spin)
+				transform.Rotate(0, 0, Speed);
 		}
 	}
 }
