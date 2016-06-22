@@ -19,7 +19,7 @@ namespace Assets.Scripts.Interactable
 			if (Left)
 				speed = -Speed;
 			if (Spin)
-				transform.Rotate(0, 0, Speed);
+				transform.Rotate(0, 0, speed);
 		}
 	}
 }
