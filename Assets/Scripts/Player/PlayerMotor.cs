@@ -118,7 +118,7 @@ namespace Assets.Scripts.Player
 
 		public void Move(Vector2 deltaMovement)
 		{
-			_controller.Movement.BoxCastMove(deltaMovement, false);
+			_controller.Movement.BoxCastMove(deltaMovement);
 		}
 
 		private void HandleMovementInputs()
