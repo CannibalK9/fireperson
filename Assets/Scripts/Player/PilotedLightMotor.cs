@@ -40,7 +40,7 @@ namespace Assets.Scripts.Player
 				_velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * FlySpeed, ref _velocity.x, Time.deltaTime * AirDamping);
 				_velocity.y = Mathf.SmoothDamp(_velocity.y, _normalizedVerticalSpeed * FlySpeed - appliedGravity, ref _velocity.y, Time.deltaTime * AirDamping);
 
-				_controller.Movement.Move(_velocity * Time.deltaTime);
+				_controller.Movement.BoxCastMove(_velocity * Time.deltaTime);
 				_velocity = _controller.Velocity;
 			}
 			else

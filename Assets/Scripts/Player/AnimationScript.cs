@@ -48,26 +48,26 @@ namespace Assets.Scripts.Player
 
 		private void SwitchClimbingState()
 		{
-			ClimbingState nextState = PlayerMotor.SwitchClimbingState();
+			Climb nextState = PlayerMotor.SwitchClimbingState();
 
 			switch (nextState)
 			{
-				case ClimbingState.Up:
+				case Climb.Up:
 					_animator.SetTrigger("climbUp");
 					break;
-				case ClimbingState.Flip:
+				case Climb.Flip:
 					_animator.SetTrigger("flipUp");
 					break;
-				case ClimbingState.Down:
+				case Climb.Down:
 					_animator.SetTrigger("transitionDown");
 					break;
-				case ClimbingState.AcrossRight:
-				case ClimbingState.AcrossLeft:
-				case ClimbingState.SwingRight:
-				case ClimbingState.SwingLeft:
+				case Climb.AcrossRight:
+				case Climb.AcrossLeft:
+				case Climb.SwingRight:
+				case Climb.SwingLeft:
 					_animator.SetTrigger("transitionAcross");
 					break;
-				case ClimbingState.Jump:
+				case Climb.Jump:
 					_animator.SetTrigger("jump");
 					break;
 			}

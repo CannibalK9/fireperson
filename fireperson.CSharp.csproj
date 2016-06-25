@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\Heat\IVariableHeater.cs" />
     <Compile Include="Assets\Scripts\Helpers\Animations.cs" />
     <Compile Include="Assets\Scripts\Helpers\ColliderExtension.cs" />
+    <Compile Include="Assets\Scripts\Helpers\ColliderPoint.cs" />
     <Compile Include="Assets\Scripts\Helpers\DirectionTravelling.cs" />
     <Compile Include="Assets\Scripts\Helpers\Interactables.cs" />
     <Compile Include="Assets\Scripts\Helpers\Layers.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Assets\Scripts\Player\AnimationScript.cs" />
     <Compile Include="Assets\Scripts\Player\ChannelingHandler.cs" />
     <Compile Include="Assets\Scripts\Player\ClimbHandler.cs" />
+    <Compile Include="Assets\Scripts\Player\Climb.cs" />
     <Compile Include="Assets\Scripts\Player\ClimbingState.cs" />
     <Compile Include="Assets\Scripts\Player\Config\Controls.cs" />
     <Compile Include="Assets\Scripts\Player\Config\KeyBindings.cs" />

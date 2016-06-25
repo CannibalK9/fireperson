@@ -123,7 +123,7 @@ namespace Assets.Scripts.Denizens
 
 		private bool ApproachingEdge(Vector2 edgeRay)
 		{
-			return Physics2D.Raycast(edgeRay, Vector2.down, 2f, _controller.PlatformMask) == false;
+			return Physics2D.Raycast(edgeRay, Vector2.down, 2f, Layers.Platforms) == false;
 		}
 
 		private bool _hitSnow;
@@ -173,7 +173,7 @@ namespace Assets.Scripts.Denizens
                 _velocity.x = -RunSpeed;
 
 			_velocity.y += Gravity * Time.deltaTime;
-			_controller.Movement.Move(_velocity * Time.deltaTime);
+			_controller.Movement.BoxCastMove(_velocity * Time.deltaTime);
 			_velocity = _controller.Velocity;
 		}
 

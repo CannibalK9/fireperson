@@ -9,22 +9,6 @@ namespace Assets.Scripts.Denizens
     [RequireComponent(typeof(BoxCollider2D))]
     public class DenizenController : MonoBehaviour, IController
     {
-        [SerializeField]
-        [Range(0.001f, 0.3f)]
-        private float _skinWidth = 0.02f;
-        public float SkinWidth
-        {
-            get { return _skinWidth; }
-            set
-            {
-                _skinWidth = value;
-                RecalculateDistanceBetweenRays();
-            }
-        }
-
-        private LayerMask _platformMask = Layers.Platforms;
-        public LayerMask PlatformMask { get { return _platformMask; } }
-
         [Range(0f, 90f)]
         public float _slopeLimit = 30f;
         public float SlopeLimit { get { return _slopeLimit; } }
@@ -37,25 +21,16 @@ namespace Assets.Scripts.Denizens
             }
         }
 
-        [Range(2, 20)]
-        public int _totalHorizontalRays = 8;
-        public int TotalHorizontalRays { get { return _totalHorizontalRays; } }
-
-        [Range(2, 20)]
-        public int _totalVerticalRays = 4;
-        public int TotalVerticalRays { get { return _totalVerticalRays; } }
-
         public Transform Transform { get; set; }
         public BoxCollider2D BoxCollider { get; set; }
         public CollisionState CollisionState { get; set; }
         public bool IsGrounded { get { return CollisionState.Below; } }
         public Vector3 Velocity { get; set; }
         public List<RaycastHit2D> RaycastHitsThisFrame { get; set; }
-        public float VerticalDistanceBetweenRays { get; set; }
-        public float HorizontalDistanceBetweenRays { get; set; }
         public bool SatAtFireplace { get; set; }
 
         public MovementHandler Movement;
+		public MovementState MovementState { get; set; }
         private DenizenMotor _motor;
 
         void Awake()
@@ -66,8 +41,8 @@ namespace Assets.Scripts.Denizens
             BoxCollider = GetComponent<BoxCollider2D>();
             CollisionState = new CollisionState();
             RaycastHitsThisFrame = new List<RaycastHit2D>(2);
-            SkinWidth = _skinWidth;
             _motor = GetComponent<DenizenMotor>();
+			MovementState = new MovementState();
         }
 
         public bool SpotPlayer(Vector2 direction)
@@ -105,15 +80,6 @@ namespace Assets.Scripts.Denizens
                     SatAtFireplace = true;
                 }
             }
-        }
-
-        private void RecalculateDistanceBetweenRays()
-        {
-            var colliderUseableHeight = BoxCollider.size.y * Mathf.Abs(Transform.localScale.y) - (2f * _skinWidth);
-            VerticalDistanceBetweenRays = colliderUseableHeight / (TotalHorizontalRays - 1);
-
-            var colliderUseableWidth = BoxCollider.size.x * Mathf.Abs(Transform.localScale.x) - (2f * _skinWidth);
-            HorizontalDistanceBetweenRays = colliderUseableWidth / (TotalVerticalRays - 1);
         }
     }
 }

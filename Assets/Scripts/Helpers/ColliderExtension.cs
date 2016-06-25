@@ -4,6 +4,31 @@ namespace Assets.Scripts.Helpers
 {
 	public static class ColliderExtension
 	{
+		public static Vector2 GetPoint(this Collider2D col, ColliderPoint point)
+		{
+			switch (point)
+			{
+				case ColliderPoint.TopLeft:
+					return col.GetTopLeft();
+				case ColliderPoint.TopRight:
+					return col.GetTopRight();
+				case ColliderPoint.BottomLeft:
+					return col.GetBottomLeft();
+				case ColliderPoint.BottomRight:
+					return col.GetBottomRight();
+				case ColliderPoint.TopFace:
+					return col.GetTopFace();
+				case ColliderPoint.LeftFace:
+					return col.GetLeftFace();
+				case ColliderPoint.RightFace:
+					return col.GetRightFace();
+				case ColliderPoint.BottomFace:
+					return col.GetBottomCenter();
+				default:
+					return col.transform.position;
+			}
+		}
+
 		public static Vector2 GetTopRight(this Collider2D col)
 		{
 			return col.bounds.max;
