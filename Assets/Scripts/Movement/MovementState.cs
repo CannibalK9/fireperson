@@ -24,7 +24,6 @@ namespace Assets.Scripts.Movement
 			LeftCollision = false;
 			RightCollision = false;
 			IsOnSlope = false;
-			MovementOverridden = false;
 			CurrentAcceleration = currentAcceleration;
 		}
 

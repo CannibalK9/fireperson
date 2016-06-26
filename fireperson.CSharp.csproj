@@ -77,6 +77,7 @@
     <Compile Include="Assets\Scripts\Helpers\Animations.cs" />
     <Compile Include="Assets\Scripts\Helpers\ColliderExtension.cs" />
     <Compile Include="Assets\Scripts\Helpers\ColliderPoint.cs" />
+    <Compile Include="Assets\Scripts\Helpers\ConstantVariables.cs" />
     <Compile Include="Assets\Scripts\Helpers\DirectionTravelling.cs" />
     <Compile Include="Assets\Scripts\Helpers\Interactables.cs" />
     <Compile Include="Assets\Scripts\Helpers\Layers.cs" />

@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Heat;
-using Assets.Scripts.Helpers;
 using Assets.Scripts.Movement;
 using Assets.Scripts.Player.Config;
 using System;

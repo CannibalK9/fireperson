@@ -34,7 +34,7 @@ namespace Assets.Scripts.Player
 
 		public ClimbingState GetClimbingState()
 		{
-			float climbingSpeed = 0.5f;
+			float climbingSpeed = ConstantVariables.DefaultClimbSpeed;
 
 			switch (CurrentClimb)
 			{
@@ -44,7 +44,7 @@ namespace Assets.Scripts.Player
 					break;
 				case Climb.Down:
 					ClimbDown();
-					climbingSpeed = 1f;
+					climbingSpeed = ConstantVariables.MoveToEdgeSpeed;
 					break;
 				case Climb.AcrossLeft:
 				case Climb.AcrossRight:
@@ -58,7 +58,7 @@ namespace Assets.Scripts.Player
 					break;
 				case Climb.MoveToEdge:
 					MoveToEdge();
-					climbingSpeed = 1f;
+					climbingSpeed = ConstantVariables.MoveToEdgeSpeed;
 					break;
 			}
 			 return new ClimbingState(CurrentClimb, _climbCollider, climbingSpeed, _target, _player);

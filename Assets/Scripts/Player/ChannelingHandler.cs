@@ -4,7 +4,7 @@ namespace Assets.Scripts.Player
 {
 	public static class ChannelingHandler
 	{
-		public static bool ChannelingSet { get; private set; }
+		public static bool ChannelingSet { get; set; }
 
 		public static float Stability(float value)
 		{
@@ -61,6 +61,13 @@ namespace Assets.Scripts.Player
 
 		public static void BreakChannel()
 		{
+			if (ChannelingSet == false)
+			{
+				_channelingTime = 0;
+				_breakChannelingTime = 0;
+				return;
+			}
+
 			_breakChannelingTime += Time.deltaTime;
 			if (_breakChannelingTime > _breakChannelTime)
 			{

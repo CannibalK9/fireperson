@@ -19,17 +19,7 @@ namespace Assets.Scripts.Movement
 			_controller = controller;
 		}
 
-		//as the floor moves, pivot around the point where it touches. have an opion to function like the ceiling for PL
-		//as the ceiling moves, slide away in the direction of the normal on contact
-		//walls also push left/right
-		//if the floor becomes too steep, slide down it
-		//if moving, slide pivot point along surface
-		//when platforms connect, favour the one in the direction of movement unless the other clips
-
-			//better slope slidiness
 			//more casts to cover col faces
-			//get the pl and climbhandler to use setpivot/movetopivot/unsetpivot
-			//see what needs to use stopmoving
 
 		public void MoveLinearly(float speed, Vector2 controllerPosition)
 		{
@@ -53,6 +43,7 @@ namespace Assets.Scripts.Movement
 					{
 						DownCast(downHits, ref deltaMovement);
 						MoveWithPivotPoint(ref deltaMovement);
+						_controller.MovementState.PivotCollider = null;
 
 						MoveAlongSurface(ref deltaMovement);
 					}
@@ -155,9 +146,6 @@ namespace Assets.Scripts.Movement
 			bool moveRight;
 			float speed;
 
-			if (_controller.MovementState.CurrentAcceleration.x != 0)
-				Console.Write("a");
-
 			if (_controller.MovementState.IsOnSlope)
 			{
 				moveRight = _downHit.normal.x > 0;
@@ -219,15 +207,14 @@ namespace Assets.Scripts.Movement
 				}
 				_previousCollider = _controller.MovementState.PivotCollider;
 				_previousPivotPoint = _controller.MovementState.GroundPivot.transform.position;
-
-				_controller.MovementState.PivotCollider = null;
 			}
 		}
 
 		private void MoveTowardsPivot(ref Vector3 deltaMovement, float speed, Vector3 offset)
 		{
 			Vector3 pivotPosition = _controller.MovementState.GroundPivot.transform.position + _controller.Transform.position - offset;
-			deltaMovement = (pivotPosition - _controller.Transform.position).normalized * speed;
+			Vector3 newPosition = Vector3.MoveTowards(_controller.Transform.position, pivotPosition, speed);
+			deltaMovement += newPosition - _controller.Transform.position;
 		}
 
 		[System.Diagnostics.Conditional("DEBUG_CC2D_RAYS")]

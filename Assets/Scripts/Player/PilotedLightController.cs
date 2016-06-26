@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Assets.Scripts.Heat;
+﻿using Assets.Scripts.Heat;
 using Assets.Scripts.Helpers;
 using Assets.Scripts.Movement;
 using UnityEngine;
@@ -17,8 +16,6 @@ namespace Assets.Scripts.Player
 		private HeatHandler _heatHandler;
 
 		public float SlopeLimit { get { return 0; } }
-
-		public bool IsMovementOverridden { get; set; }
 
 		public AnimationCurve SlopeSpeedMultiplier
 		{
@@ -47,11 +44,10 @@ namespace Assets.Scripts.Player
 		private SpriteRenderer _renderer;
 		public PlayerController Player;
 		public MovementState MovementState { get; set; }
+		public bool NoGravity;
 
 		void Awake()
 		{
-			IsMovementOverridden = false;
-
 			CollisionState = new CollisionState();
 			Movement = new MovementHandler(this);
 			_heatHandler = new HeatHandler(this);
@@ -71,33 +67,11 @@ namespace Assets.Scripts.Player
 			DistanceFromPlayer = Stability;
 		}
 
-		public bool NoGravity;
         private bool _firstUpdate = true;
 		private float _emberEffectTime;
 
 		void Update()
 		{
-			if (Fireplace != null)
-			{
-				NoGravity = true;
-				MoveTowardsPoint();
-
-				if (OnPoint())
-				{
-					MovementState.MovementOverridden = false;
-					ActivatePoint();
-				}
-				else if (OnPoint() == false && MovementState.MovementOverridden == false)
-				{
-					DeactivatePoint();
-
-					if (Vector2.Distance(Player.transform.position, transform.position) > DistanceFromPlayer * 5)
-					{
-						DestroyObject(gameObject);
-					}
-				}
-			}
-
             var effect = EmberEffect.None;
             
 			_emberEffectTime -= Time.deltaTime;
@@ -117,32 +91,23 @@ namespace Assets.Scripts.Player
             HeatIce(effect);
 		}
 
-		private void MoveTowardsPoint()
-		{
-			Movement.MoveLinearly(0.2f, Transform.position);
-		}
-
-		private void ActivatePoint()
+		public void ActivatePoint()
 		{
 			_renderer.enabled = false;
 			Fireplace.PlEnter(this);
 		}
 
-		private void DeactivatePoint()
+		public void DeactivatePoint()
 		{
-			if (Fireplace != null)
-			{
-				_renderer.enabled = true;
-				Fireplace.PlLeave();
-				NoGravity = false;
-				MovementState.UnsetPivot();
-				Fireplace = null;
-			}
+			_renderer.enabled = true;
+			Fireplace.PlLeave();
+			NoGravity = false;
+			Fireplace = null;
 		}
 
 		public bool OnPoint()
 		{
-			return MovementState.PivotCollider != null && Vector2.Distance(MovementState.PivotCollider.transform.position, transform.position) < 0.1f;
+			return Fireplace != null && Vector2.Distance(Fireplace.transform.position, transform.position) < 0.1f;
 		}
 
 		public bool SwitchFireplace(Vector2 direction)

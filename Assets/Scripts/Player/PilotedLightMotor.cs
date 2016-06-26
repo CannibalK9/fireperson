@@ -15,8 +15,6 @@ namespace Assets.Scripts.Player
 		public float AirDamping = 500f;
 		public float Gravity = 0f;
 
-		public bool IsReadyToMove { get; set; }
-
 		void Awake()
 		{
 			_controller = GetComponent<PilotedLightController>();
@@ -24,17 +22,11 @@ namespace Assets.Scripts.Player
 
 		void Update()
 		{
-			_timeToWake -= Time.deltaTime;
-			if (_timeToWake < 0)
-				IsReadyToMove = true;
-
-            if (IsReadyToMove)
-                HandleActions();
-
-			if (IsReadyToMove && _controller.IsMovementOverridden == false)
-			{
+			if (_controller.MovementState.MovementOverridden == false)
 				HandleMovementInputs();
 
+			if (_controller.MovementState.MovementOverridden == false)
+			{ 
 				float appliedGravity = _controller.NoGravity == true ? 0 : Gravity;
 
 				_velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * FlySpeed, ref _velocity.x, Time.deltaTime * AirDamping);
@@ -49,9 +41,42 @@ namespace Assets.Scripts.Player
 				_normalizedVerticalSpeed = 0;
 				_velocity = Vector3.zero;
 			}
+
+			if (_controller.Fireplace != null)
+			{ 
+				if (_controller.OnPoint())
+				{
+					MoveTowardsPoint();
+					_controller.MovementState.MovementOverridden = false;
+					_controller.ActivatePoint();
+				}
+				else if (_controller.OnPoint() == false && _controller.MovementState.MovementOverridden == false)
+				{
+					_controller.DeactivatePoint();
+				}
+				else
+					MoveTowardsPoint();
+			}
+			else if (Vector2.Distance(_controller.Player.transform.position, transform.position) > _controller.DistanceFromPlayer * 5)
+			{
+				ChannelingHandler.ChannelingSet = false;
+				DestroyObject(gameObject);
+			}
+
+			_timeToWake -= Time.deltaTime;
+			if (_timeToWake > 0)
+				return;
+
+            HandleActions();
 		}
 
-        private float _lightPressTime;
+		private void MoveTowardsPoint()
+		{
+			_controller.NoGravity = true;
+			_controller.Movement.MoveLinearly(0.2f, _controller.Transform.position);
+		}
+
+		private float _lightPressTime;
 
         private void HandleActions()
         {
