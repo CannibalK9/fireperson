@@ -6,7 +6,7 @@ using Assets.Scripts.Interactable;
 
 namespace Assets.Scripts.Player
 {
-	public class PilotedLightController : MonoBehaviour, IVariableHeater, IController
+	public class PilotedLightController : MonoBehaviour, IVariableHeater, IMotor
 	{
 		public float DistanceFromPlayer
 		{

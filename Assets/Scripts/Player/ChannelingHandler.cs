@@ -5,6 +5,7 @@ namespace Assets.Scripts.Player
 	public static class ChannelingHandler
 	{
 		public static bool ChannelingSet { get; set; }
+		public static bool IsChanneling { get { return _channelingTime != 0; } }
 
 		public static float Stability(float value)
 		{
@@ -45,7 +46,7 @@ namespace Assets.Scripts.Player
 		public static void Channel()
 		{
 			if (_channelingTime < _maximumChannelingTime)
-				_channelingTime += Time.deltaTime;			
+				_channelingTime += Time.deltaTime;
 		}
 
 		public static void StopChanneling(float stability, float intensity, float control)

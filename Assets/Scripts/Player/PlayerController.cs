@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Heat;
-using Assets.Scripts.Movement;
 using Assets.Scripts.Player.Config;
 using System;
 using UnityEngine;
@@ -7,14 +6,9 @@ using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Player
 {
-	public class PlayerController : MonoBehaviour, IController, IVariableHeater
+	public class PlayerController : MonoBehaviour, IVariableHeater
 	{
-		[Range(0f, 90f)]
-		public float _slopeLimit = 30f;
-		public float SlopeLimit { get { return _slopeLimit; } }
-
-		public AnimationCurve SlopeSpeedMultiplier
-		{ get { return new AnimationCurve(new Keyframe(-90f, 1.5f), new Keyframe(0f, 1f), new Keyframe(90f, 0f)); } }
+		public GameObject PilotedLight;
 
 		[Range(1, 10)]
 		public float BaseStability;
@@ -29,7 +23,6 @@ namespace Assets.Scripts.Player
 		private float _currentHeatRayDistance;
 		public float HeatRayDistance { get { return _currentHeatRayDistance; } }
 
-		
 		private float _intensity;
 		private float _currentHeatIntensity;
 		public float HeatIntensity { get { return _currentHeatIntensity; } }
@@ -38,14 +31,8 @@ namespace Assets.Scripts.Player
 
 		public Transform Transform { get; set; }
 		public Collider2D Collider { get; set; }
-		public BoxCollider2D BoxCollider { get; set; }
-		public Vector3 Velocity { get; set; }
-		public MovementState MovementState { get; set; }
 
-		public MovementHandler Movement;
 		private HeatHandler _heatHandler;
-
-		public GameObject PilotedLight;
 
 		void Awake()
 		{
@@ -53,10 +40,7 @@ namespace Assets.Scripts.Player
 
 			Transform = transform.parent.parent;
 			Collider = GetComponent<BoxCollider2D>();
-			BoxCollider = GetComponent<BoxCollider2D>();
 
-			Movement = new MovementHandler(this);
-			MovementState = new MovementState();
 			_heatHandler = new HeatHandler(this);
 
 			SetHeatRayDistanceToDefault();
@@ -87,21 +71,26 @@ namespace Assets.Scripts.Player
 			_intensity = ChannelingHandler.Intensity(BaseIntensity);
 			_control = ChannelingHandler.Control(BaseControl);
 
-            var effect = EmberEffect.None;
+			HeatIce(SelectEmberEffect());
+		}
 
-            if (_currentHeatRayDistance != _stability && _heatRayDistanceLastFrame == _currentHeatRayDistance && _currentHeatRayDistance != 0)
-            {
-                SetHeatRayDistanceToDefault();
-                effect = EmberEffect.Strong;
-                //play a sound
-            }
-            else if (_heatRayDistanceLastFrame != _currentHeatRayDistance)
-                effect = EmberEffect.Light;
-            else if (_currentHeatRayDistance < 0)
-            {
-                _currentHeatRayDistance = 0;
-                //frozen
-            }
+		private EmberEffect SelectEmberEffect()
+		{
+			var effect = EmberEffect.None;
+
+			if (_currentHeatRayDistance != _stability && _heatRayDistanceLastFrame == _currentHeatRayDistance && _currentHeatRayDistance != 0)
+			{
+				SetHeatRayDistanceToDefault();
+				effect = EmberEffect.Strong;
+				//play a sound
+			}
+			else if (_heatRayDistanceLastFrame != _currentHeatRayDistance)
+				effect = EmberEffect.Light;
+			else if (_currentHeatRayDistance < 0)
+			{
+				_currentHeatRayDistance = 0;
+				//frozen
+			}
 			_heatRayDistanceLastFrame = _currentHeatRayDistance;
 
 			_emberEffectTime -= Time.deltaTime;
@@ -111,8 +100,7 @@ namespace Assets.Scripts.Player
 				effect = EmberEffect.Light;
 				_emberEffectTime = Random.Range(10, 60);
 			}
-
-            HeatIce(effect);
+			return effect;
 		}
 
 		private void SetHeatRayDistanceToDefault()

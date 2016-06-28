@@ -34,7 +34,7 @@ namespace Assets.Scripts.Player
 
 		public ClimbingState GetClimbingState()
 		{
-			float climbingSpeed = ConstantVariables.DefaultClimbSpeed;
+			float climbingSpeed = ConstantVariables.DefaultMovementSpeed;
 
 			switch (CurrentClimb)
 			{
@@ -203,11 +203,11 @@ namespace Assets.Scripts.Player
 		public bool CheckLedgeBelow(Climb intendedClimbingState, DirectionFacing direction)
 		{
 			const float checkWidth = 5f;
-			const float checkDepth = 3f;
+			const float checkDepth = 4f;
 
 			var origin = new Vector2(
-				   _playerCollider.bounds.center.x,
-				   _playerCollider.bounds.min.y - checkDepth / 2);
+				_playerCollider.bounds.center.x,
+				_playerCollider.bounds.min.y - checkDepth / 2);
 
 			var size = new Vector2(0.01f, checkDepth);
 

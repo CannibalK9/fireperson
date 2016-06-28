@@ -7,6 +7,7 @@ namespace Assets.Scripts.Player
 	public class AnimationScript : MonoBehaviour
 	{
 		public PlayerMotor PlayerMotor;
+		public PlayerController PlayerController;
         public SmoothCamera2D CameraScript;
 		private Animator _animator;
 
@@ -15,7 +16,7 @@ namespace Assets.Scripts.Player
 			_animator = GetComponent<Animator>();
 		}
 
-        void Start()
+		 void Start()
         {
             CameraScript.Target = transform;
         }
@@ -30,7 +31,6 @@ namespace Assets.Scripts.Player
 				_animator.ResetTrigger("transitionAcross");
 				_animator.ResetTrigger("jump");
 				_animator.ResetTrigger("flipUp");
-				AllowMovement();
 				AcceptInput();
 				PlayerMotor.CancelClimbingState();
 			}
@@ -106,24 +106,34 @@ namespace Assets.Scripts.Player
 			PlayerMotor.SetJumpingVelocity(false);
 		}
 
+		private void RotateClockwiseAroundPivot()
+		{
+			
+		}
+
+		private void RotateAntiClockwiseAroundPivot()
+		{
+			
+		}
+
 		private void AllowMovement()
 		{
+			_animator.speed = PlayerMotor.GetAnimationSpeed();
 			PlayerMotor.MovementAllowed = true;
 		}
 
 		private void StopMovement()
 		{
+			_animator.speed = 1;
 			PlayerMotor.MovementAllowed = false;
 		}
 
 		private void AcceptInput()
 		{
-			PlayerMotor.AcceptInput = true;
 		}
 
 		private void IgnoreInput()
 		{
-			PlayerMotor.AcceptInput = false;
 		}
 
 		private void DestroyStilt()
@@ -133,7 +143,7 @@ namespace Assets.Scripts.Player
 
         private void CreateLight()
         {
-            PlayerMotor.CreateLight();
+            PlayerController.CreateLight();
         }
 
         private void SwitchChimney()

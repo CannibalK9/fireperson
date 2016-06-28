@@ -1,166 +1,181 @@
-﻿using Assets.Scripts.Helpers;
+﻿using System;
+using Assets.Scripts.Helpers;
 using Assets.Scripts.Interactable;
+using Assets.Scripts.Movement;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
-	public class PlayerMotor : MonoBehaviour
+	public class PlayerMotor : MonoBehaviour, IMotor
 	{
+		[Range(0f, 90f)]
+		public float _slopeLimit = 60f;
+		public float SlopeLimit { get { return _slopeLimit; } }
+
+		public AnimationCurve SlopeSpeedMultiplier
+		{ get { return new AnimationCurve(new Keyframe(-90f, 1.5f), new Keyframe(0f, 1f), new Keyframe(90f, 0f)); } }
+
 		public float Gravity = -25f;
 		public float RunSpeed = 8f;
 		public float GroundDamping = 1f;
 
-		private float _normalizedHorizontalSpeed;
-
 		public AnimationScript Anim { get; private set; }
 		public BoxCollider2D Collider { get; private set; }
-		public bool AcceptInput { get; set; }
 		public bool MovementAllowed { get; set; }
+		public DirectionFacing ClimbingSide { get { return _climbHandler.ClimbSide; } }
+		public Transform Transform { get; set; }
+		public MovementState MovementState { get; set; }
+		public MovementHandler Movement { get; set; }
+		public BoxCollider2D BoxCollider { get; set; }
 
-		public DirectionFacing ClimbingSide
-		{
-			get { return _climbHandler.ClimbSide; }
-		}
-
-        public LayerMask DefaultPlatformMask
-        {
-            get { return _defaultPlatformMask; }
-        }
-
-		private PlayerController _controller;
 		private ClimbHandler _climbHandler;
 		private ClimbingState _climbingState;
 		private Vector3 _velocity;
-		private LayerMask _defaultPlatformMask;
-		private Transform _transform;
-		private Collider2D _targetCollider;
+		private Collider2D _interactionCollider;
+		private PlayerState _playerState;
+		private float _normalizedHorizontalSpeed;
 
 		void Awake()
 		{
-			_transform = transform.parent.parent;
-			Anim = _transform.GetComponent<AnimationScript>();
-			_controller = GetComponent<PlayerController>();
+			Transform = transform.parent.parent;
+			Anim = Transform.GetComponent<AnimationScript>();
 			Collider = GetComponent<BoxCollider2D>();
+			MovementState = new MovementState();
+			Movement = new MovementHandler(this);
+			BoxCollider = GetComponent<BoxCollider2D>();
+			MovementAllowed = true;
 
 			_climbHandler = new ClimbHandler(this);
-			AcceptInput = true;
 		}
 
 		void Update()
 		{
-			if (_climbHandler.CurrentClimb == Climb.Jump)
-			{
-				SetHorizontalVelocityInAir();
-				MoveWithVelocity();
-				return;
-			}
-			else if (AcceptInput)
-			{
-				if (_controller.MovementState.IsGrounded)
-				{
-					HandleMovementInputs();
+			_playerState = HandleMovementInputs();
 
-					if (_climbHandler.CurrentClimb != Climb.None)
-					{
-						CancelVelocity();
-						AcceptInput = false;
-						_climbingState = _climbHandler.GetClimbingState();
-						_controller.MovementState.SetPivot(
-							_climbingState.PivotCollider.GetPoint(_climbingState.PivotPosition),
-							_climbingState.PivotCollider);
-					}
-					else if (AcceptInput && MovementAllowed)
-					{
-						SetHorizontalVelocityOnGround();
-						MoveWithVelocity();
-						return;
-					}
-				}
-				else
-					MoveWithVelocity();
-			}
-			if (AcceptInput == false && MovementAllowed)
+			switch (_playerState)
 			{
-				if (_targetCollider == null)
-				{
-					_controller.Movement.MoveLinearly(
-					  _climbingState.MovementSpeed,
-					  _controller.BoxCollider.GetPoint(_climbingState.PlayerPosition));
-				}
-				else
-				{
-					_controller.Movement.MoveLinearly(
-					  0.5f,
-					  _controller.BoxCollider.GetBottomCenter());
-				}
+				case PlayerState.WaitingForInput:
+					SetHorizontalVelocity();
+					MoveWithVelocity(0);
+					break;
+				case PlayerState.Climbing:
+					MoveToClimbingPoint();
+					break;
+				case PlayerState.Interacting:
+					MoveToInteractionPoint();
+					//cancel animations here
+					break;
+				case PlayerState.Falling:
+					MoveWithVelocity(Gravity);
+					break;
+				case PlayerState.Static:
+					CancelVelocity();
+					MoveWithVelocity(0);
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
 			}
 		}
 
-		private void MoveWithVelocity()
+		private PlayerState HandleMovementInputs()
 		{
-			_velocity.y += Gravity * Time.deltaTime;
-			Move(_velocity * Time.deltaTime);
-			_velocity = _controller.Velocity;
+			if (MovementState.IsGrounded == false || _climbHandler.CurrentClimb == Climb.Jump)
+			{
+				Anim.SetBool("falling", true);
+				Anim.SetBool("moving", false);
+				return PlayerState.Falling;
+			}
+			else if (ChannelingHandler.IsChanneling && ChannelingHandler.ChannelingSet == false)
+			{
+				if (KeyBindings.GetKey(Control.Light))
+					ChannelingHandler.Channel();
+				return PlayerState.Static;
+			}
+			else if (IsClimbing())
+				return PlayerState.Climbing;
+
+			MovementInput();
+
+			Anim.SetBool("falling", false);
+			Anim.SetBool("moving", _normalizedHorizontalSpeed != 0);
+
+			if (TryClimb())
+				return SetMotorToClimbState();
+			else if (TryInteract())
+				return PlayerState.Interacting;
+			else if (TryChannel())
+				return PlayerState.Static;
+
+			return PlayerState.WaitingForInput;
 		}
 
-        private void SetHorizontalVelocityOnGround()
+		private void SetHorizontalVelocity()
 		{
 			_velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * RunSpeed, ref _velocity.x, Time.deltaTime * GroundDamping);
 		}
 
-		private void SetHorizontalVelocityInAir()
+		private void MoveWithVelocity(float gravity)
 		{
-			_velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * 10, ref _velocity.x, Time.deltaTime);
+			_velocity.y += gravity * Time.deltaTime;
+			Movement.BoxCastMove(_velocity * Time.deltaTime);
+			_velocity = new Vector3();
 		}
 
-		public void SetJumpingVelocity(bool forwards)
+		private void MoveToClimbingPoint()
 		{
-			float velocity = 1f;
+			float speed = MovementAllowed
+				? _climbingState.MovementSpeed
+				: 0;
 
-			if (forwards)
-				_normalizedHorizontalSpeed = GetDirectionFacing() == DirectionFacing.Right ? 1 : -1;
-			else
-				_normalizedHorizontalSpeed = GetDirectionFacing() == DirectionFacing.Left ? 1 : -1;
-				
-			_velocity.x = Mathf.SmoothDamp(velocity, _normalizedHorizontalSpeed * 10, ref velocity, Time.deltaTime);
-			_velocity.y = 1f;
+			Movement.MoveLinearly(speed, BoxCollider.GetPoint(_climbingState.PlayerPosition));
 		}
 
-		private void Move(Vector2 deltaMovement)
+		private void MoveToInteractionPoint()
 		{
-			_controller.Movement.BoxCastMove(deltaMovement);
+			Vector2 offset = GetDirectionFacing() == DirectionFacing.Right
+				? BoxCollider.GetBottomRight()
+				: BoxCollider.GetBottomLeft();
+
+			Movement.MoveLinearly(ConstantVariables.DefaultMovementSpeed, offset);
 		}
 
-		private void HandleMovementInputs()
+		private bool IsClimbing()
 		{
-			if (_controller.MovementState.IsGrounded == false)
-			{
-				Anim.SetBool("falling", true);
-				Anim.SetBool("moving", false);
-				return;
-			}
-			Anim.SetBool("falling", false);
+			return _climbHandler.CurrentClimb != Climb.None;
+		}
 
-			_velocity.y = 0;
+		private PlayerState SetMotorToClimbState()
+		{
+			_interactionCollider = null;
+			CancelVelocity();
+			_climbingState = _climbHandler.GetClimbingState();
+			MovementState.SetPivot(
+				_climbingState.PivotCollider.GetPoint(_climbingState.PivotPosition),
+				_climbingState.PivotCollider);
 
+			return PlayerState.Climbing;
+		}
+
+		private void MovementInput()
+		{
 			if (KeyBindings.GetKey(Control.Right))
 			{
-				var edgeRay = new Vector2(_controller.BoxCollider.bounds.max.x + 0.2f, _controller.BoxCollider.bounds.min.y);
+				var edgeRay = new Vector2(BoxCollider.bounds.max.x + 0.2f, BoxCollider.bounds.min.y);
 				RaycastHit2D edgeHit = Physics2D.Raycast(edgeRay, Vector2.down, 2f, Layers.Platforms);
 
-				_normalizedHorizontalSpeed = edgeHit && !_controller.MovementState.RightCollision ? 1 : 0;
-				if (_controller.MovementState.RightCollision && GetDirectionFacing() == DirectionFacing.Right)
+				_normalizedHorizontalSpeed = edgeHit && !MovementState.RightCollision ? 1 : 0;
+				if (MovementState.RightCollision && GetDirectionFacing() == DirectionFacing.Right)
 					;//BackToWallAnimation
 				else if (GetDirectionFacing() == DirectionFacing.Left)
 					FlipSprite();
 			}
 			else if (KeyBindings.GetKey(Control.Left))
 			{
-				var edgeRay = new Vector2(_controller.BoxCollider.bounds.min.x - 0.2f, _controller.BoxCollider.bounds.min.y);
+				var edgeRay = new Vector2(BoxCollider.bounds.min.x - 0.2f, BoxCollider.bounds.min.y);
 				RaycastHit2D edgeHit = Physics2D.Raycast(edgeRay, Vector2.down, 2f, Layers.Platforms);
 
-				_normalizedHorizontalSpeed = edgeHit && !_controller.MovementState.LeftCollision ? -1 : 0;
-				if (_controller.MovementState.LeftCollision && GetDirectionFacing() == DirectionFacing.Left)
+				_normalizedHorizontalSpeed = edgeHit && !MovementState.LeftCollision ? -1 : 0;
+				if (MovementState.LeftCollision && GetDirectionFacing() == DirectionFacing.Left)
 					;//BackToWallAnimation
 				else if (GetDirectionFacing() == DirectionFacing.Right)
 					FlipSprite();
@@ -169,12 +184,16 @@ namespace Assets.Scripts.Player
 			{
 				_normalizedHorizontalSpeed = 0;
 			}
-			SetAnimationWhenGrounded();
+		}
 
-			if (KeyBindings.GetKey(Control.Up))
-				_climbHandler.CheckLedgeAbove(GetDirectionFacing());
+		private bool TryClimb()
+		{
+			if (KeyBindings.GetKey(Control.Up) && _climbHandler.CheckLedgeAbove(GetDirectionFacing()))
+			{ }
 			else if (KeyBindings.GetKey(Control.Down) && _climbHandler.CheckLedgeBelow(Climb.Down, GetDirectionFacing()))
+			{
 				Anim.PlayAnimation(Animations.ClimbDown);
+			}
 			else if (KeyBindings.GetKey(Control.Jump) && _climbHandler.CheckLedgeBelow(Climb.MoveToEdge, GetDirectionFacing()))
 			{
 				Anim.PlayAnimation(Animations.MoveToEdge);
@@ -183,49 +202,63 @@ namespace Assets.Scripts.Player
 					? Climb.AcrossLeft
 					: Climb.AcrossRight);
 			}
-			else if (ChannelingHandler.ChannelingSet == false && KeyBindings.GetKeyDown(Control.Light))
-            {
-				MovementAllowed = false;
-				Anim.PlayAnimation(Animations.CreatePL);
-			}
-			else if (ChannelingHandler.ChannelingSet == false && KeyBindings.GetKey(Control.Light))
+			else 
+				return false;
+			
+			return true;
+		}
+
+		private bool TryInteract()
+		{
+			if (KeyBindings.GetKey(Control.Action))
 			{
-                ChannelingHandler.Channel();
+				RaycastHit2D hit = CheckInteractableInFront(GetDirectionFacing());
+				if (hit.collider != null)
+				{
+					_interactionCollider = hit.collider;
+					MovementState.SetPivot(_interactionCollider.bounds.min, _interactionCollider);
+
+					if (hit.transform.name.Contains(Interactables.Stilt))
+						Anim.PlayAnimation(Animations.DestroyStilt);
+					else if (hit.transform.name.Contains(Interactables.ChimneyLid))
+						Anim.PlayAnimation(Animations.OpenChimney);
+					else if (hit.transform.name.Contains(Interactables.Stove))
+						Anim.PlayAnimation(Animations.OpenStove);
+
+					return true;
+				}
 			}
-			else if (KeyBindings.GetKey(Control.Action))
-            {
-				MovementAllowed = false;
-                RaycastHit2D hit = CheckInteractableInFront(GetDirectionFacing());
-                if (hit == false)
-                    return;
+			return false;
+		}
 
-                if (hit.transform.name.Contains(Interactables.Stilt))
-                    Anim.PlayAnimation(Animations.DestroyStilt);
-                else if (hit.transform.name.Contains(Interactables.ChimneyLid))
-                    Anim.PlayAnimation(Animations.OpenChimney);
-                else if (hit.transform.name.Contains(Interactables.Stove))
-                    Anim.PlayAnimation(Animations.OpenStove);
-            }
-        }
+		private bool TryChannel()
+		{
+			if (ChannelingHandler.ChannelingSet == false && KeyBindings.GetKeyDown(Control.Light) && ChannelingHandler.IsChanneling == false)
+			{
+				ChannelingHandler.Channel();
+				Anim.PlayAnimation(Animations.CreatePL);
+				return true;
+			}
+			return false;
+		}
 
-        public void CreateLight()
-        {
-            _controller.CreateLight();
-        }
+		public void SetJumpingVelocity(bool forwards)
+		{
+			if (forwards)
+				_normalizedHorizontalSpeed = GetDirectionFacing() == DirectionFacing.Right ? 1 : -1;
+			else
+				_normalizedHorizontalSpeed = GetDirectionFacing() == DirectionFacing.Left ? 1 : -1;
+
+			_velocity.x = _normalizedHorizontalSpeed * 100;
+			_velocity.y = 10f;
+		}
 
         public void FlipSprite()
 		{
 			Vector3 target = Collider.bounds.center;
-			_transform.localScale = new Vector3(-_transform.localScale.x, _transform.localScale.y, _transform.localScale.z);
+			Transform.localScale = new Vector3(-Transform.localScale.x, Transform.localScale.y, Transform.localScale.z);
 			Vector3 moving = Collider.bounds.center;
-			_transform.position += target - moving;
-		}
-
-		private void SetAnimationWhenGrounded()
-		{
-			Anim.SetBool(
-				"moving",
-				_normalizedHorizontalSpeed != 0);
+			Transform.position += target - moving;
 		}
 
 		public void CancelVelocity()
@@ -237,7 +270,7 @@ namespace Assets.Scripts.Player
 
 		public DirectionFacing GetDirectionFacing()
 		{
-			DirectionFacing directionFacing = _transform.localScale.x > 0f
+			DirectionFacing directionFacing = Transform.localScale.x > 0f
 				? DirectionFacing.Right
 				: DirectionFacing.Left;
 
@@ -268,7 +301,7 @@ namespace Assets.Scripts.Player
 			}
 			ClimbingState climbingState = _climbHandler.SwitchClimbingState(direction);
 			if (climbingState.PivotCollider != null)
-				_controller.MovementState.SetPivot(
+				MovementState.SetPivot(
 					climbingState.PivotCollider.GetPoint(climbingState.PivotPosition),
 					climbingState.PivotCollider);
 
@@ -291,43 +324,48 @@ namespace Assets.Scripts.Player
 			_climbHandler.CancelClimb();
 		}
 
-		public RaycastHit2D CheckInteractableInFront(DirectionFacing direction)
+		private RaycastHit2D CheckInteractableInFront(DirectionFacing direction)
 		{
 			const float checkLength = 2f;
 			const float checkDepth = 3f;
 
 			var origin = direction == DirectionFacing.Left
 				? new Vector2(
-				   Collider.bounds.center.x - checkLength/2,
-				   Collider.bounds.min.y)
-				   : new Vector2(
-						Collider.bounds.center.x + checkLength/2,
-						Collider.bounds.min.y);
+					Collider.bounds.center.x - checkLength/2,
+					Collider.bounds.min.y)
+				: new Vector2(
+					Collider.bounds.center.x + checkLength/2,
+					Collider.bounds.min.y);
 
 			var size = new Vector2(checkLength, checkDepth);
 
-			RaycastHit2D hit = Physics2D.BoxCast(origin, size, 0, Vector2.down, 0.01f, 1 << LayerMask.NameToLayer(Layers.Interactable));
-
-			if (hit)
-			{
-				_targetCollider = hit.collider;
-			}
-			return hit;
+			return Physics2D.BoxCast(origin, size, 0, Vector2.down, 0.01f, 1 << LayerMask.NameToLayer(Layers.Interactable));
 		}
 
 		public void BurnStilt()
 		{
-            _targetCollider.GetComponent<StiltDestruction>().IsBurning = true;
+            _interactionCollider.GetComponent<StiltDestruction>().IsBurning = true;
 		}
 
         public void SwitchChimney()
         {
-            _targetCollider.GetComponentInChildren<ChimneyLid>().Switch();
+            _interactionCollider.GetComponentInChildren<ChimneyLid>().Switch();
         }
 
         public void SwitchStove()
         {
-            _targetCollider.GetComponent<StoveDoor>().Switch();
+            _interactionCollider.GetComponent<StoveDoor>().Switch();
         }
+
+		public float GetAnimationSpeed()
+		{
+			float distance = Vector2.Distance(BoxCollider.GetPoint(_climbingState.PlayerPosition), MovementState.GroundPivot.transform.position);
+
+			float speed = _playerState == PlayerState.Climbing
+				? _climbingState.MovementSpeed
+				: ConstantVariables.DefaultMovementSpeed;
+
+			return 4 / (distance / speed);
+		}
     }
 }

@@ -2,13 +2,12 @@
 
 namespace Assets.Scripts.Movement
 {
-	public interface IController
+	public interface IMotor
 	{
 		BoxCollider2D BoxCollider { get; set; }
 		Transform Transform { get; set; }
-		Vector3 Velocity { get; set; }
 		AnimationCurve SlopeSpeedMultiplier { get; }
+		MovementState MovementState { get; set; }
 		float SlopeLimit { get; }
-		MovementState MovementState { get; }
     }
 }

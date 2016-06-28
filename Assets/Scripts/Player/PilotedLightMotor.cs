@@ -33,7 +33,7 @@ namespace Assets.Scripts.Player
 				_velocity.y = Mathf.SmoothDamp(_velocity.y, _normalizedVerticalSpeed * FlySpeed - appliedGravity, ref _velocity.y, Time.deltaTime * AirDamping);
 
 				_controller.Movement.BoxCastMove(_velocity * Time.deltaTime);
-				_velocity = _controller.Velocity;
+				_velocity = new Vector3();
 			}
 			else
 			{
@@ -59,7 +59,6 @@ namespace Assets.Scripts.Player
 			}
 			else if (Vector2.Distance(_controller.Player.transform.position, transform.position) > _controller.DistanceFromPlayer * 5)
 			{
-				ChannelingHandler.ChannelingSet = false;
 				DestroyObject(gameObject);
 			}
 
@@ -131,6 +130,12 @@ namespace Assets.Scripts.Player
 				if (_normalizedVerticalSpeed > -1)
 					_normalizedVerticalSpeed -= _acceleration;
 			}
+		}
+
+		void OnDestroy()
+		{
+			ChannelingHandler.ChannelingSet = false;
+			ChannelingHandler.BreakChannel();
 		}
 	}
 }

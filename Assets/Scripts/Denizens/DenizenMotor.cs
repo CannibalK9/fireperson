@@ -174,7 +174,7 @@ namespace Assets.Scripts.Denizens
 
 			_velocity.y += Gravity * Time.deltaTime;
 			_controller.Movement.BoxCastMove(_velocity * Time.deltaTime);
-			_velocity = _controller.Velocity;
+			_velocity = new Vector3();
 		}
 
 		private bool _playerSpotted;

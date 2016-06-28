@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Assets.Scripts.Denizens
 {
     [RequireComponent(typeof(BoxCollider2D))]
-    public class DenizenController : MonoBehaviour, IController
+    public class DenizenController : MonoBehaviour, IMotor
     {
         [Range(0f, 90f)]
         public float _slopeLimit = 30f;
