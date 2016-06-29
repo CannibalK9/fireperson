@@ -1,7 +1,7 @@
 ﻿#define DEBUG_CC2D_RAYS
 using System;
 using Assets.Scripts.Helpers;
-using Assets.Scripts.Player;
+using Assets.Scripts.Player.PL;
 using UnityEngine;
 
 namespace Assets.Scripts.Movement
@@ -27,6 +27,15 @@ namespace Assets.Scripts.Movement
 			MoveWithPivotPoint(ref deltaMovement);
 			MoveTowardsPivot(ref deltaMovement, speed, controllerPosition);
 			_motor.Transform.Translate(deltaMovement, Space.World);
+		}
+
+		public void RotateUp(float rotationTime)
+		{
+		}
+
+		public void RotateDown()
+		{
+			
 		}
 
 		public void BoxCastMove(Vector3 deltaMovement)

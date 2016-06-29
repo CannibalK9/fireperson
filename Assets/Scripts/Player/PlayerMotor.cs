@@ -2,6 +2,7 @@
 using Assets.Scripts.Helpers;
 using Assets.Scripts.Interactable;
 using Assets.Scripts.Movement;
+using Assets.Scripts.Player.Climbing;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -9,11 +10,8 @@ namespace Assets.Scripts.Player
 	public class PlayerMotor : MonoBehaviour, IMotor
 	{
 		[Range(0f, 90f)]
-		public float _slopeLimit = 60f;
+		public float _slopeLimit = ConstantVariables.DefaultPlayerSlopeLimit;
 		public float SlopeLimit { get { return _slopeLimit; } }
-
-		public AnimationCurve SlopeSpeedMultiplier
-		{ get { return new AnimationCurve(new Keyframe(-90f, 1.5f), new Keyframe(0f, 1f), new Keyframe(90f, 0f)); } }
 
 		public float Gravity = -25f;
 		public float RunSpeed = 8f;
@@ -25,9 +23,9 @@ namespace Assets.Scripts.Player
 		public DirectionFacing ClimbingSide { get { return _climbHandler.ClimbSide; } }
 		public Transform Transform { get; set; }
 		public MovementState MovementState { get; set; }
-		public MovementHandler Movement { get; set; }
 		public BoxCollider2D BoxCollider { get; set; }
 
+		private MovementHandler _movement;
 		private ClimbHandler _climbHandler;
 		private ClimbingState _climbingState;
 		private Vector3 _velocity;
@@ -41,10 +39,10 @@ namespace Assets.Scripts.Player
 			Anim = Transform.GetComponent<AnimationScript>();
 			Collider = GetComponent<BoxCollider2D>();
 			MovementState = new MovementState();
-			Movement = new MovementHandler(this);
 			BoxCollider = GetComponent<BoxCollider2D>();
 			MovementAllowed = true;
 
+			_movement = new MovementHandler(this);
 			_climbHandler = new ClimbHandler(this);
 		}
 
@@ -117,7 +115,7 @@ namespace Assets.Scripts.Player
 		private void MoveWithVelocity(float gravity)
 		{
 			_velocity.y += gravity * Time.deltaTime;
-			Movement.BoxCastMove(_velocity * Time.deltaTime);
+			_movement.BoxCastMove(_velocity * Time.deltaTime);
 			_velocity = new Vector3();
 		}
 
@@ -127,7 +125,7 @@ namespace Assets.Scripts.Player
 				? _climbingState.MovementSpeed
 				: 0;
 
-			Movement.MoveLinearly(speed, BoxCollider.GetPoint(_climbingState.PlayerPosition));
+			_movement.MoveLinearly(speed, BoxCollider.GetPoint(_climbingState.PlayerPosition));
 		}
 
 		private void MoveToInteractionPoint()
@@ -136,7 +134,7 @@ namespace Assets.Scripts.Player
 				? BoxCollider.GetBottomRight()
 				: BoxCollider.GetBottomLeft();
 
-			Movement.MoveLinearly(ConstantVariables.DefaultMovementSpeed, offset);
+			_movement.MoveLinearly(ConstantVariables.DefaultMovementSpeed, offset);
 		}
 
 		private bool IsClimbing()
@@ -275,6 +273,16 @@ namespace Assets.Scripts.Player
 				: DirectionFacing.Left;
 
 			return directionFacing;
+		}
+
+		public void RotateUpAroundPivot()
+		{
+			
+		}
+
+		public void RotateDownAroundPivot()
+		{
+			
 		}
 
 		public Climb SwitchClimbingState()

@@ -121,7 +121,7 @@ namespace Assets.Scripts.Denizens
 						: DirectionTravelling.Left;
 		}
 
-		private bool ApproachingEdge(Vector2 edgeRay)
+		private static bool ApproachingEdge(Vector2 edgeRay)
 		{
 			return Physics2D.Raycast(edgeRay, Vector2.down, 2f, Layers.Platforms) == false;
 		}
@@ -152,10 +152,10 @@ namespace Assets.Scripts.Denizens
 
 		private void SetAnimationWhenGrounded()
 		{
-			if (_normalizedHorizontalSpeed == 0)
-				_animator.Play(Animator.StringToHash(Animations.Idle));
-			else
-				_animator.Play(Animator.StringToHash(Animations.Moving));
+			_animator.Play(
+				_normalizedHorizontalSpeed == 0
+				? Animator.StringToHash(Animations.Idle)
+				: Animator.StringToHash(Animations.Moving));
 		}
 
 		private void HandleMovement()

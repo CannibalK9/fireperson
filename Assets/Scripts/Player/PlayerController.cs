@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Heat;
 using Assets.Scripts.Player.Config;
 using System;
+using Assets.Scripts.Player.PL;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -53,7 +54,7 @@ namespace Assets.Scripts.Player
 			BaseControl = PlayerPrefs.GetFloat(Variable.Control.ToString());
 		}
 
-		private void SetupVariables()
+		private static void SetupVariables()
 		{
 			foreach (Variable variable in Enum.GetValues(typeof(Variable)))
 			{

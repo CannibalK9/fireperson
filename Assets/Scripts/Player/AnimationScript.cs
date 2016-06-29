@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.CameraHandler;
 using Assets.Scripts.Helpers;
+using Assets.Scripts.Player.Climbing;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -106,14 +107,14 @@ namespace Assets.Scripts.Player
 			PlayerMotor.SetJumpingVelocity(false);
 		}
 
-		private void RotateClockwiseAroundPivot()
+		private void RotateDownAroundPivot()
 		{
-			
+			PlayerMotor.RotateDownAroundPivot();
 		}
 
-		private void RotateAntiClockwiseAroundPivot()
+		private void RotateUpAroundPivot()
 		{
-			
+			PlayerMotor.RotateUpAroundPivot();
 		}
 
 		private void AllowMovement()

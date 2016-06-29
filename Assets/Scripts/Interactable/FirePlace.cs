@@ -2,6 +2,7 @@
 using Assets.Scripts.Helpers;
 using System.Collections.Generic;
 using Assets.Scripts.Player;
+using Assets.Scripts.Player.PL;
 using UnityEngine;
 
 namespace Assets.Scripts.Interactable

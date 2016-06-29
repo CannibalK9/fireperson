@@ -80,7 +80,7 @@ namespace Assets.Scripts.Ice
 			return vertices;
 		}
 
-		private int[] GetNewMeshFilterTriangles(Vector2[] points)
+		private static int[] GetNewMeshFilterTriangles(Vector2[] points)
 		{
 			var tr = new Triangulator(points);
 			return tr.Triangulate();
@@ -210,7 +210,7 @@ namespace Assets.Scripts.Ice
 			return transform.InverseTransformPoint(point);
 		}
 
-		private float Angle(Vector2 beforePoint, Vector2 afterPoint, Vector2 point)
+		private static float Angle(Vector2 beforePoint, Vector2 afterPoint, Vector2 point)
 		{
 			return Vector2.Angle(beforePoint - point, afterPoint - point);
 		}
