@@ -79,8 +79,8 @@ namespace Assets.Scripts.Heat
 			foreach (RaycastHit2D hit in hits)
 			{
                 //icy embers or something go here
-                if (Physics2D.CircleCast(hit.point, 0.01f, Vector2.up, 0.01f, 1 << LayerMask.NameToLayer(Layers.Steam)) == false)
-				    Object.Instantiate(_steam, new Vector3(hit.point.x, hit.point.y, -10), _steam.transform.rotation);
+                //if (Physics2D.CircleCast(hit.point, 0.01f, Vector2.up, 0.01f, 1 << LayerMask.NameToLayer(Layers.Steam)) == false)
+				    //Object.Instantiate(_steam, new Vector3(hit.point.x, hit.point.y, -10), _steam.transform.rotation);
 			}
 
 			IEnumerable<RaycastHit2D> uniqueHits = hits.GroupBy(hit => hit.collider).Select(h => h.First()).ToList();

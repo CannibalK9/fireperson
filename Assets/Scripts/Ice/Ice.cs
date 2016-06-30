@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#define DEBUG_CC2D_RAYS
+using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Heat;
 using Assets.Scripts.Helpers;
@@ -138,6 +139,12 @@ namespace Assets.Scripts.Ice
 
 		void Melt(HeatMessage message)
 		{
+			//Texture2D tex = Instantiate(_meshRenderer.material.mainTexture) as Texture2D;
+			//_meshRenderer.material.mainTexture = tex;
+
+			//Vector2 local = transform.InverseTransformPoint(message.Origin.x, message.Origin.y, 0);
+
+			//Circle(tex, System.Convert.ToInt32(local.x), System.Convert.ToInt32(local.y), System.Convert.ToInt32(message.CastDistance), Color.clear);
 			_meltedThisFrame = true;
 			_polyCollider.points = MovePointsInwards(message);
 			_polyCollider.points = FlattenAngles();
@@ -146,6 +153,59 @@ namespace Assets.Scripts.Ice
 
 		//A message arrives at the ice. A single raycasthit and the origin of the cast. The points of the ice that are within the distance to the origin, and that are not
 		//on the wrong side of the normal, move away from the origin proportionally to the distance. If moving would break the polycollider then the point does not move
+
+		private void aaa()
+		{
+			// duplicate the original texture and assign to the material
+			Texture2D texture = Instantiate(_meshRenderer.material.mainTexture) as Texture2D;
+			_meshRenderer.material.mainTexture = texture;
+			// colors used to tint the first 3 mip levels
+			Color[] colors = new Color[3];
+			colors[0] = Color.red;
+			colors[1] = Color.green;
+			colors[2] = Color.blue;
+			int mipCount = Mathf.Min(3, texture.mipmapCount);
+
+			// tint each mip level
+			for (int mip = 0; mip < mipCount; ++mip)
+			{
+				Color[] cols = texture.GetPixels();
+				for (int i = 0; i < cols.Length; ++i)
+				{
+					cols[i] = Color.Lerp(cols[i], colors[mip], 0.33f);
+				}
+				texture.SetPixels(cols, mip);
+			}
+			// actually apply all SetPixels, don't recalculate mip levels
+			texture.Apply(false);
+		}
+
+		public void Circle(Texture2D tex, int cx, int cy, int r, Color col)
+		{
+			
+
+			int x, y, px, nx, py, ny, d;
+			Color32[] tempArray = tex.GetPixels32();
+
+			for (x = 0; x <= r; x++)
+			{
+				d = (int)Mathf.Ceil(Mathf.Sqrt(r * r - x * x));
+				for (y = 0; y <= d; y++)
+				{
+					px = cx + x;
+					nx = cx - x;
+					py = cy + y;
+					ny = cy - y;
+
+					tempArray[py * tex.width + px] = col;
+					tempArray[py * tex.width + nx] = col;
+					tempArray[ny * tex.width + px] = col;
+					tempArray[ny * tex.width + nx] = col;
+				}
+			}
+			tex.SetPixels32(tempArray);
+			tex.Apply();
+		}
 
 		private Vector2[] MovePointsInwards(HeatMessage message)
 		{
@@ -161,10 +221,10 @@ namespace Assets.Scripts.Ice
 				Vector2 beforePoint = transform.TransformPoint(_polyCollider.points[beforeIndex]);
 				Vector2 afterPoint = transform.TransformPoint(_polyCollider.points[afterIndex]);
 
-				Vector2 offSet = beforePoint - afterPoint;
+				Vector2 offSet = Vector2.Lerp(beforePoint, afterPoint, 0.5f);
 				Vector2 perpendicular = new Vector2(-offSet.y, offSet.x) / (offSet.magnitude * 100f);
 
-				Vector2 newPoint = Vector2.MoveTowards(point, perpendicular, message.DistanceToMove);
+				Vector2 newPoint = Vector2.MoveTowards(point, perpendicular.normalized, message.DistanceToMove);
 				if (_polyCollider.OverlapPoint(newPoint))
 				{
 					newPoints[i] = transform.InverseTransformPoint(newPoint);
@@ -172,7 +232,7 @@ namespace Assets.Scripts.Ice
 				else
 				{
 					Vector2 perpendicular2 = new Vector2(-offSet.y, offSet.x) / (offSet.magnitude * -100f);
-					newPoint = Vector2.MoveTowards(point, perpendicular2, message.DistanceToMove);
+					newPoint = Vector2.MoveTowards(point, perpendicular2.normalized, message.DistanceToMove);
 					if (_polyCollider.OverlapPoint(newPoint))
 						newPoints[i] = transform.InverseTransformPoint(newPoint);
 				}
@@ -246,6 +306,12 @@ namespace Assets.Scripts.Ice
 			{
 				GrowsBack = false;
 			}
+		}
+
+		[System.Diagnostics.Conditional("DEBUG_CC2D_RAYS")]
+		void DrawRay(Vector3 start, Vector3 dir, Color color)
+		{
+			Debug.DrawRay(start, dir, color);
 		}
 	}
 }

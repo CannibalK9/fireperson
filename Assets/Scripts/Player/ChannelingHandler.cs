@@ -9,12 +9,12 @@ namespace Assets.Scripts.Player
 
 		public static float Stability(float value)
 		{
-			return value / _channelingTime;
+			return value / (_channelingTime + 1);
 		}
 
 		public static float Intensity(float value)
 		{
-			return value / _channelingTime;
+			return value / (_channelingTime + 1);
 		}
 
 		public static float Control(float value)

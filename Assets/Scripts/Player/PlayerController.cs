@@ -21,11 +21,11 @@ namespace Assets.Scripts.Player
 		public float BaseControl;
 
 		private float _stability;
-		private float _currentHeatRayDistance;
+		private float _currentHeatRayDistance = 1f;
 		public float HeatRayDistance { get { return _currentHeatRayDistance; } }
 
 		private float _intensity;
-		private float _currentHeatIntensity;
+		private float _currentHeatIntensity = 1f;
 		public float HeatIntensity { get { return _currentHeatIntensity; } }
 
 		private float _control;
@@ -44,7 +44,6 @@ namespace Assets.Scripts.Player
 
 			_heatHandler = new HeatHandler(this);
 
-			SetHeatRayDistanceToDefault();
 		}
 
 		void Start()
@@ -52,6 +51,11 @@ namespace Assets.Scripts.Player
 			BaseStability = PlayerPrefs.GetFloat(Variable.Stability.ToString());
 			BaseIntensity = PlayerPrefs.GetFloat(Variable.Intensity.ToString());
 			BaseControl = PlayerPrefs.GetFloat(Variable.Control.ToString());
+
+			SetVariablesByChanneler();
+
+			SetHeatRayDistanceToDefault();
+			SetHeatIntensityToDefault();
 		}
 
 		private static void SetupVariables()
@@ -68,11 +72,15 @@ namespace Assets.Scripts.Player
 
 		void Update()
 		{
+			SetVariablesByChanneler();
+			HeatIce(SelectEmberEffect());
+		}
+
+		private void SetVariablesByChanneler()
+		{
 			_stability = ChannelingHandler.Stability(BaseStability);
 			_intensity = ChannelingHandler.Intensity(BaseIntensity);
 			_control = ChannelingHandler.Control(BaseControl);
-
-			HeatIce(SelectEmberEffect());
 		}
 
 		private EmberEffect SelectEmberEffect()
@@ -108,6 +116,11 @@ namespace Assets.Scripts.Player
 		{
 			_currentHeatRayDistance = _stability;
 			_heatRayDistanceLastFrame = _stability;
+		}
+
+		private void SetHeatIntensityToDefault()
+		{
+			_currentHeatIntensity = _intensity;
 		}
 
 		public void HeatIce(EmberEffect effect)
