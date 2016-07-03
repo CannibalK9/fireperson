@@ -32,7 +32,6 @@ namespace Assets.Scripts.Player
 				_animator.ResetTrigger("transitionAcross");
 				_animator.ResetTrigger("jump");
 				_animator.ResetTrigger("flipUp");
-				AcceptInput();
 				PlayerMotor.CancelClimbingState();
 			}
 		}
@@ -107,14 +106,9 @@ namespace Assets.Scripts.Player
 			PlayerMotor.SetJumpingVelocity(false);
 		}
 
-		private void RotateDownAroundPivot()
+		private void Rotate()
 		{
-			PlayerMotor.RotateDownAroundPivot();
-		}
-
-		private void RotateUpAroundPivot()
-		{
-			PlayerMotor.RotateUpAroundPivot();
+			PlayerMotor.Rotating = true;
 		}
 
 		private void AllowMovement()
@@ -127,14 +121,6 @@ namespace Assets.Scripts.Player
 		{
 			_animator.speed = 1;
 			PlayerMotor.MovementAllowed = false;
-		}
-
-		private void AcceptInput()
-		{
-		}
-
-		private void IgnoreInput()
-		{
 		}
 
 		private void DestroyStilt()

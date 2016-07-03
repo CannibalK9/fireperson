@@ -32,7 +32,7 @@ namespace Assets.Scripts.Denizens
 			DirectionTravelling = DirectionTravelling.None;
 		}
 
-		void Update()
+		void FixedUpdate()
 		{
 			if (_controller.SatAtFireplace || _movementPaused)
 			{

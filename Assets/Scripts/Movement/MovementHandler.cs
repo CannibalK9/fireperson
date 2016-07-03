@@ -29,14 +29,15 @@ namespace Assets.Scripts.Movement
 			_motor.Transform.Translate(deltaMovement, Space.World);
 		}
 
-		public void RotateUp(float rotationTime)
+		public void Rotate(Transform t, ColliderPoint playerCorner)
 		{
+			var deltaMovement = new Vector3();
+			//MoveWithPivotPoint(ref deltaMovement);
+			t.RotateAround(_motor.MovementState.GroundPivot.transform.position, Vector3.forward, 12);
+			_motor.Transform.Translate(deltaMovement, Space.World);
 		}
 
-		public void RotateDown()
-		{
-			
-		}
+		//if ignoreing the current collider, this should apply to all casts and only be turned off when hitting the ground with a different collider
 
 		public void BoxCastMove(Vector3 deltaMovement)
 		{

@@ -15,7 +15,6 @@ namespace Assets.Scripts.Player.Climbing
 		private readonly int _leftClimbLayer;
 		private ColliderPoint _target;
 		private ColliderPoint _player;
-		private ClimbingState _climbingState;
 
 		public Climb CurrentClimb { get; set; }
 		public List<Climb> NextClimbs { get; set; }
@@ -151,8 +150,8 @@ namespace Assets.Scripts.Player.Climbing
 				direction = originalHit.collider.GetTopFace() - origin;
 			else
 				direction = originalHit.collider.name.Contains("left")
-					? originalHit.collider.GetLeftFace() - origin
-					: originalHit.collider.GetRightFace() - origin;
+					? originalHit.collider.GetTopLeft() + new Vector2(0.01f, 0) - origin
+					: originalHit.collider.GetTopRight() - new Vector2(0.01f, 0) - origin;
 
 			RaycastHit2D hit = Physics2D.Raycast(origin, direction, 10f, Layers.Platforms);
 

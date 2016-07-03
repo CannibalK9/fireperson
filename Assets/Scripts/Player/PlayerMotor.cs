@@ -20,6 +20,7 @@ namespace Assets.Scripts.Player
 		public AnimationScript Anim { get; private set; }
 		public BoxCollider2D Collider { get; private set; }
 		public bool MovementAllowed { get; set; }
+		public bool Rotating { get; set; }
 		public DirectionFacing ClimbingSide { get { return _climbHandler.ClimbSide; } }
 		public Transform Transform { get; set; }
 		public MovementState MovementState { get; set; }
@@ -32,6 +33,8 @@ namespace Assets.Scripts.Player
 		private Collider2D _interactionCollider;
 		private PlayerState _playerState;
 		private float _normalizedHorizontalSpeed;
+		private int _rotateFrames = 30;
+		private int _currentRotateFrames = 0;
 
 		void Awake()
 		{
@@ -46,8 +49,13 @@ namespace Assets.Scripts.Player
 			_climbHandler = new ClimbHandler(this);
 		}
 
-		void Update()
+		void FixedUpdate()
 		{
+			if (Rotating)
+			{
+				RotateAroundPivot();
+				return;
+			}
 			_playerState = HandleMovementInputs();
 
 			switch (_playerState)
@@ -114,18 +122,23 @@ namespace Assets.Scripts.Player
 
 		private void MoveWithVelocity(float gravity)
 		{
+			if (_velocity.x * _normalizedHorizontalSpeed > ConstantVariables.MaxHorizontalSpeed)
+				_velocity.x = ConstantVariables.MaxHorizontalSpeed * _normalizedHorizontalSpeed;
+			if (_velocity.y < ConstantVariables.MaxVerticalSpeed)
+				_velocity.y = ConstantVariables.MaxVerticalSpeed;
+
 			_velocity.y += gravity * Time.deltaTime;
-			_movement.BoxCastMove(_velocity * Time.deltaTime);
-			_velocity = new Vector3();
+			_movement.BoxCastMove(_velocity * Time.deltaTime);			
 		}
 
 		private void MoveToClimbingPoint()
-		{
+		{		
+			_currentRotateFrames = 0;
 			float speed = MovementAllowed
 				? _climbingState.MovementSpeed
 				: 0;
 
-			_movement.MoveLinearly(speed, BoxCollider.GetPoint(_climbingState.PlayerPosition));
+			_movement.MoveLinearly(speed, BoxCollider.GetPoint(_climbingState.PlayerPosition));		
 		}
 
 		private void MoveToInteractionPoint()
@@ -188,7 +201,7 @@ namespace Assets.Scripts.Player
 		{
 			if (KeyBindings.GetKey(Control.Up) && _climbHandler.CheckLedgeAbove(GetDirectionFacing()))
 			{ }
-			else if (KeyBindings.GetKey(Control.Down) && _climbHandler.CheckLedgeBelow(Climb.Down, GetDirectionFacing()))
+			else if (KeyBindings.GetKey(Control.Down) &&_climbHandler.CheckLedgeBelow(Climb.Down, GetDirectionFacing()))
 			{
 				Anim.PlayAnimation(Animations.ClimbDown);
 			}
@@ -247,7 +260,7 @@ namespace Assets.Scripts.Player
 			else
 				_normalizedHorizontalSpeed = GetDirectionFacing() == DirectionFacing.Left ? 1 : -1;
 
-			_velocity.x = _normalizedHorizontalSpeed * 100;
+			_velocity.x = _normalizedHorizontalSpeed * 10;
 			_velocity.y = 10f;
 		}
 
@@ -275,14 +288,16 @@ namespace Assets.Scripts.Player
 			return directionFacing;
 		}
 
-		public void RotateUpAroundPivot()
+		private void RotateAroundPivot()
 		{
-			
-		}
+			_movement.Rotate(transform, _climbingState.PlayerPosition);
+			_currentRotateFrames++;
 
-		public void RotateDownAroundPivot()
-		{
-			
+			if (_currentRotateFrames == _rotateFrames)
+			{
+				Rotating = false;
+				_currentRotateFrames = 0;
+			}
 		}
 
 		public Climb SwitchClimbingState()
@@ -307,13 +322,13 @@ namespace Assets.Scripts.Player
 				if (KeyBindings.GetKey(Control.Down))
 					_climbHandler.NextClimbs.Add(Climb.Down);
 			}
-			ClimbingState climbingState = _climbHandler.SwitchClimbingState(direction);
-			if (climbingState.PivotCollider != null)
+			_climbingState = _climbHandler.SwitchClimbingState(direction);
+			if (_climbingState.PivotCollider != null)
 				MovementState.SetPivot(
-					climbingState.PivotCollider.GetPoint(climbingState.PivotPosition),
-					climbingState.PivotCollider);
+					_climbingState.PivotCollider.GetPoint(_climbingState.PivotPosition),
+					_climbingState.PivotCollider);
 
-			return climbingState.Climb;
+			return _climbingState.Climb;
 		}
 
 		public bool TryClimbDown()
@@ -367,6 +382,9 @@ namespace Assets.Scripts.Player
 
 		public float GetAnimationSpeed()
 		{
+			if (_climbingState == null || MovementState.GroundPivot == null)
+				return 1;
+
 			float distance = Vector2.Distance(BoxCollider.GetPoint(_climbingState.PlayerPosition), MovementState.GroundPivot.transform.position);
 
 			float speed = _playerState == PlayerState.Climbing

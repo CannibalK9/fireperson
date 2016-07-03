@@ -38,7 +38,7 @@ namespace Assets.Scripts.Player.PL
 			_controller = GetComponent<PilotedLightController>();
 		}
 
-		void Update()
+		void FixedUpdate()
 		{
 			if (MovementState.MovementOverridden == false)
 				HandleMovementInputs();

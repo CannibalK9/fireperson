@@ -91,7 +91,7 @@ namespace Assets.Scripts.Heat
                     Hit = hit,
                     Origin = origin,
                     CastDistance = castDistance,
-                    DistanceToMove = _heater.HeatIntensity / 10
+                    DistanceToMove = _heater.HeatIntensity / 100
                 },
                 SendMessageOptions.RequireReceiver);
 			}

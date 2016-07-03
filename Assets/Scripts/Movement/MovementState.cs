@@ -10,6 +10,7 @@ namespace Assets.Scripts.Movement
 		public bool MovementOverridden { get; set; }
 		public bool LeftCollision { get; private set; }
 		public bool RightCollision { get; private set; }
+		public bool IgnoreCurrentPlatform { get; set; }
 		public GameObject GroundPivot { get; private set; }
 		public Vector3 CurrentAcceleration { get; private set; }
 
