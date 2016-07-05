@@ -32,8 +32,11 @@ namespace Assets.Scripts.Movement
 		public void Rotate(Transform t, ColliderPoint playerCorner)
 		{
 			var deltaMovement = new Vector3();
-			//MoveWithPivotPoint(ref deltaMovement);
-			t.RotateAround(_motor.MovementState.GroundPivot.transform.position, Vector3.forward, 12);
+			MoveWithPivotPoint(ref deltaMovement);
+			if (_motor.MovementState.GroundPivot != null)
+				t.RotateAround(_motor.MovementState.GroundPivot.transform.position, Vector3.forward, 12);
+			else
+				t.Rotate(0, 0, 12);
 			_motor.Transform.Translate(deltaMovement, Space.World);
 		}
 
@@ -51,61 +54,58 @@ namespace Assets.Scripts.Movement
 			if (_motor is PilotedLightController == false)
 			{
 				RaycastHit2D[] downHits = Physics2D.BoxCastAll(new Vector3(bounds.center.x, bounds.min.y + 1.2f), new Vector2(bounds.size.x, 0.001f), 0, Vector2.down, 1.4f, Layers.Platforms);
-
-				if (downHits.Length > 0)
-				{
-					DownCast(downHits, ref deltaMovement);
-					MoveWithPivotPoint(ref deltaMovement);
-					_motor.MovementState.PivotCollider = null;
-
-					MoveAlongSurface(ref deltaMovement);
-				}
+				_downHit = GetDownwardsHit(downHits);
 			}
 
-			if (_motor.MovementState.IsOnSlope == false)
+			int count = 0;
+			while (true)
 			{
-				int count = 0;
-				while (true)
+				count++;
+				RaycastHit2D anyHit = Physics2D.BoxCast(new Vector3(bounds.center.x, bounds.min.y) + deltaMovement, new Vector2(bounds.size.x, 0.001f), 0, Vector2.up, bounds.size.y, Layers.Platforms);
+
+				if (anyHit == false)
+					break;
+
+				Vector2 upRight = Vector2.right + Vector2.up;
+				Vector2 upLeft = Vector2.left + Vector2.up;
+				Vector2 downRight = Vector2.down + Vector2.right;
+				Vector2 downLeft = Vector2.down + Vector2.left;
+
+				RaycastHit2D upRightHit = GetCollisionHit(new Vector3(bounds.max.x - 0.2f, bounds.max.y - 0.2f) + deltaMovement, upRight);
+				if (upRightHit)
 				{
-					count++;
-					RaycastHit2D anyHit = Physics2D.BoxCast(new Vector3(bounds.center.x, bounds.min.y) + deltaMovement, new Vector2(bounds.size.x, 0.001f), 0, Vector2.up, bounds.size.y, Layers.Platforms);
-
-					if (anyHit == false)
-						break;
-
-					Vector2 upRight = Vector2.right + Vector2.up;
-					Vector2 upLeft = Vector2.left + Vector2.up;
-					Vector2 downRight = Vector2.down + Vector2.right;
-					Vector2 downLeft = Vector2.down + Vector2.left;
-
-					RaycastHit2D upRightHit = GetCollisionHit(new Vector3(bounds.max.x - 0.2f, bounds.max.y - 0.2f) + deltaMovement, upRight);
-					if (upRightHit)
-					{
-						_motor.MovementState.OnRightCollision(ref deltaMovement);
-						MoveInDirection(downLeft, upRightHit, ref deltaMovement);
-					}
-					RaycastHit2D upLeftHit = GetCollisionHit(new Vector3(bounds.min.x + 0.2f, bounds.max.y - 0.2f) + deltaMovement, upLeft);
-					if (upLeftHit)
-					{
-						_motor.MovementState.OnLeftCollision(ref deltaMovement);
-						MoveInDirection(downRight, upLeftHit, ref deltaMovement);
-					}
-
-					RaycastHit2D downLeftHit = GetCollisionHit(new Vector3(bounds.min.x + 0.2f, bounds.min.y + 0.2f) + deltaMovement, downLeft);
-					if (downLeftHit && downLeftHit.collider != _downHit.collider)
-					{
-						_motor.MovementState.OnLeftCollision(ref deltaMovement);
-						MoveInDirection(upRight, downLeftHit, ref deltaMovement);
-					}
-					RaycastHit2D downRightHit = GetCollisionHit(new Vector3(bounds.max.x - 0.2f, bounds.min.y + 0.2f) + deltaMovement, downRight);
-					if (downRightHit && downRightHit.collider != _downHit.collider)
-					{
-						_motor.MovementState.OnRightCollision(ref deltaMovement);
-						MoveInDirection(upLeft, downRightHit, ref deltaMovement);
-					}
-					if (count > 10)
-						break;
+					_motor.MovementState.OnRightCollision(ref deltaMovement);
+					MoveInDirection(downLeft, upRightHit, ref deltaMovement);
 				}
+				RaycastHit2D upLeftHit = GetCollisionHit(new Vector3(bounds.min.x + 0.2f, bounds.max.y - 0.2f) + deltaMovement, upLeft);
+				if (upLeftHit)
+				{
+					_motor.MovementState.OnLeftCollision(ref deltaMovement);
+					MoveInDirection(downRight, upLeftHit, ref deltaMovement);
+				}
+				RaycastHit2D downLeftHit = GetCollisionHit(new Vector3(bounds.min.x + 0.2f, bounds.min.y + 0.2f) + deltaMovement, downLeft);
+				if (downLeftHit && downLeftHit.collider != _downHit.collider)
+				{
+					_motor.MovementState.OnLeftCollision(ref deltaMovement);
+					MoveInDirection(upRight, downLeftHit, ref deltaMovement);
+				}
+				RaycastHit2D downRightHit = GetCollisionHit(new Vector3(bounds.max.x - 0.2f, bounds.min.y + 0.2f) + deltaMovement, downRight);
+				if (downRightHit && downRightHit.collider != _downHit.collider)
+				{
+					_motor.MovementState.OnRightCollision(ref deltaMovement);
+					MoveInDirection(upLeft, downRightHit, ref deltaMovement);
+				}
+				if (count > 10)
+					break;
+			}
+
+			if (_downHit)
+			{
+				DownCast(ref deltaMovement);
+				MoveWithPivotPoint(ref deltaMovement);
+				_motor.MovementState.PivotCollider = null;
+
+				MoveAlongSurface(ref deltaMovement);
 			}
 			_motor.Transform.Translate(deltaMovement, Space.World);
 		}
@@ -113,21 +113,16 @@ namespace Assets.Scripts.Movement
 		private RaycastHit2D GetCollisionHit(Vector2 origin, Vector2 size)
 		{
 			DrawRay(origin, size, Color.grey);
-			return Physics2D.Raycast(origin, size, Mathf.Sqrt(0.2f * 0.2f * 2), Layers.Platforms);
+			return Physics2D.Raycast(origin, size, Mathf.Sqrt(0.2f * 0.2f * 2) + 0.05f, Layers.Platforms);
 		}
 
-		private void DownCast(RaycastHit2D[] downHits, ref Vector3 deltaMovement)
+		private void DownCast(ref Vector3 deltaMovement)
 		{
-			_downHit = GetDownwardsHit(downHits);
-
-			if (_downHit)
-			{
-				deltaMovement.y = 1.2f - _downHit.distance;
-				if (_downHit.normal == Vector2.up)
-					SetPivotPoint(_downHit.collider, _motor.BoxCollider.GetBottomCenter(), true);
-				else
-					SetPivotPoint(_downHit.collider, _downHit.point, false);
-			}
+			deltaMovement.y = 1.2f - _downHit.distance;
+			if (_downHit.normal == Vector2.up)
+				SetPivotPoint(_downHit.collider, _motor.BoxCollider.GetBottomCenter(), true);
+			else
+				SetPivotPoint(_downHit.collider, _downHit.point, false);
 		}
 
 		private RaycastHit2D GetDownwardsHit(RaycastHit2D[] hits)
@@ -179,20 +174,23 @@ namespace Assets.Scripts.Movement
 
 		private void MoveInDirection(Vector2 castDirection, RaycastHit2D hit, ref Vector3 deltaMovement)
 		{
-			float distance = Math.Abs(hit.fraction) < 0.01f
-				? hit.distance
-				: (hit.distance / hit.fraction) - hit.distance;
-			Vector3 movement = distance * castDirection;
+			if (hit.distance < 0.2f)
+			{
+				float distance = Math.Abs(hit.fraction) < 0.01f
+					? hit.distance
+					: (hit.distance / hit.fraction) - hit.distance;
+				Vector3 movement = distance * castDirection;
 
-			deltaMovement += movement;
-			if (hit.normal.y < 0)
-				DrawRay(hit.point, hit.normal, Color.yellow);
-			else if (hit.normal.y > 0)
-				DrawRay(hit.point, hit.normal, Color.cyan);
-			else if (hit.normal.x > 0)
-				DrawRay(hit.point, hit.normal, Color.red);
-			else if (hit.normal.x < 0)
-				DrawRay(hit.point, hit.normal, Color.green);
+				deltaMovement += movement;
+				if (hit.normal.y < 0)
+					DrawRay(hit.point, hit.normal, Color.yellow);
+				else if (hit.normal.y > 0)
+					DrawRay(hit.point, hit.normal, Color.cyan);
+				else if (hit.normal.x > 0)
+					DrawRay(hit.point, hit.normal, Color.red);
+				else if (hit.normal.x < 0)
+					DrawRay(hit.point, hit.normal, Color.green);
+			}
 		}
 
 		private void SetPivotPoint(Collider2D col, Vector2 point, bool movingToBase)

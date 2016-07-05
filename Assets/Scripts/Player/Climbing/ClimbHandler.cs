@@ -103,13 +103,13 @@ namespace Assets.Scripts.Player.Climbing
 			if (ClimbSide == DirectionFacing.Right)
 			{
 				_target = ColliderPoint.TopRight;
-				_player = ColliderPoint.BottomRight;
+				_player = ColliderPoint.BottomLeft;
 
 			}
 			else
 			{
 				_target = ColliderPoint.TopLeft;
-				_player = ColliderPoint.BottomLeft;
+				_player = ColliderPoint.BottomRight;
 			}
 		}
 
@@ -203,6 +203,10 @@ namespace Assets.Scripts.Player.Climbing
 		{
 			const float checkWidth = 5f;
 			const float checkDepth = 4f;
+
+			float xOrigin = direction == DirectionFacing.Right
+				? _playerCollider.bounds.min.x
+				: _playerCollider.bounds.max.x;
 
 			var origin = new Vector2(
 				_playerCollider.bounds.center.x,

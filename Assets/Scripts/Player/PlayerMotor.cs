@@ -391,7 +391,10 @@ namespace Assets.Scripts.Player
 				? _climbingState.MovementSpeed
 				: ConstantVariables.DefaultMovementSpeed;
 
-			return 4 / (distance / speed);
+			float animSpeed = 4 / (distance / speed);
+			return animSpeed < 10
+				? animSpeed
+				: 10;
 		}
     }
 }
