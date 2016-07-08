@@ -40,7 +40,7 @@ namespace Assets.Scripts.Player
 			SetupVariables();
 
 			Transform = transform.parent.parent;
-			Collider = GetComponent<BoxCollider2D>();
+			Collider = Transform.GetComponent<BoxCollider2D>();
 
 			_heatHandler = new HeatHandler(this);
 
@@ -153,7 +153,7 @@ namespace Assets.Scripts.Player
 		void OnDrawGizmos()
 		{
 			Gizmos.color = new Color(1, 0, 0, 0.5F);
-			var box = GetComponent<BoxCollider2D>();
+			var box = transform.parent.parent.GetComponent<BoxCollider2D>();
 			Gizmos.DrawCube(box.bounds.center, new Vector3(box.bounds.size.x, box.bounds.size.y, 1));
 		}
 	}

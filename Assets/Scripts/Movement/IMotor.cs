@@ -4,7 +4,7 @@ namespace Assets.Scripts.Movement
 {
 	public interface IMotor
 	{
-		BoxCollider2D BoxCollider { get; set; }
+		Collider2D Collider { get; set; }
 		Transform Transform { get; set; }
 		MovementState MovementState { get; set; }
 		float SlopeLimit { get; }

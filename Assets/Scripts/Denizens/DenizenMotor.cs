@@ -76,8 +76,8 @@ namespace Assets.Scripts.Denizens
                     FlipSprite();
 
                 var hazardRay = new Vector2(
-					_controller.BoxCollider.bounds.max.x + HazardWarningDistance,
-					_controller.BoxCollider.bounds.min.y);
+					_controller.Collider.bounds.max.x + HazardWarningDistance,
+					_controller.Collider.bounds.min.y);
 
                 if (ApproachingEdge(hazardRay) || ApproachingSnow(hazardRay) || _controller.CollisionState.Right)
                 {
@@ -94,8 +94,8 @@ namespace Assets.Scripts.Denizens
                     FlipSprite();
 
                 var hazardRay = new Vector2(
-					_controller.BoxCollider.bounds.min.x - HazardWarningDistance,
-					_controller.BoxCollider.bounds.min.y);
+					_controller.Collider.bounds.min.x - HazardWarningDistance,
+					_controller.Collider.bounds.min.y);
 
                 if (ApproachingEdge(hazardRay) || ApproachingSnow(hazardRay) || _controller.CollisionState.Left)
                 {

@@ -21,17 +21,17 @@ namespace Assets.Scripts.Player.PL
 		public float FlySpeed = 2f;
 		public float AirDamping = 500f;
 		public float Gravity = 0f;
-		public BoxCollider2D BoxCollider { get; set; }
+		public Collider2D Collider { get; set; }
 		public float SlopeLimit { get { return 0; } }
 		public MovementState MovementState { get; set; }
 		public Transform Transform { get; set; }
+		private bool _isFireplaceActive;
 
 		void Awake()
 		{
-			Transform = transform.parent.parent;
-			BoxCollider = GetComponent<BoxCollider2D>();
+			Transform = transform;
+			Collider = GetComponent<CircleCollider2D>();
 			MovementState = new MovementState();
-			BoxCollider = GetComponent<BoxCollider2D>();
 
 			_movement = new MovementHandler(this);
 			_renderer = GetComponent<SpriteRenderer>();
@@ -50,27 +50,30 @@ namespace Assets.Scripts.Player.PL
 				_velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * FlySpeed, ref _velocity.x, Time.deltaTime * AirDamping);
 				_velocity.y = Mathf.SmoothDamp(_velocity.y, _normalizedVerticalSpeed * FlySpeed - appliedGravity, ref _velocity.y, Time.deltaTime * AirDamping);
 
-				_movement.BoxCastMove(_velocity * Time.deltaTime);
-				_velocity = new Vector3();
+				Transform.Translate(_velocity, Space.World);
 			}
 			else
 			{
 				_normalizedHorizontalSpeed = 0;
 				_normalizedVerticalSpeed = 0;
-				_velocity = Vector3.zero;
 			}
 
 			if (_fireplace != null)
-			{ 
+			{
 				if (OnPoint())
 				{
 					MoveTowardsPoint();
 					MovementState.MovementOverridden = false;
-					ActivatePoint();
+					if (_isFireplaceActive == false)
+					{
+						ActivatePoint();
+						_isFireplaceActive = true;
+					}
 				}
 				else if (OnPoint() == false && MovementState.MovementOverridden == false)
 				{
 					DeactivatePoint();
+					_isFireplaceActive = false;
 				}
 				else
 					MoveTowardsPoint();

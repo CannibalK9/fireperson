@@ -13,6 +13,7 @@ namespace Assets.Scripts.Movement
 		public bool IgnoreCurrentPlatform { get; set; }
 		public GameObject GroundPivot { get; private set; }
 		public Vector3 CurrentAcceleration { get; private set; }
+		public Vector3 PreviousPivotPoint { get; set; }
 
 		public MovementState()
 		{
@@ -30,16 +31,16 @@ namespace Assets.Scripts.Movement
 
 		public void OnLeftCollision(ref Vector3 deltaMovement)
 		{
-			LeftCollision = true;
 			if (CurrentAcceleration.x < 0)
-				deltaMovement.x -= CurrentAcceleration.x;
+				deltaMovement.x = 0;
+			LeftCollision = true;
 		}
 
 		public void OnRightCollision(ref Vector3 deltaMovement)
 		{
-			RightCollision = true;
 			if (CurrentAcceleration.x > 0)
-				deltaMovement.x -= CurrentAcceleration.x;
+				deltaMovement.x = 0;
+			RightCollision = true;
 		}
 
 		public void SetPivot(Vector2 position, Collider2D col)
@@ -47,6 +48,7 @@ namespace Assets.Scripts.Movement
 			PivotCollider = col;
 			GroundPivot.transform.position = position;
 			GroundPivot.transform.parent = col.transform;
+			PreviousPivotPoint = position;
 		}
 
 		public void UnsetPivot()

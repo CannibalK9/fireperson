@@ -22,7 +22,7 @@ namespace Assets.Scripts.Denizens
         }
 
         public Transform Transform { get; set; }
-        public BoxCollider2D BoxCollider { get; set; }
+        public Collider2D Collider { get; set; }
         public CollisionState CollisionState { get; set; }
         public bool IsGrounded { get { return CollisionState.Below; } }
         public Vector3 Velocity { get; set; }
@@ -38,7 +38,7 @@ namespace Assets.Scripts.Denizens
             Movement = new MovementHandler(this);
 
             Transform = GetComponent<Transform>();
-            BoxCollider = GetComponent<BoxCollider2D>();
+            Collider = GetComponent<BoxCollider2D>();
             CollisionState = new CollisionState();
             RaycastHitsThisFrame = new List<RaycastHit2D>(2);
             _motor = GetComponent<DenizenMotor>();
