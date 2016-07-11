@@ -58,6 +58,9 @@ namespace Assets.Scripts.Player
 				case Climb.Flip:
 					_animator.SetTrigger("flipUp");
 					break;
+				case Climb.Mantle:
+					_animator.SetTrigger("mantle");
+					break;
 				case Climb.Down:
 					_animator.SetTrigger("transitionDown");
 					break;
@@ -142,6 +145,11 @@ namespace Assets.Scripts.Player
         {
             PlayerMotor.SwitchStove();
         }
+
+		public void Spotted()
+		{
+			PlayerController.Spotted();
+		}
 
         void OnTriggerEnter2D(Collider2D col)
         {

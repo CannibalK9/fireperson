@@ -25,6 +25,7 @@ namespace Assets.Scripts.Player.PL
 		public float SlopeLimit { get { return 0; } }
 		public MovementState MovementState { get; set; }
 		public Transform Transform { get; set; }
+		public Rigidbody2D Rigidbody { get; set; }
 		private bool _isFireplaceActive;
 
 		void Awake()
@@ -32,6 +33,7 @@ namespace Assets.Scripts.Player.PL
 			Transform = transform;
 			Collider = GetComponent<CircleCollider2D>();
 			MovementState = new MovementState();
+			Rigidbody = Transform.GetComponent<Rigidbody2D>();
 
 			_movement = new MovementHandler(this);
 			_renderer = GetComponent<SpriteRenderer>();

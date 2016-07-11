@@ -18,6 +18,7 @@ namespace Assets.Scripts.Movement
 
 		public void MoveLinearly(float speed, Vector2 controllerPosition)
 		{
+			_motor.Rigidbody.isKinematic = true;
 			var deltaMovement = new Vector3();
 			MoveWithPivotPoint(ref deltaMovement, _motor.MovementState.PivotCollider);
 			_motor.MovementState.PreviousPivotPoint = _motor.MovementState.GroundPivot.transform.position;
@@ -27,6 +28,7 @@ namespace Assets.Scripts.Movement
 
 		public void Rotate(Transform t, ColliderPoint playerCorner)
 		{
+			_motor.Rigidbody.isKinematic = true;
 			var deltaMovement = new Vector3();
 			MoveWithPivotPoint(ref deltaMovement, _motor.MovementState.PivotCollider);
 			_motor.MovementState.PreviousPivotPoint = _motor.MovementState.GroundPivot.transform.position;
@@ -44,10 +46,11 @@ namespace Assets.Scripts.Movement
 			if (Time.timeSinceLevelLoad < 1)
 				return;
 
+			_motor.Rigidbody.isKinematic = false;
 			_motor.MovementState.Reset(deltaMovement);
 			Bounds bounds = _motor.Collider.bounds;
 
-			RaycastHit2D[] downHits = Physics2D.BoxCastAll(new Vector3(bounds.center.x, bounds.min.y + 1.2f), new Vector2(bounds.size.x, 0.001f), 0, Vector2.down, 1.4f, Layers.Platforms);
+			RaycastHit2D[] downHits = Physics2D.BoxCastAll(new Vector3(bounds.center.x + deltaMovement.x, bounds.min.y + 1.2f), new Vector2(bounds.size.x + 0.2f, 0.001f), 0, Vector2.down, 1.4f, Layers.Platforms);
 			_downHit = GetDownwardsHit(downHits);
 
 			if (_downHit)
@@ -85,7 +88,6 @@ namespace Assets.Scripts.Movement
 				if ((leftHit == false && rightHit == false) || (leftHit && moveRight) || (rightHit && moveRight == false))
 					MoveAlongSurface(ref deltaMovement);
 			}
-
 			_motor.Transform.Translate(deltaMovement, Space.World);
 		}
 
@@ -93,7 +95,7 @@ namespace Assets.Scripts.Movement
 		{
 			RaycastHit2D[] cast = Physics2D.BoxCastAll(bounds.center + deltaMovement, new Vector2(0.001f, bounds.size.y), 0, direction, bounds.extents.x + 0.1f, Layers.Platforms);
 
-			foreach (RaycastHit2D hit in cast.Where(hit => hit.collider != _downHit.collider))
+			foreach (RaycastHit2D hit in cast.Where(hit => hit.collider != _downHit.collider && Vector2.Angle(hit.normal, Vector2.up) > _motor.SlopeLimit))
 			{
 				return hit;
 			}
@@ -108,21 +110,26 @@ namespace Assets.Scripts.Movement
 		private RaycastHit2D GetDownwardsHit(IEnumerable<RaycastHit2D> hits)
 		{
 			var validHit = new RaycastHit2D();
-			float angle = 90f;
+			float maxAngle = 90f;
+			float hitAngle = maxAngle;
 
 			foreach (RaycastHit2D hit in hits)
 			{
-				float hitAngle = Vector2.Angle(hit.normal, Vector2.up);
-				if (hitAngle < angle)
+				hitAngle = Vector2.Angle(hit.normal, Vector2.up);
+
+				if (_downHit && _downHit.collider != hit.collider && hitAngle >= _motor.SlopeLimit)
+					continue;
+
+				if (hitAngle < maxAngle)
 				{
 					validHit = hit;
-					angle = hitAngle;
+					break;
 				}
 			}
 
-			if (angle < _motor.SlopeLimit)
+			if (hitAngle < _motor.SlopeLimit)
 				_motor.MovementState.IsGrounded = true;
-			else if (angle < 90)
+			else if (hitAngle < maxAngle)
 				_motor.MovementState.IsOnSlope = true;
 
 			return validHit;

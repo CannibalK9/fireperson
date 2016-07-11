@@ -7,23 +7,19 @@ namespace Assets.Scripts.Denizens
 	public class DenizenMotor : MonoBehaviour
 	{
 		public float Gravity = -25f;
-		public float RunSpeed = 2f;
+		public float RunSpeed = ConstantVariables.DenizenMovementSpeed;
 		public float GroundDamping = 7f;
 		public float HazardWarningDistance = 1f;
 		public DirectionTravelling DirectionTravelling;
+		public bool CanJump;
 
 		private float _normalizedHorizontalSpeed = 0;
 
 		private DenizenController _controller;
 		private Animator _animator;
 		private Vector3 _velocity;
-		private bool _movementPaused;
 		private bool _waitingToMove;
-
-		private void BeginMoving()
-		{
-			_movementPaused = false;
-		}
+		private bool _isJumping;
 
 		void Awake()
 		{
@@ -34,21 +30,27 @@ namespace Assets.Scripts.Denizens
 
 		void FixedUpdate()
 		{
-			if (_controller.SatAtFireplace || _movementPaused)
+			if (_controller.SatAtFireplace || _waitingToMove)
 			{
-				_waitingToMove = true;
 				_velocity = Vector3.zero;
 				DirectionTravelling = DirectionTravelling.None;
 			}
-			else if (_waitingToMove)
+			else if (_waitingToMove == false)
 			{
 				SetTravelInDirectionFacing();
-				_waitingToMove = false;
 			}
 
-			DetermineMovement();
-			HandleMovement();
-            SpotPlayer();
+			if (_isJumping == false)
+				DetermineMovement();
+
+			if (_isJumping == false)
+			{
+				MoveWithVelocity();
+				SpotPlayer(); //don't spot player if sliding etc
+			}
+			else
+				JumpAcross();
+
 		}
 
 		void MoveToFireplace(DirectionTravelling direction)
@@ -56,62 +58,71 @@ namespace Assets.Scripts.Denizens
 			DirectionTravelling = direction;
 		}
 
+		bool _wasGrounded;
+
 		private void DetermineMovement()
 		{
-			if (_controller.IsGrounded)
+			if (_controller.MovementState.IsGrounded)
 			{
 				_velocity.y = 0;
-				if (_controller.CollisionState.BecameGroundedThisFrame)
+				if (_wasGrounded == false)
+				{
 					SetTravelInDirectionFacing();
+					_wasGrounded = true;
+				}
 			}
 			else
 			{
 				DirectionTravelling = DirectionTravelling.None;
+				_wasGrounded = false;
 				//SetAnimationWhenFalling();
 			}
 
 			if (DirectionTravelling == DirectionTravelling.Right)
 			{
-                if (GetDirectionFacing() == DirectionFacing.Left)
-                    FlipSprite();
+				if (GetDirectionFacing() == DirectionFacing.Left)
+					FlipSprite();
 
-                var hazardRay = new Vector2(
+				var hazardRay = new Vector2(
 					_controller.Collider.bounds.max.x + HazardWarningDistance,
 					_controller.Collider.bounds.min.y);
 
-                if (ApproachingEdge(hazardRay) || ApproachingSnow(hazardRay) || _controller.CollisionState.Right)
-                {
-                    DirectionTravelling = DirectionTravelling.Left;
-                    FlipSprite();
-                    _normalizedHorizontalSpeed = -_normalizedHorizontalSpeed;
-                }
-                else
-                    _normalizedHorizontalSpeed = 1;
+				if (ApproachingEdge(hazardRay) || ApproachingSnow(hazardRay) || _controller.MovementState.RightCollision)
+				{
+					DirectionTravelling = DirectionTravelling.Left;
+					FlipSprite();
+					_normalizedHorizontalSpeed = -_normalizedHorizontalSpeed;
+				}
+				else
+				{
+					_normalizedHorizontalSpeed = 1;
+				}
 			}
 			else if (DirectionTravelling == DirectionTravelling.Left)
 			{
-                if (GetDirectionFacing() == DirectionFacing.Right)
-                    FlipSprite();
+				if (GetDirectionFacing() == DirectionFacing.Right)
+					FlipSprite();
 
-                var hazardRay = new Vector2(
+				var hazardRay = new Vector2(
 					_controller.Collider.bounds.min.x - HazardWarningDistance,
 					_controller.Collider.bounds.min.y);
 
-                if (ApproachingEdge(hazardRay) || ApproachingSnow(hazardRay) || _controller.CollisionState.Left)
-                {
-                    DirectionTravelling = DirectionTravelling.Right;
-                    FlipSprite();
-                    _normalizedHorizontalSpeed = -_normalizedHorizontalSpeed;
-                }
-                else
-                    _normalizedHorizontalSpeed = -1;
+				if (ApproachingEdge(hazardRay) || ApproachingSnow(hazardRay) || _controller.MovementState.LeftCollision)
+				{
+					DirectionTravelling = DirectionTravelling.Right;
+					FlipSprite();
+					_normalizedHorizontalSpeed = -_normalizedHorizontalSpeed;
+				}
+				else
+					_normalizedHorizontalSpeed = -1;
 			}
 			else
 			{
 				_normalizedHorizontalSpeed = 0;
 			}
 
-            SetAnimationWhenGrounded();
+			if (_isJumping == false)
+				SetAnimationWhenGrounded();
         }
 
 		private void SetTravelInDirectionFacing()
@@ -121,9 +132,36 @@ namespace Assets.Scripts.Denizens
 						: DirectionTravelling.Left;
 		}
 
-		private static bool ApproachingEdge(Vector2 edgeRay)
+		private bool ApproachingEdge(Vector2 edgeRay)
 		{
-			return Physics2D.Raycast(edgeRay, Vector2.down, 2f, Layers.Platforms) == false;
+			if (Physics2D.Raycast(edgeRay, Vector2.down, 2f, Layers.Platforms))
+				return false;
+
+			if (CanJump == false)
+				return true;
+
+			const float checkLength = 6f;
+			const float checkDepth = 4f;
+
+			var origin = new Vector2(
+			   _controller.Collider.bounds.center.x,
+			   _controller.Collider.bounds.min.y);
+
+			var size = new Vector2(0.01f, checkDepth);
+
+			Vector2 castDirection = DirectionTravelling == DirectionTravelling.Left ? Vector2.left : Vector2.right;
+			LayerMask mask = DirectionTravelling == DirectionTravelling.Left ? 1 << LayerMask.NameToLayer(Layers.RightClimbSpot) : 1 << LayerMask.NameToLayer(Layers.LeftClimbSpot);
+
+			RaycastHit2D hit = Physics2D.BoxCast(origin, size, 0, castDirection, checkLength, mask);
+
+			if (hit)
+			{
+				_isJumping = true;
+				_controller.MovementState.SetPivot(hit.collider.GetTopFace(), hit.collider);
+				_animator.Play(Animator.StringToHash(Animations.Jump));
+				return false;
+			}
+			return true;
 		}
 
 		private bool _hitSnow;
@@ -135,7 +173,7 @@ namespace Assets.Scripts.Denizens
 			if (hit && _hitSnow == false)
 			{
 				_hitSnow = true;
-				_movementPaused = true;
+				_waitingToMove = true;
 				_animator.Play(Animator.StringToHash(Animations.Shiver));
 			}
 			else
@@ -158,23 +196,29 @@ namespace Assets.Scripts.Denizens
 				: Animator.StringToHash(Animations.Moving));
 		}
 
-		private void HandleMovement()
+		private void MoveWithVelocity()
 		{
-			if (_controller.IsGrounded)
+			if (_controller.MovementState.IsGrounded)
 				_velocity.x = Mathf.SmoothDamp(
 					_velocity.x,
 					_normalizedHorizontalSpeed * RunSpeed,
 					ref _velocity.x,
 					Time.deltaTime * GroundDamping);
 
-            if (_velocity.x > 0 && _velocity.x > RunSpeed)
-                _velocity.x = RunSpeed;
-            else if (_velocity.x < 0 && _velocity.x < -RunSpeed)
-                _velocity.x = -RunSpeed;
-
 			_velocity.y += Gravity * Time.deltaTime;
+
+			if (_velocity.x * _normalizedHorizontalSpeed > RunSpeed)
+				_velocity.x = RunSpeed * _normalizedHorizontalSpeed;
+			if (_velocity.y < ConstantVariables.MaxVerticalSpeed)
+				_velocity.y = ConstantVariables.MaxVerticalSpeed;
+
 			_controller.Movement.BoxCastMove(_velocity * Time.deltaTime);
-			_velocity = new Vector3();
+		}
+
+		private void JumpAcross()
+		{
+			_controller.Movement.MoveLinearly(ConstantVariables.AcrossSpeed, _controller.Collider.GetBottomCenter());
+			_isJumping = _animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Jump);
 		}
 
 		private bool _playerSpotted;
@@ -188,11 +232,12 @@ namespace Assets.Scripts.Denizens
 			if (_controller.SpotPlayer(direction) && _playerSpotted == false)
 			{
 				_playerSpotted = true;
-				_movementPaused = true;
+				_waitingToMove = true;
 				_animator.Play(Animator.StringToHash(Animations.Gasp));
 			}
 			else if (_playerSpotted)
 			{
+				_waitingToMove = false;
 				_playerSpotted = false;
 				_animator.Play(Animator.StringToHash(Animations.Relief));
 			}
@@ -201,7 +246,7 @@ namespace Assets.Scripts.Denizens
         public void BeginLightingStove(Stove stove)
         {
             _stove = stove;
-            _movementPaused = true;
+            _waitingToMove = true;
             _animator.Play(Animator.StringToHash(Animations.LightStove));
         }
 
@@ -211,11 +256,6 @@ namespace Assets.Scripts.Denizens
         {
             if (_stove.CanBeLitByDenizens())
                 _stove.IsLit = true;
-        }
-
-        private void StartMoving()
-        {
-            _movementPaused = false;
         }
 
         private enum DirectionFacing

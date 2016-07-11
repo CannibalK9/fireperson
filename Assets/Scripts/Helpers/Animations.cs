@@ -101,5 +101,10 @@
         {
             get { return "CreatePL"; }
         }
-    }
+
+		public static string Jump
+		{
+			get { return "Jump"; }
+		}
+	}
 }

@@ -24,6 +24,7 @@ namespace Assets.Scripts.Player
 		public Transform Transform { get; set; }
 		public MovementState MovementState { get; set; }
 		public Collider2D Collider { get; set; }
+		public Rigidbody2D Rigidbody { get; set; }
 
 		private MovementHandler _movement;
 		private ClimbHandler _climbHandler;
@@ -40,6 +41,7 @@ namespace Assets.Scripts.Player
 			Transform = transform.parent.parent;
 			Anim = Transform.GetComponent<AnimationScript>();
 			Collider = Transform.GetComponent<BoxCollider2D>();
+			Rigidbody = Transform.GetComponent<Rigidbody2D>();
 			MovementState = new MovementState();
 			MovementAllowed = true;
 
@@ -116,7 +118,7 @@ namespace Assets.Scripts.Player
 
 		private void SetHorizontalVelocity()
 		{
-			_velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * RunSpeed, ref _velocity.x, Time.deltaTime * GroundDamping);
+			_velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * RunSpeed, ref _velocity.x, Time.fixedDeltaTime * GroundDamping);
 		}
 
 		private void MoveWithVelocity(float gravity)
@@ -128,8 +130,8 @@ namespace Assets.Scripts.Player
 			if (_velocity.y < ConstantVariables.MaxVerticalSpeed)
 				_velocity.y = ConstantVariables.MaxVerticalSpeed;
 
-			_velocity.y += gravity * Time.deltaTime;
-			_movement.BoxCastMove(_velocity * Time.deltaTime);	
+			_velocity.y += gravity * Time.fixedDeltaTime;
+			_movement.BoxCastMove(_velocity * Time.fixedDeltaTime);	
 		}
 
 		private void MoveToClimbingPoint()
@@ -138,9 +140,6 @@ namespace Assets.Scripts.Player
 			float speed = MovementAllowed
 				? _climbingState.MovementSpeed
 				: 0;
-
-			if (MovementAllowed == false)
-				Debug.Log("Climb!");
 
 			_movement.MoveLinearly(speed, Collider.GetPoint(_climbingState.PlayerPosition));		
 		}
@@ -213,8 +212,9 @@ namespace Assets.Scripts.Player
 
 		private bool TryClimb()
 		{
-			if (KeyBindings.GetKey(Control.Up) && _climbHandler.CheckLedgeAbove(GetDirectionFacing()))
-			{ }
+			if (KeyBindings.GetKey(Control.Up) && _climbHandler.CheckLedgeAbove(GetDirectionFacing()) != Climb.None)
+			{
+			}
 			else if (KeyBindings.GetKey(Control.Down) &&_climbHandler.CheckLedgeBelow(Climb.Down, GetDirectionFacing()))
 			{
 				Anim.PlayAnimation(Animations.ClimbDown);
@@ -304,7 +304,7 @@ namespace Assets.Scripts.Player
 
 		private void RotateAroundPivot()
 		{
-			_movement.Rotate(transform, _climbingState.PlayerPosition);
+			_movement.Rotate(Transform, _climbingState.PlayerPosition);
 			_currentRotateFrames++;
 
 			if (_currentRotateFrames == _rotateFrames)

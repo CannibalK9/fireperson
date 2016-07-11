@@ -12,7 +12,7 @@ namespace Assets.Scripts.Player.PL
 		public float HeatIntensity { get { return Intensity; } }
 		public float HeatRayDistance { get { return Stability; } }
 		public Collider2D Collider { get; set; }
-		public PlayerController Player { get; set; }
+		public PlayerController Player;
 		public bool FirstUpdate = true;
 
 		private float _emberEffectTime;
