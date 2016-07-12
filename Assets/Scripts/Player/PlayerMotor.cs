@@ -3,6 +3,7 @@ using Assets.Scripts.Helpers;
 using Assets.Scripts.Interactable;
 using Assets.Scripts.Movement;
 using Assets.Scripts.Player.Climbing;
+using Assets.Scripts.Player.Config;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -33,8 +34,8 @@ namespace Assets.Scripts.Player
 		private Collider2D _interactionCollider;
 		private PlayerState _playerState;
 		private float _normalizedHorizontalSpeed;
-		private int _rotateFrames = 30;
-		private int _currentRotateFrames = 0;
+		private const int _rotateFrames = 30;
+		private int _currentRotateFrames;
 
 		void Awake()
 		{
@@ -146,11 +147,7 @@ namespace Assets.Scripts.Player
 
 		private void MoveToInteractionPoint()
 		{
-			Vector2 offset = GetDirectionFacing() == DirectionFacing.Right
-				? Collider.GetBottomRight()
-				: Collider.GetBottomLeft();
-
-			_movement.MoveLinearly(ConstantVariables.DefaultMovementSpeed, offset);
+			_movement.BoxCastMove(new Vector3(_interactionCollider.bounds.center.x - Collider.bounds.center.x, 0, 0));
 		}
 
 		private bool IsClimbing()
@@ -197,7 +194,7 @@ namespace Assets.Scripts.Player
 			if (MovementState.RightCollision || MovementState.LeftCollision)
 			{
 				Debug.Log("against wall");
-				;//BackToWallAnimation
+				//BackToWallAnimation
 			}
 		}
 
@@ -241,7 +238,6 @@ namespace Assets.Scripts.Player
 				if (hit.collider != null)
 				{
 					_interactionCollider = hit.collider;
-					MovementState.SetPivot(_interactionCollider.bounds.min, _interactionCollider);
 
 					if (hit.transform.name.Contains(Interactables.Stilt))
 						Anim.PlayAnimation(Animations.DestroyStilt);
@@ -364,19 +360,24 @@ namespace Assets.Scripts.Player
 		private RaycastHit2D CheckInteractableInFront(DirectionFacing direction)
 		{
 			const float checkLength = 2f;
-			const float checkDepth = 3f;
+			const float checkHeight = 0.1f;
 
-			var origin = direction == DirectionFacing.Left
-				? new Vector2(
-					Collider.bounds.center.x - checkLength/2,
-					Collider.bounds.min.y)
-				: new Vector2(
-					Collider.bounds.center.x + checkLength/2,
-					Collider.bounds.min.y);
+			float xOrigin = direction == DirectionFacing.Right
+				? Collider.bounds.min.x
+				: Collider.bounds.max.x;
 
-			var size = new Vector2(checkLength, checkDepth);
+			var origin = new Vector2(
+				xOrigin,
+				Collider.bounds.min.y + checkHeight);
 
-			return Physics2D.BoxCast(origin, size, 0, Vector2.down, 0.01f, 1 << LayerMask.NameToLayer(Layers.Interactable));
+			Vector2 castDirection = GetSurfaceDirection(direction == DirectionFacing.Left ? DirectionTravelling.Left : DirectionTravelling.Right);
+
+			return Physics2D.Raycast(origin, castDirection, checkLength, 1 << LayerMask.NameToLayer(Layers.Interactable));
+		}
+
+		public Vector3 GetSurfaceDirection(DirectionTravelling direction)
+		{
+			return _movement.GetSurfaceDirection(direction);
 		}
 
 		public void BurnStilt()
@@ -409,6 +410,11 @@ namespace Assets.Scripts.Player
 			return animSpeed < 10
 				? animSpeed
 				: 10;
+		}
+
+		public Vector2 GetGroundPivotPosition()
+		{
+			return MovementState.GroundPivot.transform.position;
 		}
     }
 }

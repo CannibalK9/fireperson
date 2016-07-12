@@ -1,8 +1,7 @@
-﻿using Assets.Scripts.Player.Config;
-using System;
+﻿using System;
 using UnityEngine;
 
-namespace Assets.Scripts.Player
+namespace Assets.Scripts.Player.Config
 {
 	public static class KeyBindings
 	{

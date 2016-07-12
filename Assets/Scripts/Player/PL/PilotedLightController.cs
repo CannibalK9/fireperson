@@ -18,12 +18,10 @@ namespace Assets.Scripts.Player.PL
 		private float _emberEffectTime;
 		private HeatHandler _heatHandler;
 		private float _distanceFromPlayer;
-		private SpriteRenderer _renderer;
 
 		void Awake()
 		{
 			_heatHandler = new HeatHandler(this);
-			_renderer = GetComponent<SpriteRenderer>();
 			Collider = GetComponent<CircleCollider2D>();
 		}
 

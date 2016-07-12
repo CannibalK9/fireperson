@@ -151,12 +151,18 @@ namespace Assets.Scripts.Player.Climbing
 				direction = originalHit.collider.GetTopFace() - origin;
 			else
 				direction = originalHit.collider.name.Contains("left")
-					? originalHit.collider.GetTopLeft() + new Vector2(0.01f, 0) - origin
-					: originalHit.collider.GetTopRight() - new Vector2(0.01f, 0) - origin;
+					? originalHit.collider.GetLeftFace() - origin
+					: originalHit.collider.GetRightFace() - origin;
 
 			RaycastHit2D hit = Physics2D.Raycast(origin, direction, 10f, Layers.Platforms);
+			Debug.DrawRay(origin, direction, Color.red);
 
-			return hit && originalHit.collider.transform.parent == hit.collider.transform;
+			if (hit == false || originalHit.collider.transform.parent == hit.collider.transform)
+				return true;
+
+			Debug.Log("Edge blocked");
+			return false;
+
 		}
 
 		public Climb CheckLedgeAbove(DirectionFacing direction)
@@ -217,33 +223,31 @@ namespace Assets.Scripts.Player.Climbing
 		public bool CheckLedgeBelow(Climb intendedClimbingState, DirectionFacing direction)
 		{
 			const float checkWidth = 3f;
-			const float checkDepth = 4f;
+			const float checkDepth = 0.1f;
 
-			float xOrigin = direction == DirectionFacing.Right
-				? _playerCollider.bounds.min.x
-				: _playerCollider.bounds.max.x;
+			Vector2 origin = _motor.GetGroundPivotPosition();
 
-			var origin = new Vector2(
-				_playerCollider.bounds.center.x,
-				_playerCollider.bounds.min.y - checkDepth / 2);
+			Vector2 castDirection = _motor.GetSurfaceDirection(direction == DirectionFacing.Left ? DirectionTravelling.Left : DirectionTravelling.Right);
 
-			var size = new Vector2(0.01f, checkDepth);
+			float offset = castDirection.x > 0
+				? _playerCollider.bounds.center.x - origin.x
+				: origin.x - _playerCollider.bounds.center.x;
 
-			Vector2 castDirection = direction == DirectionFacing.Left ? Vector2.left : Vector2.right;
+			origin += offset * castDirection;
+			origin -= new Vector2(0, checkDepth);
 
-			RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, size, 0, castDirection, checkWidth, GetClimbMask());
-
-			var hit = GetValidHit(hits);
-
-			if (hit)
+			RaycastHit2D hit = Physics2D.Raycast(origin, castDirection, checkWidth, GetClimbMask());
+			Debug.DrawRay(origin, castDirection, Color.black);
+			if (hit && IsEdgeUnblocked(hit))
 			{
 				if (intendedClimbingState == Climb.Down && hit.collider.CanClimbDown() == false
 					|| intendedClimbingState == Climb.MoveToEdge && hit.collider.CanCross() == false)
 					return false;
 				CurrentClimb = intendedClimbingState;
 				SetClimbingParameters(hit);
+				return true;
 			}
-			return hit;
+			return false;
 		}
 
 		public bool CheckLedgeAcross(DirectionFacing direction)

@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Helpers;
 using Assets.Scripts.Interactable;
 using Assets.Scripts.Movement;
+using Assets.Scripts.Player.Config;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.PL

@@ -13,7 +13,7 @@ namespace Assets.Scripts.Denizens
 		public DirectionTravelling DirectionTravelling;
 		public bool CanJump;
 
-		private float _normalizedHorizontalSpeed = 0;
+		private float _normalizedHorizontalSpeed;
 
 		private DenizenController _controller;
 		private Animator _animator;

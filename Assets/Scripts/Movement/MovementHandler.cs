@@ -79,10 +79,11 @@ namespace Assets.Scripts.Movement
 
 			if (_downHit)
 			{
-				if (_downHit.normal == Vector2.up)
-					SetPivotPoint(_downHit.collider, _motor.Collider.GetBottomCenter());
-				else
-					SetPivotPoint(_downHit.collider, _downHit.point);
+				SetPivotPoint(
+					_downHit.collider,
+					_downHit.normal == Vector2.up
+						? _motor.Collider.GetBottomCenter()
+						: _downHit.point);
 
 				bool moveRight = _motor.MovementState.CurrentAcceleration.x > 0;
 				if ((leftHit == false && rightHit == false) || (leftHit && moveRight) || (rightHit && moveRight == false))
@@ -110,7 +111,7 @@ namespace Assets.Scripts.Movement
 		private RaycastHit2D GetDownwardsHit(IEnumerable<RaycastHit2D> hits)
 		{
 			var validHit = new RaycastHit2D();
-			float maxAngle = 90f;
+			const float maxAngle = 90f;
 			float hitAngle = maxAngle;
 
 			foreach (RaycastHit2D hit in hits)
@@ -156,21 +157,14 @@ namespace Assets.Scripts.Movement
 			TranslatePivot(ref deltaMovement, direction, speed);
 		}
 
-		private void MoveAlongSurface(ref Vector3 deltaMovement, RaycastHit2D hit, DirectionTravelling directionArg)
-		{
-			Vector3 direction = GetSurfaceDirection(directionArg);
-			float distance = _motor.Collider.bounds.extents.x - hit.distance;
-			TranslatePivot(ref deltaMovement, direction, distance);
-		}
-
-		private Vector3 GetSurfaceDirection(DirectionTravelling direction)
+		public Vector3 GetSurfaceDirection(DirectionTravelling direction)
 		{
 			return direction == DirectionTravelling.Right
 				? Quaternion.Euler(0, 0, -90) * _downHit.normal
 				: Quaternion.Euler(0, 0, 90) * _downHit.normal;
 		}
 
-		private void TranslatePivot(ref Vector3 deltaMovement, Vector3 direction, float speed)
+		private static void TranslatePivot(ref Vector3 deltaMovement, Vector3 direction, float speed)
 		{
 			deltaMovement += direction * speed;
 		}
@@ -195,13 +189,12 @@ namespace Assets.Scripts.Movement
 			}
 		}
 
-		private Vector3 MoveTowardsPivot(ref Vector3 deltaMovement, float speed, Vector3 offset)
+		private void MoveTowardsPivot(ref Vector3 deltaMovement, float speed, Vector3 offset)
 		{
 			Vector3 pivotPosition = _motor.MovementState.GroundPivot.transform.position + _motor.Transform.position - offset;
 			Vector3 newPosition = Vector3.MoveTowards(_motor.Transform.position, pivotPosition, speed);
 			Vector3 movement = newPosition - _motor.Transform.position;
 			deltaMovement += movement;
-			return movement;
 		}
 
 		[System.Diagnostics.Conditional("DEBUG_CC2D_RAYS")]

@@ -64,10 +64,10 @@ namespace Assets.Scripts.Denizens
         {
             if (col.gameObject.layer == LayerMask.NameToLayer(Layers.PlSpot))
             {
-                FirePlace fireplace = col.gameObject.GetComponent<FirePlace>();
+                var fireplace = col.gameObject.GetComponent<FirePlace>();
                 if (fireplace.IsLit == false)
                 {
-                    Stove stove = fireplace as Stove;
+                    var stove = fireplace as Stove;
                     if (stove != null)
                     {
                         if (stove.CanBeLitByDenizens())
