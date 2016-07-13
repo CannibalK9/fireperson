@@ -39,6 +39,14 @@ namespace Assets.Scripts.Movement
 			_motor.Transform.Translate(deltaMovement, Space.World);
 		}
 
+		public bool IsCollidingWithNonPivot()
+		{
+			Bounds bounds = _motor.Collider.bounds;
+			RaycastHit2D[] hits = Physics2D.BoxCastAll(new Vector2(bounds.center.x, bounds.max.y), new Vector2(bounds.size.x, 0.001f), 0, Vector2.down, bounds.size.y, Layers.Platforms);
+
+			return hits.Any(hit => hit.collider != _motor.MovementState.PivotCollider);
+		}
+
 		//if ignoring the current collider, this should apply to all casts and only be turned off when hitting the ground with a different collider
 
 		public void BoxCastMove(Vector3 deltaMovement)
@@ -50,7 +58,9 @@ namespace Assets.Scripts.Movement
 			_motor.MovementState.Reset(deltaMovement);
 			Bounds bounds = _motor.Collider.bounds;
 
-			RaycastHit2D[] downHits = Physics2D.BoxCastAll(new Vector3(bounds.center.x + deltaMovement.x, bounds.min.y + 1.2f), new Vector2(bounds.size.x + 0.2f, 0.001f), 0, Vector2.down, 1.4f, Layers.Platforms);
+			float extraWidth = _downHit ? 0.2f : 0;
+
+			RaycastHit2D[] downHits = Physics2D.BoxCastAll(new Vector2(bounds.center.x + deltaMovement.x, bounds.min.y + 1.2f), new Vector2(bounds.size.x + extraWidth, 0.001f), 0, Vector2.down, 1.4f, Layers.Platforms);
 			_downHit = GetDownwardsHit(downHits);
 
 			if (_downHit)

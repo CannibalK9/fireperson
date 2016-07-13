@@ -157,7 +157,7 @@ namespace Assets.Scripts.Denizens
 			if (hit)
 			{
 				_isJumping = true;
-				_controller.MovementState.SetPivot(hit.collider.GetTopFace(), hit.collider);
+				_controller.MovementState.SetPivot(hit.collider.GetTopFace(), hit.collider.transform.parent);
 				_animator.Play(Animator.StringToHash(Animations.Jump));
 				return false;
 			}

@@ -43,11 +43,11 @@ namespace Assets.Scripts.Movement
 			RightCollision = true;
 		}
 
-		public void SetPivot(Vector2 position, Collider2D col)
+		public void SetPivot(Vector2 position, Transform obj)
 		{
-			PivotCollider = col;
+			PivotCollider = obj.GetComponent<Collider2D>();
 			GroundPivot.transform.position = position;
-			GroundPivot.transform.parent = col.transform;
+			GroundPivot.transform.parent = obj;
 			PreviousPivotPoint = position;
 		}
 

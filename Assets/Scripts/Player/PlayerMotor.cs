@@ -69,7 +69,8 @@ namespace Assets.Scripts.Player
 					MoveToClimbingPoint();
 					break;
 				case PlayerState.Interacting:
-					MoveToInteractionPoint();
+					_velocity = new Vector2(_interactionCollider.bounds.center.x - Collider.bounds.center.x, 0);
+					MoveWithVelocity(0);
 					//cancel animations here
 					break;
 				case PlayerState.Falling:
@@ -136,18 +137,19 @@ namespace Assets.Scripts.Player
 		}
 
 		private void MoveToClimbingPoint()
-		{		
+		{
 			_currentRotateFrames = 0;
 			float speed = MovementAllowed
 				? _climbingState.MovementSpeed
 				: 0;
 
-			_movement.MoveLinearly(speed, Collider.GetPoint(_climbingState.PlayerPosition));		
-		}
+			if (MovementAllowed == false && _movement.IsCollidingWithNonPivot())
+			{
+				_climbHandler.CurrentClimb = Climb.None;
+				return;
+			}
 
-		private void MoveToInteractionPoint()
-		{
-			_movement.BoxCastMove(new Vector3(_interactionCollider.bounds.center.x - Collider.bounds.center.x, 0, 0));
+			_movement.MoveLinearly(speed, Collider.GetPoint(_climbingState.PlayerPosition));
 		}
 
 		private bool IsClimbing()
@@ -162,7 +164,7 @@ namespace Assets.Scripts.Player
 			_climbingState = _climbHandler.GetClimbingState();
 			MovementState.SetPivot(
 				_climbingState.PivotCollider.GetPoint(_climbingState.PivotPosition),
-				_climbingState.PivotCollider);
+				_climbingState.PivotCollider.transform.parent);
 
 			return PlayerState.Climbing;
 		}
@@ -336,7 +338,7 @@ namespace Assets.Scripts.Player
 			if (_climbingState.PivotCollider != null)
 				MovementState.SetPivot(
 					_climbingState.PivotCollider.GetPoint(_climbingState.PivotPosition),
-					_climbingState.PivotCollider);
+					_climbingState.PivotCollider.transform.parent);
 
 			return _climbingState.Climb;
 		}

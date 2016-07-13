@@ -1,21 +1,18 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
 {
 	public abstract class AbilitySlider : MonoBehaviour
 	{
-		Dictionary<int, Vector2> SliderPoints = new Dictionary<int, Vector2>
-		{
-			{ 1, new Vector2(0.1f, 0.2f) }
-		};
+		bool _onPath1;
+		bool _onOath2;
+		bool _onPath2;
 
 		void Start()
 		{
-			Slider slider = GetComponent<Slider>();
-
-			slider.value = GUI.HorizontalSlider(new Rect(940, 135 + (Mathf.Sin(slider.value * -.0175f) * 30), 243, 30), slider.value, 0.0f, 180.0f);
+			var slider1 = GetComponent<Slider>();
+			slider1.value = GUI.VerticalSlider(new Rect(25 + (Mathf.Sin(slider1.value * 20 * -.0175f) * 30), 25, 50, 30), slider1.value, 0, 9);
 		}
 	}
 }

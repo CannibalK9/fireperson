@@ -170,8 +170,7 @@ namespace Assets.Scripts.Player.PL
 					{
 						_fireplace.PlLeave();
 						_fireplace = fireplace;
-						var col = fireplace.GetComponent<Collider2D>();
-						MovementState.SetPivot(col.transform.position, col);
+						MovementState.SetPivot(fireplace.transform.position, fireplace.transform);
 						MovementState.MovementOverridden = true;
 						return true;
 					}
@@ -218,7 +217,7 @@ namespace Assets.Scripts.Player.PL
 				if (col.GetComponent<FirePlace>().IsAccessible)
 				{
 					_fireplace = col.GetComponent<FirePlace>();
-					MovementState.SetPivot(col.transform.position, col);
+					MovementState.SetPivot(col.transform.position, col.transform);
 					MovementState.MovementOverridden = true;
 				}
 			}
