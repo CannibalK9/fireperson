@@ -2,6 +2,7 @@
 {
 	public enum ColliderPoint
 	{
+		Centre,
 		TopLeft,
 		TopRight,
 		BottomLeft,

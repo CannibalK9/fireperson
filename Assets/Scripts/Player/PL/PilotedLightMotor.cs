@@ -96,7 +96,7 @@ namespace Assets.Scripts.Player.PL
 		private void MoveTowardsPoint()
 		{
 			_noGravity = true;
-			_movement.MoveLinearly(0.2f, Transform.position);
+			_movement.MoveLinearly(0.2f);
 		}
 
 		private float _lightPressTime;
@@ -170,7 +170,7 @@ namespace Assets.Scripts.Player.PL
 					{
 						_fireplace.PlLeave();
 						_fireplace = fireplace;
-						MovementState.SetPivot(fireplace.transform.position, fireplace.transform);
+						MovementState.SetPivot(fireplace.GetComponent<Collider2D>(), ColliderPoint.Centre, ColliderPoint.Centre);
 						MovementState.MovementOverridden = true;
 						return true;
 					}
@@ -217,7 +217,7 @@ namespace Assets.Scripts.Player.PL
 				if (col.GetComponent<FirePlace>().IsAccessible)
 				{
 					_fireplace = col.GetComponent<FirePlace>();
-					MovementState.SetPivot(col.transform.position, col.transform);
+					MovementState.SetPivot(col, ColliderPoint.Centre, ColliderPoint.Centre);
 					MovementState.MovementOverridden = true;
 				}
 			}

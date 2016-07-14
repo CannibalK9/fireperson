@@ -157,7 +157,7 @@ namespace Assets.Scripts.Denizens
 			if (hit)
 			{
 				_isJumping = true;
-				_controller.MovementState.SetPivot(hit.collider.GetTopFace(), hit.collider.transform.parent);
+				_controller.MovementState.SetPivot(hit.collider, ColliderPoint.TopFace, ColliderPoint.BottomFace);
 				_animator.Play(Animator.StringToHash(Animations.Jump));
 				return false;
 			}
@@ -212,13 +212,18 @@ namespace Assets.Scripts.Denizens
 			if (_velocity.y < ConstantVariables.MaxVerticalSpeed)
 				_velocity.y = ConstantVariables.MaxVerticalSpeed;
 
-			_controller.Movement.BoxCastMove(_velocity * Time.deltaTime);
+			_controller.Movement.BoxCastMove(_velocity * Time.deltaTime, false);
 		}
 
 		private void JumpAcross()
 		{
-			_controller.Movement.MoveLinearly(ConstantVariables.AcrossSpeed, _controller.Collider.GetBottomCenter());
-			_isJumping = _animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Jump);
+			if (_controller.Movement.MoveLinearly(ConstantVariables.AcrossSpeed))
+				_isJumping = _animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Jump);
+			else
+			{
+				_animator.Play(Animator.StringToHash(Animations.Falling));
+				_isJumping = false;
+			}
 		}
 
 		private bool _playerSpotted;

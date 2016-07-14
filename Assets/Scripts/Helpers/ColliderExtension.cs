@@ -8,6 +8,8 @@ namespace Assets.Scripts.Helpers
 		{
 			switch (point)
 			{
+				case ColliderPoint.Centre:
+					return col.transform.position;
 				case ColliderPoint.TopLeft:
 					return col.GetTopLeft();
 				case ColliderPoint.TopRight:

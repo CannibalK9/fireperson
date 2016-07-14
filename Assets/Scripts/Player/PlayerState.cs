@@ -6,6 +6,7 @@
 		Climbing,
 		Interacting,
 		Falling,
-		Static
+		Static,
+		Jumping
 	}
 }

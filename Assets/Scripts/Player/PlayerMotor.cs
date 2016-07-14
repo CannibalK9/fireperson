@@ -81,6 +81,9 @@ namespace Assets.Scripts.Player
 					CancelVelocity();
 					MoveWithVelocity(0);
 					break;
+				case PlayerState.Jumping:
+					MoveWithVelocity(0);
+					break;
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
@@ -88,7 +91,9 @@ namespace Assets.Scripts.Player
 
 		private PlayerState HandleMovementInputs()
 		{
-			if (MovementState.IsGrounded == false || _climbHandler.CurrentClimb == Climb.Jump)
+			if (_climbHandler.CurrentClimb == Climb.Jump)
+				return PlayerState.Jumping;
+			else if (MovementState.IsGrounded == false)
 			{
 				Anim.SetBool("falling", true);
 				Anim.SetBool("moving", false);
@@ -102,18 +107,17 @@ namespace Assets.Scripts.Player
 			}
 			else if (IsClimbing())
 				return PlayerState.Climbing;
-
-			MovementInput();
+			else if (TryClimb())
+				return SetMotorToClimbState();
+			else if (TryInteract()) //should also bail out of interacting/channelling if needed
+				return PlayerState.Interacting;
+			else if (TryChannel())
+				return PlayerState.Static;
 
 			Anim.SetBool("falling", false);
 			Anim.SetBool("moving", _normalizedHorizontalSpeed != 0);
 
-			if (TryClimb())
-				return SetMotorToClimbState();
-			else if (TryInteract())
-				return PlayerState.Interacting;
-			else if (TryChannel())
-				return PlayerState.Static;
+			MovementInput();
 
 			return PlayerState.WaitingForInput;
 		}
@@ -133,23 +137,26 @@ namespace Assets.Scripts.Player
 				_velocity.y = ConstantVariables.MaxVerticalSpeed;
 
 			_velocity.y += gravity * Time.fixedDeltaTime;
-			_movement.BoxCastMove(_velocity * Time.fixedDeltaTime);	
+			bool isKinetic = _playerState == PlayerState.Jumping;
+			_movement.BoxCastMove(_velocity * Time.fixedDeltaTime, isKinetic);	
 		}
 
 		private void MoveToClimbingPoint()
 		{
+			Debug.Log("climb");
+
 			_currentRotateFrames = 0;
 			float speed = MovementAllowed
 				? _climbingState.MovementSpeed
 				: 0;
 
-			if (MovementAllowed == false && _movement.IsCollidingWithNonPivot())
+			if (_movement.MoveLinearly(speed) == false
+				|| _climbHandler.CurrentClimb == Climb.Down && _movement.IsCollidingWithNonPivot())
 			{
 				_climbHandler.CurrentClimb = Climb.None;
-				return;
+				Anim.PlayAnimation(Animations.Falling);
+				MoveWithVelocity(0);
 			}
-
-			_movement.MoveLinearly(speed, Collider.GetPoint(_climbingState.PlayerPosition));
 		}
 
 		private bool IsClimbing()
@@ -162,9 +169,7 @@ namespace Assets.Scripts.Player
 			_interactionCollider = null;
 			CancelVelocity();
 			_climbingState = _climbHandler.GetClimbingState();
-			MovementState.SetPivot(
-				_climbingState.PivotCollider.GetPoint(_climbingState.PivotPosition),
-				_climbingState.PivotCollider.transform.parent);
+			MovementState.SetPivot(_climbingState.PivotCollider, _climbingState.PivotPosition, _climbingState.PlayerPosition);
 
 			return PlayerState.Climbing;
 		}
@@ -206,7 +211,7 @@ namespace Assets.Scripts.Player
 				? Collider.bounds.max.x + 0.2f
 				: Collider.bounds.min.x - 0.2f;
 			var edgeRay = new Vector2(xOrigin, Collider.bounds.min.y);
-			return Physics2D.Raycast(edgeRay, Vector2.down, 2f, Layers.Platforms);
+			return Physics2D.Raycast(edgeRay, Vector2.down, 1f, Layers.Platforms);
 		}
 
 		private bool TryClimb()
@@ -272,11 +277,17 @@ namespace Assets.Scripts.Player
 			else
 				_normalizedHorizontalSpeed = GetDirectionFacing() == DirectionFacing.Left ? 1 : -1;
 
-			_velocity.x = _normalizedHorizontalSpeed * 10;
-			_velocity.y = 10f;
+			_velocity.x = _normalizedHorizontalSpeed * 20;
+			_velocity.y = 5f;
 		}
 
-        public void FlipSprite()
+		public void SetSwingVelocity()
+		{
+			_normalizedHorizontalSpeed = GetDirectionFacing() == DirectionFacing.Right ? 1 : -1;
+			_velocity.x = _normalizedHorizontalSpeed * 20;
+		}
+
+		public void FlipSprite()
 		{
 			Vector3 target = Collider.bounds.center;
 			Transform.localScale = new Vector3(-Transform.localScale.x, Transform.localScale.y, Transform.localScale.z);
@@ -317,7 +328,7 @@ namespace Assets.Scripts.Player
 			Climb climb = _climbHandler.CurrentClimb;
 			var direction = DirectionFacing.None;
 
-			if (climb != Climb.MoveToEdge && climb != Climb.Jump)
+			if (climb != Climb.MoveToEdge && climb != Climb.Jump && climb != Climb.End)
 			{
 				if (KeyBindings.GetKey(Control.Left))
 				{
@@ -336,9 +347,7 @@ namespace Assets.Scripts.Player
 			}
 			_climbingState = _climbHandler.SwitchClimbingState(direction);
 			if (_climbingState.PivotCollider != null)
-				MovementState.SetPivot(
-					_climbingState.PivotCollider.GetPoint(_climbingState.PivotPosition),
-					_climbingState.PivotCollider.transform.parent);
+				MovementState.SetPivot(_climbingState.PivotCollider, _climbingState.PivotPosition, _climbingState.PlayerPosition);
 
 			return _climbingState.Climb;
 		}
@@ -399,10 +408,10 @@ namespace Assets.Scripts.Player
 
 		public float GetAnimationSpeed()
 		{
-			if (_climbingState == null || MovementState.GroundPivot == null)
+			if (_climbingState == null || MovementState.Pivot == null)
 				return 1;
 
-			float distance = Vector2.Distance(Collider.GetPoint(_climbingState.PlayerPosition), MovementState.GroundPivot.transform.position);
+			float distance = Vector2.Distance(Collider.GetPoint(_climbingState.PlayerPosition), MovementState.Pivot.transform.position);
 
 			float speed = _playerState == PlayerState.Climbing
 				? _climbingState.MovementSpeed
@@ -416,7 +425,7 @@ namespace Assets.Scripts.Player
 
 		public Vector2 GetGroundPivotPosition()
 		{
-			return MovementState.GroundPivot.transform.position;
+			return MovementState.Pivot.transform.position;
 		}
     }
 }

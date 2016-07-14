@@ -109,6 +109,11 @@ namespace Assets.Scripts.Player
 			PlayerMotor.SetJumpingVelocity(false);
 		}
 
+		private void ApplySwingVelocity()
+		{
+			PlayerMotor.SetSwingVelocity();
+		}
+
 		private void Rotate()
 		{
 			PlayerMotor.Rotating = true;

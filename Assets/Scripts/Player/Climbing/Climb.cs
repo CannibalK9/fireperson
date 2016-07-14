@@ -12,6 +12,7 @@
 		SwingLeft,
 		SwingRight,
 		MoveToEdge,
-		Jump
+		Jump,
+		End
 	}
 }

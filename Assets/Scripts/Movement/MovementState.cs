@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Helpers;
+using UnityEngine;
 
 namespace Assets.Scripts.Movement
 {
@@ -11,13 +12,15 @@ namespace Assets.Scripts.Movement
 		public bool LeftCollision { get; private set; }
 		public bool RightCollision { get; private set; }
 		public bool IgnoreCurrentPlatform { get; set; }
-		public GameObject GroundPivot { get; private set; }
+		public GameObject Pivot { get; private set; }
 		public Vector3 CurrentAcceleration { get; private set; }
 		public Vector3 PreviousPivotPoint { get; set; }
+		public ColliderPoint CharacterPoint { get; private set; }
+		public ColliderPoint TargetPoint { get; private set; }
 
 		public MovementState()
 		{
-			GroundPivot = new GameObject();
+			Pivot = new GameObject();
 		}
 
 		public void Reset(Vector3 currentAcceleration)
@@ -43,12 +46,23 @@ namespace Assets.Scripts.Movement
 			RightCollision = true;
 		}
 
-		public void SetPivot(Vector2 position, Transform obj)
+		public void SetPivot(Collider2D pivotCollider, ColliderPoint targetPoint, ColliderPoint characterPoint)
 		{
-			PivotCollider = obj.GetComponent<Collider2D>();
-			GroundPivot.transform.position = position;
-			GroundPivot.transform.parent = obj;
-			PreviousPivotPoint = position;
+			PivotCollider = pivotCollider;
+			Pivot.transform.parent = pivotCollider.transform.parent;
+			CharacterPoint = characterPoint;
+			TargetPoint = targetPoint;
+			Pivot.transform.position = PivotCollider.GetPoint(TargetPoint);
+			PreviousPivotPoint = Pivot.transform.position;
+		}
+
+		public void UpdatePivotToTarget()
+		{
+			if (PivotCollider != null)
+			{
+				PreviousPivotPoint = Pivot.transform.position;
+				Pivot.transform.position = PivotCollider.GetPoint(TargetPoint);
+			}
 		}
 
 		public void UnsetPivot()

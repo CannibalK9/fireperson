@@ -38,9 +38,13 @@ namespace Assets.Scripts.Player.Climbing
 			switch (CurrentClimb)
 			{
 				case Climb.Up:
-				case Climb.Flip:
-				case Climb.Mantle:
 					ClimbUp();
+					break;
+				case Climb.Flip:
+					Flip();
+					break;
+				case Climb.Mantle:
+					Mantle();
 					break;
 				case Climb.Down:
 					ClimbDown();
@@ -81,6 +85,34 @@ namespace Assets.Scripts.Player.Climbing
 			{
 				_target = ColliderPoint.TopLeft;
 				_player = ColliderPoint.TopRight;
+			}
+		}
+
+		private void Flip()
+		{
+			if (ClimbSide == DirectionFacing.Right)
+			{
+				_target = ColliderPoint.TopRight;
+				_player = ColliderPoint.TopRight;
+			}
+			else
+			{
+				_target = ColliderPoint.TopLeft;
+				_player = ColliderPoint.TopLeft;
+			}
+		}
+
+		private void Mantle()
+		{
+			if (ClimbSide == DirectionFacing.Right)
+			{
+				_target = ColliderPoint.TopRight;
+				_player = ColliderPoint.LeftFace;
+			}
+			else
+			{
+				_target = ColliderPoint.TopLeft;
+				_player = ColliderPoint.RightFace;
 			}
 		}
 
@@ -144,15 +176,9 @@ namespace Assets.Scripts.Player.Climbing
 
 		private bool IsEdgeUnblocked(RaycastHit2D originalHit)
 		{
-			Vector2 origin = _playerCollider.bounds.center;
+			Vector3 origin = _playerCollider.bounds.center;
 
-			Vector2 direction;
-			if (originalHit.collider.IsUpright())
-				direction = originalHit.collider.GetTopFace() - origin;
-			else
-				direction = originalHit.collider.name.Contains("left")
-					? originalHit.collider.GetLeftFace() - origin
-					: originalHit.collider.GetRightFace() - origin;
+			Vector2 direction = originalHit.collider.bounds.center - origin;
 
 			RaycastHit2D hit = Physics2D.Raycast(origin, direction, 10f, Layers.Platforms);
 			Debug.DrawRay(origin, direction, Color.red);
@@ -191,6 +217,9 @@ namespace Assets.Scripts.Player.Climbing
 
 				if (hit.point.y < _playerCollider.bounds.max.y)
 				{
+					if (ShouldStraightClimb() == false)
+						return Climb.None;
+
 					if (CurrentClimb == Climb.None)
 					{
 						_anim.PlayAnimation(Animations.Mantle);
@@ -348,7 +377,7 @@ namespace Assets.Scripts.Player.Climbing
 			if (NextClimbs.Count == 0)
 				_climbCollider = null;
 
-			var nextClimb = Climb.None;
+			var nextClimb = CurrentClimb == Climb.End ? Climb.None : Climb.End;
 			if (direction == DirectionFacing.None)
 				direction = _motor.GetDirectionFacing();
 

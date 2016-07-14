@@ -16,26 +16,41 @@ namespace Assets.Scripts.Movement
 			_motor = motor;
 		}
 
-		public void MoveLinearly(float speed, Vector2 controllerPosition)
+		public bool MoveLinearly(float speed)
 		{
+			if (_motor.MovementState.PivotCollider == null)
+				return false;
+
 			_motor.Rigidbody.isKinematic = true;
 			var deltaMovement = new Vector3();
-			MoveWithPivotPoint(ref deltaMovement, _motor.MovementState.PivotCollider);
-			_motor.MovementState.PreviousPivotPoint = _motor.MovementState.GroundPivot.transform.position;
-			MoveTowardsPivot(ref deltaMovement, speed, controllerPosition);
+			_motor.MovementState.UpdatePivotToTarget();
+			if (speed > 0)
+			{
+				MoveTowardsPivot(ref deltaMovement, speed, _motor.Collider.GetPoint(_motor.MovementState.CharacterPoint));
+				Debug.Log("towards");
+			}
+			else
+			{
+				MoveWithPivotPoint(ref deltaMovement, _motor.MovementState.PivotCollider);
+				Debug.Log("with");
+			}
 			_motor.Transform.Translate(deltaMovement, Space.World);
+			return true;
 		}
 
 		public void Rotate(Transform t, ColliderPoint playerCorner)
 		{
+			if (_motor.MovementState.PivotCollider == null)
+			{
+				_motor.Rigidbody.isKinematic = false;
+				t.Rotate(0, 0, 12);
+			}
+
 			_motor.Rigidbody.isKinematic = true;
 			var deltaMovement = new Vector3();
 			MoveWithPivotPoint(ref deltaMovement, _motor.MovementState.PivotCollider);
-			_motor.MovementState.PreviousPivotPoint = _motor.MovementState.GroundPivot.transform.position;
-			if (_motor.MovementState.GroundPivot != null)
-				t.RotateAround(_motor.MovementState.GroundPivot.transform.position, Vector3.forward, 12);
-			else
-				t.Rotate(0, 0, 12);
+			_motor.MovementState.PreviousPivotPoint = _motor.MovementState.Pivot.transform.position;
+			t.RotateAround(_motor.MovementState.Pivot.transform.position, Vector3.forward, 12);
 			_motor.Transform.Translate(deltaMovement, Space.World);
 		}
 
@@ -44,17 +59,15 @@ namespace Assets.Scripts.Movement
 			Bounds bounds = _motor.Collider.bounds;
 			RaycastHit2D[] hits = Physics2D.BoxCastAll(new Vector2(bounds.center.x, bounds.max.y), new Vector2(bounds.size.x, 0.001f), 0, Vector2.down, bounds.size.y, Layers.Platforms);
 
-			return hits.Any(hit => hit.collider != _motor.MovementState.PivotCollider);
+			return hits.Any(hit => hit.collider.transform != _motor.MovementState.Pivot.transform.parent);
 		}
 
-		//if ignoring the current collider, this should apply to all casts and only be turned off when hitting the ground with a different collider
-
-		public void BoxCastMove(Vector3 deltaMovement)
+		public void BoxCastMove(Vector3 deltaMovement, bool isKinetic)
 		{
 			if (Time.timeSinceLevelLoad < 1)
 				return;
 
-			_motor.Rigidbody.isKinematic = false;
+			_motor.Rigidbody.isKinematic = isKinetic;
 			_motor.MovementState.Reset(deltaMovement);
 			Bounds bounds = _motor.Collider.bounds;
 
@@ -176,17 +189,17 @@ namespace Assets.Scripts.Movement
 
 		private static void TranslatePivot(ref Vector3 deltaMovement, Vector3 direction, float speed)
 		{
-			deltaMovement += direction * speed;
+			deltaMovement += direction.normalized * speed;
 		}
 
 		private void SetPivotPoint(Collider2D col, Vector2 point)
 		{
 			_motor.MovementState.PreviousPivotPoint = point;
-			_motor.MovementState.GroundPivot.transform.position = point;
+			_motor.MovementState.Pivot.transform.position = point;
 			if (_motor.MovementState.PivotCollider != col)
 			{
 				_motor.MovementState.PivotCollider = col;
-				_motor.MovementState.GroundPivot.transform.parent = _motor.MovementState.PivotCollider.transform;
+				_motor.MovementState.Pivot.transform.parent = _motor.MovementState.PivotCollider.transform;
 			}
 			DrawRay(point, _downHit.normal, Color.yellow);
 		}
@@ -195,15 +208,15 @@ namespace Assets.Scripts.Movement
 		{
 			if (col == _motor.MovementState.PivotCollider)
 			{
-				deltaMovement += _motor.MovementState.GroundPivot.transform.position - _motor.MovementState.PreviousPivotPoint;
+				deltaMovement += _motor.MovementState.Pivot.transform.position - _motor.MovementState.PreviousPivotPoint;
 			}
 		}
 
 		private void MoveTowardsPivot(ref Vector3 deltaMovement, float speed, Vector3 offset)
 		{
-			Vector3 pivotPosition = _motor.MovementState.GroundPivot.transform.position + _motor.Transform.position - offset;
+			Vector3 pivotPosition = _motor.MovementState.Pivot.transform.position + _motor.Transform.position - offset;
 			Vector3 newPosition = Vector3.MoveTowards(_motor.Transform.position, pivotPosition, speed);
-			Vector3 movement = newPosition - _motor.Transform.position;
+			Vector3 movement= newPosition - _motor.Transform.position;
 			deltaMovement += movement;
 		}
 
