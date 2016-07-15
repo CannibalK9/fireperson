@@ -114,11 +114,6 @@ namespace Assets.Scripts.Player
 			PlayerMotor.SetSwingVelocity();
 		}
 
-		private void Rotate()
-		{
-			PlayerMotor.Rotating = true;
-		}
-
 		private void AllowMovement()
 		{
 			_animator.speed = PlayerMotor.GetAnimationSpeed();
@@ -129,6 +124,18 @@ namespace Assets.Scripts.Player
 		{
 			_animator.speed = 1;
 			PlayerMotor.MovementAllowed = false;
+		}
+
+		private void MoveHorizontally()
+		{
+			_animator.speed = 1;
+			PlayerMotor.MoveHorizontally();
+		}
+
+		private void MoveVertically()
+		{
+			_animator.speed = 1;
+			PlayerMotor.MoveVertically();
 		}
 
 		private void DestroyStilt()

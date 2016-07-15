@@ -34,8 +34,6 @@ namespace Assets.Scripts.Player
 		private Collider2D _interactionCollider;
 		private PlayerState _playerState;
 		private float _normalizedHorizontalSpeed;
-		private const int _rotateFrames = 30;
-		private int _currentRotateFrames;
 
 		void Awake()
 		{
@@ -52,11 +50,6 @@ namespace Assets.Scripts.Player
 
 		void FixedUpdate()
 		{
-			if (Rotating)
-			{
-				RotateAroundPivot();
-				return;
-			}
 			_playerState = HandleMovementInputs();
 
 			switch (_playerState)
@@ -145,7 +138,6 @@ namespace Assets.Scripts.Player
 		{
 			Debug.Log("climb");
 
-			_currentRotateFrames = 0;
 			float speed = MovementAllowed
 				? _climbingState.MovementSpeed
 				: 0;
@@ -157,6 +149,74 @@ namespace Assets.Scripts.Player
 				Anim.PlayAnimation(Animations.Falling);
 				MoveWithVelocity(0);
 			}
+		}
+
+		public void MoveHorizontally()
+		{
+			ColliderPoint newPoint;
+
+			switch (MovementState.CharacterPoint)
+			{
+				case ColliderPoint.TopLeft:
+					newPoint = ColliderPoint.TopRight;
+					break;
+				case ColliderPoint.TopRight:
+					newPoint = ColliderPoint.TopLeft;
+					break;
+				case ColliderPoint.BottomLeft:
+					newPoint = ColliderPoint.BottomRight;
+					break;
+				case ColliderPoint.BottomRight:
+					newPoint = ColliderPoint.BottomLeft;
+					break;
+				case ColliderPoint.LeftFace:
+					newPoint = ColliderPoint.RightFace;
+					break;
+				case ColliderPoint.RightFace:
+					newPoint = ColliderPoint.LeftFace;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+
+			MovementState.CharacterPoint = newPoint;
+		}
+
+		public void MoveVertically()
+		{
+			ColliderPoint newPoint;
+
+			switch (MovementState.CharacterPoint)
+			{
+				case ColliderPoint.TopLeft:
+					newPoint = ColliderPoint.BottomLeft;
+					break;
+				case ColliderPoint.TopRight:
+					newPoint = ColliderPoint.BottomRight;
+					break;
+				case ColliderPoint.BottomLeft:
+					newPoint = ColliderPoint.TopLeft;
+					break;
+				case ColliderPoint.BottomRight:
+					newPoint = ColliderPoint.TopRight;
+					break;
+				case ColliderPoint.TopFace:
+					newPoint = ColliderPoint.BottomFace;
+					break;
+				case ColliderPoint.BottomFace:
+					newPoint = ColliderPoint.TopFace;
+					break;
+				case ColliderPoint.LeftFace:
+					newPoint = ColliderPoint.BottomLeft;
+					break;
+				case ColliderPoint.RightFace:
+					newPoint = ColliderPoint.BottomRight;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+
+			MovementState.CharacterPoint = newPoint;
 		}
 
 		private bool IsClimbing()
@@ -309,18 +369,6 @@ namespace Assets.Scripts.Player
 				: DirectionFacing.Left;
 
 			return directionFacing;
-		}
-
-		private void RotateAroundPivot()
-		{
-			_movement.Rotate(Transform, _climbingState.PlayerPosition);
-			_currentRotateFrames++;
-
-			if (_currentRotateFrames == _rotateFrames)
-			{
-				Rotating = false;
-				_currentRotateFrames = 0;
-			}
 		}
 
 		public Climb SwitchClimbingState()

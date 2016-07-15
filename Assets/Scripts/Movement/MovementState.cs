@@ -15,7 +15,7 @@ namespace Assets.Scripts.Movement
 		public GameObject Pivot { get; private set; }
 		public Vector3 CurrentAcceleration { get; private set; }
 		public Vector3 PreviousPivotPoint { get; set; }
-		public ColliderPoint CharacterPoint { get; private set; }
+		public ColliderPoint CharacterPoint { get; set; }
 		public ColliderPoint TargetPoint { get; private set; }
 
 		public MovementState()

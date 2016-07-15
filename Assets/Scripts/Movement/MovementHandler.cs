@@ -38,22 +38,6 @@ namespace Assets.Scripts.Movement
 			return true;
 		}
 
-		public void Rotate(Transform t, ColliderPoint playerCorner)
-		{
-			if (_motor.MovementState.PivotCollider == null)
-			{
-				_motor.Rigidbody.isKinematic = false;
-				t.Rotate(0, 0, 12);
-			}
-
-			_motor.Rigidbody.isKinematic = true;
-			var deltaMovement = new Vector3();
-			MoveWithPivotPoint(ref deltaMovement, _motor.MovementState.PivotCollider);
-			_motor.MovementState.PreviousPivotPoint = _motor.MovementState.Pivot.transform.position;
-			t.RotateAround(_motor.MovementState.Pivot.transform.position, Vector3.forward, 12);
-			_motor.Transform.Translate(deltaMovement, Space.World);
-		}
-
 		public bool IsCollidingWithNonPivot()
 		{
 			Bounds bounds = _motor.Collider.bounds;
