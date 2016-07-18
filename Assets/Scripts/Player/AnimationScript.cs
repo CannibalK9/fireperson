@@ -11,6 +11,7 @@ namespace Assets.Scripts.Player
 		public PlayerController PlayerController;
         public SmoothCamera2D CameraScript;
 		private Animator _animator;
+		private bool _recalculate;
 
 		void Awake()
 		{
@@ -48,9 +49,16 @@ namespace Assets.Scripts.Player
 
 		private void SwitchClimbingState()
 		{
-			Climb nextState = PlayerMotor.SwitchClimbingState();
+			ClimbingState nextState = PlayerMotor.SwitchClimbingState();
+			_recalculate = nextState.Recalculate;
 
-			switch (nextState)
+			if (_recalculate)
+			{
+				_animator.speed = 1;
+				PlayerMotor.MovementAllowed = false;
+			}
+
+			switch (nextState.Climb)
 			{
 				case Climb.Up:
 					_animator.SetTrigger("climbUp");
@@ -116,26 +124,23 @@ namespace Assets.Scripts.Player
 
 		private void AllowMovement()
 		{
-			_animator.speed = PlayerMotor.GetAnimationSpeed();
+			if (_recalculate)
+				_animator.speed = PlayerMotor.GetAnimationSpeed();
 			PlayerMotor.MovementAllowed = true;
-		}
-
-		private void StopMovement()
-		{
-			_animator.speed = 1;
-			PlayerMotor.MovementAllowed = false;
 		}
 
 		private void MoveHorizontally()
 		{
 			_animator.speed = 1;
 			PlayerMotor.MoveHorizontally();
+			PlayerMotor.UpdateClimbingSpeed(0.75f);
 		}
 
 		private void MoveVertically()
 		{
 			_animator.speed = 1;
 			PlayerMotor.MoveVertically();
+			PlayerMotor.UpdateClimbingSpeed(0.75f);
 		}
 
 		private void DestroyStilt()

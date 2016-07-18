@@ -33,9 +33,9 @@
      inkscape:current-layer="layer1"
      showgrid="false"
      width="500mm"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="1358"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1" />
   <metadata
@@ -57,29 +57,44 @@
      transform="translate(0,-308.26772)">
     <path
        style="fill:#b3b3b3;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 425.96225,109.36978 19.09487,27.90787 45.5339,-32.31438 61.69109,20.5637 76.37945,-26.43904 0,-36.72089 82.25479,41.1274 85.19246,146.88355 76.37945,23.50137 86.6613,-36.72089 88.13014,-114.56917 63.1599,-85.19247 8.813,600.75375 z"
+       d="m 99.750895,109.36978 8.439725,27.90787 20.12547,-32.31438 27.26678,20.5637 33.75887,-26.43904 0,-36.72089 36.35571,41.1274 37.65412,146.88355 33.75887,23.50137 38.30334,-36.72089 38.95254,-114.56917 27.91598,-85.19247 3.89524,600.75375 z"
        id="path4156"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Skybox\LayeredMountains.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        style="fill:#cccccc;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m -148.35245,398.73038 -5.87534,-226.20067 82.254786,-29.37671 54.346916,19.09486 61.691094,-7.34418 333.425674,64.62876 -41.1274,-73.44177 92.53664,-38.18973 63.15993,36.72089 24.97021,32.31438 89.59897,-32.31438 130.72636,85.19246 27.90788,44.06507 70.5041,76.37945 36.72089,-45.5339 111.63151,73.44178 51.40923,54.34691 48.4715,132.1952 z"
+       d="m -154.08984,398.73038 -2.59683,-226.20067 36.3557,-29.37671 24.020737,19.09486 27.266779,-7.34418 147.370452,64.62876 -18.177855,-73.44177 40.900167,-38.18973 27.91599,36.72089 11.03656,32.31438 39.60175,-32.31438 57.7796,85.19246 12.33497,44.06507 31.16204,76.37945 16.23022,-45.5339 49.33989,73.44178 22.72231,54.34691 21.42387,132.1952 z"
        id="path4154"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Skybox\LayeredMountains.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        style="fill:#e6e6e6;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m -146.88362,655.77661 0,-257.04623 86.661301,-42.59623 L 55.81569,218.06361 83.723566,102.0256 157.16535,15.3643 l 114.56917,26.43904 77.84828,64.62877 36.72089,124.85102 104.28733,148.35239 217.38766,85.19246 239.4202,61.6911 136.60162,32.31438 38.1898,86.6613 z"
+       d="m -153.44063,655.77661 0,-257.04623 38.30333,-42.59623 51.287518,-138.07054 12.334972,-116.03801 32.460455,-86.6613 50.638303,26.43904 34.408077,64.62877 16.230226,124.85102 46.093839,148.35239 96.08294,85.19246 105.82108,61.6911 60.3764,32.31438 16.87947,86.6613 z"
        id="path4152"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Skybox\LayeredMountains.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        style="fill:#ececec;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m -151.29012,1025.9232 -7.34418,-265.85927 10.28185,-99.88082 36.72089,-82.25479 52.878077,-124.85102 95.474311,-23.50137 24.970205,8.81301 102.818487,-96.94314 73.44178,76.37945 45.5339,-14.68836 33.78322,14.68836 102.81849,61.69109 124.85102,35.25205 196.82397,-5.87534 70.50411,-55.81575 118.97568,27.90787 186.54211,152.7589 27.9078,207.10582 -1254.38549,-10.28185 z"
+       d="m -155.38825,1025.9232 -3.24605,-265.85927 4.54446,-99.88082 16.23023,-82.25479 23.37152,-124.85102 42.198591,-23.50137 11.036554,8.81301 45.444631,-96.94314 32.460453,76.37945 20.125479,-14.68836 14.931809,14.68836 45.444633,61.69109 55.18277,35.25205 86.99401,-5.87534 31.16203,-55.81575 52.58594,27.90787 82.44954,152.7589 12.33494,207.10582 -554.42448,-10.28185 z"
        id="path4150"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Skybox\LayeredMountains.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        style="fill:#f2f2f2;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m -110.16273,834.97455 19.094864,-185.07329 39.65856,-5.87534 74.910614,-138.07054 86.661302,-29.37671 52.87808,-1.46884 69.03527,29.37671 38.18972,26.43904 129.25753,29.37671 142.47705,7.34418 135.13287,27.90788 208.57465,-30.84555 99.88082,69.03527 95.4743,102.81849 57.2846,41.1274 32.3143,274.67224 -1324.88959,4.4065 53.42634,-192.00594 z"
+       d="m -137.2104,834.97455 8.43971,-185.07329 17.52865,-5.87534 33.10966,-138.07054 38.303335,-29.37671 23.371525,-1.46884 30.512824,29.37671 16.879433,26.43904 57.130395,29.37671 62.973278,7.34418 59.72723,27.90788 92.18768,-30.84555 44.14622,69.03527 42.19858,102.81849 25.31916,41.1274 14.28256,274.67224 -585.58651,4.4065 23.61385,-192.00594 z"
        id="path4148"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Skybox\LayeredMountains.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <image
        y="299.32507"
        x="-940.40045"
@@ -593,8 +608,11 @@ hCBB0EEIEgQdhCBB0EEIEgQdhCBB0EEIEgQdhCBB0EEIEgQdhCBB0EEIEgQdhCBB0EEIEgQdhCBB
        width="750" />
     <path
        style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 2.9376101,570.58414 C 145.41466,511.83072 208.57459,523.58141 208.57459,523.58141 l 149.82123,54.34691 c 0,0 196.82396,27.90788 204.16814,27.90788 7.34418,0 188.01095,11.75068 188.01095,11.75068 l 102.81849,10.28185 264.3904,205.63698 49.9404,217.38769 -1321.95199,7.3442 24.9702,-165.97847 76.379449,-211.51232 z"
+       d="M -87.221307,570.58414 C -24.24803,511.83072 3.6679589,523.58141 3.6679589,523.58141 l 66.2193231,54.34691 c 0,0 86.994008,27.90788 90.240058,27.90788 3.24604,0 83.09875,11.75068 83.09875,11.75068 l 45.44464,10.28185 116.85762,205.63698 22.0731,217.38769 -584.28812,7.3442 11.03655,-165.97847 33.75887,-211.51232 z"
        id="path4146"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Skybox\LayeredMountains.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>

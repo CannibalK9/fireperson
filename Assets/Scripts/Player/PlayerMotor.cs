@@ -26,10 +26,10 @@ namespace Assets.Scripts.Player
 		public MovementState MovementState { get; set; }
 		public Collider2D Collider { get; set; }
 		public Rigidbody2D Rigidbody { get; set; }
+		public ClimbingState ClimbingState { get; set; }
 
 		private MovementHandler _movement;
 		private ClimbHandler _climbHandler;
-		private ClimbingState _climbingState;
 		private Vector3 _velocity;
 		private Collider2D _interactionCollider;
 		private PlayerState _playerState;
@@ -139,7 +139,7 @@ namespace Assets.Scripts.Player
 			Debug.Log("climb");
 
 			float speed = MovementAllowed
-				? _climbingState.MovementSpeed
+				? ClimbingState.MovementSpeed
 				: 0;
 
 			if (_movement.MoveLinearly(speed) == false
@@ -149,6 +149,11 @@ namespace Assets.Scripts.Player
 				Anim.PlayAnimation(Animations.Falling);
 				MoveWithVelocity(0);
 			}
+		}
+
+		public void UpdateClimbingSpeed(float speed)
+		{
+			ClimbingState.MovementSpeed = speed;
 		}
 
 		public void MoveHorizontally()
@@ -228,8 +233,8 @@ namespace Assets.Scripts.Player
 		{
 			_interactionCollider = null;
 			CancelVelocity();
-			_climbingState = _climbHandler.GetClimbingState();
-			MovementState.SetPivot(_climbingState.PivotCollider, _climbingState.PivotPosition, _climbingState.PlayerPosition);
+			ClimbingState = _climbHandler.GetClimbingState(true);
+			MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
 
 			return PlayerState.Climbing;
 		}
@@ -371,7 +376,7 @@ namespace Assets.Scripts.Player
 			return directionFacing;
 		}
 
-		public Climb SwitchClimbingState()
+		public ClimbingState SwitchClimbingState()
 		{
 			Climb climb = _climbHandler.CurrentClimb;
 			var direction = DirectionFacing.None;
@@ -393,11 +398,11 @@ namespace Assets.Scripts.Player
 				if (KeyBindings.GetKey(Control.Down))
 					_climbHandler.NextClimbs.Add(Climb.Down);
 			}
-			_climbingState = _climbHandler.SwitchClimbingState(direction);
-			if (_climbingState.PivotCollider != null)
-				MovementState.SetPivot(_climbingState.PivotCollider, _climbingState.PivotPosition, _climbingState.PlayerPosition);
+			ClimbingState = _climbHandler.SwitchClimbingState(direction);
+			if (ClimbingState.PivotCollider != null && ClimbingState.Climb != Climb.End && ClimbingState.Recalculate)
+				MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
 
-			return _climbingState.Climb;
+			return ClimbingState;
 		}
 
 		public bool TryClimbDown()
@@ -456,13 +461,13 @@ namespace Assets.Scripts.Player
 
 		public float GetAnimationSpeed()
 		{
-			if (_climbingState == null || MovementState.Pivot == null)
+			if (ClimbingState == null || MovementState.Pivot == null)
 				return 1;
 
-			float distance = Vector2.Distance(Collider.GetPoint(_climbingState.PlayerPosition), MovementState.Pivot.transform.position);
+			float distance = Vector2.Distance(Collider.GetPoint(ClimbingState.PlayerPosition), MovementState.Pivot.transform.position);
 
 			float speed = _playerState == PlayerState.Climbing
-				? _climbingState.MovementSpeed
+				? ClimbingState.MovementSpeed
 				: ConstantVariables.DefaultMovementSpeed;
 
 			float animSpeed = 4 / (distance / speed);

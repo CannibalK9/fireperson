@@ -57,7 +57,12 @@
             get { return "ClimbDown"; }
         }
 
-        public static string MoveToEdge
+		public static string RollDown
+		{
+			get { return "RollDown"; }
+		}
+
+		public static string MoveToEdge
         {
             get { return "MoveToEdge"; }
         }
