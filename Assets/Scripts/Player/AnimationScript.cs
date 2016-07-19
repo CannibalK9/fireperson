@@ -50,6 +50,18 @@ namespace Assets.Scripts.Player
 		private void SwitchClimbingState()
 		{
 			ClimbingState nextState = PlayerMotor.SwitchClimbingState();
+			SetupNextState(nextState);
+		}
+
+		private void TryClimbDown()
+		{
+			ClimbingState nextState;
+			if (PlayerMotor.TryClimbDown(out nextState))
+				SetupNextState(nextState); //if it is recalulating, can mess with it here
+		}
+
+		private void SetupNextState(ClimbingState nextState)
+		{
 			_recalculate = nextState.Recalculate;
 
 			if (_recalculate)
@@ -82,12 +94,6 @@ namespace Assets.Scripts.Player
 					_animator.SetTrigger("jump");
 					break;
 			}
-		}
-
-		private void TryClimbDown()
-		{
-			if (PlayerMotor.TryClimbDown())
-				_animator.SetTrigger("transitionDown");
 		}
 
 		private void FlipSpriteTowardsEdge()

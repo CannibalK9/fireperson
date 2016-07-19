@@ -281,12 +281,27 @@ namespace Assets.Scripts.Player
 
 		private bool TryClimb()
 		{
-			if (KeyBindings.GetKey(Control.Up) && _climbHandler.CheckLedgeAbove(GetDirectionFacing()) != Climb.None)
+			Climb climb;
+			if (KeyBindings.GetKey(Control.Up) && _climbHandler.CheckLedgeAbove(GetDirectionFacing(), out climb))
 			{
+				switch (climb)
+				{
+					case Climb.Up:
+						Anim.PlayAnimation(Animations.ClimbUp);
+						break;
+					case Climb.Flip:
+						Anim.PlayAnimation(Animations.FlipUp);
+						break;
+					case Climb.Mantle:
+						Anim.PlayAnimation(Animations.Mantle);
+						break;
+				}
 			}
-			else if (KeyBindings.GetKey(Control.Down) &&_climbHandler.CheckLedgeBelow(Climb.Down, GetDirectionFacing()))
+			else if (KeyBindings.GetKey(Control.Down) && _climbHandler.CheckLedgeBelow(Climb.Down, GetDirectionFacing()))
 			{
-				Anim.PlayAnimation(Animations.ClimbDown);
+				Anim.PlayAnimation(_climbHandler.DistanceToEdge > ConstantVariables.DistanceToTriggerRollDown
+						? Animations.RollDown
+						: Animations.ClimbDown);
 			}
 			else if (KeyBindings.GetKey(Control.Jump) && _climbHandler.CheckLedgeBelow(Climb.MoveToEdge, GetDirectionFacing()))
 			{
@@ -405,15 +420,35 @@ namespace Assets.Scripts.Player
 			return ClimbingState;
 		}
 
-		public bool TryClimbDown()
+		public bool TryClimbDown(out ClimbingState climbingState)
 		{
-			if (KeyBindings.GetKey(Control.Down))
+			var direction = DirectionFacing.None;
+
+			if (KeyBindings.GetKey(Control.Down) && _climbHandler.CanClimbDown())
 			{
 				_climbHandler.CurrentClimb = Climb.Down;
+
+				if (KeyBindings.GetKey(Control.Left))
+				{
+					_climbHandler.NextClimbs.Add(Climb.AcrossLeft);
+					direction = DirectionFacing.Left;
+				}
+				if (KeyBindings.GetKey(Control.Right))
+				{
+					_climbHandler.NextClimbs.Add(Climb.AcrossRight);
+					direction = DirectionFacing.Right;
+				}
+
+				ClimbingState = _climbHandler.SwitchClimbingState(direction); //might neeed to check that currentclimb is set to end after this if only dropping
+				if (ClimbingState.PivotCollider != null && ClimbingState.Climb != Climb.End && ClimbingState.Recalculate)
+					MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
+
+				climbingState = ClimbingState;
 				return true;
 			}
-			else
-				return false;
+				
+			climbingState = ClimbingState;
+			return false;
 		}
 
 		public void CancelClimbingState()
