@@ -12,6 +12,7 @@ namespace Assets.Scripts.Player
         public SmoothCamera2D CameraScript;
 		private Animator _animator;
 		private bool _recalculate;
+		private bool _shouldFlip;
 
 		void Awake()
 		{
@@ -51,22 +52,35 @@ namespace Assets.Scripts.Player
 		{
 			ClimbingState nextState = PlayerMotor.SwitchClimbingState();
 			SetupNextState(nextState);
+			_shouldFlip = true;
 		}
 
 		private void TryClimbDown()
 		{
 			ClimbingState nextState;
 			if (PlayerMotor.TryClimbDown(out nextState))
-				SetupNextState(nextState); //if it is recalulating, can mess with it here
+			{
+				if (nextState.Climb == Climb.End)
+					nextState.Climb = Climb.Down;
+				SetupNextState(nextState);
+				_shouldFlip = false;
+				if ((nextState.Climb == Climb.SwingLeft || nextState.Climb == Climb.SwingRight || nextState.Climb == Climb.Jump) && _animator.GetBool("swing") == false)
+				{
+					_shouldFlip = true;
+					FlipSprite();
+				}
+			}
+			else
+				_animator.SetTrigger("vault");
 		}
 
 		private void SetupNextState(ClimbingState nextState)
 		{
-			_recalculate = nextState.Recalculate;
+			_animator.speed = 1;
 
+			_recalculate = nextState.Recalculate;
 			if (_recalculate)
 			{
-				_animator.speed = 1;
 				PlayerMotor.MovementAllowed = false;
 			}
 
@@ -110,7 +124,8 @@ namespace Assets.Scripts.Player
 
 		private void FlipSprite()
 		{
-			PlayerMotor.FlipSprite();
+			if (_shouldFlip)
+				PlayerMotor.FlipSprite();
 		}
 
 		private void ApplyJumpVelocity()

@@ -413,7 +413,8 @@ namespace Assets.Scripts.Player
 				if (KeyBindings.GetKey(Control.Down))
 					_climbHandler.NextClimbs.Add(Climb.Down);
 			}
-			ClimbingState = _climbHandler.SwitchClimbingState(direction);
+
+			ClimbingState = _climbHandler.SwitchClimbingState(direction, false);
 			if (ClimbingState.PivotCollider != null && ClimbingState.Climb != Climb.End && ClimbingState.Recalculate)
 				MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
 
@@ -439,7 +440,7 @@ namespace Assets.Scripts.Player
 					direction = DirectionFacing.Right;
 				}
 
-				ClimbingState = _climbHandler.SwitchClimbingState(direction); //might neeed to check that currentclimb is set to end after this if only dropping
+				ClimbingState = _climbHandler.SwitchClimbingState(direction, true);
 				if (ClimbingState.PivotCollider != null && ClimbingState.Climb != Climb.End && ClimbingState.Recalculate)
 					MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
 

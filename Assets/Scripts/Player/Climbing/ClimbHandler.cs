@@ -249,7 +249,11 @@ namespace Assets.Scripts.Player.Climbing
 			Debug.DrawRay(origin, castDirection, Color.black);
 			if (hit && IsEdgeUnblocked(hit))
 			{
-				if (intendedClimbingState == Climb.Down && hit.collider.CanClimbDown() == false
+				DirectionFacing dir = hit.collider.gameObject.layer == _rightClimbLayer
+					? DirectionFacing.Right
+					: DirectionFacing.Left;
+
+				if (dir != direction || intendedClimbingState == Climb.Down && hit.collider.CanClimbDown() == false
 					|| intendedClimbingState == Climb.MoveToEdge && hit.collider.CanCross() == false)
 					return false;
 				CurrentClimb = intendedClimbingState;
@@ -280,11 +284,12 @@ namespace Assets.Scripts.Player.Climbing
 			return GetValidHit(hits);
 		}
 
-		public bool CheckLedgeSwing(DirectionFacing direction)
+		public bool CheckLedgeSwing(DirectionFacing direction, bool invertSwingDirection)
 		{
-			_anim.SetBool(
-				"swing",
-				direction != _motor.GetDirectionFacing());
+			bool swing = direction != _motor.GetDirectionFacing();
+			if (invertSwingDirection)
+				swing = !swing;
+			_anim.SetBool("swing", swing);
 
 			const float checkLength = 5f;
 			const float checkDepth = 5f;
@@ -353,7 +358,7 @@ namespace Assets.Scripts.Player.Climbing
 				: _motor.transform.position.x > _climbCollider.transform.position.x;
 		}
 
-		public ClimbingState SwitchClimbingState(DirectionFacing direction)
+		public ClimbingState SwitchClimbingState(DirectionFacing direction, bool invertSwingDirection)
 		{
 			bool recalculate = true;
 
@@ -394,11 +399,11 @@ namespace Assets.Scripts.Player.Climbing
 						nextClimb = Climb.Up;
 					}
 					else if (NextClimbs.Contains(Climb.AcrossLeft) && (_climbCollider.IsCorner() == false || DirectionFacing.Left == direction))
-						nextClimb = CheckLedgeSwing(DirectionFacing.Left)
+						nextClimb = CheckLedgeSwing(DirectionFacing.Left, invertSwingDirection)
 							? Climb.SwingLeft
 							: Climb.Jump;
 					else if (NextClimbs.Contains(Climb.AcrossRight) && (_climbCollider.IsCorner() == false || DirectionFacing.Right == direction))
-						nextClimb = CheckLedgeSwing(DirectionFacing.Right)
+						nextClimb = CheckLedgeSwing(DirectionFacing.Right, invertSwingDirection)
 							? Climb.SwingRight
 							: Climb.Jump;
 					break;
