@@ -25,15 +25,9 @@ namespace Assets.Scripts.Movement
 			var deltaMovement = new Vector3();
 			_motor.MovementState.UpdatePivotToTarget();
 			if (speed > 0)
-			{
 				MoveTowardsPivot(ref deltaMovement, speed, _motor.Collider.GetPoint(_motor.MovementState.CharacterPoint));
-				Debug.Log("towards");
-			}
 			else
-			{
 				MoveWithPivotPoint(ref deltaMovement, _motor.MovementState.PivotCollider);
-				Debug.Log("with");
-			}
 			_motor.Transform.Translate(deltaMovement, Space.World);
 			return true;
 		}
@@ -46,12 +40,12 @@ namespace Assets.Scripts.Movement
 			return hits.Any(hit => hit.collider.transform != _motor.MovementState.Pivot.transform.parent);
 		}
 
-		public void BoxCastMove(Vector3 deltaMovement, bool isKinetic)
+		public void BoxCastMove(Vector3 deltaMovement, bool isKinematic)
 		{
 			if (Time.timeSinceLevelLoad < 1)
 				return;
 
-			_motor.Rigidbody.isKinematic = isKinetic;
+			_motor.Rigidbody.isKinematic = isKinematic;
 			_motor.MovementState.Reset(deltaMovement);
 			Bounds bounds = _motor.Collider.bounds;
 
@@ -63,6 +57,11 @@ namespace Assets.Scripts.Movement
 			if (_downHit)
 			{
 				DownCast(ref deltaMovement);
+				SetPivotPoint(
+					_downHit.collider,
+					_downHit.normal == Vector2.up
+						? _motor.Collider.GetBottomCenter()
+						: _downHit.point);
 			}
 
 			var leftHit = new RaycastHit2D();
@@ -86,12 +85,6 @@ namespace Assets.Scripts.Movement
 
 			if (_downHit)
 			{
-				SetPivotPoint(
-					_downHit.collider,
-					_downHit.normal == Vector2.up
-						? _motor.Collider.GetBottomCenter()
-						: _downHit.point);
-
 				bool moveRight = _motor.MovementState.CurrentAcceleration.x > 0;
 				if ((leftHit == false && rightHit == false) || (leftHit && moveRight) || (rightHit && moveRight == false))
 					MoveAlongSurface(ref deltaMovement);

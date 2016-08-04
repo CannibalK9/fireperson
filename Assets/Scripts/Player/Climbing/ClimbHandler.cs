@@ -79,8 +79,11 @@ namespace Assets.Scripts.Player.Climbing
 
 		public void CancelClimb()
 		{
-			CurrentClimb = Climb.None;
-			_climbCollider = null;
+			if (CurrentClimb != Climb.MoveToEdge)
+			{
+				CurrentClimb = Climb.None;
+				_climbCollider = null;
+			}
 		}
 
 		private void Hanging()
@@ -294,8 +297,10 @@ namespace Assets.Scripts.Player.Climbing
 			const float checkLength = 5f;
 			const float checkDepth = 5f;
 
+			float xOffset = direction == DirectionFacing.Left ? -1 : 1;
+
 			var origin = new Vector2(
-			   _playerCollider.bounds.center.x,
+			   _playerCollider.bounds.center.x + xOffset,
 			   _playerCollider.bounds.min.y - checkDepth/2 + 1);
 
 			var size = new Vector2(0.01f, checkDepth);

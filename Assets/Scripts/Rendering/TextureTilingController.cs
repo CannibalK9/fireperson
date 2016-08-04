@@ -41,7 +41,7 @@ namespace Assets.Scripts.Rendering
             // Figure out texture-to-mesh width based on user set texture-to-mesh height
             float textureToMeshX = ((float)texture.width / texture.height) * textureToMeshZ;
 
-            GetComponent<Renderer>().sharedMaterial.mainTextureScale
+            GetComponent<Renderer>().material.mainTextureScale
                 = new Vector2(
                     planeSizeX * gameObject.transform.lossyScale.x / textureToMeshX,
                     planeSizeZ * gameObject.transform.lossyScale.y / textureToMeshZ);

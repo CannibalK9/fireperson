@@ -35,7 +35,15 @@ namespace Assets.Scripts.Interactable
 		    }
 	    }
 
-        public bool CanBeLitByDenizens()
+		public void ExtinguishAllConnectedFireplaces()
+		{
+			foreach (FirePlace fireplace in _connectedFireplaces)
+			{
+				fireplace.IsLit = false;
+			}
+		}
+
+		public bool CanBeLitByDenizens()
         {
             return _connectedFireplaces.OfType<ChimneyLid>().All(lid => lid.IsOpen == false);
         }

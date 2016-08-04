@@ -28,7 +28,7 @@ namespace Assets.Scripts.Denizens
 			DirectionTravelling = DirectionTravelling.None;
 		}
 
-		void FixedUpdate()
+		void Update()
 		{
 			if (_controller.SatAtFireplace || _waitingToMove)
 			{

@@ -63,7 +63,7 @@ namespace Assets.Scripts.Player
 			foreach (Variable variable in Enum.GetValues(typeof(Variable)))
 			{
 				if (PlayerPrefs.HasKey(variable.ToString()) == false)
-					PlayerPrefs.SetFloat(variable.ToString(), 1f);
+					PlayerPrefs.SetFloat(variable.ToString(), 5f);
 			}
 		}
 

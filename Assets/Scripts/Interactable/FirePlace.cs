@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Heat;
 using Assets.Scripts.Helpers;
 using System.Collections.Generic;
-using Assets.Scripts.Player;
 using Assets.Scripts.Player.PL;
 using UnityEngine;
 
@@ -73,7 +72,6 @@ namespace Assets.Scripts.Interactable
             _hit = Physics2D.Raycast(_origin, Vector2.right + _rotation, 10f, mask);
             if (_hit)
                 SendRaycastMessage(_hit, DirectionTravelling.Left);
-
         }
 
         private void SendRaycastMessage(RaycastHit2D hit, DirectionTravelling direction)
@@ -105,13 +103,16 @@ namespace Assets.Scripts.Interactable
 			HeatIntensity = DefaultHeatIntensity;
 			HeatRayDistance = DefaultHeatRayDistance;
 
-			bool lightable = true;
 			var stove = this as Stove;
 			if (stove != null)
-				lightable = stove.CanBeLitByDenizens();
+			{
+				bool lightable = stove.CanBeLitByDenizens();
+				_wasLit = !_wasLit && lightable;
+				IsLit = IsHeatSource && _wasLit;
 
-			_wasLit = !_wasLit && lightable;
-			IsLit = IsHeatSource && _wasLit;
+				if (IsLit == false)
+					stove.ExtinguishAllConnectedFireplaces();
+			}
 		}
 
 		public void Burst()

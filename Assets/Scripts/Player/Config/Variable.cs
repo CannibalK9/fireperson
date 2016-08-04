@@ -4,6 +4,7 @@
     {
         Intensity,
 		Stability,
-		Control
+		Control,
+		AvailablePoints
     }
 }

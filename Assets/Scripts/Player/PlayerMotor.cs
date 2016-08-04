@@ -415,7 +415,7 @@ namespace Assets.Scripts.Player
 			}
 
 			ClimbingState = _climbHandler.SwitchClimbingState(direction, false);
-			if (ClimbingState.PivotCollider != null && ClimbingState.Climb != Climb.End && ClimbingState.Recalculate)
+			if (ClimbingState.PivotCollider != null && ClimbingState.Climb != Climb.Jump && ClimbingState.Climb != Climb.End && ClimbingState.Recalculate)
 				MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
 
 			return ClimbingState;
@@ -443,6 +443,10 @@ namespace Assets.Scripts.Player
 				ClimbingState = _climbHandler.SwitchClimbingState(direction, true);
 				if (ClimbingState.PivotCollider != null && ClimbingState.Climb != Climb.End && ClimbingState.Recalculate)
 					MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
+				else
+				{
+					MovementState.UnsetPivot();
+				}
 
 				climbingState = ClimbingState;
 				return true;
