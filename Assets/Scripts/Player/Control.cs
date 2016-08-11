@@ -8,6 +8,7 @@
 		Down,
 		Light,
 		Jump,
-		Action
+		Action,
+		Ability1,
 	}
 }

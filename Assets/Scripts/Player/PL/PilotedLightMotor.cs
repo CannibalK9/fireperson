@@ -2,6 +2,7 @@
 using Assets.Scripts.Interactable;
 using Assets.Scripts.Movement;
 using Assets.Scripts.Player.Config;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.PL
@@ -43,6 +44,8 @@ namespace Assets.Scripts.Player.PL
 
 		void FixedUpdate()
 		{
+			Rigidbody.isKinematic = false;
+
 			if (MovementState.MovementOverridden == false)
 				HandleMovementInputs();
 
@@ -65,18 +68,27 @@ namespace Assets.Scripts.Player.PL
 			{
 				if (OnPoint())
 				{
-					MoveTowardsPoint();
-					MovementState.MovementOverridden = false;
-					if (_isFireplaceActive == false)
+					if (_isFireplaceActive)
 					{
 						ActivatePoint();
-						_isFireplaceActive = true;
+						_isFireplaceActive = false;
+					}
+					MoveTowardsPoint();
+					MovementState.MovementOverridden = false;
+					if (_fireplace.IsLit)
+					{
+						_controller.HeatHandler.SetColliderSizes(_fireplace.HeatIntensity);
+						_controller.HeatHandler.HeatMessage = new Heat.HeatMessage(_fireplace.HeatIntensity);
+					}
+					else
+					{
+						_controller.HeatHandler.SetColliderSizes(0);
+						_controller.HeatHandler.HeatMessage = new Heat.HeatMessage(0);
 					}
 				}
 				else if (OnPoint() == false && MovementState.MovementOverridden == false)
 				{
-					DeactivatePoint();
-					_isFireplaceActive = false;
+					LeaveSpot();
 				}
 				else
 					MoveTowardsPoint();
@@ -168,9 +180,13 @@ namespace Assets.Scripts.Player.PL
 				{
 					if (Vector2.Angle(direction, fireplace.transform.position - transform.position) < 10f)
 					{
-						_fireplace.PlLeave();
-						_fireplace = fireplace;
-						MovementState.SetPivot(fireplace.GetComponent<Collider2D>(), ColliderPoint.Centre, ColliderPoint.Centre);
+						FirePlace switchedFireplace = fireplace is Pipe
+							? fireplace.GetConnectedFireplaces().First(fp => fp != _fireplace)
+							: switchedFireplace = fireplace;
+
+						_fireplace = switchedFireplace;
+
+						MovementState.SetPivot(switchedFireplace.GetComponent<Collider2D>(), ColliderPoint.Centre, ColliderPoint.Centre);
 						MovementState.MovementOverridden = true;
 						return true;
 					}
@@ -182,13 +198,14 @@ namespace Assets.Scripts.Player.PL
 		public void ActivatePoint()
 		{
 			_renderer.enabled = false;
-			_fireplace.PlEnter(_controller);
+			if (_fireplace.IsHeatSource)
+				_fireplace.PlEnter();
 		}
 
-		public void DeactivatePoint()
+		public void LeaveSpot()
 		{
-			_renderer.enabled = true;
 			_fireplace.PlLeave();
+			_renderer.enabled = true;
 			_noGravity = false;
 			_fireplace = null;
 		}
@@ -219,12 +236,22 @@ namespace Assets.Scripts.Player.PL
 					_fireplace = col.GetComponent<FirePlace>();
 					MovementState.SetPivot(col, ColliderPoint.Centre, ColliderPoint.Centre);
 					MovementState.MovementOverridden = true;
+					_isFireplaceActive = true;
 				}
+			}
+		}
+
+		void OnTriggerExit2D(Collider2D col)
+		{
+			if (col.gameObject.layer == LayerMask.NameToLayer(Layers.PlSpot))
+			{
+				col.GetComponent<FirePlace>().PlLeave();
 			}
 		}
 
 		void OnDestroy()
 		{
+			DestroyObject(MovementState.Pivot);
 			ChannelingHandler.ChannelingSet = false;
 			ChannelingHandler.BreakChannel();
 		}

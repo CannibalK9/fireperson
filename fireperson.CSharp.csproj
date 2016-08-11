@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.5f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -94,6 +92,7 @@
     <Compile Include="Assets\Scripts\Interactable\ClimbableEdges.cs" />
     <Compile Include="Assets\Scripts\Interactable\FirePlace.cs" />
     <Compile Include="Assets\Scripts\Interactable\Orientation.cs" />
+    <Compile Include="Assets\Scripts\Interactable\Pipe.cs" />
     <Compile Include="Assets\Scripts\Interactable\StiltDestruction.cs" />
     <Compile Include="Assets\Scripts\Interactable\Stove.cs" />
     <Compile Include="Assets\Scripts\Interactable\StoveDoor.cs" />
@@ -104,15 +103,18 @@
     <Compile Include="Assets\Scripts\Movement\IMotor.cs" />
     <Compile Include="Assets\Scripts\Movement\MovementHandler.cs" />
     <Compile Include="Assets\Scripts\Movement\MovementState.cs" />
+    <Compile Include="Assets\Scripts\Player\Abilities\Tether.cs" />
     <Compile Include="Assets\Scripts\Player\AnimationScript.cs" />
     <Compile Include="Assets\Scripts\Player\ChannelingHandler.cs" />
     <Compile Include="Assets\Scripts\Player\Climbing\Climb.cs" />
     <Compile Include="Assets\Scripts\Player\Climbing\ClimbHandler.cs" />
     <Compile Include="Assets\Scripts\Player\Climbing\ClimbingState.cs" />
+    <Compile Include="Assets\Scripts\Player\Config\Ability.cs" />
     <Compile Include="Assets\Scripts\Player\Config\GameCursor.cs" />
-    <Compile Include="Assets\Scripts\Player\Controls.cs" />
     <Compile Include="Assets\Scripts\Player\Config\KeyBindings.cs" />
+    <Compile Include="Assets\Scripts\Player\Config\Setup.cs" />
     <Compile Include="Assets\Scripts\Player\Config\Variable.cs" />
+    <Compile Include="Assets\Scripts\Player\Control.cs" />
     <Compile Include="Assets\Scripts\Player\DirectionFacing.cs" />
     <Compile Include="Assets\Scripts\Player\FollowingLight.cs" />
     <Compile Include="Assets\Scripts\Player\PL\PilotedLightController.cs" />
@@ -124,10 +126,6 @@
     <Compile Include="Assets\Scripts\Rendering\ParticleSystemAutoDestroy.cs" />
     <Compile Include="Assets\Scripts\Rendering\RepeatSpriteBoundary.cs" />
     <Compile Include="Assets\Scripts\Rendering\TextureTilingController.cs" />
-    <Compile Include="Assets\Scripts\UI\AbilitySlider.cs" />
-    <Compile Include="Assets\Scripts\UI\ControlSlider.cs" />
-    <Compile Include="Assets\Scripts\UI\IntensitySlider.cs" />
-    <Compile Include="Assets\Scripts\UI\StabilitySlider.cs" />
     <Compile Include="Assets\SpritesAndBones\Scripts\AnimationWindowUtils.cs" />
     <Compile Include="Assets\SpritesAndBones\Scripts\Bone.cs" />
     <Compile Include="Assets\SpritesAndBones\Scripts\ControlPoint.cs" />

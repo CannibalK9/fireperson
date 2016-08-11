@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace Assets.Scripts.Ice
 {
-	[RequireComponent(typeof(PolygonCollider2D), typeof(MeshFilter), typeof(MeshRenderer))]
 	public class Ice : MonoBehaviour
 	{
 		public float ActualDistanceBetweenPoints = 0.2f;
@@ -21,14 +20,16 @@ namespace Assets.Scripts.Ice
 		private Vector2[] _initialPoints;
 		private FixedJoint2D[] _joints;
 		private MeshRenderer _meshRenderer;
+		private MeshCollider _meshCollider;
 		private bool _meltedThisFrame;
 
 		void Awake()
 		{
-			_polyCollider = GetComponent<PolygonCollider2D>();
-			_mesh = GetComponent<MeshFilter>().mesh;
+			_polyCollider = transform.parent.GetComponent<PolygonCollider2D>();
 			_joints = GetComponents<FixedJoint2D>();
+			_mesh = GetComponent<MeshFilter>().mesh;
 			_meshRenderer = GetComponent<MeshRenderer>();
+			_meshCollider = GetComponent<MeshCollider>();
 			AnyJointEnabled = true;
 			GrowsBack = true;
 		}
@@ -66,6 +67,9 @@ namespace Assets.Scripts.Ice
 			_mesh.vertices = GetNewMeshFilterVertices();
 			_mesh.triangles = GetNewMeshFilterTriangles(_polyCollider.points);
 			_mesh.RecalculateNormals();
+
+			_meshCollider.sharedMesh = null;
+			_meshCollider.sharedMesh = _mesh;
 		}
 
 		private Vector3[] GetNewMeshFilterVertices()
@@ -99,16 +103,12 @@ namespace Assets.Scripts.Ice
 				AnyJointEnabled = false;
 
 			_polyCollider.enabled = true;
+			_meshRenderer.enabled = true;
 
 			if (_polyCollider.bounds.size.x < 0.3 || _polyCollider.bounds.size.y < 0.3)
 			{
 				_polyCollider.enabled = false;
 				_meshRenderer.enabled = false;
-			}
-			else
-			{
-				_polyCollider.enabled = true;
-				_meshRenderer.enabled = true;
 			}
 
 			if (GrowsBack && _meltedThisFrame == false)
@@ -137,10 +137,18 @@ namespace Assets.Scripts.Ice
 			return newPoints;
 		}
 
-		void Melt(HeatMessage message)
+		void OnTriggerStay(Collider col)
+		{
+			if (col.gameObject.layer == LayerMask.NameToLayer(Layers.Heat))
+			{
+				Melt(col.gameObject.GetComponent<HeatHandler>().HeatMessage, col);
+			}
+		}
+
+		private void Melt(HeatMessage message, Collider col)
 		{
 			_meltedThisFrame = true;
-			_polyCollider.points = MovePointsInwards(message);
+			_polyCollider.points = MovePointsInwards(message, col);
 			_polyCollider.points = FlattenAngles();
 			SetMeshFilterToPolyColliderPoints();
 		}
@@ -148,10 +156,10 @@ namespace Assets.Scripts.Ice
 		//A message arrives at the ice. A single raycasthit and the origin of the cast. The points of the ice that are within the distance to the origin, and that are not
 		//on the wrong side of the normal, move away from the origin proportionally to the distance. If moving would break the polycollider then the point does not move
 
-		private Vector2[] MovePointsInwards(HeatMessage message)
+		private Vector2[] MovePointsInwards(HeatMessage message, Collider col)
 		{
 			Vector2[] newPoints = _polyCollider.points;
-			IEnumerable<int> allIndices = GetIndicesInRange(message.Origin, message.CastDistance);
+			IEnumerable<int> allIndices = GetIndicesInRange(col);
 
 			foreach (int i in allIndices)
 			{
@@ -165,7 +173,7 @@ namespace Assets.Scripts.Ice
 				Vector2 offSet = beforePoint - afterPoint;
 				Vector2 perpendicular = new Vector2(-offSet.y, offSet.x) / (offSet.magnitude * 100f);
 
-				Vector2 newPoint = point + (perpendicular.normalized * message.DistanceToMove);
+				Vector2 newPoint = point + (perpendicular.normalized * (message.DistanceToMove));
 				if (_polyCollider.OverlapPoint(newPoint))
 				{
 					newPoints[i] = transform.InverseTransformPoint(newPoint);
@@ -173,7 +181,7 @@ namespace Assets.Scripts.Ice
 				else
 				{
 					Vector2 perpendicular2 = new Vector2(-offSet.y, offSet.x) / (offSet.magnitude * -100f);
-					newPoint = point + (perpendicular2.normalized * message.DistanceToMove);
+					newPoint = point + (perpendicular2.normalized * (message.DistanceToMove));
 					if (_polyCollider.OverlapPoint(newPoint))
 						newPoints[i] = transform.InverseTransformPoint(newPoint);
 				}
@@ -203,7 +211,7 @@ namespace Assets.Scripts.Ice
 			Vector2 centre = Vector2.Lerp(beforePoint, afterPoint, 0.5f);
 			float angle = Angle(beforePoint, afterPoint, point);
 
-			while (angle < 150)
+			while (angle < 150 && _meshRenderer.enabled)
 			{
 				point = Vector2.MoveTowards(point, centre, 100f);
 				angle = Angle(beforePoint, afterPoint, point);
@@ -226,7 +234,7 @@ namespace Assets.Scripts.Ice
 			return currentIndex == _polyCollider.points.Length - 1 ? 0 : currentIndex + 1;
 		}
 
-		private IEnumerable<int> GetIndicesInRange(Vector2 origin, float distance)
+		private IEnumerable<int> GetIndicesInRange(Collider col)
 		{
 			var indices = new List<int>();
 
@@ -234,14 +242,14 @@ namespace Assets.Scripts.Ice
 			{
 				Vector2 worldPoint = transform.TransformPoint(_polyCollider.points[i]);
 
-				if (Vector2.Distance(worldPoint, origin) < distance)
+				if (col.bounds.Contains(worldPoint))
 					indices.Add(i);
 			}
 
 			return indices;
 		}
 
-		void OnTriggerEnter2D(Collider2D col)
+		void OnTriggerEnter(Collider col)
 		{
 			if (col.gameObject.layer == LayerMask.NameToLayer(Layers.Background))
 			{

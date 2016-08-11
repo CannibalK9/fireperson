@@ -1,99 +1,67 @@
-﻿using Assets.Scripts.Helpers;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Heat
 {
-	public class HeatHandler
+	public class HeatHandler : MonoBehaviour
 	{
-		private readonly IVariableHeater _heater;
-		private readonly GameObject _steam;
-        private readonly GameObject _emberLight;
-        private readonly GameObject _emberStrong;
+		public HeatMessage HeatMessage { get; set; }
+		private GameObject _steam;
+        private GameObject _emberLight;
+        private GameObject _emberStrong;
+		protected Collider _collider;
 
-        public HeatHandler(IVariableHeater heater)
+		private float _defaultHeight;
+		private float _defautRadius;
+
+		void Awake()
 		{
-			_heater = heater;
+			_collider = GetComponent<Collider>();
+
+			if (_collider is CapsuleCollider)
+			{
+				CapsuleCollider collider = _collider as CapsuleCollider;
+				_defaultHeight = collider.height;
+				_defautRadius = collider.radius;
+			}
+			else
+			{
+				SphereCollider collider = _collider as SphereCollider;
+				_defautRadius = collider.radius;
+			}
+
+			SetColliderSizes(1);
+		}
+
+		void Start()
+		{
 			_steam = (GameObject)Resources.Load("particles/steam");
 			_emberLight = (GameObject)Resources.Load("particles/emberLight");
 			_emberStrong = (GameObject)Resources.Load("particles/emberStrong");
-        }
-
-        public void OneCircleHeat(EmberEffect effect)
-		{
-			CastMeltingCircle(_heater.Collider.bounds.center, effect);
 		}
 
-		public void TwoCirclesHeat(EmberEffect effect)
+		public void SetColliderSizes(float additionalSize)
 		{
-			CastMeltingCircle(new Vector2(
-				_heater.Collider.bounds.center.x,
-				_heater.Collider.bounds.min.y + _heater.Collider.bounds.extents.x), effect);
-
-			CastMeltingCircle(new Vector2(
-				_heater.Collider.bounds.center.x,
-				_heater.Collider.bounds.max.y - _heater.Collider.bounds.extents.x), effect);
-		}
-
-		private void CastMeltingCircle(Vector2 origin, EmberEffect effect)
-		{
-			const int numberOfCasts = 20;
-
-			float radius = _heater.Collider.bounds.extents.x + _heater.HeatRayDistance / 10;
-			var hits = new List<RaycastHit2D>();
-			for (int i = 0; i < numberOfCasts; i++)
+			if (_collider is CapsuleCollider)
 			{
-				Vector2 direction = Rotate(Vector2.up, i * (360 / numberOfCasts));
-				RaycastHit2D hit = Physics2D.Raycast(origin, direction, radius, GetMeltingMask());
-				Debug.DrawRay(origin, direction * radius, Color.green);
+				CapsuleCollider collider = _collider as CapsuleCollider;
 
-                if (effect != EmberEffect.None)
-                {
-                    Vector2 point = origin + direction * radius;
-                    if (_heater.Collider.OverlapPoint(point) == false)
-                    {
-                        GameObject particle = effect == EmberEffect.Light ? _emberLight : _emberStrong;
-                        Object.Instantiate(particle, point, Quaternion.Euler(direction));
-                    }
-                }
-
-				if (hit)
-					hits.Add(hit);
+				collider.radius = _defautRadius + additionalSize;
+				collider.height = 1 + (collider.radius / 3) * 2;
 			}
-			SendRaycastMessages(hits, origin, radius);
-		}
-
-		public static Vector2 Rotate(Vector2 v, float degrees)
-		{
-			return Quaternion.Euler(0, 0, degrees) * v;
-		}
-
-		private LayerMask GetMeltingMask()
-		{
-			return 1 << LayerMask.NameToLayer(Layers.Ice) | 1 << LayerMask.NameToLayer(Layers.BackgroundIce);
-		}
-
-		private void SendRaycastMessages(List<RaycastHit2D> hits, Vector2 origin, float castDistance)
-		{
-			foreach (RaycastHit2D hit in hits)
+			else
 			{
-                //icy embers or something go here
-                //if (Physics2D.CircleCast(hit.point, 0.01f, Vector2.up, 0.01f, 1 << LayerMask.NameToLayer(Layers.Steam)) == false)
-				    //Object.Instantiate(_steam, new Vector3(hit.point.x, hit.point.y, -10), _steam.transform.rotation);
+				SphereCollider collider = _collider as SphereCollider;
+				collider.radius = _defautRadius + additionalSize;
 			}
+		}
 
-			IEnumerable<RaycastHit2D> uniqueHits = hits.GroupBy(hit => hit.collider).Select(h => h.First()).ToList();
-			foreach (RaycastHit2D hit in uniqueHits)
+		void OnDrawGizmos()
+		{
+			if (_collider is SphereCollider)
 			{
-				hit.collider.SendMessage("Melt", new HeatMessage
-                {
-                    Hit = hit,
-                    Origin = origin,
-                    CastDistance = castDistance,
-                    DistanceToMove = _heater.HeatIntensity / 100
-                },
-                SendMessageOptions.RequireReceiver);
+				SphereCollider collider = _collider as SphereCollider;
+				Gizmos.color = Color.magenta;
+				Gizmos.DrawSphere(collider.bounds.center, collider.radius);
 			}
 		}
 	}

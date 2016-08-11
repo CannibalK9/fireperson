@@ -65,16 +65,20 @@ namespace Assets.Scripts.Denizens
             if (col.gameObject.layer == LayerMask.NameToLayer(Layers.PlSpot))
             {
                 var fireplace = col.gameObject.GetComponent<FirePlace>();
-                if (fireplace.IsLit == false)
+                if (fireplace.IsHeatSource && fireplace.IsLit == false)
                 {
                     var stove = fireplace as Stove;
                     if (stove != null)
                     {
-                        if (stove.CanBeLitByDenizens())
-                            _motor.BeginLightingStove(stove);
+						if (stove.CanBeLitByDenizens())
+							_motor.BeginLighting(fireplace);
+						else
+							_motor.SetTravelInDirectionFacing();
                     }
-                }
-                else
+					else if (stove == null)
+						_motor.BeginLighting(fireplace);
+				}
+				else if (fireplace.IsHeatSource)
                 {
                     SatAtFireplace = true;
                 }

@@ -18,26 +18,19 @@ namespace Assets.Scripts.Denizens
 		private DenizenController _controller;
 		private Animator _animator;
 		private Vector3 _velocity;
-		private bool _waitingToMove;
 		private bool _isJumping;
 
 		void Awake()
 		{
 			_animator = GetComponent<Animator>();
 			_controller = GetComponent<DenizenController>();
-			DirectionTravelling = DirectionTravelling.None;
 		}
 
 		void Update()
 		{
-			if (_controller.SatAtFireplace || _waitingToMove)
+			if (_controller.SatAtFireplace || DirectionTravelling == DirectionTravelling.None)
 			{
 				_velocity = Vector3.zero;
-				DirectionTravelling = DirectionTravelling.None;
-			}
-			else if (_waitingToMove == false)
-			{
-				SetTravelInDirectionFacing();
 			}
 
 			if (_isJumping == false)
@@ -121,11 +114,11 @@ namespace Assets.Scripts.Denizens
 				_normalizedHorizontalSpeed = 0;
 			}
 
-			if (_isJumping == false)
-				SetAnimationWhenGrounded();
+			//if (_isJumping == false)
+				//SetAnimationWhenGrounded();
         }
 
-		private void SetTravelInDirectionFacing()
+		public void SetTravelInDirectionFacing()
 		{
 			DirectionTravelling = GetDirectionFacing() == DirectionFacing.Right
 						? DirectionTravelling.Right
@@ -173,7 +166,7 @@ namespace Assets.Scripts.Denizens
 			if (hit && _hitSnow == false)
 			{
 				_hitSnow = true;
-				_waitingToMove = true;
+				DirectionTravelling = DirectionTravelling.None;
 				_animator.Play(Animator.StringToHash(Animations.Shiver));
 			}
 			else
@@ -237,30 +230,29 @@ namespace Assets.Scripts.Denizens
 			if (_controller.SpotPlayer(direction) && _playerSpotted == false)
 			{
 				_playerSpotted = true;
-				_waitingToMove = true;
+				DirectionTravelling = DirectionTravelling.None;
 				_animator.Play(Animator.StringToHash(Animations.Gasp));
 			}
 			else if (_playerSpotted)
 			{
-				_waitingToMove = false;
+				SetTravelInDirectionFacing();
 				_playerSpotted = false;
 				_animator.Play(Animator.StringToHash(Animations.Relief));
 			}
 		}
 
-        public void BeginLightingStove(Stove stove)
+        public void BeginLighting(FirePlace fireplace)
         {
-            _stove = stove;
-            _waitingToMove = true;
+            _fireplace = fireplace;
+			DirectionTravelling = DirectionTravelling.None;
             _animator.Play(Animator.StringToHash(Animations.LightStove));
         }
 
-        private Stove _stove;
+        private FirePlace _fireplace;
 
         private void LightStove()
         {
-            if (_stove.CanBeLitByDenizens())
-                _stove.IsLit = true;
+			_fireplace.LightFully();
         }
 
         private enum DirectionFacing

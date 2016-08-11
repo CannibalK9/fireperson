@@ -1,24 +1,20 @@
 ﻿using Assets.Scripts.Heat;
+using Assets.Scripts.Player.Abilities;
 using Assets.Scripts.Player.Config;
-using System;
 using Assets.Scripts.Player.PL;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Player
 {
-	public class PlayerController : MonoBehaviour, IVariableHeater
+	public class PlayerController : MonoBehaviour
 	{
 		public GameObject PilotedLight;
+		public GameObject Tether;
 
-		[Range(1, 10)]
-		public float BaseStability;
-
-		[Range(1, 10)]
-		public float BaseIntensity;
-
-		[Range(1, 10)]
-		public float BaseControl;
+		public float BaseStability { get; private set; }
+		public float BaseIntensity { get; private set; }
+		public float BaseControl { get; private set; }
 
 		private float _stability;
 		private float _currentHeatRayDistance = 1f;
@@ -37,34 +33,18 @@ namespace Assets.Scripts.Player
 
 		void Awake()
 		{
-			SetupVariables();
-
 			Transform = transform.parent.parent;
 			Collider = Transform.GetComponent<BoxCollider2D>();
 
-			_heatHandler = new HeatHandler(this);
-
+			_heatHandler = Transform.GetComponentInChildren<HeatHandler>();
 		}
 
 		void Start()
 		{
-			BaseStability = PlayerPrefs.GetFloat(Variable.Stability.ToString());
-			BaseIntensity = PlayerPrefs.GetFloat(Variable.Intensity.ToString());
-			BaseControl = PlayerPrefs.GetFloat(Variable.Control.ToString());
-
 			SetVariablesByChanneler();
 
 			SetHeatRayDistanceToDefault();
 			SetHeatIntensityToDefault();
-		}
-
-		private static void SetupVariables()
-		{
-			foreach (Variable variable in Enum.GetValues(typeof(Variable)))
-			{
-				if (PlayerPrefs.HasKey(variable.ToString()) == false)
-					PlayerPrefs.SetFloat(variable.ToString(), 5f);
-			}
 		}
 
 		private float _heatRayDistanceLastFrame;
@@ -72,8 +52,12 @@ namespace Assets.Scripts.Player
 
 		void Update()
 		{
+			BaseStability = PlayerPrefs.GetFloat(Variable.Stability.ToString());
+			BaseIntensity = PlayerPrefs.GetFloat(Variable.Intensity.ToString());
+			BaseControl = PlayerPrefs.GetFloat(Variable.Control.ToString());
+
 			SetVariablesByChanneler();
-			HeatIce(SelectEmberEffect());
+			_heatHandler.HeatMessage = SelectEmberEffect();
 		}
 
 		private void SetVariablesByChanneler()
@@ -83,7 +67,7 @@ namespace Assets.Scripts.Player
 			_control = ChannelingHandler.Control(BaseControl);
 		}
 
-		private EmberEffect SelectEmberEffect()
+		private HeatMessage SelectEmberEffect()
 		{
 			var effect = EmberEffect.None;
 
@@ -109,7 +93,8 @@ namespace Assets.Scripts.Player
 				effect = EmberEffect.Light;
 				_emberEffectTime = Random.Range(10, 60);
 			}
-			return effect;
+			_heatHandler.SetColliderSizes(_heatRayDistanceLastFrame / 10);
+			return new HeatMessage(_currentHeatIntensity / 100);
 		}
 
 		private void SetHeatRayDistanceToDefault()
@@ -121,12 +106,6 @@ namespace Assets.Scripts.Player
 		private void SetHeatIntensityToDefault()
 		{
 			_currentHeatIntensity = _intensity;
-		}
-
-		public void HeatIce(EmberEffect effect)
-		{
-			_heatHandler.OneCircleHeat(effect);
-			_heatHandler.TwoCirclesHeat(effect);
 		}
 
 		public void CreateLight()
@@ -143,6 +122,19 @@ namespace Assets.Scripts.Player
 				transform.rotation);
 
 			pl.GetComponent<PilotedLightController>().Player = this;
+
+			if (PlayerPrefs.GetInt(Ability.Tether.ToString()) > 0)
+			{
+				var tetherObject = (GameObject)Instantiate(
+					Tether,
+					pilotedLightPosition,
+					transform.rotation);
+
+				var tether = tetherObject.GetComponent<Tether>();
+				tether.Player = transform;
+				tether.Pl = pl.transform;
+				tether.HeatMessage = new HeatMessage(HeatIntensity);
+			}
 		}
 
 		public void Spotted()

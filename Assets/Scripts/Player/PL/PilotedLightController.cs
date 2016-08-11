@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Player.PL
 {
-	public class PilotedLightController : MonoBehaviour, IVariableHeater
+	public class PilotedLightController : MonoBehaviour
 	{
 		public float Stability;
 		public float Intensity;
@@ -14,15 +14,15 @@ namespace Assets.Scripts.Player.PL
 		public Collider2D Collider { get; set; }
 		public PlayerController Player;
 		public bool FirstUpdate = true;
+		public HeatHandler HeatHandler;
 
 		private float _emberEffectTime;
-		private HeatHandler _heatHandler;
 		private float _distanceFromPlayer;
 
 		void Awake()
 		{
-			_heatHandler = new HeatHandler(this);
 			Collider = GetComponent<CircleCollider2D>();
+			HeatHandler = transform.GetComponentInChildren<HeatHandler>();
 		}
 
 		void Start()
@@ -31,8 +31,8 @@ namespace Assets.Scripts.Player.PL
 			Intensity = ChannelingHandler.PlIntensity();
 			Control = ChannelingHandler.PlControl();
 			_distanceFromPlayer = Stability;
+            HeatIce();
 		}
-
 
 		void Update()
 		{
@@ -51,13 +51,12 @@ namespace Assets.Scripts.Player.PL
 				effect = EmberEffect.Strong;
 				FirstUpdate = false;
 			}
-
-            HeatIce(effect);
 		}
 
-		public void HeatIce(EmberEffect effect)
+		public void HeatIce()
 		{
-			_heatHandler.OneCircleHeat(effect);
+			HeatHandler.SetColliderSizes(Stability / 10);
+			HeatHandler.HeatMessage = new HeatMessage(HeatIntensity / 100);
 		}
 
 		public bool IsWithinPlayerDistance()

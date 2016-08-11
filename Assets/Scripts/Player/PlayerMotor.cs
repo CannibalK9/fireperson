@@ -336,6 +336,10 @@ namespace Assets.Scripts.Player
 					return true;
 				}
 			}
+			else if (KeyBindings.GetKey(Control.Ability1) && ChannelingHandler.ChannelingSet)
+			{
+				ChannelingHandler.IsTethered = !ChannelingHandler.IsTethered;
+			}
 			return false;
 		}
 

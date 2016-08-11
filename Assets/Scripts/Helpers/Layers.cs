@@ -79,7 +79,12 @@ namespace Assets.Scripts.Helpers
             get { return "Steam"; }
         }
 
-        public static LayerMask Platforms
+		public static string Heat
+		{
+			get { return "Heat"; }
+		}
+
+		public static LayerMask Platforms
         {
             get { return 1 << 8
                     | 1 << 10

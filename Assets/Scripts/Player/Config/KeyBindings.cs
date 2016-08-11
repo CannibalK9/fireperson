@@ -25,7 +25,9 @@ namespace Assets.Scripts.Player.Config
 					if (GameCursor.IsOverUi())
 						return false;
 					return Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.Mouse0);
-                default:
+				case Control.Ability1:
+					return Input.GetKey(KeyCode.Alpha1);
+				default:
 					throw new ArgumentOutOfRangeException("control");
 			}
 		}

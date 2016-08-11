@@ -6,6 +6,7 @@ namespace Assets.Scripts.Player
 	{
 		public static bool ChannelingSet { get; set; }
 		public static bool IsChanneling { get { return _channelingTime != 0; } }
+		public static bool IsTethered { get; set; }
 
 		public static float Stability(float value)
 		{

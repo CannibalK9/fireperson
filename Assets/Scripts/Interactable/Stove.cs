@@ -5,14 +5,16 @@ namespace Assets.Scripts.Interactable
 {
     public class Stove : FirePlace
     {
-		List<FirePlace> _connectedFireplaces;
-		
+		private List<FirePlace> _connectedFireplaces;
+
 		void Start()
 		{
 			_connectedFireplaces = GetAllConnectedFirePlaces(this, null);
+			if (IsFullyIgnited)
+				LightAllConnectedFireplaces();
 		}
 
-		public List<FirePlace> GetAllConnectedFirePlaces(FirePlace fireplace, FirePlace origin)
+		private List<FirePlace> GetAllConnectedFirePlaces(FirePlace fireplace, FirePlace origin)
 		{
 			var fireplaces = new List<FirePlace>();
 
@@ -45,7 +47,7 @@ namespace Assets.Scripts.Interactable
 
 		public bool CanBeLitByDenizens()
         {
-            return _connectedFireplaces.OfType<ChimneyLid>().All(lid => lid.IsOpen == false);
+            return _connectedFireplaces.OfType<ChimneyLid>().All(lid => lid.IsAccessible == false);
         }
     }
 }
