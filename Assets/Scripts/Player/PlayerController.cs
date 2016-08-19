@@ -29,14 +29,14 @@ namespace Assets.Scripts.Player
 		public Transform Transform { get; set; }
 		public Collider2D Collider { get; set; }
 
-		private HeatHandler _heatHandler;
+		private HeatHandler[] _heatHandlers;
 
 		void Awake()
 		{
 			Transform = transform.parent.parent;
 			Collider = Transform.GetComponent<BoxCollider2D>();
 
-			_heatHandler = Transform.GetComponentInChildren<HeatHandler>();
+			_heatHandlers = Transform.GetComponentsInChildren<HeatHandler>();
 		}
 
 		void Start()
@@ -57,7 +57,7 @@ namespace Assets.Scripts.Player
 			BaseControl = PlayerPrefs.GetFloat(Variable.Control.ToString());
 
 			SetVariablesByChanneler();
-			_heatHandler.HeatMessage = SelectEmberEffect();
+			SelectEmberEffect();
 		}
 
 		private void SetVariablesByChanneler()
@@ -67,7 +67,7 @@ namespace Assets.Scripts.Player
 			_control = ChannelingHandler.Control(BaseControl);
 		}
 
-		private HeatMessage SelectEmberEffect()
+		private void SelectEmberEffect()
 		{
 			var effect = EmberEffect.None;
 
@@ -93,8 +93,10 @@ namespace Assets.Scripts.Player
 				effect = EmberEffect.Light;
 				_emberEffectTime = Random.Range(10, 60);
 			}
-			_heatHandler.SetColliderSizes(_heatRayDistanceLastFrame / 10);
-			return new HeatMessage(_currentHeatIntensity / 100);
+			foreach (var hh in _heatHandlers)
+			{
+				hh.UpdateHeat(new HeatMessage(_currentHeatIntensity / 100, _heatRayDistanceLastFrame / 10));
+			}
 		}
 
 		private void SetHeatRayDistanceToDefault()
@@ -123,7 +125,7 @@ namespace Assets.Scripts.Player
 
 			pl.GetComponent<PilotedLightController>().Player = this;
 
-			if (PlayerPrefs.GetInt(Ability.Tether.ToString()) > 0)
+			if (AbilityState.IsActive(Ability.Tether))
 			{
 				var tetherObject = (GameObject)Instantiate(
 					Tether,
@@ -133,7 +135,6 @@ namespace Assets.Scripts.Player
 				var tether = tetherObject.GetComponent<Tether>();
 				tether.Player = transform;
 				tether.Pl = pl.transform;
-				tether.HeatMessage = new HeatMessage(HeatIntensity);
 			}
 		}
 

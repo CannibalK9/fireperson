@@ -9,6 +9,11 @@ namespace Assets.Scripts.Helpers
 			get { return "Player"; }
 		}
 
+		public static string PL
+		{
+			get { return "PL"; }
+		}
+
 		public static string OutdoorWood
 		{
 			get { return "OutdoorWood"; }
@@ -82,6 +87,11 @@ namespace Assets.Scripts.Helpers
 		public static string Heat
 		{
 			get { return "Heat"; }
+		}
+
+		public static string Flash
+		{
+			get { return "Flash"; }
 		}
 
 		public static LayerMask Platforms

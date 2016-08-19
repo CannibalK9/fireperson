@@ -12,5 +12,6 @@
 		public static float MaxVerticalSpeed = -15f;
 		public static float DenizenMovementSpeed = 2f;
 		public static float DistanceToTriggerRollDown = 2f;
+		public static float FlashRadius = 3f;
 	}
 }

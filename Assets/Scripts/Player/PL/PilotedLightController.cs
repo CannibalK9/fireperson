@@ -1,5 +1,7 @@
 ﻿using Assets.Scripts.Heat;
 using Assets.Scripts.Helpers;
+using Assets.Scripts.Player.Abilities;
+using Assets.Scripts.Player.Config;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.PL
@@ -18,11 +20,13 @@ namespace Assets.Scripts.Player.PL
 
 		private float _emberEffectTime;
 		private float _distanceFromPlayer;
+		private Flash _flash;
 
 		void Awake()
 		{
 			Collider = GetComponent<CircleCollider2D>();
 			HeatHandler = transform.GetComponentInChildren<HeatHandler>();
+			_flash = GetComponentInChildren<Flash>();
 		}
 
 		void Start()
@@ -30,14 +34,14 @@ namespace Assets.Scripts.Player.PL
 			Stability = ChannelingHandler.PlStability();
 			Intensity = ChannelingHandler.PlIntensity();
 			Control = ChannelingHandler.PlControl();
-			_distanceFromPlayer = Stability;
-            HeatIce();
+			_distanceFromPlayer = Control;
+			HeatIce();
 		}
 
 		void Update()
 		{
-            var effect = EmberEffect.None;
-            
+			var effect = EmberEffect.None;
+
 			_emberEffectTime -= Time.deltaTime;
 
 			if (_emberEffectTime < 0)
@@ -52,11 +56,9 @@ namespace Assets.Scripts.Player.PL
 				FirstUpdate = false;
 			}
 		}
-
 		public void HeatIce()
 		{
-			HeatHandler.SetColliderSizes(Stability / 10);
-			HeatHandler.HeatMessage = new HeatMessage(HeatIntensity / 100);
+			HeatHandler.UpdateHeat(new HeatMessage(HeatIntensity / 100, Stability));
 		}
 
 		public bool IsWithinPlayerDistance()
@@ -65,6 +67,20 @@ namespace Assets.Scripts.Player.PL
 			float maxDistance = _distanceFromPlayer * ConstantVariables.DistanceFromPlayerMultiplier;
 
 			return distance < maxDistance;
+		}
+
+		public bool IsWithinScoutingDistance()
+		{
+			float distance = Vector2.Distance(Player.transform.position, transform.position);
+			float maxDistance = _distanceFromPlayer * ConstantVariables.DistanceFromPlayerMultiplier * 2;
+
+			return distance < maxDistance;
+		}
+
+		public void Flash()
+		{
+			FirstUpdate = true;
+			_flash.OnFlash();
 		}
 	}
 }

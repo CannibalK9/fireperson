@@ -2,34 +2,31 @@
 
 namespace Assets.Scripts.Heat
 {
-	public class HeatHandler : MonoBehaviour
+	public abstract class HeatHandler : MonoBehaviour
 	{
 		public HeatMessage HeatMessage { get; set; }
 		private GameObject _steam;
         private GameObject _emberLight;
         private GameObject _emberStrong;
-		protected Collider _collider;
+		protected ParticleSystem _ps;
 
-		private float _defaultHeight;
-		private float _defautRadius;
+		protected float _defaultWidth;
+		protected Vector3 _defaultScale;
 
 		void Awake()
 		{
-			_collider = GetComponent<Collider>();
-
-			if (_collider is CapsuleCollider)
-			{
-				CapsuleCollider collider = _collider as CapsuleCollider;
-				_defaultHeight = collider.height;
-				_defautRadius = collider.radius;
-			}
+			var col = GetComponent<Collider2D>();
+			var circleCol = col as CircleCollider2D;
+			if (circleCol != null)
+				_defaultWidth = circleCol.bounds.size.x;
 			else
 			{
-				SphereCollider collider = _collider as SphereCollider;
-				_defautRadius = collider.radius;
+				var boxCol = col as BoxCollider2D;
+				_defaultWidth = boxCol.size.x;
 			}
-
-			SetColliderSizes(1);
+			_defaultScale = transform.localScale;
+			_ps = GetComponentInChildren<ParticleSystem>();
+			UpdateHeat(new HeatMessage(1, 2f));
 		}
 
 		void Start()
@@ -39,29 +36,24 @@ namespace Assets.Scripts.Heat
 			_emberStrong = (GameObject)Resources.Load("particles/emberStrong");
 		}
 
-		public void SetColliderSizes(float additionalSize)
+		public void UpdateHeat(HeatMessage heatMessage)
 		{
-			if (_collider is CapsuleCollider)
-			{
-				CapsuleCollider collider = _collider as CapsuleCollider;
-
-				collider.radius = _defautRadius + additionalSize;
-				collider.height = 1 + (collider.radius / 3) * 2;
-			}
-			else
-			{
-				SphereCollider collider = _collider as SphereCollider;
-				collider.radius = _defautRadius + additionalSize;
-			}
+			HeatMessage = heatMessage;
+			SetColliderSizes(heatMessage.HeatRange);
 		}
 
-		void OnDrawGizmos()
+		protected virtual void SetColliderSizes(float additionalRange)
+		{ }
+
+		public void EnableCollider(bool enable)
 		{
-			if (_collider is SphereCollider)
+			GetComponent<Collider2D>().enabled = enable;
+			if (_ps != null)
 			{
-				SphereCollider collider = _collider as SphereCollider;
-				Gizmos.color = Color.magenta;
-				Gizmos.DrawSphere(collider.bounds.center, collider.radius);
+				if (enable)
+					_ps.Play();
+				else
+					_ps.Stop();
 			}
 		}
 	}

@@ -326,7 +326,7 @@ namespace Assets.Scripts.Player
 				{
 					_interactionCollider = hit.collider;
 
-					if (hit.transform.name.Contains(Interactables.Stilt))
+					if (AbilityState.IsActive(Ability.Burn) && hit.transform.name.Contains(Interactables.Stilt))
 						Anim.PlayAnimation(Animations.DestroyStilt);
 					else if (hit.transform.name.Contains(Interactables.ChimneyLid))
 						Anim.PlayAnimation(Animations.OpenChimney);

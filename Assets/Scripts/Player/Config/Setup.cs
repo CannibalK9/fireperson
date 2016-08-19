@@ -19,6 +19,11 @@ namespace Assets.Scripts.Player.Config
 		public float AvailablePoints;
 
 		public bool Tether;
+		public bool Ignite;
+		public bool Flash;
+		public bool Steam;
+		public bool Burn;
+		public bool Scout;
 
 		void Awake()
 		{
@@ -30,7 +35,12 @@ namespace Assets.Scripts.Player.Config
 			Control = PlayerPrefs.GetFloat(Variable.Control.ToString());
 			AvailablePoints = PlayerPrefs.GetFloat(Variable.AvailablePoints.ToString());
 
-			Tether = PlayerPrefs.GetInt(Ability.Tether.ToString()) > 0;
+			Tether = AbilityState.IsActive(Ability.Tether);
+			Ignite = AbilityState.IsActive(Ability.Ignite);
+			Flash = AbilityState.IsActive(Ability.Flash);
+			Steam = AbilityState.IsActive(Ability.Steam);
+			Burn = AbilityState.IsActive(Ability.Burn);
+			Scout = AbilityState.IsActive(Ability.Scout);
 		}
 
 		void Update()
@@ -39,7 +49,12 @@ namespace Assets.Scripts.Player.Config
 			PlayerPrefs.SetFloat(Variable.Intensity.ToString(), Intensity);
 			PlayerPrefs.SetFloat(Variable.Control.ToString(), Control);
 			PlayerPrefs.SetFloat(Variable.AvailablePoints.ToString(), AvailablePoints);
-			PlayerPrefs.SetInt(Ability.Tether.ToString(), Tether ? 1 : 0);
+			AbilityState.SetActive(Ability.Tether, Tether);
+			AbilityState.SetActive(Ability.Ignite, Ignite);
+			AbilityState.SetActive(Ability.Flash, Flash);
+			AbilityState.SetActive(Ability.Steam, Steam);
+			AbilityState.SetActive(Ability.Burn, Burn);
+			AbilityState.SetActive(Ability.Scout, Scout);
 			PlayerPrefs.Save();
 		}
 

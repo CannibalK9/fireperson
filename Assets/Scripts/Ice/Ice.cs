@@ -25,11 +25,11 @@ namespace Assets.Scripts.Ice
 
 		void Awake()
 		{
-			_polyCollider = transform.parent.GetComponent<PolygonCollider2D>();
+			_polyCollider = GetComponent<PolygonCollider2D>();
 			_joints = GetComponents<FixedJoint2D>();
-			_mesh = GetComponent<MeshFilter>().mesh;
-			_meshRenderer = GetComponent<MeshRenderer>();
-			_meshCollider = GetComponent<MeshCollider>();
+			_mesh = GetComponentInChildren<MeshFilter>().mesh;
+			_meshRenderer = GetComponentInChildren<MeshRenderer>();
+			_meshCollider = GetComponentInChildren<MeshCollider>();
 			AnyJointEnabled = true;
 			GrowsBack = true;
 		}
@@ -137,7 +137,7 @@ namespace Assets.Scripts.Ice
 			return newPoints;
 		}
 
-		void OnTriggerStay(Collider col)
+		void OnTriggerStay2D(Collider2D col)
 		{
 			if (col.gameObject.layer == LayerMask.NameToLayer(Layers.Heat))
 			{
@@ -145,7 +145,7 @@ namespace Assets.Scripts.Ice
 			}
 		}
 
-		private void Melt(HeatMessage message, Collider col)
+		private void Melt(HeatMessage message, Collider2D col)
 		{
 			_meltedThisFrame = true;
 			_polyCollider.points = MovePointsInwards(message, col);
@@ -156,7 +156,7 @@ namespace Assets.Scripts.Ice
 		//A message arrives at the ice. A single raycasthit and the origin of the cast. The points of the ice that are within the distance to the origin, and that are not
 		//on the wrong side of the normal, move away from the origin proportionally to the distance. If moving would break the polycollider then the point does not move
 
-		private Vector2[] MovePointsInwards(HeatMessage message, Collider col)
+		private Vector2[] MovePointsInwards(HeatMessage message, Collider2D col)
 		{
 			Vector2[] newPoints = _polyCollider.points;
 			IEnumerable<int> allIndices = GetIndicesInRange(col);
@@ -234,7 +234,7 @@ namespace Assets.Scripts.Ice
 			return currentIndex == _polyCollider.points.Length - 1 ? 0 : currentIndex + 1;
 		}
 
-		private IEnumerable<int> GetIndicesInRange(Collider col)
+		private IEnumerable<int> GetIndicesInRange(Collider2D col)
 		{
 			var indices = new List<int>();
 
@@ -242,7 +242,7 @@ namespace Assets.Scripts.Ice
 			{
 				Vector2 worldPoint = transform.TransformPoint(_polyCollider.points[i]);
 
-				if (col.bounds.Contains(worldPoint))
+				if (col.OverlapPoint(worldPoint))
 					indices.Add(i);
 			}
 

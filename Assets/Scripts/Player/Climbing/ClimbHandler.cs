@@ -50,7 +50,7 @@ namespace Assets.Scripts.Player.Climbing
 					Hanging();
 					break;
 				case Climb.Flip:
-					Underside();
+					Hanging();
 					break;
 				case Climb.Mantle:
 					Mantle();
@@ -174,7 +174,6 @@ namespace Assets.Scripts.Player.Climbing
 			return false;
 
 		}
-
 
 		public bool CheckLedgeAbove(DirectionFacing direction, out Climb climb)
 		{
@@ -370,7 +369,7 @@ namespace Assets.Scripts.Player.Climbing
 			if (NextClimbs.Count == 0)
 				_climbCollider = null;
 
-			var nextClimb = CurrentClimb == Climb.End ? Climb.None : Climb.End;
+			var nextClimb = CurrentClimb == Climb.End || CurrentClimb == Climb.Jump ? Climb.None : Climb.End;
 			if (direction == DirectionFacing.None)
 				direction = _motor.GetDirectionFacing();
 

@@ -33,7 +33,7 @@ namespace Assets.Scripts.Denizens
 				_velocity = Vector3.zero;
 			}
 
-			if (_isJumping == false)
+			if (_isJumping == false && _controller.SatAtFireplace == false)
 				DetermineMovement();
 
 			if (_isJumping == false)
@@ -266,6 +266,25 @@ namespace Assets.Scripts.Denizens
 			return transform.localScale.x > 0f
 				? DirectionFacing.Right
 				: DirectionFacing.Left;
+		}
+
+		void OnTriggerEnter2D(Collider2D col)
+		{
+			if (col.gameObject.layer == LayerMask.NameToLayer(Layers.Flash) && _controller.CanSeeFlash(col.transform.position))
+			{
+				DirectionTravelling = DirectionTravelling.None;
+
+				bool isFacingRight = GetDirectionFacing() == DirectionFacing.Right;
+				bool isPlRight = col.transform.position.x >= transform.position.x;
+
+				if (isFacingRight == isPlRight)
+				{
+					FlipSprite();
+					_animator.Play(Animator.StringToHash(Animations.FlashInFront));
+				}
+				else
+					_animator.Play(Animator.StringToHash(Animations.FlashBehind));
+			}
 		}
 	}
 }

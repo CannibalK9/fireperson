@@ -31,6 +31,7 @@ namespace Assets.Scripts.Denizens
         public MovementHandler Movement;
 		public MovementState MovementState { get; set; }
         private DenizenMotor _motor;
+		private Vector2 _eyeLevel { get { return new Vector2(Collider.bounds.center.x, Collider.bounds.max.y - 0.5f); } }
 
         void Awake()
         {
@@ -48,19 +49,24 @@ namespace Assets.Scripts.Denizens
         {
             LayerMask mask = 1 << LayerMask.NameToLayer(Layers.Player) | Layers.Platforms | 1 << LayerMask.NameToLayer(Layers.Steam);
 
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 20f, mask);
-            if (hit)
+            RaycastHit2D hit = Physics2D.Raycast(_eyeLevel, direction, 20f, mask);
+            if (hit && hit.collider.gameObject.layer == LayerMask.NameToLayer(Layers.Player))
             {
-                if (hit.collider.gameObject.layer == LayerMask.NameToLayer(Layers.Player))
-                {
-                    hit.collider.SendMessage("Spotted", SendMessageOptions.RequireReceiver);
-                    return true;
-                }
+                hit.collider.SendMessage("Spotted", SendMessageOptions.RequireReceiver);
+                return true;
             }
             return false;
-        } 
+        }
 
-        void OnTriggerStay2D(Collider2D col)
+		public bool CanSeeFlash(Vector2 plLocation)
+		{
+			LayerMask mask = 1 << LayerMask.NameToLayer(Layers.PL) | Layers.Platforms;
+
+			RaycastHit2D hit = Physics2D.Raycast(_eyeLevel, plLocation - _eyeLevel, 20f, mask);
+			return hit && hit.collider.gameObject.layer == LayerMask.NameToLayer(Layers.Flash);
+		}
+
+		void OnTriggerStay2D(Collider2D col)
         {
             if (col.gameObject.layer == LayerMask.NameToLayer(Layers.PlSpot))
             {
@@ -68,13 +74,16 @@ namespace Assets.Scripts.Denizens
                 if (fireplace.IsHeatSource && fireplace.IsLit == false)
                 {
                     var stove = fireplace as Stove;
-                    if (stove != null)
-                    {
+					if (stove != null)
+					{
 						if (stove.CanBeLitByDenizens())
 							_motor.BeginLighting(fireplace);
 						else
+						{
+							SatAtFireplace = false;
 							_motor.SetTravelInDirectionFacing();
-                    }
+						}
+					}
 					else if (stove == null)
 						_motor.BeginLighting(fireplace);
 				}

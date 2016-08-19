@@ -19,6 +19,7 @@ namespace Assets.Scripts.Player.PL
 		private bool _noGravity;
 		private FirePlace _fireplace;
 		private MovementHandler _movement;
+		private bool _isFireplaceActive;
 
 		public float FlySpeed = 2f;
 		public float AirDamping = 500f;
@@ -28,7 +29,7 @@ namespace Assets.Scripts.Player.PL
 		public MovementState MovementState { get; set; }
 		public Transform Transform { get; set; }
 		public Rigidbody2D Rigidbody { get; set; }
-		private bool _isFireplaceActive;
+		public bool IsScouting { get; private set; }
 
 		void Awake()
 		{
@@ -64,6 +65,8 @@ namespace Assets.Scripts.Player.PL
 				_normalizedVerticalSpeed = 0;
 			}
 
+			GetComponentInChildren<CircleCollider2D>().enabled = IsScouting == false;
+
 			if (_fireplace != null)
 			{
 				if (OnPoint())
@@ -75,15 +78,16 @@ namespace Assets.Scripts.Player.PL
 					}
 					MoveTowardsPoint();
 					MovementState.MovementOverridden = false;
-					if (_fireplace.IsLit)
+					if (IsScouting == false)
 					{
-						_controller.HeatHandler.SetColliderSizes(_fireplace.HeatIntensity);
-						_controller.HeatHandler.HeatMessage = new Heat.HeatMessage(_fireplace.HeatIntensity);
-					}
-					else
-					{
-						_controller.HeatHandler.SetColliderSizes(0);
-						_controller.HeatHandler.HeatMessage = new Heat.HeatMessage(0);
+						if (_fireplace.IsLit)
+						{
+							_controller.HeatHandler.UpdateHeat(new Heat.HeatMessage(_fireplace.HeatIntensity, _fireplace.HeatRayDistance));
+						}
+						else
+						{
+							_controller.HeatHandler.UpdateHeat(new Heat.HeatMessage(_controller.HeatIntensity, 0));
+						}
 					}
 				}
 				else if (OnPoint() == false && MovementState.MovementOverridden == false)
@@ -95,8 +99,13 @@ namespace Assets.Scripts.Player.PL
 			}
 			else if (_controller.IsWithinPlayerDistance() == false)
 			{
-				DestroyObject(gameObject);
+				if (AbilityState.IsActive(Ability.Scout) && _controller.IsWithinScoutingDistance())
+					IsScouting = true;
+				else
+					DestroyObject(gameObject);
 			}
+			else
+				IsScouting = false;
 
 			_timeToWake -= Time.deltaTime;
 			if (_timeToWake > 0)
@@ -198,7 +207,7 @@ namespace Assets.Scripts.Player.PL
 		public void ActivatePoint()
 		{
 			_renderer.enabled = false;
-			if (_fireplace.IsHeatSource)
+			if (_fireplace.IsHeatSource && IsScouting == false)
 				_fireplace.PlEnter();
 		}
 
@@ -217,13 +226,16 @@ namespace Assets.Scripts.Player.PL
 
 		public void Burst()
 		{
-			if (_fireplace != null)
+			if (IsScouting)
+				return;
+
+			if (_fireplace != null && AbilityState.IsActive(Ability.Ignite))
 			{
 				_fireplace.Burst();
 			}
-			else
+			else if (AbilityState.IsActive(Ability.Flash))
 			{
-				_controller.FirstUpdate = true;
+				_controller.Flash();
 			}
 		}
 

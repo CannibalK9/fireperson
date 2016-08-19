@@ -23,7 +23,7 @@ namespace Assets.Scripts.Interactable
         public FirePlace F3;
         public FirePlace F4;
 
-		private Collider _heatCollider;
+		private HeatHandler[] _heatHandlers;
 
 	    public float DefaultHeatIntensity = 1f;
 	    public float DefaultHeatRayDistance = 1f;
@@ -33,7 +33,7 @@ namespace Assets.Scripts.Interactable
 			Collider = GetComponent<CircleCollider2D>();
 			HeatIntensity = DefaultHeatIntensity;
 			HeatRayDistance = DefaultHeatRayDistance;
-			_heatCollider = transform.parent.GetComponentInChildren<Collider>();
+			_heatHandlers = transform.parent.GetComponentsInChildren<HeatHandler>();
 		}
 
 		private bool _firstUpdate = true;
@@ -51,9 +51,13 @@ namespace Assets.Scripts.Interactable
 				}
 			}
 
+			foreach (var hh in _heatHandlers)
+			{
+				hh.EnableCollider(IsLit);
+			}
+
 			if (IsLit)
 			{
-				_heatCollider.enabled = true;
 				var effect = EmberEffect.None;
 
 				if (_firstUpdate)
@@ -64,7 +68,6 @@ namespace Assets.Scripts.Interactable
 			}
 			else
 			{
-				_heatCollider.enabled = false;
 				_firstUpdate = false;
 			}
 

@@ -10,7 +10,7 @@ namespace Assets.Scripts.Player.Abilities
 
 		void Start()
 		{
-			SetColliderSizes(0);
+			UpdateHeat(new HeatMessage(1, 0));
 		}
 
 		void Update()
@@ -22,12 +22,17 @@ namespace Assets.Scripts.Player.Abilities
 				return;
 			}
 
-			var collider = _collider as CapsuleCollider;
-			collider.enabled = ChannelingHandler.IsTethered;
+			EnableCollider(ChannelingHandler.IsTethered);
 
 			transform.position = Vector2.Lerp(Player.position, Pl.position, 0.5f);
-			transform.LookAt(Player);
-			collider.height = Vector2.Distance(Player.position, Pl.position);
+
+			Vector3 diff = Player.position - transform.position;
+			diff.Normalize();
+			float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
+
+			var col = GetComponent<BoxCollider2D>();
+			col.size = new Vector2(col.size.x, Vector2.Distance(Player.position, Pl.position) / 3);
 		}
 	}
 }

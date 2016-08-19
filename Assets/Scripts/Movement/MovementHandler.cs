@@ -78,8 +78,8 @@ namespace Assets.Scripts.Movement
 						_motor.MovementState.OnLeftCollision(ref deltaMovement);
 					else if (rightHit)
 						_motor.MovementState.OnRightCollision(ref deltaMovement);
-					else
-						MoveWithPivotPoint(ref deltaMovement, _downHit.collider);
+					//else
+					//	MoveWithPivotPoint(ref deltaMovement, _downHit.collider);
 				}
 			}
 
