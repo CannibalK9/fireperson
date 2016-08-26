@@ -12,6 +12,9 @@ namespace Assets.Scripts.Interactable
 		public GameObject LeftEdgeObject;
 		public GameObject RightEdgeObject;
 
+		public bool LeftCornerInverted;
+		public bool RightCornerInverted;
+
 		private GameObject _leftEdge;
 		private GameObject _rightEdge;
 
@@ -73,13 +76,15 @@ namespace Assets.Scripts.Interactable
 
 			if (LeftEdgeObject != null && LeftEdgeObject.GetComponent<Collider2D>().IsCorner())
 			{
-				if (_orientation == Orientation.Flat)
+				if ((_orientation == Orientation.Flat && LeftCornerInverted == false)
+					|| (_orientation == Orientation.UpsideDown && LeftCornerInverted))
 					CreateLeftEdge();
 			}
 
 			if (RightEdgeObject != null && RightEdgeObject.GetComponent<Collider2D>().IsCorner())
 			{
-				if (_orientation == Orientation.Flat)
+				if ((_orientation == Orientation.Flat && RightCornerInverted == false)
+					|| (_orientation == Orientation.UpsideDown && RightCornerInverted))
 					CreateRightEdge();
 			}
 

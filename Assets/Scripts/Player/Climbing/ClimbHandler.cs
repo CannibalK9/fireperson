@@ -167,8 +167,14 @@ namespace Assets.Scripts.Player.Climbing
 			RaycastHit2D hit = Physics2D.Raycast(origin, direction, 10f, Layers.Platforms);
 			Debug.DrawRay(origin, direction, Color.red);
 
-			if (hit == false || originalHit.collider.transform.parent == hit.collider.transform)
-				return true;
+			if (hit == false || Vector2.Distance(originalHit.point, hit.point) < 1)
+			{
+				return Physics2D.Raycast(
+					new Vector2(originalHit.collider.bounds.center.x, originalHit.collider.bounds.max.y + 0.01f),
+					Vector2.up,
+					_playerCollider.bounds.size.y,
+					Layers.Platforms) == false;
+			}
 
 			Debug.Log("Edge blocked");
 			return false;
@@ -180,7 +186,7 @@ namespace Assets.Scripts.Player.Climbing
 			climb = Climb.None;
 
 			const float checkWidth = 4f;
-			const float checkHeight = 4f;
+			const float checkHeight = 6f;
 
 			float actualHeight = _playerCollider.bounds.size.y + checkHeight - 1;
 

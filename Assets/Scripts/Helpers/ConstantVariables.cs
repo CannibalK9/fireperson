@@ -8,7 +8,7 @@
 		public static float SwingSpeed = 0.5f;
 		public static float DefaultPlayerSlopeLimit = 60f;
 		public static float DistanceFromPlayerMultiplier = 5f;
-		public static float MaxHorizontalSpeed = 4f;
+		public static float MaxHorizontalSpeed = 8f;
 		public static float MaxVerticalSpeed = -15f;
 		public static float DenizenMovementSpeed = 2f;
 		public static float DistanceToTriggerRollDown = 2f;

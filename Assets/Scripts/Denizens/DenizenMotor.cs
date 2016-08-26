@@ -12,6 +12,7 @@ namespace Assets.Scripts.Denizens
 		public float HazardWarningDistance = 1f;
 		public DirectionTravelling DirectionTravelling;
 		public bool CanJump;
+		public bool CanMove;
 
 		private float _normalizedHorizontalSpeed;
 
@@ -19,6 +20,7 @@ namespace Assets.Scripts.Denizens
 		private Animator _animator;
 		private Vector3 _velocity;
 		private bool _isJumping;
+		private bool _hasFirstLanded;
 
 		void Awake()
 		{
@@ -33,7 +35,7 @@ namespace Assets.Scripts.Denizens
 				_velocity = Vector3.zero;
 			}
 
-			if (_isJumping == false && _controller.SatAtFireplace == false)
+			if (_isJumping == false && _controller.SatAtFireplace == false && CanMove)
 				DetermineMovement();
 
 			if (_isJumping == false)
@@ -58,18 +60,26 @@ namespace Assets.Scripts.Denizens
 			if (_controller.MovementState.IsGrounded)
 			{
 				_velocity.y = 0;
-				if (_wasGrounded == false)
+
+				if (_hasFirstLanded == false)
+				{
+					_hasFirstLanded = true;
+					_wasGrounded = true;
+				}
+				else if (_wasGrounded == false)
 				{
 					SetTravelInDirectionFacing();
 					_wasGrounded = true;
 				}
 			}
-			else
+			else if (_hasFirstLanded)
 			{
 				DirectionTravelling = DirectionTravelling.None;
 				_wasGrounded = false;
 				//SetAnimationWhenFalling();
 			}
+			else
+				return;
 
 			if (DirectionTravelling == DirectionTravelling.Right)
 			{
