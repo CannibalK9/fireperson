@@ -47,8 +47,6 @@ namespace Assets.Scripts.Player.Climbing
 			switch (CurrentClimb)
 			{
 				case Climb.Up:
-					Hanging();
-					break;
 				case Climb.Flip:
 					Hanging();
 					break;
@@ -161,27 +159,17 @@ namespace Assets.Scripts.Player.Climbing
 		private bool IsEdgeUnblocked(RaycastHit2D originalHit)
 		{
 			Vector3 origin = _playerCollider.bounds.center;
+			Vector3 edge = originalHit.collider.bounds.center;
 
-			Vector2 direction = originalHit.collider.bounds.center - origin;
+			Vector2 direction = edge - origin;
 
 			RaycastHit2D hit = Physics2D.Raycast(origin, direction, 10f, Layers.Platforms);
 			Debug.DrawRay(origin, direction, Color.red);
 
-			if (hit == false || Vector2.Distance(originalHit.point, hit.point) < 1)
-			{
-				return Physics2D.Raycast(
-					new Vector2(originalHit.collider.bounds.center.x, originalHit.collider.bounds.max.y + 0.01f),
-					Vector2.up,
-					_playerCollider.bounds.size.y,
-					Layers.Platforms) == false;
-			}
-
-			Debug.Log("Edge blocked");
-			return false;
-
+			return hit == false || Vector2.Distance(originalHit.point, hit.point) < 1;
 		}
 
-		public bool CheckLedgeAbove(DirectionFacing direction, out Climb climb)
+		public bool CheckLedgeAbove(DirectionFacing direction, out Climb climb, bool retryCheck = true)
 		{
 			climb = Climb.None;
 
@@ -190,7 +178,7 @@ namespace Assets.Scripts.Player.Climbing
 
 			float actualHeight = _playerCollider.bounds.size.y + checkHeight - 1;
 
-			var origin = new Vector2(
+			var origin = new Vector3(
 			   _playerCollider.bounds.center.x,
 			   _playerCollider.bounds.min.y + 1 + actualHeight / 2);
 
@@ -212,6 +200,20 @@ namespace Assets.Scripts.Player.Climbing
 				}
 				else if (belowHeadHeight)
 				{ }
+				else if (hit.collider.IsCorner())
+				{
+					var side = AngleDir(hit.transform.up, hit.transform.position - origin);
+					if (hit.collider.IsInverted())
+						side = -side;
+					if ((side < 0 && hit.transform.gameObject.layer == LayerMask.NameToLayer(Layers.RightClimbSpot))
+						|| (side > 0 && hit.transform.gameObject.layer == LayerMask.NameToLayer(Layers.LeftClimbSpot)))
+					{
+						if (CurrentClimb == Climb.None)
+							CurrentClimb = Climb.Up;
+
+						climb = Climb.Up;
+					}
+				}
 				else if (ShouldStraightClimb())
 				{
 					if (CurrentClimb == Climb.None)
@@ -228,13 +230,18 @@ namespace Assets.Scripts.Player.Climbing
 				}
 			}
 
-			if (climb == Climb.None && _retryCheckAbove)
+			if (climb == Climb.None && _retryCheckAbove && retryCheck)
 			{
 				_retryCheckAbove = false;
 				CheckLedgeAbove(direction == DirectionFacing.Left ? DirectionFacing.Right : DirectionFacing.Left, out climb);
 			}
 			_retryCheckAbove = true;
 			return climb != Climb.None;
+		}
+
+		public static float AngleDir(Vector2 A, Vector2 B)
+		{
+			return -A.x * B.y + A.y * B.x;
 		}
 
 		public bool CheckLedgeBelow(Climb intendedClimbingState, DirectionFacing direction)
@@ -261,8 +268,7 @@ namespace Assets.Scripts.Player.Climbing
 					? DirectionFacing.Right
 					: DirectionFacing.Left;
 
-				if (dir != direction || intendedClimbingState == Climb.Down && hit.collider.CanClimbDown() == false
-					|| intendedClimbingState == Climb.MoveToEdge && hit.collider.CanCross() == false)
+				if (dir != direction || intendedClimbingState == Climb.Down && hit.collider.CanClimbDown() == false)
 					return false;
 				CurrentClimb = intendedClimbingState;
 				SetClimbingParameters(hit);
@@ -408,11 +414,11 @@ namespace Assets.Scripts.Player.Climbing
 						recalculate = false;
 						nextClimb = Climb.Up;
 					}
-					else if (NextClimbs.Contains(Climb.AcrossLeft) && (_climbCollider.IsCorner() == false || DirectionFacing.Left == direction))
+					else if (NextClimbs.Contains(Climb.AcrossLeft) && (_climbCollider.IsCorner() == false || _climbCollider.gameObject.layer == _leftClimbLayer))
 						nextClimb = CheckLedgeSwing(DirectionFacing.Left, invertSwingDirection)
 							? Climb.SwingLeft
 							: Climb.Jump;
-					else if (NextClimbs.Contains(Climb.AcrossRight) && (_climbCollider.IsCorner() == false || DirectionFacing.Right == direction))
+					else if (NextClimbs.Contains(Climb.AcrossRight) && (_climbCollider.IsCorner() == false || _climbCollider.gameObject.layer == _rightClimbLayer))
 						nextClimb = CheckLedgeSwing(DirectionFacing.Right, invertSwingDirection)
 							? Climb.SwingRight
 							: Climb.Jump;

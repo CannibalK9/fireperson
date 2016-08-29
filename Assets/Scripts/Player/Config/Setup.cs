@@ -24,6 +24,7 @@ namespace Assets.Scripts.Player.Config
 		public bool Steam;
 		public bool Burn;
 		public bool Scout;
+		public bool Tools;
 
 		void Awake()
 		{
@@ -41,6 +42,7 @@ namespace Assets.Scripts.Player.Config
 			Steam = AbilityState.IsActive(Ability.Steam);
 			Burn = AbilityState.IsActive(Ability.Burn);
 			Scout = AbilityState.IsActive(Ability.Scout);
+			Tools = AbilityState.IsActive(Ability.Tools);
 		}
 
 		void Update()
@@ -55,6 +57,7 @@ namespace Assets.Scripts.Player.Config
 			AbilityState.SetActive(Ability.Steam, Steam);
 			AbilityState.SetActive(Ability.Burn, Burn);
 			AbilityState.SetActive(Ability.Scout, Scout);
+			AbilityState.SetActive(Ability.Tools, Tools);
 			PlayerPrefs.Save();
 		}
 

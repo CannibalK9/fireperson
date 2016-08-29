@@ -77,12 +77,17 @@
             get { return "MoveToEdge"; }
         }
 
-        public static string DestroyStilt
+        public static string LowerStilt
         {
-            get { return "DestroyStilt"; }
+            get { return "LowerStilt"; }
         }
 
-        public static string Open
+		public static string RaiseStilt
+		{
+			get { return "RaiseStilt"; }
+		}
+
+		public static string Open
         {
             get { return "Open"; }
         }

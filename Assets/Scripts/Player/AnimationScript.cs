@@ -164,12 +164,12 @@ namespace Assets.Scripts.Player
 			PlayerMotor.UpdateClimbingSpeed(0.75f);
 		}
 
-		private void DestroyStilt()
+		private void SwitchStilt()
 		{
-			PlayerMotor.BurnStilt();
+			PlayerMotor.SwitchStilt();
 		}
 
-        private void CreateLight()
+		private void CreateLight()
         {
             PlayerController.CreateLight();
         }

@@ -276,13 +276,13 @@ namespace Assets.Scripts.Player
 				? Collider.bounds.max.x + 0.2f
 				: Collider.bounds.min.x - 0.2f;
 			var edgeRay = new Vector2(xOrigin, Collider.bounds.min.y);
-			return Physics2D.Raycast(edgeRay, Vector2.down, 1f, Layers.Platforms);
+			return Physics2D.Raycast(edgeRay, Vector2.down, 1.5f, Layers.Platforms);
 		}
 
 		private bool TryClimb()
 		{
 			Climb climb;
-			if (KeyBindings.GetKey(Control.Up) && _climbHandler.CheckLedgeAbove(GetDirectionFacing(), out climb))
+			if (KeyBindings.GetKey(Control.Up) && _climbHandler.CheckLedgeAbove(GetDirectionFacing(), out climb, false))
 			{
 				switch (climb)
 				{
@@ -326,8 +326,8 @@ namespace Assets.Scripts.Player
 				{
 					_interactionCollider = hit.collider;
 
-					if (AbilityState.IsActive(Ability.Burn) && hit.transform.name.Contains(Interactables.Stilt))
-						Anim.PlayAnimation(Animations.DestroyStilt);
+					if (hit.transform.name.Contains(Interactables.Stilt))
+						InteractWithStilt();
 					else if (hit.transform.name.Contains(Interactables.ChimneyLid))
 						Anim.PlayAnimation(Animations.OpenChimney);
 					else if (hit.transform.name.Contains(Interactables.Stove))
@@ -488,12 +488,26 @@ namespace Assets.Scripts.Player
 			return _movement.GetSurfaceDirection(direction);
 		}
 
-		public void BurnStilt()
+		public void InteractWithStilt()
 		{
-            _interactionCollider.GetComponent<StiltDestruction>().IsBurning = true;
+			Stilt stilt = _interactionCollider.transform.parent.GetComponent<Stilt>();
+			if (stilt.IsExtended)
+			{
+				Anim.PlayAnimation(Animations.LowerStilt);
+			}
+			else if (stilt.IsExtended == false && AbilityState.IsActive(Ability.Tools))
+			{
+				Anim.PlayAnimation(Animations.RaiseStilt);
+			}
 		}
 
-        public void SwitchChimney()
+		public void SwitchStilt()
+		{
+			Stilt stilt = _interactionCollider.transform.parent.GetComponent<Stilt>();
+			stilt.IsExtended = !stilt.IsExtended;
+		}
+
+		public void SwitchChimney()
         {
             _interactionCollider.GetComponentInChildren<ChimneyLid>().Switch();
         }

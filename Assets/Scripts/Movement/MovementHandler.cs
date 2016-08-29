@@ -10,6 +10,7 @@ namespace Assets.Scripts.Movement
 	{
 		private readonly IMotor _motor;
 		private RaycastHit2D _downHit;
+		private ColliderPoint _previousColliderPoint;
 
 		public MovementHandler(IMotor motor)
 		{
@@ -24,10 +25,7 @@ namespace Assets.Scripts.Movement
 			_motor.Rigidbody.isKinematic = true;
 			var deltaMovement = new Vector3();
 			_motor.MovementState.UpdatePivotToTarget();
-			if (speed > 0)
-				MoveTowardsPivot(ref deltaMovement, speed, _motor.Collider.GetPoint(_motor.MovementState.CharacterPoint));
-			else
-				MoveWithPivotPoint(ref deltaMovement, _motor.MovementState.PivotCollider);
+			MoveTowardsPivot(ref deltaMovement, speed, _motor.Collider.GetPoint(_motor.MovementState.CharacterPoint));
 			_motor.Transform.Translate(deltaMovement, Space.World);
 			return true;
 		}
@@ -45,56 +43,84 @@ namespace Assets.Scripts.Movement
 			if (Time.timeSinceLevelLoad < 1)
 				return;
 
+			if (Mathf.Abs(deltaMovement.x) < 0.05f)
+				deltaMovement.x = 0;
+
 			_motor.Rigidbody.isKinematic = isKinematic;
 			_motor.MovementState.Reset(deltaMovement);
 			Bounds bounds = _motor.Collider.bounds;
 
-			float extraWidth = _downHit ? 0.2f : 0;
-
-			RaycastHit2D[] downHits = Physics2D.BoxCastAll(new Vector2(bounds.center.x + deltaMovement.x, bounds.min.y + 1.2f), new Vector2(bounds.size.x + extraWidth, 0.001f), 0, Vector2.down, 1.4f, Layers.Platforms);
+			RaycastHit2D[] downHits = Physics2D.BoxCastAll(new Vector2(bounds.center.x, bounds.min.y + 0.5f), new Vector2(bounds.size.x, 0.001f), 0, Vector2.down, 1f, Layers.Platforms);
 			_downHit = GetDownwardsHit(downHits);
-
-			if (_downHit)
-			{
-				DownCast(ref deltaMovement);
-				SetPivotPoint(
-					_downHit.collider,
-					_downHit.normal == Vector2.up
-						? _motor.Collider.GetBottomCenter()
-						: _downHit.point);
-			}
-
 			var leftHit = new RaycastHit2D();
 			var rightHit = new RaycastHit2D();
 
-			if (_motor.MovementState.IsOnSlope == false)
-			{
-				if (_downHit)
-				{
-					leftHit = GetDirectionHit(bounds, deltaMovement, GetSurfaceDirection(DirectionTravelling.Left));
-					rightHit = GetDirectionHit(bounds, deltaMovement, GetSurfaceDirection(DirectionTravelling.Right));
-
-					if (leftHit)
-						_motor.MovementState.OnLeftCollision(ref deltaMovement);
-					else if (rightHit)
-						_motor.MovementState.OnRightCollision(ref deltaMovement);
-					//else
-					//	MoveWithPivotPoint(ref deltaMovement, _downHit.collider);
-				}
-			}
-
 			if (_downHit)
 			{
+				deltaMovement.y = 0;
+
+				leftHit = GetDirectionHit(bounds, deltaMovement, GetSurfaceDirection(DirectionTravelling.Left));
+				rightHit = GetDirectionHit(bounds, deltaMovement, GetSurfaceDirection(DirectionTravelling.Right));
+
+				if (leftHit)
+				{
+					RaycastHit2D lipCast = Physics2D.Raycast(new Vector2(bounds.min.x, bounds.min.y + 1), Vector2.left, 2, Layers.Platforms);
+					if (lipCast && (lipCast.collider == _downHit.collider || Vector2.Angle(lipCast.normal, Vector2.up) > _motor.SlopeLimit))
+						_motor.MovementState.OnLeftCollision();
+					else
+						leftHit = new RaycastHit2D();
+				}
+				if (rightHit)
+				{
+					RaycastHit2D lipCast = Physics2D.Raycast(new Vector2(bounds.max.x, bounds.min.y + 1), Vector2.right, 2, Layers.Platforms);
+					if (lipCast && (lipCast.collider == _downHit.collider || Vector2.Angle(lipCast.normal, Vector2.up) > _motor.SlopeLimit))
+						_motor.MovementState.OnRightCollision();
+					else
+						rightHit = new RaycastHit2D();
+				}
+				ColliderPoint hitLocation;
+
+				float n = _downHit.normal.x;
+
+				if (Mathf.Abs(n) < 0.02f)
+					hitLocation = ColliderPoint.BottomFace;
+				else if (n > 0)
+					hitLocation = ColliderPoint.BottomLeft;
+				else
+					hitLocation = ColliderPoint.BottomRight;
+
+				Vector3 offset = _motor.Collider.GetPoint(hitLocation);
+
+				float x = hitLocation == ColliderPoint.BottomFace ? bounds.center.x : _downHit.point.x;
+				Vector3 pivotPosition = new Vector3(x, _downHit.point.y);
+
+				if (_downHit.collider != _motor.MovementState.PivotCollider || leftHit || rightHit || hitLocation != _previousColliderPoint)
+				{
+					SetPivotPoint(_downHit.collider, pivotPosition);
+					_previousColliderPoint = hitLocation;
+					Debug.Log("pivot switched");
+				}
+
 				bool moveRight = _motor.MovementState.CurrentAcceleration.x > 0;
-				if ((leftHit == false && rightHit == false) || (leftHit && moveRight) || (rightHit && moveRight == false))
-					MoveAlongSurface(ref deltaMovement);
+				if ((_motor.MovementState.IsOnSlope && ((leftHit && _downHit.normal.x < 0) || (rightHit && _downHit.normal.x > 0))) == false)
+				{
+					_motor.MovementState.Pivot.transform.Translate(MoveAlongSurface(), Space.World);
+
+					pivotPosition = _motor.MovementState.Pivot.transform.position + _motor.Transform.position - offset;
+					_motor.Transform.position = Vector3.MoveTowards(_motor.Transform.position, pivotPosition, 100f);
+					DrawRay(_motor.MovementState.Pivot.transform.position, _downHit.normal, Color.yellow);
+				}
 			}
-			_motor.Transform.Translate(deltaMovement, Space.World);
+			else
+			{
+				_motor.MovementState.PivotCollider = null;
+				_motor.Transform.Translate(deltaMovement, Space.World);
+			}
 		}
 
 		private RaycastHit2D GetDirectionHit(Bounds bounds, Vector3 deltaMovement, Vector2 direction)
 		{
-			RaycastHit2D[] cast = Physics2D.BoxCastAll(bounds.center + deltaMovement, new Vector2(0.001f, bounds.size.y), 0, direction, bounds.extents.x + 0.1f, Layers.Platforms);
+			RaycastHit2D[] cast = Physics2D.BoxCastAll(bounds.center, new Vector2(0.001f, bounds.size.y), 0, direction, bounds.extents.x + 0.05f, Layers.Platforms);
 
 			foreach (RaycastHit2D hit in cast.Where(hit => hit.collider != _downHit.collider && Vector2.Angle(hit.normal, Vector2.up) > _motor.SlopeLimit))
 			{
@@ -105,7 +131,10 @@ namespace Assets.Scripts.Movement
 
 		private void DownCast(ref Vector3 deltaMovement)
 		{
-			deltaMovement.y = 1.2f - _downHit.distance;
+			if (Mathf.Abs(_downHit.distance - 1.2f) < 0.02f)
+				deltaMovement.y = 0;
+			else
+				deltaMovement.y = 1.2f - _downHit.distance;
 		}
 
 		private RaycastHit2D GetDownwardsHit(IEnumerable<RaycastHit2D> hits)
@@ -136,7 +165,7 @@ namespace Assets.Scripts.Movement
 			return validHit;
 		}
 
-		private void MoveAlongSurface(ref Vector3 deltaMovement)
+		private Vector3 MoveAlongSurface()
 		{
 			bool moveRight;
 			float speed;
@@ -145,7 +174,6 @@ namespace Assets.Scripts.Movement
 			{
 				moveRight = _downHit.normal.x > 0;
 				speed = 0.2f + Mathf.Abs(_motor.MovementState.CurrentAcceleration.y);
-				deltaMovement.x = 0;
 			}
 			else
 			{
@@ -154,7 +182,7 @@ namespace Assets.Scripts.Movement
 			}
 
 			Vector3 direction = GetSurfaceDirection(moveRight ? DirectionTravelling.Right : DirectionTravelling.Left);
-			TranslatePivot(ref deltaMovement, direction, speed);
+			return direction.normalized * speed;
 		}
 
 		public Vector3 GetSurfaceDirection(DirectionTravelling direction)
@@ -164,28 +192,19 @@ namespace Assets.Scripts.Movement
 				: Quaternion.Euler(0, 0, 90) * _downHit.normal;
 		}
 
-		private static void TranslatePivot(ref Vector3 deltaMovement, Vector3 direction, float speed)
+		private void SetPivotPoint(Collider2D col, Vector3 point)
 		{
-			deltaMovement += direction.normalized * speed;
-		}
-
-		private void SetPivotPoint(Collider2D col, Vector2 point)
-		{
-			_motor.MovementState.PreviousPivotPoint = point;
 			_motor.MovementState.Pivot.transform.position = point;
-			if (_motor.MovementState.PivotCollider != col)
-			{
-				_motor.MovementState.PivotCollider = col;
-				_motor.MovementState.Pivot.transform.parent = _motor.MovementState.PivotCollider.transform;
-			}
+			_motor.MovementState.PivotCollider = col;
+			_motor.MovementState.Pivot.transform.parent = _motor.MovementState.PivotCollider.transform;
 			DrawRay(point, _downHit.normal, Color.yellow);
 		}
 
-		private void MoveWithPivotPoint(ref Vector3 deltaMovement, Collider2D col)
+		private void MoveWithPivotPoint(Collider2D col)
 		{
 			if (col == _motor.MovementState.PivotCollider)
 			{
-				deltaMovement += _motor.MovementState.Pivot.transform.position - _motor.MovementState.PreviousPivotPoint;
+				_motor.Transform.Translate(_motor.MovementState.Pivot.transform.position - _motor.MovementState.PreviousPivotPoint);
 			}
 		}
 

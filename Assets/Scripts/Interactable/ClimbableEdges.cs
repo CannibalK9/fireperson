@@ -7,19 +7,23 @@ namespace Assets.Scripts.Interactable
 	public class ClimbableEdges : MonoBehaviour
 	{
 		public bool LeftEdge;
+		public bool IsLeftCorner;
+		public bool IsLeftCornerInverted;
+		public bool IsLeftDropless;
+
 		public bool RightEdge;
+		public bool IsRightCorner;
+		public bool IsRightCornerInverted;
+		public bool IsRightDropless;
 
 		public GameObject LeftEdgeObject;
 		public GameObject RightEdgeObject;
-
-		public bool LeftCornerInverted;
-		public bool RightCornerInverted;
 
 		private GameObject _leftEdge;
 		private GameObject _rightEdge;
 
 		private BoxCollider2D _col;
-		private const float _slopeLimit = 50f;
+		private float _slopeLimit = ConstantVariables.DefaultPlayerSlopeLimit;
 		private Orientation _orientation;
 
 		void Awake()
@@ -74,45 +78,63 @@ namespace Assets.Scripts.Interactable
 			transform.parent = null;
 			transform.rotation = new Quaternion();
 
-			if (LeftEdgeObject != null && LeftEdgeObject.GetComponent<Collider2D>().IsCorner())
+			if (_orientation == Orientation.Upright)
 			{
-				if ((_orientation == Orientation.Flat && LeftCornerInverted == false)
-					|| (_orientation == Orientation.UpsideDown && LeftCornerInverted))
+				if (IsLeftCorner == false && rotation > 180)
 					CreateLeftEdge();
-			}
-
-			if (RightEdgeObject != null && RightEdgeObject.GetComponent<Collider2D>().IsCorner())
-			{
-				if ((_orientation == Orientation.Flat && RightCornerInverted == false)
-					|| (_orientation == Orientation.UpsideDown && RightCornerInverted))
+				else if (IsRightCorner == false)
 					CreateRightEdge();
 			}
 
-			if (_orientation == Orientation.Upright)
+			if (IsLeftCorner)
 			{
-				if (rotation > 180 && CreateLeftEdge())
-					_leftEdge.name = Orientation.Upright.ToString();
-				else if (CreateRightEdge())
-					_rightEdge.name = Orientation.Upright.ToString();
+				if ((_orientation == Orientation.Flat && IsLeftCornerInverted == false)
+					|| (_orientation == Orientation.UpsideDown && IsLeftCornerInverted))
+					CreateLeftEdge();
 			}
-			else
-			{
+			else if (_orientation != Orientation.Upright)
 				CreateLeftEdge();
-				CreateRightEdge();
+
+			if (IsRightCorner)
+			{
+				if ((_orientation == Orientation.Flat && IsRightCornerInverted == false)
+					|| (_orientation == Orientation.UpsideDown && IsRightCornerInverted))
+					CreateRightEdge();
 			}
-			
+			else if (_orientation != Orientation.Upright)
+				CreateRightEdge();
+
 			transform.rotation = currentRotation;
 			transform.parent = currentParent;
 		}
 
 		private bool CreateLeftEdge()
 		{
-			if (LeftEdge && LeftEdgeObject != null && _leftEdge == null)
+			if (LeftEdge && _leftEdge == null)
 			{
-				_leftEdge = Instantiate(LeftEdgeObject);
+				_leftEdge = _orientation == Orientation.UpsideDown || IsLeftCornerInverted
+					? Instantiate(RightEdgeObject)
+					: Instantiate(LeftEdgeObject);
+
+				if (IsLeftCorner)
+				{
+					_leftEdge.name += " corner";
+					if (IsLeftCornerInverted)
+						_leftEdge.name += " inv";
+				}
+				else if (_orientation == Orientation.Upright)
+					_leftEdge.name += " upright";
+				if (IsLeftDropless)
+					_leftEdge.name += " dropless";
+
 				_leftEdge.transform.position = _orientation == Orientation.UpsideDown
-					? UpsideDownLeft(_col)
+					? UpsideDownRight(_col)
 					: FlatLeft(_col);
+
+				var col = _leftEdge.GetComponent<BoxCollider2D>();
+				col.size = new Vector2(col.size.x, _col.bounds.size.y);
+				col.offset = new Vector2(col.offset.x, _orientation == Orientation.UpsideDown ? -1 + col.size.y / 2 : -col.size.y / 2);
+
 				_leftEdge.transform.parent = transform;
 				return true;
 			}
@@ -121,13 +143,30 @@ namespace Assets.Scripts.Interactable
 
 		private bool CreateRightEdge()
 		{
-			if (RightEdge && RightEdgeObject != null && _rightEdge == null)
+			if (RightEdge && _rightEdge == null)
 			{
-				_rightEdge = Instantiate(RightEdgeObject);
+				_rightEdge = _orientation == Orientation.UpsideDown || IsRightCornerInverted
+					? Instantiate(LeftEdgeObject)
+					: Instantiate(RightEdgeObject);
+
+				if (IsRightCorner)
+				{
+					_rightEdge.name += " corner";
+					if (IsRightCornerInverted)
+						_rightEdge.name += " inv";
+				}
+				else if (_orientation == Orientation.Upright)
+					_rightEdge.name += " upright";
+				if (IsRightDropless)
+					_rightEdge.name += " dropless";
 
 				_rightEdge.transform.position = _orientation == Orientation.UpsideDown
-					? UpsideDownRight(_col)
+					? UpsideDownLeft(_col)
 					: FlatRight(_col);
+
+				var col = _rightEdge.GetComponent<BoxCollider2D>();
+				col.size = new Vector2(col.size.x, _col.bounds.size.y);
+				col.offset = new Vector2(col.offset.x, _orientation == Orientation.UpsideDown ? -1 + col.size.y / 2 : -col.size.y / 2);
 				_rightEdge.transform.parent = transform;
 				return true;
 			}
@@ -146,12 +185,12 @@ namespace Assets.Scripts.Interactable
 
 		private Vector2 UpsideDownLeft(Collider2D col)
 		{
-			return new Vector2(col.bounds.max.x - 1, col.bounds.min.y + 0.5f);
+			return new Vector2(col.bounds.max.x - 1, col.bounds.min.y + 1);
 		}
 
 		private Vector2 UpsideDownRight(Collider2D col)
 		{
-			return new Vector2(col.bounds.min.x + 1, col.bounds.min.y + 0.5f);
+			return new Vector2(col.bounds.min.x + 1, col.bounds.min.y + 1);
 		}
 	}
 }

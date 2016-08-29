@@ -17,6 +17,7 @@ namespace Assets.Scripts.Movement
 		public Vector3 PreviousPivotPoint { get; set; }
 		public ColliderPoint CharacterPoint { get; set; }
 		public ColliderPoint TargetPoint { get; private set; }
+		public DownHit DownHit { get; set; }
 
 		public MovementState()
 		{
@@ -32,17 +33,13 @@ namespace Assets.Scripts.Movement
 			CurrentAcceleration = currentAcceleration;
 		}
 
-		public void OnLeftCollision(ref Vector3 deltaMovement)
+		public void OnLeftCollision()
 		{
-			if (CurrentAcceleration.x < 0)
-				deltaMovement.x = 0;
 			LeftCollision = true;
 		}
 
-		public void OnRightCollision(ref Vector3 deltaMovement)
+		public void OnRightCollision()
 		{
-			if (CurrentAcceleration.x > 0)
-				deltaMovement.x = 0;
 			RightCollision = true;
 		}
 
@@ -74,5 +71,12 @@ namespace Assets.Scripts.Movement
 		{
 			MovementOverridden = true;
 		}
+	}
+
+	public enum DownHit
+	{
+		Left,
+		Right,
+		Centre
 	}
 }

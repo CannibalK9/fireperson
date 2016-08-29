@@ -9,7 +9,8 @@ namespace Assets.Scripts.Player.Config
 		Flash,
 		Steam,
 		Burn,
-		Scout
+		Scout,
+		Tools
 	}
 
 	public static class AbilityState
