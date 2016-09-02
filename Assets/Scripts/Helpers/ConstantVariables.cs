@@ -5,7 +5,6 @@
 		public static float DefaultMovementSpeed = 0.5f;
 		public static float MoveToEdgeSpeed = 1f;
 		public static float AcrossSpeed = 0.5f;
-		public static float SwingSpeed = 0.5f;
 		public static float DefaultPlayerSlopeLimit = 60f;
 		public static float DistanceFromPlayerMultiplier = 5f;
 		public static float MaxHorizontalSpeed = 8f;

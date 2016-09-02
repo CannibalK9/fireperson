@@ -123,7 +123,7 @@ namespace Assets.Scripts.Interactable
 						_leftEdge.name += " inv";
 				}
 				else if (_orientation == Orientation.Upright)
-					_leftEdge.name += " upright";
+					_leftEdge.name += " upright corner";
 				if (IsLeftDropless)
 					_leftEdge.name += " dropless";
 
@@ -156,7 +156,7 @@ namespace Assets.Scripts.Interactable
 						_rightEdge.name += " inv";
 				}
 				else if (_orientation == Orientation.Upright)
-					_rightEdge.name += " upright";
+					_rightEdge.name += " upright corner";
 				if (IsRightDropless)
 					_rightEdge.name += " dropless";
 

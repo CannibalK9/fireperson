@@ -47,15 +47,20 @@
             get { return "Falling"; }
         }
 
-        public static string ClimbUp
+        public static string ToEdge
         {
-            get { return "ClimbUp"; }
+            get { return "ToEdge"; }
         }
 
-        public static string FlipUp
+        public static string InverseToEdge
         {
-            get { return "FlipUp"; }
+            get { return "InverseToEdge"; }
         }
+
+		public static string Corner
+		{
+			get { return "Corner"; }
+		}
 
 		public static string Mantle
 		{

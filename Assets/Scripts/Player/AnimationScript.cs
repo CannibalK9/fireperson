@@ -13,6 +13,8 @@ namespace Assets.Scripts.Player
 		private Animator _animator;
 		private bool _recalculate;
 		private bool _shouldFlip;
+		private bool _isHanging;
+		private bool _isJumping;
 
 		void Awake()
 		{
@@ -29,13 +31,17 @@ namespace Assets.Scripts.Player
 			if (_animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Idle) 
                 || _animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Falling))
 			{
+				_isHanging = false;
+				_isJumping = false;
 				_animator.ResetTrigger("climbUp");
 				_animator.ResetTrigger("transitionDown");
 				_animator.ResetTrigger("transitionAcross");
-				_animator.ResetTrigger("jump");
 				_animator.ResetTrigger("flipUp");
 				PlayerMotor.CancelClimbingState();
 			}
+
+			if (_isHanging)
+				TryHangingInput();
 		}
 
 		public void SetBool(string boolName, bool value)
@@ -55,23 +61,22 @@ namespace Assets.Scripts.Player
 			_shouldFlip = true;
 		}
 
-		private void TryClimbDown()
+		private void TryHangingInput()
 		{
 			ClimbingState nextState;
-			if (PlayerMotor.TryClimbDown(out nextState))
+			_animator.speed = 1;
+			if (PlayerMotor.TryHangingInput(out nextState))
 			{
+				_isHanging = false;
 				if (nextState.Climb == Climb.End)
 					nextState.Climb = Climb.Down;
 				SetupNextState(nextState);
-				_shouldFlip = false;
-				if ((nextState.Climb == Climb.SwingLeft || nextState.Climb == Climb.SwingRight || nextState.Climb == Climb.Jump) && _animator.GetBool("swing") == false)
-				{
-					_shouldFlip = true;
-					FlipSprite();
-				}
 			}
-			else
-				_animator.SetTrigger("vault");
+		}
+
+		private void ContinuousHangingInput()
+		{
+			_isHanging = true;
 		}
 
 		private void SetupNextState(ClimbingState nextState)
@@ -83,6 +88,9 @@ namespace Assets.Scripts.Player
 			{
 				PlayerMotor.MovementAllowed = false;
 			}
+
+			_isJumping = nextState.Climb == Climb.Jump;
+			SetBool("isJumping", _isJumping);
 
 			switch (nextState.Climb)
 			{
@@ -100,12 +108,8 @@ namespace Assets.Scripts.Player
 					break;
 				case Climb.AcrossRight:
 				case Climb.AcrossLeft:
-				case Climb.SwingRight:
-				case Climb.SwingLeft:
-					_animator.SetTrigger("transitionAcross");
-					break;
 				case Climb.Jump:
-					_animator.SetTrigger("jump");
+					_animator.SetTrigger("transitionAcross");
 					break;
 			}
 		}
@@ -128,26 +132,22 @@ namespace Assets.Scripts.Player
 				PlayerMotor.FlipSprite();
 		}
 
-		private void ApplyJumpVelocity()
-		{
-			PlayerMotor.SetJumpingVelocity(true);
-		}
-
-		private void ApplyJumpVelocityBackwards()
-		{
-			PlayerMotor.SetJumpingVelocity(false);
-		}
-
-		private void ApplySwingVelocity()
-		{
-			PlayerMotor.SetSwingVelocity();
-		}
-
 		private void AllowMovement()
 		{
-			if (_recalculate)
-				_animator.speed = PlayerMotor.GetAnimationSpeed();
-			PlayerMotor.MovementAllowed = true;
+			if (_isJumping)
+			{
+				_animator.speed = 1;
+				if (_animator.GetBool("forward"))
+					PlayerMotor.SetJumpingVelocity(true);
+				else
+					PlayerMotor.SetJumpingVelocity(false);
+			}
+			else
+			{
+				if (_recalculate)
+					_animator.speed = PlayerMotor.GetAnimationSpeed();
+				PlayerMotor.MovementAllowed = true;
+			}
 		}
 
 		private void MoveHorizontally()

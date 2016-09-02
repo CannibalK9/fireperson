@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Assets.Scripts.Helpers;
 using Assets.Scripts.Interactable;
 using Assets.Scripts.Movement;
@@ -20,7 +21,6 @@ namespace Assets.Scripts.Player
 
 		public AnimationScript Anim { get; private set; }
 		public bool MovementAllowed { get; set; }
-		public bool Rotating { get; set; }
 		public DirectionFacing ClimbingSide { get { return _climbHandler.ClimbSide; } }
 		public Transform Transform { get; set; }
 		public MovementState MovementState { get; set; }
@@ -287,10 +287,10 @@ namespace Assets.Scripts.Player
 				switch (climb)
 				{
 					case Climb.Up:
-						Anim.PlayAnimation(Animations.ClimbUp);
+						Anim.PlayAnimation(Animations.ToEdge);
 						break;
 					case Climb.Flip:
-						Anim.PlayAnimation(Animations.FlipUp);
+						Anim.PlayAnimation(Animations.InverseToEdge);
 						break;
 					case Climb.Mantle:
 						Anim.PlayAnimation(Animations.Mantle);
@@ -362,13 +362,6 @@ namespace Assets.Scripts.Player
 				_normalizedHorizontalSpeed = GetDirectionFacing() == DirectionFacing.Left ? 1 : -1;
 
 			_velocity.x = _normalizedHorizontalSpeed * 20;
-			_velocity.y = 5f;
-		}
-
-		public void SetSwingVelocity()
-		{
-			_normalizedHorizontalSpeed = GetDirectionFacing() == DirectionFacing.Right ? 1 : -1;
-			_velocity.x = _normalizedHorizontalSpeed * 20;
 		}
 
 		public void FlipSprite()
@@ -398,66 +391,70 @@ namespace Assets.Scripts.Player
 		public ClimbingState SwitchClimbingState()
 		{
 			Climb climb = _climbHandler.CurrentClimb;
-			var direction = DirectionFacing.None;
+			DirectionFacing direction = DirectionFacing.None;
 
 			if (climb != Climb.MoveToEdge && climb != Climb.Jump && climb != Climb.End)
 			{
-				if (KeyBindings.GetKey(Control.Left))
-				{
-					_climbHandler.NextClimbs.Add(Climb.AcrossLeft);
-					direction = DirectionFacing.Left;
-				}
-				if (KeyBindings.GetKey(Control.Right))
-				{
-					_climbHandler.NextClimbs.Add(Climb.AcrossRight);
-					direction = DirectionFacing.Right;
-				}
-				if (KeyBindings.GetKey(Control.Up))
-					_climbHandler.NextClimbs.Add(Climb.Up);
-				if (KeyBindings.GetKey(Control.Down))
-					_climbHandler.NextClimbs.Add(Climb.Down);
+				direction = AddNextClimbs();
 			}
 
-			ClimbingState = _climbHandler.SwitchClimbingState(direction, false);
+			ClimbingState = _climbHandler.SwitchClimbingState(direction);
 			if (ClimbingState.PivotCollider != null && ClimbingState.Climb != Climb.Jump && ClimbingState.Climb != Climb.End && ClimbingState.Recalculate)
 				MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
 
 			return ClimbingState;
 		}
 
-		public bool TryClimbDown(out ClimbingState climbingState)
+		public bool TryHangingInput(out ClimbingState climbingState)
 		{
-			var direction = DirectionFacing.None;
-
-			if (KeyBindings.GetKey(Control.Down) && _climbHandler.CanClimbDown())
+			_climbHandler.CurrentClimb = Climb.Down;
+			DirectionFacing direction = AddNextClimbs();
+			
+			if (_climbHandler.NextClimbs.Any())
 			{
-				_climbHandler.CurrentClimb = Climb.Down;
+				ClimbingState = _climbHandler.SwitchClimbingState(direction);
 
-				if (KeyBindings.GetKey(Control.Left))
+				if (ClimbingState.Recalculate == false && ClimbingState.Climb == Climb.End)
 				{
-					_climbHandler.NextClimbs.Add(Climb.AcrossLeft);
-					direction = DirectionFacing.Left;
-				}
-				if (KeyBindings.GetKey(Control.Right))
-				{
-					_climbHandler.NextClimbs.Add(Climb.AcrossRight);
-					direction = DirectionFacing.Right;
+					climbingState = ClimbingState;
+					return false;
 				}
 
-				ClimbingState = _climbHandler.SwitchClimbingState(direction, true);
 				if (ClimbingState.PivotCollider != null && ClimbingState.Climb != Climb.End && ClimbingState.Recalculate)
 					MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
-				else
-				{
+				else if (ClimbingState.PivotCollider == null || ClimbingState.Climb == Climb.End)
 					MovementState.UnsetPivot();
-				}
 
 				climbingState = ClimbingState;
 				return true;
 			}
-				
-			climbingState = ClimbingState;
-			return false;
+			else
+			{
+				climbingState = ClimbingState;
+				return false;
+			}
+		}
+
+		private DirectionFacing AddNextClimbs()
+		{
+			DirectionFacing direction = DirectionFacing.None;
+
+			if (KeyBindings.GetKey(Control.Left))
+			{
+				_climbHandler.NextClimbs.Add(Climb.AcrossLeft);
+				direction = DirectionFacing.Left;
+			}
+			if (KeyBindings.GetKey(Control.Right))
+			{
+				_climbHandler.NextClimbs.Add(Climb.AcrossRight);
+				direction = DirectionFacing.Right;
+			}
+			if (KeyBindings.GetKey(Control.Up))
+				_climbHandler.NextClimbs.Add(Climb.Up);
+			if (KeyBindings.GetKey(Control.Down))
+				_climbHandler.NextClimbs.Add(Climb.Down);
+
+			return direction;
 		}
 
 		public void CancelClimbingState()
