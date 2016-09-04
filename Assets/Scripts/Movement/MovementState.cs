@@ -13,15 +13,28 @@ namespace Assets.Scripts.Movement
 		public bool RightCollision { get; private set; }
 		public bool IgnoreCurrentPlatform { get; set; }
 		public GameObject Pivot { get; private set; }
-		public Vector3 CurrentAcceleration { get; private set; }
+		public Vector3 CurrentAcceleration { get; set; }
 		public Vector3 PreviousPivotPoint { get; set; }
 		public ColliderPoint CharacterPoint { get; set; }
 		public ColliderPoint TargetPoint { get; private set; }
 		public DownHit DownHit { get; set; }
+		public Vector3 Normal { get; set; }
 
 		public MovementState()
 		{
 			Pivot = new GameObject();
+		}
+
+		public Vector3 GetSurfaceDirection(DirectionTravelling direction)
+		{
+			return direction == DirectionTravelling.Right
+				? Quaternion.Euler(0, 0, -90) * Normal
+				: Quaternion.Euler(0, 0, 90) * Normal;
+		}
+
+		public Vector3 GetSurfaceDownDirection()
+		{
+			return Quaternion.Euler(0, 0, 180) * Normal;
 		}
 
 		public void Reset(Vector3 currentAcceleration)
@@ -41,6 +54,11 @@ namespace Assets.Scripts.Movement
 		public void OnRightCollision()
 		{
 			RightCollision = true;
+		}
+
+		public void SetPivotCollider(Collider2D pivotCollider)
+		{
+			PivotCollider = pivotCollider;
 		}
 
 		public void SetPivot(Collider2D pivotCollider, ColliderPoint targetPoint, ColliderPoint characterPoint)
@@ -65,11 +83,6 @@ namespace Assets.Scripts.Movement
 		public void UnsetPivot()
 		{
 			PivotCollider = null;
-		}
-
-		public void StopMoving()
-		{
-			MovementOverridden = true;
 		}
 	}
 

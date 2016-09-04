@@ -137,7 +137,7 @@ namespace Assets.Scripts.Denizens
 
 		private bool ApproachingEdge(Vector2 edgeRay)
 		{
-			if (Physics2D.Raycast(edgeRay, Vector2.down, 2f, Layers.Platforms))
+			if (Physics2D.Raycast(edgeRay, _controller.MovementState.GetSurfaceDownDirection(), 2f, Layers.Platforms))
 				return false;
 
 			if (CanJump == false)

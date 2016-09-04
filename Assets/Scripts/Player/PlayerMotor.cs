@@ -124,8 +124,18 @@ namespace Assets.Scripts.Player
 		{
 			transform.localPosition = Vector3.zero;
 
-			if (_velocity.x * _normalizedHorizontalSpeed > ConstantVariables.MaxHorizontalSpeed)
-				_velocity.x = ConstantVariables.MaxHorizontalSpeed * _normalizedHorizontalSpeed;
+			float maxX = ConstantVariables.MaxHorizontalSpeed;
+
+			if (Physics2D.Raycast(Collider.GetTopLeft(), Vector2.right, Collider.bounds.size.x, Layers.Platforms))
+			{
+				maxX = ConstantVariables.SquashedSpeed;
+				Anim.SetBool("squashed", true);
+			}
+			else
+				Anim.SetBool("squashed", false);
+
+			if (_velocity.x * _normalizedHorizontalSpeed > maxX)
+				_velocity.x = maxX * _normalizedHorizontalSpeed;
 			if (_velocity.y < ConstantVariables.MaxVerticalSpeed)
 				_velocity.y = ConstantVariables.MaxVerticalSpeed;
 
@@ -136,18 +146,30 @@ namespace Assets.Scripts.Player
 
 		private void MoveToClimbingPoint()
 		{
-			Debug.Log("climb");
-
 			float speed = MovementAllowed
 				? ClimbingState.MovementSpeed
 				: 0;
 
-			if (_movement.MoveLinearly(speed) == false
-				|| _climbHandler.CurrentClimb == Climb.Down && _movement.IsCollidingWithNonPivot())
+			bool isCorner = Anim.GetBool("corner") && (MovementState.CharacterPoint == ColliderPoint.TopLeft || MovementState.CharacterPoint == ColliderPoint.TopRight);
+
+			if (_climbHandler.CurrentClimb == Climb.Down && _movement.IsCollidingWithNonPivot())
 			{
-				_climbHandler.CurrentClimb = Climb.None;
+				CancelClimbingState();
 				Anim.PlayAnimation(Animations.Falling);
 				MoveWithVelocity(0);
+				Transform.rotation = new Quaternion();
+			}
+			else if (_movement.MoveLinearly(speed, isCorner) == false)
+			{
+				if (_climbHandler.CheckReattach())
+					_movement.MoveLinearly(speed, isCorner);
+				else
+				{
+					CancelClimbingState();
+					Anim.PlayAnimation(Animations.Falling);
+					MoveWithVelocity(0);
+					Transform.rotation = new Quaternion();
+				}
 			}
 		}
 
@@ -276,7 +298,9 @@ namespace Assets.Scripts.Player
 				? Collider.bounds.max.x + 0.2f
 				: Collider.bounds.min.x - 0.2f;
 			var edgeRay = new Vector2(xOrigin, Collider.bounds.min.y);
-			return Physics2D.Raycast(edgeRay, Vector2.down, 1.5f, Layers.Platforms);
+
+			Debug.DrawRay(edgeRay, MovementState.GetSurfaceDownDirection(), Color.blue);
+			return Physics2D.Raycast(edgeRay, MovementState.GetSurfaceDownDirection(), 1.5f, Layers.Platforms);
 		}
 
 		private bool TryClimb()
@@ -391,7 +415,7 @@ namespace Assets.Scripts.Player
 		public ClimbingState SwitchClimbingState()
 		{
 			Climb climb = _climbHandler.CurrentClimb;
-			DirectionFacing direction = DirectionFacing.None;
+			var direction = DirectionFacing.None;
 
 			if (climb != Climb.MoveToEdge && climb != Climb.Jump && climb != Climb.End)
 			{
@@ -437,7 +461,7 @@ namespace Assets.Scripts.Player
 
 		private DirectionFacing AddNextClimbs()
 		{
-			DirectionFacing direction = DirectionFacing.None;
+			var direction = DirectionFacing.None;
 
 			if (KeyBindings.GetKey(Control.Left))
 			{
@@ -475,19 +499,16 @@ namespace Assets.Scripts.Player
 				xOrigin,
 				Collider.bounds.min.y + checkHeight);
 
-			Vector2 castDirection = GetSurfaceDirection(direction == DirectionFacing.Left ? DirectionTravelling.Left : DirectionTravelling.Right);
+			Vector2 castDirection = MovementState.GetSurfaceDirection(direction == DirectionFacing.Left ? DirectionTravelling.Left : DirectionTravelling.Right);
 
 			return Physics2D.Raycast(origin, castDirection, checkLength, 1 << LayerMask.NameToLayer(Layers.Interactable));
 		}
 
-		public Vector3 GetSurfaceDirection(DirectionTravelling direction)
-		{
-			return _movement.GetSurfaceDirection(direction);
-		}
+		
 
 		public void InteractWithStilt()
 		{
-			Stilt stilt = _interactionCollider.transform.parent.GetComponent<Stilt>();
+			var stilt = _interactionCollider.transform.parent.GetComponent<Stilt>();
 			if (stilt.IsExtended)
 			{
 				Anim.PlayAnimation(Animations.LowerStilt);
@@ -500,7 +521,7 @@ namespace Assets.Scripts.Player
 
 		public void SwitchStilt()
 		{
-			Stilt stilt = _interactionCollider.transform.parent.GetComponent<Stilt>();
+			var stilt = _interactionCollider.transform.parent.GetComponent<Stilt>();
 			stilt.IsExtended = !stilt.IsExtended;
 		}
 

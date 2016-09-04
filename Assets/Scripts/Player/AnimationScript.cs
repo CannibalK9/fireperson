@@ -49,6 +49,11 @@ namespace Assets.Scripts.Player
 			_animator.SetBool(boolName, value);
 		}
 
+		public bool GetBool(string boolName)
+		{
+			return _animator.GetBool(boolName);
+		}
+
 		public void PlayAnimation(string anim)
 		{
 			_animator.Play(Animator.StringToHash(anim));
