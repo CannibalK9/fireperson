@@ -14,6 +14,7 @@ namespace Assets.Scripts.Player
 		private bool _recalculate;
 		private bool _shouldFlip;
 		private bool _isHanging;
+		private bool _isAnchored;
 		private bool _isJumping;
 
 		void Awake()
@@ -32,6 +33,7 @@ namespace Assets.Scripts.Player
                 || _animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Falling))
 			{
 				_isHanging = false;
+				_isAnchored = false;
 				_isJumping = false;
 				_animator.ResetTrigger("climbUp");
 				_animator.ResetTrigger("transitionDown");
@@ -42,6 +44,8 @@ namespace Assets.Scripts.Player
 
 			if (_isHanging)
 				TryHangingInput();
+			else if (_isAnchored)
+				TryAnchoredInput();
 		}
 
 		public void SetBool(string boolName, bool value)
@@ -82,6 +86,24 @@ namespace Assets.Scripts.Player
 		private void ContinuousHangingInput()
 		{
 			_isHanging = true;
+		}
+
+		private void TryAnchoredInput()
+		{
+			ClimbingState nextState;
+			_animator.speed = 1;
+			if (PlayerMotor.TryAnchoredInput(out nextState))
+			{
+				_isAnchored = false;
+				if (nextState.Climb == Climb.End)
+					nextState.Climb = Climb.Up;
+				SetupNextState(nextState);
+			}
+		}
+
+		private void ContinuousAnchorInput()
+		{
+			_isAnchored = true;
 		}
 
 		private void SetupNextState(ClimbingState nextState)

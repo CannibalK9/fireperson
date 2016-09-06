@@ -71,7 +71,8 @@ namespace Assets.Scripts.Movement
 
 			return hits.Any(hit =>
 				hit.collider.transform != _motor.MovementState.Pivot.transform.parent
-				&& hit.collider != _motor.MovementState.Pivot.transform.parent.GetComponent<ClimbableEdges>().Exception);
+				&& hit.collider != _motor.MovementState.Pivot.transform.parent.GetComponent<ClimbableEdges>().Exception
+				&& hit.collider != _motor.MovementState.Pivot.transform.parent.GetComponent<ClimbableEdges>().Exception2);
 		}
 
 		public void BoxCastMove(Vector3 deltaMovement, bool isKinematic)
@@ -117,7 +118,6 @@ namespace Assets.Scripts.Movement
 				{
 					SetPivotPoint(_downHit.collider, pivotPosition);
 					_previousColliderPoint = hitLocation;
-					Debug.Log("pivot switched");
 				}
 
 				if ((_motor.MovementState.IsOnSlope && ((leftHit && _downHit.normal.x < 0) || (rightHit && _downHit.normal.x > 0))) == false)

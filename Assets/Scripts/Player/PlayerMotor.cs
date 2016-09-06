@@ -459,6 +459,36 @@ namespace Assets.Scripts.Player
 			}
 		}
 
+		public bool TryAnchoredInput(out ClimbingState climbingState)
+		{
+			_climbHandler.CurrentClimb = Climb.Up;
+			DirectionFacing direction = AddNextClimbs();
+
+			if (_climbHandler.NextClimbs.Any())
+			{
+				ClimbingState = _climbHandler.SwitchClimbingState(direction);
+
+				if (ClimbingState.Recalculate == false && ClimbingState.Climb == Climb.End)
+				{
+					climbingState = ClimbingState;
+					return false;
+				}
+
+				if (ClimbingState.PivotCollider != null && ClimbingState.Climb != Climb.End && ClimbingState.Recalculate)
+					MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
+				else if (ClimbingState.PivotCollider == null)
+					MovementState.UnsetPivot();
+
+				climbingState = ClimbingState;
+				return true;
+			}
+			else
+			{
+				climbingState = ClimbingState;
+				return false;
+			}
+		}
+
 		private DirectionFacing AddNextClimbs()
 		{
 			var direction = DirectionFacing.None;

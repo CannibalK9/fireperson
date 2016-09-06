@@ -20,6 +20,7 @@ namespace Assets.Scripts.Interactable
 		public GameObject RightEdgeObject;
 
 		public Collider2D Exception;
+		public Collider2D Exception2;
 
 		private GameObject _leftEdge;
 		private GameObject _rightEdge;
