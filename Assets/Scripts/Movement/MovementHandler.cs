@@ -16,6 +16,7 @@ namespace Assets.Scripts.Movement
 		public MovementHandler(IMotor motor)
 		{
 			_motor = motor;
+
 		}
 
 		public bool MoveLinearly(float speed, bool applyRotation = false)
