@@ -90,6 +90,7 @@ namespace Assets.Scripts.Player
 			{
 				Anim.SetBool("falling", true);
 				Anim.SetBool("moving", false);
+				Anim.SetBool("upright", false);
 				return PlayerState.Falling;
 			}
 			else if (ChannelingHandler.IsChanneling && ChannelingHandler.ChannelingSet == false)
@@ -126,7 +127,7 @@ namespace Assets.Scripts.Player
 
 			float maxX = ConstantVariables.MaxHorizontalSpeed;
 
-			if (Physics2D.Raycast(Collider.GetTopLeft(), Vector2.right, Collider.bounds.size.x, Layers.Platforms))
+			if (Physics2D.Raycast(Collider.GetTopLeft() + Vector3.up * 0.1f, Vector2.right, Collider.bounds.size.x, Layers.Platforms))
 			{
 				maxX = ConstantVariables.SquashedSpeed;
 				Anim.SetBool("squashed", true);
@@ -349,12 +350,13 @@ namespace Assets.Scripts.Player
 				if (hit.collider != null)
 				{
 					_interactionCollider = hit.collider;
+					string interactName = hit.collider.transform.name;
 
-					if (hit.transform.name.Contains(Interactables.Stilt))
+					if (interactName.Contains(Interactables.Stilt))
 						InteractWithStilt();
-					else if (hit.transform.name.Contains(Interactables.ChimneyLid))
+					else if (interactName.Contains(Interactables.ChimneyLid))
 						Anim.PlayAnimation(Animations.OpenChimney);
-					else if (hit.transform.name.Contains(Interactables.Stove))
+					else if (interactName.Contains(Interactables.Stove))
 						Anim.PlayAnimation(Animations.OpenStove);
 
 					return true;
