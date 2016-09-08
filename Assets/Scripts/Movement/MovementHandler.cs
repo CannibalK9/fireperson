@@ -16,19 +16,16 @@ namespace Assets.Scripts.Movement
 		public MovementHandler(IMotor motor)
 		{
 			_motor = motor;
-
 		}
 
-		public bool MoveLinearly(float speed, bool applyRotation = false, bool endClimb = false)
+		public bool MoveLinearly(float speed, bool applyRotation = false)
 		{
 			if (_motor.MovementState.PivotCollider == null)
 				return false;
 
 			_motor.Rigidbody.isKinematic = true;
-
-            if (endClimb == false)
-    			_motor.MovementState.UpdatePivotToTarget();
-
+    		_motor.MovementState.UpdatePivotToTarget();
+        
 			float distance;
 			Vector2 characterPoint;
 
@@ -112,6 +109,7 @@ namespace Assets.Scripts.Movement
 				else
 					hitLocation = ColliderPoint.BottomRight;
 
+                _motor.MovementState.CharacterPoint = hitLocation;
 				Vector3 offset = _motor.Collider.GetPoint(hitLocation);
 
 				float x = hitLocation == ColliderPoint.BottomFace ? bounds.center.x : _downHit.point.x;

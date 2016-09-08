@@ -172,7 +172,7 @@ namespace Assets.Scripts.Player
 			else
 			{
 				if (_recalculate)
-					_animator.speed = PlayerMotor.GetAnimationSpeed();
+					_animator.speed = PlayerMotor.GetClimbingAnimationSpeed();
 				PlayerMotor.MovementAllowed = true;
 			}
 		}

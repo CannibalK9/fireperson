@@ -11,13 +11,11 @@ namespace Assets.Scripts.Movement
 		public bool MovementOverridden { get; set; }
 		public bool LeftCollision { get; private set; }
 		public bool RightCollision { get; private set; }
-		public bool IgnoreCurrentPlatform { get; set; }
 		public GameObject Pivot { get; private set; }
 		public Vector3 CurrentAcceleration { get; set; }
 		public Vector3 PreviousPivotPoint { get; set; }
 		public ColliderPoint CharacterPoint { get; set; }
 		public ColliderPoint TargetPoint { get; private set; }
-		public DownHit DownHit { get; set; }
 		public Vector3 Normal { get; set; }
 
 		public MovementState()
@@ -95,12 +93,5 @@ namespace Assets.Scripts.Movement
 		{
 			PivotCollider = null;
 		}
-	}
-
-	public enum DownHit
-	{
-		Left,
-		Right,
-		Centre
 	}
 }

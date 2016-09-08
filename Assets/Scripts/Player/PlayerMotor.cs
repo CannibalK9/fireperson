@@ -34,6 +34,7 @@ namespace Assets.Scripts.Player
 		private Collider2D _interactionCollider;
 		private PlayerState _playerState;
 		private float _normalizedHorizontalSpeed;
+        private float _interactionMovementSpeed;
 
 		void Awake()
 		{
@@ -62,9 +63,7 @@ namespace Assets.Scripts.Player
 					MoveToClimbingPoint();
 					break;
 				case PlayerState.Interacting:
-					_velocity = new Vector2(_interactionCollider.bounds.center.x - Collider.bounds.center.x, 0);
-					MoveWithVelocity(0);
-					//cancel animations here
+                    MoveToInteractionPoint();
 					break;
 				case PlayerState.Falling:
 					SetHorizontalVelocity();
@@ -103,7 +102,7 @@ namespace Assets.Scripts.Player
 				return PlayerState.Climbing;
 			else if (TryClimb())
 				return SetMotorToClimbState();
-			else if (TryInteract()) //should also bail out of interacting/channelling if needed
+			else if (TryInteract())
 				return PlayerState.Interacting;
 			else if (TryChannel())
 				return PlayerState.Static;
@@ -156,9 +155,7 @@ namespace Assets.Scripts.Player
 			if (_climbHandler.CurrentClimb == Climb.Down && _movement.IsCollidingWithNonPivot())
 			{
 				CancelClimbingState();
-				Anim.PlayAnimation(Animations.Falling);
-				MoveWithVelocity(0);
-				Transform.rotation = new Quaternion();
+                CancelAnimation();
 			}
 			else if (_movement.MoveLinearly(speed, isCorner) == false)
 			{
@@ -167,12 +164,25 @@ namespace Assets.Scripts.Player
 				else
 				{
 					CancelClimbingState();
-					Anim.PlayAnimation(Animations.Falling);
-					MoveWithVelocity(0);
-					Transform.rotation = new Quaternion();
+                    CancelAnimation();
 				}
 			}
 		}
+
+        private void MoveToInteractionPoint()
+        {
+            if (_movement.IsCollidingWithNonPivot())
+            {
+                CancelAnimation();
+            }
+            else
+            {
+                if (MovementAllowed)
+                    _movement.MoveLinearly(_interactionMovementSpeed);
+                else
+                    MoveWithVelocity(0);
+            }
+        }
 
 		public void UpdateClimbingSpeed(float speed)
 		{
@@ -350,6 +360,10 @@ namespace Assets.Scripts.Player
 				if (hit.collider != null)
 				{
 					_interactionCollider = hit.collider;
+                    MovementState.SetPivot(_interactionCollider, ColliderPoint.Centre, MovementState.CharacterPoint);
+                    MovementState.PivotCollider = _interactionCollider;
+                    _interactionMovementSpeed = GetAnimationSpeed();
+
 					string interactName = hit.collider.transform.name;
 
 					if (interactName.Contains(Interactables.Stilt))
@@ -518,10 +532,16 @@ namespace Assets.Scripts.Player
 			_climbHandler.CancelClimb();
 		}
 
+        private void CancelAnimation()
+        {
+            Anim.PlayAnimation(Animations.Idle);
+            MoveWithVelocity(0);
+            Transform.rotation = new Quaternion();
+        }
+
 		private RaycastHit2D CheckInteractableInFront(DirectionFacing direction)
 		{
 			const float checkLength = 2f;
-			const float checkHeight = 0.1f;
 
 			float xOrigin = direction == DirectionFacing.Right
 				? Collider.bounds.min.x
@@ -529,14 +549,12 @@ namespace Assets.Scripts.Player
 
 			var origin = new Vector2(
 				xOrigin,
-				Collider.bounds.min.y + checkHeight);
+				Collider.bounds.min.y);
 
 			Vector2 castDirection = MovementState.GetSurfaceDirection(direction == DirectionFacing.Left ? DirectionTravelling.Left : DirectionTravelling.Right);
 
-			return Physics2D.Raycast(origin, castDirection, checkLength, 1 << LayerMask.NameToLayer(Layers.Interactable));
+			return Physics2D.BoxCast(origin, Vector2.one, 0, castDirection, checkLength, 1 << LayerMask.NameToLayer(Layers.Interactable));
 		}
-
-		
 
 		public void InteractWithStilt()
 		{
@@ -567,22 +585,27 @@ namespace Assets.Scripts.Player
             _interactionCollider.GetComponent<StoveDoor>().Switch();
         }
 
-		public float GetAnimationSpeed()
+		public float GetClimbingAnimationSpeed()
 		{
 			if (ClimbingState == null || MovementState.Pivot == null)
 				return 1;
 
-			float distance = Vector2.Distance(Collider.GetPoint(ClimbingState.PlayerPosition), MovementState.Pivot.transform.position);
-
-			float speed = _playerState == PlayerState.Climbing
-				? ClimbingState.MovementSpeed
-				: ConstantVariables.DefaultMovementSpeed;
-
-			float animSpeed = 4 / (distance / speed);
-			return animSpeed < 10
-				? animSpeed
-				: 10;
+            return GetAnimationSpeed();
 		}
+
+        private float GetAnimationSpeed()
+        {
+			float distance = Vector2.Distance(Collider.GetPoint(MovementState.CharacterPoint), MovementState.Pivot.transform.position);
+
+            float speed = _playerState == PlayerState.Climbing
+                ? ClimbingState.MovementSpeed
+                : ConstantVariables.DefaultMovementSpeed;
+
+            float animSpeed = 4 / (distance / speed);
+            return animSpeed < 10
+                ? animSpeed
+                : 10;
+        }
 
 		public Vector2 GetGroundPivotPosition()
 		{

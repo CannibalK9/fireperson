@@ -16,8 +16,8 @@ namespace Assets.Scripts.Interactable
 		public bool IsRightCornerInverted;
 		public bool IsRightDropless;
 
-		public GameObject LeftEdgeObject;
-		public GameObject RightEdgeObject;
+        private GameObject _leftEdgeObject;
+		private GameObject _rightEdgeObject;
 
 		public Collider2D Exception;
 		public Collider2D Exception2;
@@ -29,7 +29,6 @@ namespace Assets.Scripts.Interactable
 		private bool _wasRight;
 
 		private BoxCollider2D _col;
-		private readonly float _slopeLimit = ConstantVariables.DefaultPlayerSlopeLimit;
 		private Orientation _orientation;
 
 		void Awake()
@@ -37,9 +36,12 @@ namespace Assets.Scripts.Interactable
 			_col = gameObject.GetComponent<BoxCollider2D>();
 			_wasLeft = LeftEdge;
 			_wasRight = RightEdge;
-		}
 
-		void Update()
+            _leftEdgeObject = Resources.Load("edges/left edge") as GameObject;
+            _rightEdgeObject = Resources.Load("edges/right edge") as GameObject;
+        }
+
+        void Update()
 		{
 			if (LeftEdge != _wasLeft || RightEdge != _wasRight)
 			{
@@ -150,8 +152,8 @@ namespace Assets.Scripts.Interactable
 
 		private void InstantiateUprightObjects()
 		{
-			_leftEdge = Instantiate(LeftEdgeObject);
-			_rightEdge = Instantiate(RightEdgeObject);
+			_leftEdge = Instantiate(_leftEdgeObject);
+			_rightEdge = Instantiate(_rightEdgeObject);
 
 			_leftEdge.name += " upright corner";
 			_rightEdge.name += " upright corner";
@@ -162,8 +164,8 @@ namespace Assets.Scripts.Interactable
 			if (LeftEdge && _leftEdge == null)
 			{
 				_leftEdge = _orientation == Orientation.UpsideDown || IsLeftCornerInverted
-					? Instantiate(RightEdgeObject)
-					: Instantiate(LeftEdgeObject);
+					? Instantiate(_rightEdgeObject)
+					: Instantiate(_leftEdgeObject);
 
 				if (IsLeftCorner)
 				{
@@ -197,8 +199,8 @@ namespace Assets.Scripts.Interactable
 			if (RightEdge && _rightEdge == null)
 			{
 				_rightEdge = _orientation == Orientation.UpsideDown || IsRightCornerInverted
-					? Instantiate(LeftEdgeObject)
-					: Instantiate(RightEdgeObject);
+					? Instantiate(_leftEdgeObject)
+					: Instantiate(_rightEdgeObject);
 
 				if (IsRightCorner)
 				{
