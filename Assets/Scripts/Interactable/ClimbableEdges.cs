@@ -52,13 +52,7 @@ namespace Assets.Scripts.Interactable
 			{
 				Orientation currentOrientation = _orientation;
 				float rotation = transform.rotation.eulerAngles.z;
-
-				if (rotation < _slopeLimit || rotation > 360f - _slopeLimit)
-					_orientation = Orientation.Flat;
-				else if (rotation < 180f + _slopeLimit && rotation > 180f - _slopeLimit)
-					_orientation = Orientation.UpsideDown;
-				else
-					_orientation = Orientation.Upright;
+                _orientation = OrientationHelper.GetOrientation(rotation);
 
 				if (currentOrientation != _orientation)
 				{
@@ -84,13 +78,16 @@ namespace Assets.Scripts.Interactable
 			transform.parent = null;
 			transform.rotation = new Quaternion();
 
-			if (_orientation == Orientation.Upright)
+			if (_orientation == Orientation.UprightAntiClockwise)
 			{
-				if (IsLeftCorner == false && rotation > 180)
-					CreateLeftUpright();
-				else if (IsRightCorner == false && rotation < 180)
+                if (IsRightCorner == false)
 					CreateRightUpright();
 			}
+            else if (_orientation == Orientation.UprightClockwise)
+            {
+                if (IsLeftCorner == false)
+                    CreateLeftUpright();
+            }
 			else
 			{
 				if (IsLeftCorner)
@@ -99,7 +96,7 @@ namespace Assets.Scripts.Interactable
 						|| (_orientation == Orientation.UpsideDown && IsLeftCornerInverted))
 						CreateLeftEdge();
 				}
-				else if (_orientation != Orientation.Upright)
+				else
 					CreateLeftEdge();
 
 				if (IsRightCorner)
@@ -108,7 +105,7 @@ namespace Assets.Scripts.Interactable
 						|| (_orientation == Orientation.UpsideDown && IsRightCornerInverted))
 						CreateRightEdge();
 				}
-				else if (_orientation != Orientation.Upright)
+				else
 					CreateRightEdge();
 			}
 			transform.rotation = currentRotation;

@@ -37,6 +37,17 @@ namespace Assets.Scripts.Movement
 			return Quaternion.Euler(0, 0, 180) * Normal;
 		}
 
+        public void MovePivotAlongSurface(DirectionTravelling direction, float distance)
+        {
+            Orientation o = OrientationHelper.GetOrientation(Pivot.transform.parent.rotation.eulerAngles.z);
+            Vector3 v = OrientationHelper.GetSurfaceVectorTowardsRight(o, Pivot.transform.parent);
+
+            if (direction == DirectionTravelling.Left)
+                v = -v; 
+
+            Pivot.transform.Translate(v.normalized * distance, Space.World);
+        }
+
 		public void Reset(Vector3 currentAcceleration)
 		{
 			IsGrounded = false;

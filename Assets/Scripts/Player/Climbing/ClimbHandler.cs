@@ -402,30 +402,30 @@ namespace Assets.Scripts.Player.Climbing
 				case Climb.Mantle:
 				case Climb.Flip:
 				case Climb.Up:
-					if (NextClimbs.Contains(Climb.Down))
-					{
-						recalculate = false;
-						nextClimb = Climb.Down;
-					}
-					else if (NextClimbs.Contains(Climb.Up) && CheckLedgeAbove(direction, out nextClimb))
-					{ }
-					else if (NextClimbs.Contains(Climb.AcrossLeft) && ClimbSide == DirectionFacing.Left)
-						nextClimb = CheckLedgeAcross(DirectionFacing.Left)
-							? Climb.AcrossLeft
-							: Climb.Jump;
-					else if (NextClimbs.Contains(Climb.AcrossRight) && ClimbSide == DirectionFacing.Right)
-						nextClimb = CheckLedgeAcross(DirectionFacing.Right)
-							? Climb.AcrossRight
-							: Climb.Jump;
-					else
-						_motor.MoveHorizontally();
+                    if (NextClimbs.Contains(Climb.Down))
+                    {
+                        recalculate = false;
+                        nextClimb = Climb.Down;
+                    }
+                    else if (NextClimbs.Contains(Climb.Up) && CheckLedgeAbove(direction, out nextClimb))
+                    { }
+                    else if (NextClimbs.Contains(Climb.AcrossLeft) && ClimbSide == DirectionFacing.Left)
+                        nextClimb = CheckLedgeAcross(DirectionFacing.Left)
+                            ? Climb.AcrossLeft
+                            : Climb.Jump;
+                    else if (NextClimbs.Contains(Climb.AcrossRight) && ClimbSide == DirectionFacing.Right)
+                        nextClimb = CheckLedgeAcross(DirectionFacing.Right)
+                            ? Climb.AcrossRight
+                            : Climb.Jump;
+                    else
+                        MovePivotAlongSurface();
 
 					if (nextClimb == Climb.Jump && _climbCollider.CanClimbDown() == false)
 					{
 						nextClimb = Climb.End;
-						_motor.MoveHorizontally();
-					}
-					break;
+                        MovePivotAlongSurface();
+                    }
+                    break;
 				case Climb.Down:
 					if (NextClimbs.Contains(Climb.Up))
 					{
@@ -472,8 +472,8 @@ namespace Assets.Scripts.Player.Climbing
 					else if (_climbCollider.CanClimbDown())
 						nextClimb = Climb.Jump;
 					else
-						_motor.MoveHorizontally();
-					break;
+                        MovePivotAlongSurface();
+                    break;
 			}
 
 			CurrentClimb = nextClimb;
@@ -482,7 +482,12 @@ namespace Assets.Scripts.Player.Climbing
 			return GetClimbingState(recalculate);
 		}
 
-		public bool CanClimbDown()
+        private void MovePivotAlongSurface()
+        {
+            _motor.MovementState.MovePivotAlongSurface(ClimbSide == DirectionFacing.Right ? DirectionTravelling.Left : DirectionTravelling.Right, _playerCollider.bounds.extents.x);
+        }
+
+        public bool CanClimbDown()
 		{
 			return _climbCollider.CanClimbDown();
 		}

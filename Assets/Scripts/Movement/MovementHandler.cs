@@ -19,13 +19,15 @@ namespace Assets.Scripts.Movement
 
 		}
 
-		public bool MoveLinearly(float speed, bool applyRotation = false)
+		public bool MoveLinearly(float speed, bool applyRotation = false, bool endClimb = false)
 		{
 			if (_motor.MovementState.PivotCollider == null)
 				return false;
 
 			_motor.Rigidbody.isKinematic = true;
-			_motor.MovementState.UpdatePivotToTarget();
+
+            if (endClimb == false)
+    			_motor.MovementState.UpdatePivotToTarget();
 
 			float distance;
 			Vector2 characterPoint;
