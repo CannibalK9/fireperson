@@ -34,5 +34,22 @@ namespace Assets.Scripts.Helpers
                     return Vector3.zero;
             }
         }
-    }
+
+		public static Vector3 GetUpwardVector(Orientation orientation, Transform trans)
+		{
+			switch (orientation)
+			{
+				case Orientation.Flat:
+					return trans.up;
+				case Orientation.UpsideDown:
+					return -trans.up;
+				case Orientation.UprightAntiClockwise:
+					return trans.right;
+				case Orientation.UprightClockwise:
+					return -trans.right;
+				default:
+					return Vector3.zero;
+			}
+		}
+	}
 }

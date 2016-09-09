@@ -31,7 +31,7 @@ namespace Assets.Scripts.Player
 		private MovementHandler _movement;
 		private ClimbHandler _climbHandler;
 		private Vector3 _velocity;
-		private Collider2D _interactionCollider;
+		private Transform _interactionObject;
 		private PlayerState _playerState;
 		private float _normalizedHorizontalSpeed;
         private float _interactionMovementSpeed;
@@ -214,7 +214,7 @@ namespace Assets.Scripts.Player
 					newPoint = ColliderPoint.LeftFace;
 					break;
 				default:
-					throw new ArgumentOutOfRangeException();
+					throw new ArgumentOutOfRangeException(MovementState.CharacterPoint.ToString());
 			}
 
 			MovementState.CharacterPoint = newPoint;
@@ -264,7 +264,7 @@ namespace Assets.Scripts.Player
 
 		private PlayerState SetMotorToClimbState()
 		{
-			_interactionCollider = null;
+			_interactionObject = null;
 			CancelVelocity();
 			ClimbingState = _climbHandler.GetClimbingState(true);
 			MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
@@ -357,14 +357,13 @@ namespace Assets.Scripts.Player
 			if (KeyBindings.GetKey(Control.Action))
 			{
 				RaycastHit2D hit = CheckInteractableInFront(GetDirectionFacing());
-				if (hit.collider != null)
+				if (hit)
 				{
-					_interactionCollider = hit.collider;
-                    MovementState.SetPivot(_interactionCollider, ColliderPoint.Centre, MovementState.CharacterPoint);
-                    MovementState.PivotCollider = _interactionCollider;
+					_interactionObject = hit.collider.transform.parent;
+                    MovementState.SetPivot(hit.collider, ColliderPoint.Centre, MovementState.CharacterPoint);
                     _interactionMovementSpeed = GetAnimationSpeed();
 
-					string interactName = hit.collider.transform.name;
+					string interactName = _interactionObject.name;
 
 					if (interactName.Contains(Interactables.Stilt))
 						InteractWithStilt();
@@ -558,7 +557,7 @@ namespace Assets.Scripts.Player
 
 		public void InteractWithStilt()
 		{
-			var stilt = _interactionCollider.transform.parent.GetComponent<Stilt>();
+			var stilt = _interactionObject.transform.parent.GetComponent<Stilt>();
 			if (stilt.IsExtended)
 			{
 				Anim.PlayAnimation(Animations.LowerStilt);
@@ -571,18 +570,18 @@ namespace Assets.Scripts.Player
 
 		public void SwitchStilt()
 		{
-			var stilt = _interactionCollider.transform.parent.GetComponent<Stilt>();
+			var stilt = _interactionObject.transform.parent.GetComponent<Stilt>();
 			stilt.IsExtended = !stilt.IsExtended;
 		}
 
 		public void SwitchChimney()
         {
-            _interactionCollider.GetComponentInChildren<ChimneyLid>().Switch();
+            _interactionObject.GetComponentInChildren<ChimneyLid>().Switch();
         }
 
         public void SwitchStove()
         {
-            _interactionCollider.GetComponent<StoveDoor>().Switch();
+            _interactionObject.GetComponent<StoveDoor>().Switch();
         }
 
 		public float GetClimbingAnimationSpeed()

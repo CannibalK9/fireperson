@@ -23,45 +23,34 @@ namespace Assets.Scripts.Movement
 			if (_motor.MovementState.PivotCollider == null)
 				return false;
 
+			Vector2 characterPoint = _motor.Collider.GetPoint(_motor.MovementState.CharacterPoint);
+
+			float rotation = Vector2.Angle(Vector2.up, _motor.Transform.up);
+			if (_motor.Transform.up.x > 0)
+				rotation = 360 - rotation;
+			_motor.Transform.RotateAround(characterPoint, Vector3.forward, rotation);
+
 			_motor.Rigidbody.isKinematic = true;
     		_motor.MovementState.UpdatePivotToTarget();
         
 			float distance;
-			Vector2 characterPoint;
-
-			characterPoint = _motor.Collider.GetPoint(_motor.MovementState.CharacterPoint);
+			
 			Vector3 movement = MoveTowardsPivot(out distance, speed, characterPoint);
-
-			//if (applyRotation)
-			//{
-			//	Vector3 side;
-			//	if (_motor.MovementState.PivotCollider.IsUpright())
-			//	{
-			//		//switch it depending on side
-			//		side = _motor.MovementState.GetSurfaceDirection(DirectionTravelling.Left);
-			//	}
-			//	else
-			//	{
-			//		side = _motor.MovementState.GetSurfaceDownDirection();
-			//	}
-
-			//	float rotation = AngleBetweenVector2(Quaternion.Euler(0,0,180) * _motor.Transform.up, side);
-
-			//	rotation = Mathf.Lerp(rotation, 0, distance);
-			//	_motor.Transform.RotateAround(characterPoint, Vector3.forward, rotation);
-			//}
-			//else
-			//	_motor.Transform.rotation = new Quaternion();
-
 			_motor.Transform.Translate(movement, Space.World);
-			return true;
-		}
 
-		private float AngleBetweenVector2(Vector2 vec1, Vector2 vec2)
-		{
-			Vector2 diference = vec2 - vec1;
-			float sign = (vec2.y < vec1.y) ? -1.0f : 1.0f;
-			return Vector2.Angle(Vector2.right, diference) * sign;
+			if (applyRotation)
+			{
+				Orientation o = OrientationHelper.GetOrientation(_motor.MovementState.GetPivotParentRotation());
+				Vector3 v = OrientationHelper.GetUpwardVector(o, _motor.MovementState.Pivot.transform.parent);
+
+				float r = Vector2.Angle(Vector2.up, v);
+				if (v.x > 0)
+					r = 360 - r;
+				r = Mathf.Lerp(r, 0, distance);
+				_motor.Transform.RotateAround(characterPoint, Vector3.forward, r);
+			}
+
+			return true;
 		}
 
 		public bool IsCollidingWithNonPivot()

@@ -17,6 +17,7 @@ namespace Assets.Scripts.Movement
 		public ColliderPoint CharacterPoint { get; set; }
 		public ColliderPoint TargetPoint { get; private set; }
 		public Vector3 Normal { get; set; }
+		private bool _updatePivot;
 
 		public MovementState()
 		{
@@ -37,14 +38,20 @@ namespace Assets.Scripts.Movement
 
         public void MovePivotAlongSurface(DirectionTravelling direction, float distance)
         {
-            Orientation o = OrientationHelper.GetOrientation(Pivot.transform.parent.rotation.eulerAngles.z);
+            Orientation o = OrientationHelper.GetOrientation(GetPivotParentRotation());
             Vector3 v = OrientationHelper.GetSurfaceVectorTowardsRight(o, Pivot.transform.parent);
 
             if (direction == DirectionTravelling.Left)
-                v = -v; 
+                v = -v;
 
+			_updatePivot = false;
             Pivot.transform.Translate(v.normalized * distance, Space.World);
         }
+
+		public float GetPivotParentRotation()
+		{
+			return Pivot.transform.parent.rotation.eulerAngles.z;
+		}
 
 		public void Reset(Vector3 currentAcceleration)
 		{
@@ -78,11 +85,12 @@ namespace Assets.Scripts.Movement
 			TargetPoint = targetPoint;
 			Pivot.transform.position = PivotCollider.GetPoint(TargetPoint);
 			PreviousPivotPoint = Pivot.transform.position;
+			_updatePivot = true;
 		}
 
 		public void UpdatePivotToTarget()
 		{
-			if (PivotCollider != null)
+			if (PivotCollider != null && _updatePivot)
 			{
 				PreviousPivotPoint = Pivot.transform.position;
 				Pivot.transform.position = PivotCollider.GetPoint(TargetPoint);
