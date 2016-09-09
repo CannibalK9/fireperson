@@ -42,7 +42,7 @@ namespace Assets.Scripts.Player
 			Anim = Transform.GetComponent<AnimationScript>();
 			Collider = Transform.GetComponent<BoxCollider2D>();
 			Rigidbody = Transform.GetComponent<Rigidbody2D>();
-			MovementState = new MovementState();
+			MovementState = new MovementState(Collider.bounds.extents);
 			MovementAllowed = true;
 
 			_movement = new MovementHandler(this);

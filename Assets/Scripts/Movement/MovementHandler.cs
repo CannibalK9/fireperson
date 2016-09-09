@@ -23,32 +23,22 @@ namespace Assets.Scripts.Movement
 			if (_motor.MovementState.PivotCollider == null)
 				return false;
 
-			Vector2 characterPoint = _motor.Collider.GetPoint(_motor.MovementState.CharacterPoint);
+            _motor.Rigidbody.isKinematic = true;
+            _motor.MovementState.UpdatePivotToTarget();
 
-			float rotation = Vector2.Angle(Vector2.up, _motor.Transform.up);
-			if (_motor.Transform.up.x > 0)
-				rotation = 360 - rotation;
-			_motor.Transform.RotateAround(characterPoint, Vector3.forward, rotation);
-
-			_motor.Rigidbody.isKinematic = true;
-    		_motor.MovementState.UpdatePivotToTarget();
-        
 			float distance;
-			
-			Vector3 movement = MoveTowardsPivot(out distance, speed, characterPoint);
-			_motor.Transform.Translate(movement, Space.World);
+			Vector2 characterPoint = _motor.Collider.GetPoint(_motor.MovementState.CharacterPoint);
+            Vector3 movement = MoveTowardsPivot(out distance, speed, characterPoint);
+            _motor.Transform.Translate(movement, Space.World);
 
-			if (applyRotation)
-			{
-				Orientation o = OrientationHelper.GetOrientation(_motor.MovementState.GetPivotParentRotation());
-				Vector3 v = OrientationHelper.GetUpwardVector(o, _motor.MovementState.Pivot.transform.parent);
+            if (applyRotation)
+            {
+                Orientation o = OrientationHelper.GetOrientation(_motor.MovementState.GetPivotParentRotation());
+                Vector3 vDown = OrientationHelper.GetDownwardVector(o, _motor.MovementState.Pivot.transform.parent);
+                Vector3 rotation = Vector3.RotateTowards(_motor.Transform.rotation.eulerAngles, -vDown, 0.1f, 0.1f);
 
-				float r = Vector2.Angle(Vector2.up, v);
-				if (v.x > 0)
-					r = 360 - r;
-				r = Mathf.Lerp(r, 0, distance);
-				_motor.Transform.RotateAround(characterPoint, Vector3.forward, r);
-			}
+                _motor.Transform.rotation = new Quaternion(0, 0, rotation.z, 0);
+            }
 
 			return true;
 		}
