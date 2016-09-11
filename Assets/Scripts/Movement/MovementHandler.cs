@@ -18,7 +18,7 @@ namespace Assets.Scripts.Movement
 			_motor = motor;
 		}
 
-		public bool MoveLinearly(float speed, bool applyRotation = false, bool anchored = false)
+		public bool MoveLinearly(float speed, bool applyRotation = false)
 		{
 			if (_motor.MovementState.PivotCollider == null)
 				return false;
@@ -34,17 +34,6 @@ namespace Assets.Scripts.Movement
 			if (applyRotation)
 			{
 				float fullRotation = OrientationHelper.GetRotationConsideringOrientation(_motor.MovementState.Pivot.transform.parent);
-
-				if (anchored)
-				{
-					fullRotation += 90;
-					if (_motor.Transform.localScale.x > 0f)
-						fullRotation += 180;
-				}
-
-				while (fullRotation > 360)
-					fullRotation -= 360;
-
 				float rotation = Mathf.Lerp(fullRotation, 0, distance);
 				_motor.Transform.rotation = Quaternion.Euler(0,0, rotation);
 			}

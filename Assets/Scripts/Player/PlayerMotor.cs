@@ -90,6 +90,31 @@ namespace Assets.Scripts.Player
 				Anim.SetBool("falling", true);
 				Anim.SetBool("moving", false);
 				Anim.SetBool("upright", false);
+
+				DirectionFacing directionFacing = GetDirectionFacing();
+				if (KeyBindings.GetKey(Control.Left))
+				{
+					Anim.SetBool("isGrabbing", true);
+					Anim.SetBool("forward", directionFacing == DirectionFacing.Left);
+					if (_climbHandler.CheckGrab(DirectionFacing.Left))
+					{
+						MovementState.IsGrounded = true;
+						return SetMotorToClimbState();
+					}
+				}
+				else if (KeyBindings.GetKey(Control.Right))
+				{
+					Anim.SetBool("isGrabbing", true);
+					Anim.SetBool("forward", directionFacing == DirectionFacing.Right);
+					if (_climbHandler.CheckGrab(DirectionFacing.Right))
+					{
+						MovementState.IsGrounded = true;
+						return SetMotorToClimbState();
+					}
+				}
+				else
+					Anim.SetBool("isGrabbing", false);
+
 				return PlayerState.Falling;
 			}
 			else if (ChannelingHandler.IsChanneling && ChannelingHandler.ChannelingSet == false)
@@ -97,17 +122,6 @@ namespace Assets.Scripts.Player
 				if (KeyBindings.GetKey(Control.Light))
 					ChannelingHandler.Channel();
 				return PlayerState.Static;
-			}
-			else if (Anim.GetBool("anchored"))
-			{
-				if (KeyBindings.GetKey(Control.Anchor))
-					return PlayerState.Climbing;
-				else
-				{
-					CancelClimbingState();
-					CancelAnimation();
-					Anim.SetBool("anchored", false);
-				}
 			}
 			else if (IsClimbing())
 				return PlayerState.Climbing;
@@ -161,16 +175,15 @@ namespace Assets.Scripts.Player
 				? ClimbingState.MovementSpeed
 				: 0;
 
-			bool applyRotation = Anim.GetBool("anchored") || (Anim.GetBool("corner") && MovementState.CharacterPoint == ColliderPoint.Centre);
+			bool applyRotation = Anim.GetBool("corner") && MovementState.CharacterPoint == ColliderPoint.Centre;
 
-			if ((_climbHandler.CurrentClimb == Climb.Down || _climbHandler.CurrentClimb == Climb.Anchor) && _movement.IsCollidingWithNonPivot())
+			if (_climbHandler.CurrentClimb == Climb.Down && _movement.IsCollidingWithNonPivot())
 			{
 				CancelClimbingState();
                 CancelAnimation();
 			}
-			else if (_movement.MoveLinearly(speed, applyRotation, Anim.GetBool("anchored")) == false)
+			else if (_movement.MoveLinearly(speed, applyRotation) == false)
 			{
-				Anim.SetBool("anchored", false);
 				if (_climbHandler.CheckReattach())
 					_movement.MoveLinearly(speed, applyRotation);
 				else
@@ -288,7 +301,7 @@ namespace Assets.Scripts.Player
 			_interactionObject = null;
 			CancelVelocity();
 			ClimbingState = _climbHandler.GetClimbingState(true);
-			MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition, Anim.GetBool("anchored"));
+			MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
 
 			return PlayerState.Climbing;
 		}
@@ -366,11 +379,6 @@ namespace Assets.Scripts.Player
 					GetDirectionFacing() == DirectionFacing.Left
 					? Climb.AcrossLeft
 					: Climb.AcrossRight);
-			}
-			else if (KeyBindings.GetKey(Control.Anchor) && _climbHandler.CheckLedgeBelow(Climb.Anchor, GetDirectionFacing()))
-			{
-				Anim.PlayAnimation(Animations.ToAnchor);
-				Anim.SetBool("anchored", true);
 			}
 			else 
 				return false;

@@ -73,10 +73,6 @@ namespace Assets.Scripts.Player.Climbing
 					OffEdge();
 					climbingSpeed = ConstantVariables.MoveToEdgeSpeed;
 					break;
-				case Climb.Anchor:
-					Anchored();
-					climbingSpeed = ConstantVariables.MoveToEdgeSpeed;
-					break;
 			}
 			 return new ClimbingState(CurrentClimb, _climbCollider, climbingSpeed, _target, _player, true);
 		}
@@ -145,20 +141,6 @@ namespace Assets.Scripts.Player.Climbing
 			{
 				_target = ColliderPoint.TopLeft;
 				_player = ColliderPoint.BottomRight;
-			}
-		}
-
-		private void Anchored()
-		{
-			if (ClimbSide == DirectionFacing.Right)
-			{
-				_target = ColliderPoint.TopRight;
-				_player = ColliderPoint.TopRight;
-			}
-			else
-			{
-				_target = ColliderPoint.TopLeft;
-				_player = ColliderPoint.TopLeft;
 			}
 		}
 
@@ -330,6 +312,31 @@ namespace Assets.Scripts.Player.Climbing
 			return hit;
 		}
 
+		public bool CheckGrab(DirectionFacing direction)
+		{
+			const float checkLength = 1f;
+
+			float x = direction == DirectionFacing.Left ? _playerCollider.bounds.min.x : _playerCollider.bounds.max.x;
+			float y = _playerCollider.bounds.max.y - 0.5f;
+
+			var origin = new Vector2(x, y);
+
+			var size = new Vector2(0.01f, 1);
+
+			Vector2 castDirection = direction == DirectionFacing.Left ? Vector2.left : Vector2.right;
+
+			RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, size, 0, castDirection, checkLength, GetClimbMask());
+
+			RaycastHit2D hit = GetValidHit(hits);
+
+			if (hit)
+			{
+				CurrentClimb = Climb.Up;
+				_motor.Anim.SetAcrossTrigger();
+			}
+			return hit;
+		}
+
 		private RaycastHit2D GetValidHit(RaycastHit2D[] hits)
 		{
 			var hit = new RaycastHit2D();
@@ -352,39 +359,14 @@ namespace Assets.Scripts.Player.Climbing
 
 		public bool CheckReattach()
 		{
-			if (_motor.ClimbingState.Climb == Climb.Anchor)
+			BoxCollider2D[] edges = _climbParent.GetComponentsInChildren<BoxCollider2D>();
+			foreach (BoxCollider2D edge in edges)
 			{
-				int layer = _climbLayer == _leftClimbLayer ? _rightClimbLayer : _leftClimbLayer;
-				IEnumerable<BoxCollider2D> edges =
-					_climbParent.GetComponentsInChildren<BoxCollider2D>()
-					.Union(_climbParent.GetComponent<ClimbableEdges>().Exception.GetComponentsInChildren<BoxCollider2D>())
-					.Union(_climbParent.GetComponent<ClimbableEdges>().Exception2.GetComponentsInChildren<BoxCollider2D>());
-
-				foreach (BoxCollider2D edge in edges)
+				if (_climbLayer == edge.gameObject.layer)
 				{
-					if (layer == edge.gameObject.layer
-						&& Vector2.Distance(_playerCollider.GetPoint(_target), edge.transform.position) < 1)
-					{
-						CurrentClimb = Climb.Down;
-						Hanging();
-						_motor.ClimbingState = new ClimbingState(CurrentClimb, edge, ConstantVariables.DefaultMovementSpeed, _target, _player, true);
-						SetClimbingParameters(edge);
-						_motor.MovementState.SetPivotCollider(edge);
-						return true;
-					}
-				}
-			}
-			else
-			{
-				BoxCollider2D[] edges = _climbParent.GetComponentsInChildren<BoxCollider2D>();
-				foreach (BoxCollider2D edge in edges)
-				{
-					if (_climbLayer == edge.gameObject.layer)
-					{
-						SetClimbingParameters(edge);
-						_motor.MovementState.SetPivotCollider(edge);
-						return true;
-					}
+					SetClimbingParameters(edge);
+					_motor.MovementState.SetPivotCollider(edge);
+					return true;
 				}
 			}
 			return false;
