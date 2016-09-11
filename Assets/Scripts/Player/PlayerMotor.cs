@@ -91,29 +91,8 @@ namespace Assets.Scripts.Player
 				Anim.SetBool("moving", false);
 				Anim.SetBool("upright", false);
 
-				DirectionFacing directionFacing = GetDirectionFacing();
-				if (KeyBindings.GetKey(Control.Left))
-				{
-					Anim.SetBool("isGrabbing", true);
-					Anim.SetBool("forward", directionFacing == DirectionFacing.Left);
-					if (_climbHandler.CheckGrab(DirectionFacing.Left))
-					{
-						MovementState.IsGrounded = true;
-						return SetMotorToClimbState();
-					}
-				}
-				else if (KeyBindings.GetKey(Control.Right))
-				{
-					Anim.SetBool("isGrabbing", true);
-					Anim.SetBool("forward", directionFacing == DirectionFacing.Right);
-					if (_climbHandler.CheckGrab(DirectionFacing.Right))
-					{
-						MovementState.IsGrounded = true;
-						return SetMotorToClimbState();
-					}
-				}
-				else
-					Anim.SetBool("isGrabbing", false);
+				if (TryGrab())
+					return SetMotorToClimbState();
 
 				return PlayerState.Falling;
 			}
@@ -308,7 +287,11 @@ namespace Assets.Scripts.Player
 
 		private void MovementInput()
 		{
-			if (KeyBindings.GetKey(Control.Right))
+			if (KeyBindings.GetKey(Control.Anchor))
+			{
+				_normalizedHorizontalSpeed = 0;
+			}
+			else if (KeyBindings.GetKey(Control.Right))
 			{
 				if (MovementState.RightCollision == false && NotAtEdge(DirectionTravelling.Right))
 					_normalizedHorizontalSpeed = 1;
@@ -346,6 +329,36 @@ namespace Assets.Scripts.Player
 
 			Debug.DrawRay(edgeRay, MovementState.GetSurfaceDownDirection(), Color.blue);
 			return Physics2D.Raycast(edgeRay, MovementState.GetSurfaceDownDirection(), 1.5f, Layers.Platforms);
+		}
+
+		private bool TryGrab()
+		{
+			DirectionFacing directionFacing = GetDirectionFacing();
+			if (KeyBindings.GetKey(Control.Left))
+			{
+				Anim.SetBool("isGrabbing", true);
+				Anim.SetBool("forward", directionFacing == DirectionFacing.Left);
+				if (_climbHandler.CheckGrab(DirectionFacing.Left))
+				{
+					MovementState.IsGrounded = true;
+					return true;
+				}
+			}
+			else if (KeyBindings.GetKey(Control.Right))
+			{
+				Anim.SetBool("isGrabbing", true);
+				Anim.SetBool("forward", directionFacing == DirectionFacing.Right);
+				if (_climbHandler.CheckGrab(DirectionFacing.Right))
+				{
+					MovementState.IsGrounded = true;
+					return true;
+				}
+			}
+			else
+			{
+				Anim.SetBool("isGrabbing", false);
+			}
+			return false;
 		}
 
 		private bool TryClimb()

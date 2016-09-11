@@ -148,19 +148,12 @@ namespace Assets.Scripts.Player.Climbing
 		{
 			Vector3 origin = _playerCollider.bounds.center;
 
-			DirectionFacing climbSide = GetClimbingSide(originalHit);
-			Vector3 edge;
-			if (climbSide == DirectionFacing.Left)
-				edge = originalHit.GetLeftFace() + Vector3.right * 0.1f;
-			else
-				edge = originalHit.GetRightFace() + Vector3.left * 0.1f;
-
-			Vector2 direction = edge - origin;
+			Vector2 direction = originalHit.bounds.center - origin;
 
 			RaycastHit2D hit = Physics2D.Raycast(origin, direction, 10f, Layers.Platforms);
 			Debug.DrawRay(origin, direction, Color.red);
 
-			return hit == false || originalHit.transform.parent == hit.collider.transform || Vector2.Distance(originalHit.transform.position, hit.point) < 1;
+			return hit == false || originalHit.transform.parent == hit.collider.transform || Vector2.Distance(originalHit.bounds.center, hit.point) < 1;
 		}
 
 		private bool IsCornerAccessible(Collider2D hit)
@@ -308,7 +301,6 @@ namespace Assets.Scripts.Player.Climbing
 					|| hit.collider.bounds.center.y > _playerCollider.bounds.min.y + 1;
 				_anim.SetBool("shouldHang", _shouldHang);
 				_anim.SetBool("inverted", ClimbSide == direction);
-
 			}
 			return hit;
 		}
