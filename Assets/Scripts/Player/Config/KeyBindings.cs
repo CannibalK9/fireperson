@@ -19,6 +19,8 @@ namespace Assets.Scripts.Player.Config
 					return Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S);
                 case Control.Jump:
 					return Input.GetKey(KeyCode.Space);
+				case Control.Anchor:
+					return Input.GetKey(KeyCode.X);
 				case Control.Action:
 					return Input.GetKey(KeyCode.Q);
                 case Control.Light:
@@ -40,7 +42,9 @@ namespace Assets.Scripts.Player.Config
 					if (GameCursor.IsOverUi())
 						return false;
 					return Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse0);
-                default:
+				case Control.Anchor:
+					return Input.GetKeyDown(KeyCode.X);
+				default:
                     throw new ArgumentOutOfRangeException("control");
             }
         }

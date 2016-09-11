@@ -18,37 +18,38 @@ namespace Assets.Scripts.Movement
 			_motor = motor;
 		}
 
-		public bool MoveLinearly(float speed, bool applyRotation = false)
+		public bool MoveLinearly(float speed, bool applyRotation = false, bool anchored = false)
 		{
 			if (_motor.MovementState.PivotCollider == null)
 				return false;
 
-			Vector2 characterPoint = _motor.Collider.GetPoint(_motor.MovementState.CharacterPoint);
-
-			float rotation = Vector2.Angle(Vector2.up, _motor.Transform.up);
-			if (_motor.Transform.up.x > 0)
-				rotation = 360 - rotation;
-			_motor.Transform.RotateAround(characterPoint, Vector3.forward, rotation);
-
 			_motor.Rigidbody.isKinematic = true;
-    		_motor.MovementState.UpdatePivotToTarget();
-        
+			_motor.MovementState.UpdatePivotToTarget();
+
 			float distance;
-			
+			Vector2 characterPoint = _motor.Collider.GetPoint(_motor.MovementState.CharacterPoint);
 			Vector3 movement = MoveTowardsPivot(out distance, speed, characterPoint);
 			_motor.Transform.Translate(movement, Space.World);
 
 			if (applyRotation)
 			{
-				Orientation o = OrientationHelper.GetOrientation(_motor.MovementState.GetPivotParentRotation());
-				Vector3 v = OrientationHelper.GetUpwardVector(o, _motor.MovementState.Pivot.transform.parent);
+				float fullRotation = OrientationHelper.GetRotationConsideringOrientation(_motor.MovementState.Pivot.transform.parent);
 
-				float r = Vector2.Angle(Vector2.up, v);
-				if (v.x > 0)
-					r = 360 - r;
-				r = Mathf.Lerp(r, 0, distance);
-				_motor.Transform.RotateAround(characterPoint, Vector3.forward, r);
+				if (anchored)
+				{
+					fullRotation += 90;
+					if (_motor.Transform.localScale.x > 0f)
+						fullRotation += 180;
+				}
+
+				while (fullRotation > 360)
+					fullRotation -= 360;
+
+				float rotation = Mathf.Lerp(fullRotation, 0, distance);
+				_motor.Transform.rotation = Quaternion.Euler(0,0, rotation);
 			}
+			else
+				_motor.Transform.rotation = Quaternion.Euler(0, 0, 0);
 
 			return true;
 		}
@@ -103,6 +104,16 @@ namespace Assets.Scripts.Movement
 
 				float x = hitLocation == ColliderPoint.BottomFace ? bounds.center.x : _downHit.point.x;
 				var pivotPosition = new Vector3(x, _downHit.point.y);
+
+				float rotation = _motor.Transform.rotation.eulerAngles.z;
+
+				if (rotation != 0)
+				{
+					if (rotation < 180)
+						_motor.Transform.RotateAround(pivotPosition, Vector3.forward, -rotation / 2);
+					else
+						_motor.Transform.RotateAround(pivotPosition, Vector3.forward, (360 - rotation) / 2);
+				}
 
 				if (_downHit.collider != _motor.MovementState.PivotCollider || leftHit || rightHit || hitLocation != _previousColliderPoint)
 				{

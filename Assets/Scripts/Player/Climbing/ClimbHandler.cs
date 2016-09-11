@@ -2,6 +2,7 @@
 using System.Linq;
 using Assets.Scripts.Helpers;
 using UnityEngine;
+using Assets.Scripts.Interactable;
 
 namespace Assets.Scripts.Player.Climbing
 {
@@ -72,6 +73,10 @@ namespace Assets.Scripts.Player.Climbing
 					OffEdge();
 					climbingSpeed = ConstantVariables.MoveToEdgeSpeed;
 					break;
+				case Climb.Anchor:
+					Anchored();
+					climbingSpeed = ConstantVariables.MoveToEdgeSpeed;
+					break;
 			}
 			 return new ClimbingState(CurrentClimb, _climbCollider, climbingSpeed, _target, _player, true);
 		}
@@ -140,6 +145,20 @@ namespace Assets.Scripts.Player.Climbing
 			{
 				_target = ColliderPoint.TopLeft;
 				_player = ColliderPoint.BottomRight;
+			}
+		}
+
+		private void Anchored()
+		{
+			if (ClimbSide == DirectionFacing.Right)
+			{
+				_target = ColliderPoint.TopRight;
+				_player = ColliderPoint.TopRight;
+			}
+			else
+			{
+				_target = ColliderPoint.TopLeft;
+				_player = ColliderPoint.TopLeft;
 			}
 		}
 
@@ -333,14 +352,39 @@ namespace Assets.Scripts.Player.Climbing
 
 		public bool CheckReattach()
 		{
-			BoxCollider2D[] edges = _climbParent.GetComponentsInChildren<BoxCollider2D>();
-			foreach (BoxCollider2D edge in edges)
+			if (_motor.ClimbingState.Climb == Climb.Anchor)
 			{
-				if (_climbLayer == edge.gameObject.layer && Vector2.Distance(edge.transform.position, _motor.MovementState.Pivot.transform.position) < 1.5f)
+				int layer = _climbLayer == _leftClimbLayer ? _rightClimbLayer : _leftClimbLayer;
+				IEnumerable<BoxCollider2D> edges =
+					_climbParent.GetComponentsInChildren<BoxCollider2D>()
+					.Union(_climbParent.GetComponent<ClimbableEdges>().Exception.GetComponentsInChildren<BoxCollider2D>())
+					.Union(_climbParent.GetComponent<ClimbableEdges>().Exception2.GetComponentsInChildren<BoxCollider2D>());
+
+				foreach (BoxCollider2D edge in edges)
 				{
-					SetClimbingParameters(edge);
-					_motor.MovementState.SetPivotCollider(edge);
-					return true;
+					if (layer == edge.gameObject.layer
+						&& Vector2.Distance(_playerCollider.GetPoint(_target), edge.transform.position) < 1)
+					{
+						CurrentClimb = Climb.Down;
+						Hanging();
+						_motor.ClimbingState = new ClimbingState(CurrentClimb, edge, ConstantVariables.DefaultMovementSpeed, _target, _player, true);
+						SetClimbingParameters(edge);
+						_motor.MovementState.SetPivotCollider(edge);
+						return true;
+					}
+				}
+			}
+			else
+			{
+				BoxCollider2D[] edges = _climbParent.GetComponentsInChildren<BoxCollider2D>();
+				foreach (BoxCollider2D edge in edges)
+				{
+					if (_climbLayer == edge.gameObject.layer)
+					{
+						SetClimbingParameters(edge);
+						_motor.MovementState.SetPivotCollider(edge);
+						return true;
+					}
 				}
 			}
 			return false;
