@@ -308,6 +308,7 @@ namespace Assets.Scripts.Player.Climbing
 					|| hit.collider.bounds.center.y > _playerCollider.bounds.min.y + 1;
 				_anim.SetBool("shouldHang", _shouldHang);
 				_anim.SetBool("inverted", ClimbSide == direction);
+
 			}
 			return hit;
 		}
