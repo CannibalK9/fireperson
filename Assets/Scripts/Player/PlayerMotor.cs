@@ -357,8 +357,22 @@ namespace Assets.Scripts.Player
 			}
 			else
 			{
-				Anim.SetBool("isGrabbing", false);
+				if (_climbHandler.CheckGrab(DirectionFacing.Right))
+				{
+					MovementState.IsGrounded = true;
+					Anim.SetBool("isGrabbing", true);
+					Anim.SetBool("forward", directionFacing == DirectionFacing.Right);
+					return true;
+				}
+				else if (_climbHandler.CheckGrab(DirectionFacing.Left))
+				{
+					MovementState.IsGrounded = true;
+					Anim.SetBool("isGrabbing", true);
+					Anim.SetBool("forward", directionFacing == DirectionFacing.Left);
+					return true;
+				}
 			}
+			Anim.SetBool("isGrabbing", false);
 			return false;
 		}
 
