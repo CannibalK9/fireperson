@@ -53,6 +53,7 @@ namespace Assets.Scripts.Player
 		{
 			return _animator.GetBool(boolName);
 		}
+
 		public void SetAcrossTrigger()
 		{
 			_animator.SetTrigger("transitionAcross");

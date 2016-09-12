@@ -78,7 +78,6 @@
     <Compile Include="Assets\Scripts\Heat\EmberEffect.cs" />
     <Compile Include="Assets\Scripts\Heat\HeatHandler.cs" />
     <Compile Include="Assets\Scripts\Heat\HeatMessage.cs" />
-    <Compile Include="Assets\Scripts\Heat\IVariableHeater.cs" />
     <Compile Include="Assets\Scripts\Helpers\Animations.cs" />
     <Compile Include="Assets\Scripts\Helpers\ColliderExtension.cs" />
     <Compile Include="Assets\Scripts\Helpers\ColliderPoint.cs" />
