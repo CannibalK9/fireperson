@@ -51,5 +51,25 @@ namespace Assets.Scripts.Helpers
 					return Vector3.zero;
 			}
 		}
+
+		public static float GetRotationConsideringOrientation(Transform trans)
+		{
+			float rotation = trans.rotation.eulerAngles.z;
+			Orientation o = GetOrientation(rotation);
+
+			switch (o)
+			{
+				case Orientation.Flat:
+					return rotation;
+				case Orientation.UpsideDown:
+					return rotation + 180;
+				case Orientation.UprightAntiClockwise:
+					return rotation + 270;
+				case Orientation.UprightClockwise:
+					return rotation + 90;
+				default:
+					return 0;
+			}
+		}
 	}
 }

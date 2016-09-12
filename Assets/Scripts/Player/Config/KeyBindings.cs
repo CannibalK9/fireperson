@@ -19,6 +19,8 @@ namespace Assets.Scripts.Player.Config
 					return Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S);
                 case Control.Jump:
 					return Input.GetKey(KeyCode.Space);
+				case Control.Anchor:
+					return Input.GetKey(KeyCode.X);
 				case Control.Action:
 					return Input.GetKey(KeyCode.Q);
                 case Control.Light:

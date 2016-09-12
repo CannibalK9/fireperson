@@ -82,7 +82,7 @@
             get { return "MoveToEdge"; }
         }
 
-        public static string LowerStilt
+		public static string LowerStilt
         {
             get { return "LowerStilt"; }
         }

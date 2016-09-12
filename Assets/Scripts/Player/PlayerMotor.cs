@@ -89,6 +89,10 @@ namespace Assets.Scripts.Player
 				Anim.SetBool("falling", true);
 				Anim.SetBool("moving", false);
 				Anim.SetBool("upright", false);
+
+				if (TryGrab())
+					return SetMotorToClimbState();
+
 				return PlayerState.Falling;
 			}
 			else if (ChannelingHandler.IsChanneling && ChannelingHandler.ChannelingSet == false)
@@ -149,17 +153,17 @@ namespace Assets.Scripts.Player
 				? ClimbingState.MovementSpeed
 				: 0;
 
-			bool isCorner = Anim.GetBool("corner") && (MovementState.CharacterPoint == ColliderPoint.TopLeft || MovementState.CharacterPoint == ColliderPoint.TopRight);
+			bool applyRotation = Anim.GetBool("corner") && MovementState.CharacterPoint == ColliderPoint.Centre;
 
 			if (_climbHandler.CurrentClimb == Climb.Down && _movement.IsCollidingWithNonPivot())
 			{
 				CancelClimbingState();
                 CancelAnimation();
 			}
-			else if (_movement.MoveLinearly(speed, isCorner) == false)
+			else if (_movement.MoveLinearly(speed, applyRotation) == false)
 			{
 				if (_climbHandler.CheckReattach())
-					_movement.MoveLinearly(speed, isCorner);
+					_movement.MoveLinearly(speed, applyRotation);
 				else
 				{
 					CancelClimbingState();
@@ -192,6 +196,9 @@ namespace Assets.Scripts.Player
 		{
 			ColliderPoint newPoint;
 
+			if (MovementState.CharacterPoint == ColliderPoint.Centre)
+				newPoint = MovementState.CharacterPoint;
+
 			switch (MovementState.CharacterPoint)
 			{
 				case ColliderPoint.TopLeft:
@@ -222,9 +229,13 @@ namespace Assets.Scripts.Player
 
 		public void MoveVertically()
 		{
-			ColliderPoint newPoint;
+			ColliderPoint newPoint = MovementState.CharacterPoint;
+			bool cornerRecovery = newPoint == ColliderPoint.Centre;
 
-			switch (MovementState.CharacterPoint)
+			if (cornerRecovery)
+				newPoint = MovementState.PreviousCharacterPoint;
+
+			switch (newPoint)
 			{
 				case ColliderPoint.TopLeft:
 					newPoint = ColliderPoint.BottomLeft;
@@ -254,8 +265,10 @@ namespace Assets.Scripts.Player
                     newPoint = ColliderPoint.BottomFace;
                     break; ;
 			}
-
-			MovementState.CharacterPoint = newPoint;
+			if (cornerRecovery || (MovementState.PivotCollider.IsCorner() && (newPoint == ColliderPoint.TopLeft || newPoint == ColliderPoint.TopRight)))
+				MovementState.SetPivot(MovementState.PivotCollider, MovementState.TargetPoint, newPoint);
+			else
+				MovementState.CharacterPoint = newPoint;
 		}
 
 		private bool IsClimbing()
@@ -275,7 +288,11 @@ namespace Assets.Scripts.Player
 
 		private void MovementInput()
 		{
-			if (KeyBindings.GetKey(Control.Right))
+			if (KeyBindings.GetKey(Control.Anchor))
+			{
+				_normalizedHorizontalSpeed = 0;
+			}
+			else if (KeyBindings.GetKey(Control.Right))
 			{
 				if (MovementState.RightCollision == false && NotAtEdge(DirectionTravelling.Right))
 					_normalizedHorizontalSpeed = 1;
@@ -313,6 +330,36 @@ namespace Assets.Scripts.Player
 
 			Debug.DrawRay(edgeRay, MovementState.GetSurfaceDownDirection(), Color.blue);
 			return Physics2D.Raycast(edgeRay, MovementState.GetSurfaceDownDirection(), 1.5f, Layers.Platforms);
+		}
+
+		private bool TryGrab()
+		{
+			DirectionFacing directionFacing = GetDirectionFacing();
+			if (KeyBindings.GetKey(Control.Left))
+			{
+				Anim.SetBool("isGrabbing", true);
+				Anim.SetBool("forward", directionFacing == DirectionFacing.Left);
+				if (_climbHandler.CheckGrab(DirectionFacing.Left))
+				{
+					MovementState.IsGrounded = true;
+					return true;
+				}
+			}
+			else if (KeyBindings.GetKey(Control.Right))
+			{
+				Anim.SetBool("isGrabbing", true);
+				Anim.SetBool("forward", directionFacing == DirectionFacing.Right);
+				if (_climbHandler.CheckGrab(DirectionFacing.Right))
+				{
+					MovementState.IsGrounded = true;
+					return true;
+				}
+			}
+			else
+			{
+				Anim.SetBool("isGrabbing", false);
+			}
+			return false;
 		}
 
 		private bool TryClimb()
@@ -463,36 +510,6 @@ namespace Assets.Scripts.Player
 				if (ClimbingState.PivotCollider != null && ClimbingState.Climb != Climb.End && ClimbingState.Recalculate)
 					MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
 				else if (ClimbingState.PivotCollider == null || ClimbingState.Climb == Climb.End)
-					MovementState.UnsetPivot();
-
-				climbingState = ClimbingState;
-				return true;
-			}
-			else
-			{
-				climbingState = ClimbingState;
-				return false;
-			}
-		}
-
-		public bool TryAnchoredInput(out ClimbingState climbingState)
-		{
-			_climbHandler.CurrentClimb = Climb.Up;
-			DirectionFacing direction = AddNextClimbs();
-
-			if (_climbHandler.NextClimbs.Any())
-			{
-				ClimbingState = _climbHandler.SwitchClimbingState(direction);
-
-				if (ClimbingState.Recalculate == false && ClimbingState.Climb == Climb.End)
-				{
-					climbingState = ClimbingState;
-					return false;
-				}
-
-				if (ClimbingState.PivotCollider != null && ClimbingState.Climb != Climb.End && ClimbingState.Recalculate)
-					MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
-				else if (ClimbingState.PivotCollider == null)
 					MovementState.UnsetPivot();
 
 				climbingState = ClimbingState;

@@ -2,6 +2,7 @@
 using System.Linq;
 using Assets.Scripts.Helpers;
 using UnityEngine;
+using Assets.Scripts.Interactable;
 
 namespace Assets.Scripts.Player.Climbing
 {
@@ -147,14 +148,7 @@ namespace Assets.Scripts.Player.Climbing
 		{
 			Vector3 origin = _playerCollider.bounds.center;
 
-			DirectionFacing climbSide = GetClimbingSide(originalHit);
-			Vector3 edge;
-			if (climbSide == DirectionFacing.Left)
-				edge = originalHit.GetLeftFace() + Vector3.right * 0.1f;
-			else
-				edge = originalHit.GetRightFace() + Vector3.left * 0.1f;
-
-			Vector2 direction = edge - origin;
+			Vector2 direction = originalHit.bounds.center - origin;
 
 			RaycastHit2D obstacleHit = Physics2D.Raycast(origin, direction, 10f, Layers.Platforms);
 			Debug.DrawRay(origin, direction, Color.red);
@@ -341,6 +335,31 @@ namespace Assets.Scripts.Player.Climbing
 			return hit;
 		}
 
+		public bool CheckGrab(DirectionFacing direction)
+		{
+			const float checkLength = 1f;
+
+			float x = direction == DirectionFacing.Left ? _playerCollider.bounds.min.x : _playerCollider.bounds.max.x;
+			float y = _playerCollider.bounds.max.y - 0.5f;
+
+			var origin = new Vector2(x, y);
+
+			var size = new Vector2(0.01f, 1);
+
+			Vector2 castDirection = direction == DirectionFacing.Left ? Vector2.left : Vector2.right;
+
+			RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, size, 0, castDirection, checkLength, GetClimbMask());
+
+			RaycastHit2D hit = GetValidHit(hits);
+
+			if (hit)
+			{
+				CurrentClimb = Climb.Up;
+				_motor.Anim.SetAcrossTrigger();
+			}
+			return hit;
+		}
+
 		private RaycastHit2D GetValidHit(RaycastHit2D[] hits)
 		{
 			var hit = new RaycastHit2D();
@@ -366,7 +385,7 @@ namespace Assets.Scripts.Player.Climbing
 			BoxCollider2D[] edges = _climbParent.GetComponentsInChildren<BoxCollider2D>();
 			foreach (BoxCollider2D edge in edges)
 			{
-				if (_climbLayer == edge.gameObject.layer && Vector2.Distance(edge.transform.position, _motor.MovementState.Pivot.transform.position) < 1.5f)
+				if (_climbLayer == edge.gameObject.layer)
 				{
 					SetClimbingParameters(edge);
 					_motor.MovementState.SetPivotCollider(edge);

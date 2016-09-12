@@ -13,6 +13,7 @@
 		SwingRight,
 		MoveToEdge,
 		Jump,
+		Anchor,
 		End
 	}
 }
