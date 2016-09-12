@@ -71,7 +71,7 @@ namespace Assets.Scripts.Denizens
             if (col.gameObject.layer == LayerMask.NameToLayer(Layers.PlSpot))
             {
                 var fireplace = col.gameObject.GetComponent<FirePlace>();
-                if (fireplace.IsHeatSource && fireplace.IsLit == false)
+                if (fireplace != null && fireplace.IsHeatSource && fireplace.IsLit == false)
                 {
                     var stove = fireplace as Stove;
 					if (stove != null)

@@ -74,11 +74,10 @@ namespace Assets.Scripts.Player
 					MoveWithVelocity(0);
 					break;
 				case PlayerState.Jumping:
-					MoveWithVelocity(0);
-					break;
 				default:
-					throw new ArgumentOutOfRangeException();
-			}
+                    MoveWithVelocity(0);
+					break;
+            }
 		}
 
 		private PlayerState HandleMovementInputs()
@@ -221,8 +220,9 @@ namespace Assets.Scripts.Player
 					newPoint = ColliderPoint.LeftFace;
 					break;
 				default:
-					throw new ArgumentOutOfRangeException(MovementState.CharacterPoint.ToString());
-			}
+                    newPoint = ColliderPoint.BottomFace;
+                    break;
+            }
 
 			MovementState.CharacterPoint = newPoint;
 		}
@@ -262,7 +262,8 @@ namespace Assets.Scripts.Player
 					newPoint = ColliderPoint.BottomRight;
 					break;
 				default:
-					throw new ArgumentOutOfRangeException();
+                    newPoint = ColliderPoint.BottomFace;
+                    break; ;
 			}
 			if (cornerRecovery || (MovementState.PivotCollider.IsCorner() && (newPoint == ColliderPoint.TopLeft || newPoint == ColliderPoint.TopRight)))
 				MovementState.SetPivot(MovementState.PivotCollider, MovementState.TargetPoint, newPoint);

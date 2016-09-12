@@ -82,11 +82,6 @@
             get { return "MoveToEdge"; }
         }
 
-		public static string ToAnchor
-		{
-			get { return "ToAnchor"; }
-		}
-
 		public static string LowerStilt
         {
             get { return "LowerStilt"; }

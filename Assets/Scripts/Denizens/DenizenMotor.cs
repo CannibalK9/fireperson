@@ -15,14 +15,17 @@ namespace Assets.Scripts.Denizens
 		public bool CanMove;
 
 		private float _normalizedHorizontalSpeed;
-
 		private DenizenController _controller;
 		private Animator _animator;
 		private Vector3 _velocity;
 		private bool _isJumping;
 		private bool _hasFirstLanded;
+        private bool _wasGrounded;
+        private bool _hitSnow;
+        private bool _playerSpotted;
+        private FirePlace _fireplace;
 
-		void Awake()
+        void Awake()
 		{
 			_animator = GetComponent<Animator>();
 			_controller = GetComponent<DenizenController>();
@@ -45,7 +48,6 @@ namespace Assets.Scripts.Denizens
 			}
 			else
 				JumpAcross();
-
 		}
 
 		void MoveToFireplace(DirectionTravelling direction)
@@ -53,7 +55,6 @@ namespace Assets.Scripts.Denizens
 			DirectionTravelling = direction;
 		}
 
-		bool _wasGrounded;
 
 		private void DetermineMovement()
 		{
@@ -131,8 +132,8 @@ namespace Assets.Scripts.Denizens
 		public void SetTravelInDirectionFacing()
 		{
 			DirectionTravelling = GetDirectionFacing() == DirectionFacing.Right
-						? DirectionTravelling.Right
-						: DirectionTravelling.Left;
+				? DirectionTravelling.Right
+				: DirectionTravelling.Left;
 		}
 
 		private bool ApproachingEdge(Vector2 edgeRay)
@@ -153,7 +154,9 @@ namespace Assets.Scripts.Denizens
 			var size = new Vector2(0.01f, checkDepth);
 
 			Vector2 castDirection = DirectionTravelling == DirectionTravelling.Left ? Vector2.left : Vector2.right;
-			LayerMask mask = DirectionTravelling == DirectionTravelling.Left ? 1 << LayerMask.NameToLayer(Layers.RightClimbSpot) : 1 << LayerMask.NameToLayer(Layers.LeftClimbSpot);
+			LayerMask mask = DirectionTravelling == DirectionTravelling.Left
+                ? 1 << LayerMask.NameToLayer(Layers.RightClimbSpot)
+                : 1 << LayerMask.NameToLayer(Layers.LeftClimbSpot);
 
 			RaycastHit2D hit = Physics2D.BoxCast(origin, size, 0, castDirection, checkLength, mask);
 
@@ -166,8 +169,6 @@ namespace Assets.Scripts.Denizens
 			}
 			return true;
 		}
-
-		private bool _hitSnow;
 
 		private bool ApproachingSnow(Vector2 snowRay)
 		{
@@ -229,8 +230,6 @@ namespace Assets.Scripts.Denizens
 			}
 		}
 
-		private bool _playerSpotted;
-
 		private void SpotPlayer()
 		{
 			Vector2 direction = GetDirectionFacing() == DirectionFacing.Right
@@ -257,8 +256,6 @@ namespace Assets.Scripts.Denizens
 			DirectionTravelling = DirectionTravelling.None;
             _animator.Play(Animator.StringToHash(Animations.LightStove));
         }
-
-        private FirePlace _fireplace;
 
         private void LightStove()
         {
