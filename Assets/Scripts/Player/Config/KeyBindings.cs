@@ -28,7 +28,7 @@ namespace Assets.Scripts.Player.Config
 				case Control.Ability1:
 					return Input.GetKey(KeyCode.Alpha1);
 				default:
-					throw new ArgumentOutOfRangeException("control");
+					return false;
 			}
 		}
 
@@ -41,7 +41,7 @@ namespace Assets.Scripts.Player.Config
 						return false;
 					return Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse0);
                 default:
-                    throw new ArgumentOutOfRangeException("control");
+                    return false;
             }
         }
 
@@ -52,7 +52,7 @@ namespace Assets.Scripts.Player.Config
                 case Control.Light:
                     return Input.GetKeyUp(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse0);
                 default:
-                    throw new ArgumentOutOfRangeException("control");
+                    return false;
             }
         }
     }

@@ -122,7 +122,7 @@ namespace Assets.Scripts.Movement
 			
 			if (hit)
 			{
-				float lipHeight = bounds.min.y + 1;
+				float lipHeight = bounds.min.y + ConstantVariables.MaxLipHeight;
 				if (hit.point.y > lipHeight)
 				{
 					if (direction == DirectionTravelling.Left)

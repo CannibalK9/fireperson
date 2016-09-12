@@ -14,5 +14,6 @@
 		public static float DistanceToTriggerRollDown = 2f;
 		public static float FlashRadius = 3f;
 		public static float StiltSpeed = 2f;
-	}
+        public static float MaxLipHeight = 1f;
+    }
 }
