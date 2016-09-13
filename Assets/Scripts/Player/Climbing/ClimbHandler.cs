@@ -289,7 +289,7 @@ namespace Assets.Scripts.Player.Climbing
 			if (edge != null) //extra check if the ground is walkable
 			{
 				var distance = Vector2.Distance(_motor.GetGroundPivotPosition(), edge.transform.position);
-				if (distance < checkWidth && IsEdgeUnblocked(edge) && IsCornerAccessible(edge))
+				if (distance < checkWidth && IsEdgeUnblocked(edge) && IsCornerAccessible(edge) && SpaceAboveEdge(edge))
 				{
 					CurrentClimb = intendedClimbingState;
 					SetClimbingParameters(edge);
@@ -334,26 +334,31 @@ namespace Assets.Scripts.Player.Climbing
 			return hit;
 		}
 
-		public bool CheckGrab(DirectionFacing direction)
+		public bool CheckGrab(DirectionFacing direction = DirectionFacing.None)
 		{
 			const float checkLength = 1f;
 
-			float x = direction == DirectionFacing.Left ? _playerCollider.bounds.min.x : _playerCollider.bounds.max.x;
-			float y = _playerCollider.bounds.max.y - 0.5f;
+			var origin = new Vector2(_playerCollider.bounds.center.x, _playerCollider.bounds.max.y - 0.5f);
 
-			var origin = new Vector2(x, y);
+			var size = new Vector2(_playerCollider.bounds.size.x + checkLength * 2, 0.01f);
 
-			var size = new Vector2(0.01f, 1);
+			RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, size, 0, Vector2.down, 0.01f, GetClimbMask());
 
-			Vector2 castDirection = direction == DirectionFacing.Left ? Vector2.left : Vector2.right;
+			int layer = 0;
+			if (direction == DirectionFacing.Left)
+				layer = _rightClimbLayer;
+			else if (direction == DirectionFacing.Right)
+				layer = _leftClimbLayer;
 
-			RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, size, 0, castDirection, checkLength, GetClimbMask());
+			hits = hits.Where(h => h.collider.CanClimbDown() == false || h.collider.gameObject.layer == layer).ToArray();
 
 			RaycastHit2D hit = GetValidHit(hits);
 
 			if (hit)
 			{
-				CurrentClimb = Climb.Up;
+				_shouldHang = true;
+				CurrentClimb = hit.collider.gameObject.layer == _leftClimbLayer ? Climb.AcrossRight : Climb.AcrossLeft;
+				_motor.ClimbingState = GetClimbingState(true);
 				_motor.Anim.SetAcrossTrigger();
 			}
 			return hit;
@@ -401,6 +406,9 @@ namespace Assets.Scripts.Player.Climbing
 
 		private void SetClimbingParameters(Collider2D col)
 		{
+			if (_climbCollider != null)
+				_anim.SetBool("onCorner", _climbCollider.IsCorner());
+
 			_climbCollider = col;
 			_climbParent = col.transform.parent;
 			_climbLayer = col.gameObject.layer;
@@ -457,7 +465,7 @@ namespace Assets.Scripts.Player.Climbing
 				case Climb.Up:
                     if (NextClimbs.Contains(Climb.Down))
                     {
-                        recalculate = false;
+						recalculate = false;
                         nextClimb = Climb.Down;
                     }
                     else if (NextClimbs.Contains(Climb.Up) && CheckLedgeAbove(direction, out nextClimb))

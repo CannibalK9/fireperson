@@ -29,7 +29,7 @@ namespace Assets.Scripts.Player
 		void Update()
 		{
 			if (_animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Idle) 
-                || _animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Falling))
+                || (_animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Falling) && _animator.GetBool("isGrabbing") == false))
 			{
 				_isHanging = false;
 				_isJumping = false;

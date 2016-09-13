@@ -86,14 +86,16 @@ namespace Assets.Scripts.Player
 				return PlayerState.Jumping;
 			else if (MovementState.IsGrounded == false)
 			{
-				Anim.SetBool("falling", true);
-				Anim.SetBool("moving", false);
-				Anim.SetBool("upright", false);
-
 				if (TryGrab())
 					return SetMotorToClimbState();
+				else
+				{
+					Anim.SetBool("falling", true);
+					Anim.SetBool("moving", false);
+					Anim.SetBool("upright", false);
 
-				return PlayerState.Falling;
+					return PlayerState.Falling;
+				}
 			}
 			else if (ChannelingHandler.IsChanneling && ChannelingHandler.ChannelingSet == false)
 			{
@@ -332,13 +334,13 @@ namespace Assets.Scripts.Player
 			return Physics2D.Raycast(edgeRay, MovementState.GetSurfaceDownDirection(), 1.5f, Layers.Platforms);
 		}
 
-		private bool TryGrab()
+		private bool TryGrab() //forward is not being set correctly, all else seems to work!
 		{
 			DirectionFacing directionFacing = GetDirectionFacing();
 			if (KeyBindings.GetKey(Control.Left))
 			{
 				Anim.SetBool("isGrabbing", true);
-				Anim.SetBool("forward", directionFacing == DirectionFacing.Left);
+				Anim.SetBool("inverted", directionFacing != DirectionFacing.Left);
 				if (_climbHandler.CheckGrab(DirectionFacing.Left))
 				{
 					MovementState.IsGrounded = true;
@@ -348,7 +350,7 @@ namespace Assets.Scripts.Player
 			else if (KeyBindings.GetKey(Control.Right))
 			{
 				Anim.SetBool("isGrabbing", true);
-				Anim.SetBool("forward", directionFacing == DirectionFacing.Right);
+				Anim.SetBool("inverted", directionFacing != DirectionFacing.Right);
 				if (_climbHandler.CheckGrab(DirectionFacing.Right))
 				{
 					MovementState.IsGrounded = true;
@@ -357,18 +359,11 @@ namespace Assets.Scripts.Player
 			}
 			else
 			{
-				if (_climbHandler.CheckGrab(DirectionFacing.Right))
+				if (_climbHandler.CheckGrab())
 				{
 					MovementState.IsGrounded = true;
 					Anim.SetBool("isGrabbing", true);
-					Anim.SetBool("forward", directionFacing == DirectionFacing.Right);
-					return true;
-				}
-				else if (_climbHandler.CheckGrab(DirectionFacing.Left))
-				{
-					MovementState.IsGrounded = true;
-					Anim.SetBool("isGrabbing", true);
-					Anim.SetBool("forward", directionFacing == DirectionFacing.Left);
+					Anim.SetBool("inverted", (ClimbingState.PivotCollider.gameObject.layer == LayerMask.NameToLayer(Layers.RightClimbSpot)) == (directionFacing == DirectionFacing.Right));
 					return true;
 				}
 			}
