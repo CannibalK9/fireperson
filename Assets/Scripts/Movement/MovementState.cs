@@ -51,8 +51,15 @@ namespace Assets.Scripts.Movement
             if (direction == DirectionTravelling.Left)
                 v = -v;
 
-			_updatePivot = false;
-            Pivot.transform.Translate(v.normalized * distance, Space.World);
+			Vector3 movement = v.normalized * distance;
+
+			RaycastHit2D canStandOnEdgeHit = Physics2D.Raycast(PivotCollider.GetTopFace() + movement + new Vector3(0, 0.01f), Vector2.up, _colliderDimensions.y * 2, Layers.Platforms);
+
+			if (canStandOnEdgeHit == false)
+			{
+				_updatePivot = false;
+				Pivot.transform.Translate(movement, Space.World);
+			}
         }
 
 		public float GetPivotParentRotation()

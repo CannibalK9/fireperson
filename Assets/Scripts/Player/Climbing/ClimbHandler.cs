@@ -2,7 +2,6 @@
 using System.Linq;
 using Assets.Scripts.Helpers;
 using UnityEngine;
-using Assets.Scripts.Interactable;
 
 namespace Assets.Scripts.Player.Climbing
 {
@@ -154,7 +153,7 @@ namespace Assets.Scripts.Player.Climbing
 			RaycastHit2D obstacleHit = Physics2D.Raycast(origin, direction, 10f, Layers.Platforms);
 			Debug.DrawRay(origin, direction, Color.red);
 
-            RaycastHit2D edgeObstructionHit = Physics2D.Raycast(new Vector2(originalHit.bounds.center.x, originalHit.bounds.max.y + 0.01f), Vector2.up, 0.1f, Layers.Platforms);
+            RaycastHit2D edgeObstructionHit = Physics2D.Raycast(originalHit.GetTopFace() + new Vector3(0, 0.01f), Vector2.up, 0.1f, Layers.Platforms);
 
             return edgeObstructionHit == false &&
                 (obstacleHit == false
@@ -427,7 +426,7 @@ namespace Assets.Scripts.Player.Climbing
 
         private bool SpaceAboveEdge(Collider2D col)
         {
-            return Physics2D.Raycast(new Vector2(col.bounds.center.x, col.bounds.max.y + 0.01f), Vector2.up, _playerCollider.bounds.size.y, Layers.Platforms) == false;
+            return Physics2D.Raycast(col.GetTopFace() + new Vector3(0, 0.01f), Vector2.up, _playerCollider.bounds.size.y, Layers.Platforms) == false;
         }
 
 		public ClimbingState SwitchClimbingState(DirectionFacing direction)
