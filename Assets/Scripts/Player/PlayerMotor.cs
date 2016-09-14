@@ -344,6 +344,7 @@ namespace Assets.Scripts.Player
 				if (_climbHandler.CheckGrab(DirectionFacing.Left))
 				{
 					MovementState.IsGrounded = true;
+					MovementAllowed = true;
 					return true;
 				}
 			}
@@ -354,6 +355,7 @@ namespace Assets.Scripts.Player
 				if (_climbHandler.CheckGrab(DirectionFacing.Right))
 				{
 					MovementState.IsGrounded = true;
+					MovementAllowed = true;
 					return true;
 				}
 			}
@@ -362,6 +364,7 @@ namespace Assets.Scripts.Player
 				if (_climbHandler.CheckGrab())
 				{
 					MovementState.IsGrounded = true;
+					MovementAllowed = true;
 					Anim.SetBool("isGrabbing", true);
 					Anim.SetBool("inverted", (ClimbingState.PivotCollider.gameObject.layer == LayerMask.NameToLayer(Layers.RightClimbSpot)) == (directionFacing == DirectionFacing.Right));
 					return true;

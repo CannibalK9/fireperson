@@ -58,7 +58,7 @@ namespace Assets.Scripts.Player.Climbing
 					Mantle();
 					break;
 				case Climb.Down:
-					AtEdge();
+					OffEdge();
 					climbingSpeed = ConstantVariables.MoveToEdgeSpeed;
 					break;
 				case Climb.AcrossLeft:
@@ -111,21 +111,6 @@ namespace Assets.Scripts.Player.Climbing
 			{
 				_target = ColliderPoint.TopLeft;
 				_player = ColliderPoint.RightFace;
-			}
-		}
-
-		private void AtEdge()
-		{
-			if (ClimbSide == DirectionFacing.Right)
-			{
-				_target = ColliderPoint.TopRight;
-				_player = ColliderPoint.BottomRight;
-
-			}
-			else
-			{
-				_target = ColliderPoint.TopLeft;
-				_player = ColliderPoint.BottomLeft;
 			}
 		}
 
@@ -199,7 +184,7 @@ namespace Assets.Scripts.Player.Climbing
 		{
 			climb = Climb.End;
 
-			const float checkWidth = 4f;
+			float checkWidth = _retryCheckAbove ? 4f : 1f;
 			const float checkHeight = 4f;
 
             float xValue = direction == DirectionFacing.Left ? _playerCollider.bounds.center.x - (checkWidth / 2) : _playerCollider.bounds.center.x + (checkWidth / 2);
@@ -218,12 +203,13 @@ namespace Assets.Scripts.Player.Climbing
 			{
 				bool belowHeadHeight = hit.point.y < _playerCollider.bounds.max.y;
 
-				if (belowHeadHeight && CurrentClimb == Climb.None && ShouldStraightClimb() && SpaceAboveEdge(hit.collider))
+				if (belowHeadHeight && ShouldStraightClimb() && SpaceAboveEdge(hit.collider))
 				{
-					CurrentClimb = climb = Climb.Mantle;
+					if (CurrentClimb == Climb.None)
+						CurrentClimb = Climb.Mantle;
+
+					climb = Climb.Mantle;
 				}
-				else if (belowHeadHeight)
-				{ }
 				else if (hit.collider.IsCorner() || ShouldStraightClimb())
 				{
 					if (CurrentClimb == Climb.None)
