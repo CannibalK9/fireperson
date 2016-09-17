@@ -76,7 +76,7 @@ namespace Assets.Scripts.Denizens
                     var stove = fireplace as Stove;
 					if (stove != null)
 					{
-						if (stove.CanBeLitByDenizens())
+						if (stove.AllChimneysAreClosed())
 							_motor.BeginLighting(fireplace);
 						else
 						{

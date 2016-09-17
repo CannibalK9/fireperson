@@ -41,7 +41,7 @@ namespace Assets.Scripts.Player
 			}
 
 			if (_isHanging)
-				TryHangingInput();
+				TryHangingInputWithoutAudio();
 		}
 
 		public void SetBool(string boolName, bool value)
@@ -72,6 +72,11 @@ namespace Assets.Scripts.Player
 		}
 
 		private void TryHangingInput()
+		{
+			TryHangingInputWithoutAudio();
+		}
+
+		private void TryHangingInputWithoutAudio()
 		{
 			ClimbingState nextState;
 			_animator.speed = 1;
@@ -144,6 +149,9 @@ namespace Assets.Scripts.Player
 
 		private void AllowMovement()
 		{
+			var a = PlayerMotor.Transform.GetComponent<AudioSource>();
+			AudioSource.PlayClipAtPoint(a.clip, PlayerMotor.Transform.position);
+
 			if (_isJumping)
 			{
 				_animator.speed = 1;
@@ -169,6 +177,9 @@ namespace Assets.Scripts.Player
 
 		private void MoveVertically()
 		{
+			var a = PlayerMotor.Transform.GetComponent<AudioSource>();
+			AudioSource.PlayClipAtPoint(a.clip, PlayerMotor.Transform.position);
+
 			_animator.speed = 1;
 			PlayerMotor.MoveVertically();
 			PlayerMotor.UpdateClimbingSpeed(0.75f);

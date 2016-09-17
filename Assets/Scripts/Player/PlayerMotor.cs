@@ -408,7 +408,8 @@ namespace Assets.Scripts.Player
 			}
 			else 
 				return false;
-			
+
+			Transform.GetComponent<AudioSource>().Play();
 			return true;
 		}
 

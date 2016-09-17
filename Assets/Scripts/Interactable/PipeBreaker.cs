@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Interactable
 {
@@ -8,16 +7,21 @@ namespace Assets.Scripts.Interactable
 		public FirePlace Fp1;
 		public FirePlace Fp2;
 
+		private bool _broken;
+
+		void Update()
+		{
+			if (_broken == false && Vector2.Distance(Fp1.transform.position, Fp2.transform.position) < 1f)
+			{
+				Disconnect();
+				_broken = true;
+			}
+		}
+
 		public void Disconnect()
 		{
-			Fp1.IsAccessible = true;
-			Fp2.IsAccessible = true;
-
-			FirePlace f1 = Fp1.GetConnectedFireplaces().Single(f => f == Fp2);
-			f1 = null;
-
-			FirePlace f2 = Fp2.GetConnectedFireplaces().Single(f => f == Fp1);
-			f2 = null;
+			Fp1.Disconnect(Fp2);
+			Fp2.Disconnect(Fp1);
 		}
 	}
 }

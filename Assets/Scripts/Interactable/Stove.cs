@@ -33,7 +33,8 @@ namespace Assets.Scripts.Interactable
 	    {
 		    foreach (FirePlace fireplace in _connectedFireplaces)
 		    {
-				fireplace.IsLit = true;
+				if (fireplace is Stove == false)
+					fireplace.IsLit = true;
 		    }
 	    }
 
@@ -45,9 +46,14 @@ namespace Assets.Scripts.Interactable
 			}
 		}
 
-		public bool CanBeLitByDenizens()
+		public bool AllChimneysAreClosed()
         {
             return _connectedFireplaces.OfType<ChimneyLid>().All(lid => lid.IsAccessible == false);
         }
-    }
+
+		public bool HasConnectedFullyLitStove()
+		{
+			return _connectedFireplaces.OfType<Stove>().Any(stove => stove.IsFullyIgnited);
+		}
+	}
 }

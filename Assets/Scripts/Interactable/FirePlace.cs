@@ -33,7 +33,7 @@ namespace Assets.Scripts.Interactable
 			Collider = GetComponent<CircleCollider2D>();
 			HeatIntensity = DefaultHeatIntensity;
 			HeatRayDistance = DefaultHeatRayDistance;
-			_heatHandlers = transform.parent.GetComponentsInChildren<HeatHandler>();
+			_heatHandlers = GetComponentsInChildren<HeatHandler>();
 		}
 
 		private bool _firstUpdate = true;
@@ -43,11 +43,12 @@ namespace Assets.Scripts.Interactable
 			var stove = this as Stove;
 			if (IsFullyIgnited && stove != null)
 			{
-				if (ContainsPl == false && stove.CanBeLitByDenizens() == false)
+				if (ContainsPl == false && stove.AllChimneysAreClosed() == false)
 				{
 					IsFullyIgnited = false;
 					IsLit = false;
-					stove.ExtinguishAllConnectedFireplaces();
+					if (stove.HasConnectedFullyLitStove() == false)
+						stove.ExtinguishAllConnectedFireplaces();
 				}
 			}
 
@@ -94,8 +95,17 @@ namespace Assets.Scripts.Interactable
 
         public List<FirePlace> GetConnectedFireplaces()
         {
-            return new List<FirePlace> { F1, F2, F3, F4 };
-        }
+			var fpList = new List<FirePlace>();
+			if (F1 != null)
+				fpList.Add(F1);
+			if (F2 != null)
+				fpList.Add(F2);
+			if (F3 != null)
+				fpList.Add(F3);
+			if (F4 != null)
+				fpList.Add(F4);
+			return fpList;
+		}
 
 		public void PlEnter()
 		{
@@ -137,6 +147,20 @@ namespace Assets.Scripts.Interactable
 			Stove stove = this as Stove;
 			if (stove != null)
 				stove.LightAllConnectedFireplaces();
+		}
+
+		public void Disconnect(FirePlace fp)
+		{
+			IsAccessible = true;
+
+			if (F1 == fp)
+				F1 = null;
+			else if (F2 == fp)
+				F2 = null;
+			else if (F3 == fp)
+				F3 = null;
+			else if (F4 == fp)
+				F4 = null;
 		}
 
 		void OnDrawGizmos()

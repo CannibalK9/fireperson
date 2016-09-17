@@ -428,6 +428,8 @@ namespace Assets.Scripts.Player.Climbing
 			if (_climbCollider == null)
 				return new ClimbingState(Climb.None, null, 1, ColliderPoint.BottomFace, ColliderPoint.BottomFace, false);
 
+			_anim.SetBool("onCorner", _climbCollider.IsCorner());
+
 			bool recalculate = true;
 
 			var nextClimb = CurrentClimb == Climb.End || CurrentClimb == Climb.Jump ? Climb.None : Climb.End;

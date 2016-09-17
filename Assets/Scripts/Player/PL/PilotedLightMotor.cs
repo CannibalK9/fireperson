@@ -183,25 +183,42 @@ namespace Assets.Scripts.Player.PL
 
 		public bool SwitchFireplace(Vector2 direction)
 		{
-			foreach (FirePlace fireplace in _fireplace.GetConnectedFireplaces())
+			FirePlace switchedFireplace = GetSwitchedFireplace(_fireplace, direction);
+			if (switchedFireplace != null)
 			{
-				if (fireplace != null)
-				{
-					if (Vector2.Angle(direction, fireplace.transform.position - transform.position) < 10f)
-					{
-						FirePlace switchedFireplace = fireplace is Pipe
-							? fireplace.GetConnectedFireplaces().First(fp => fp != _fireplace)
-							: switchedFireplace = fireplace;
-
-						_fireplace = switchedFireplace;
-
-						MovementState.SetPivot(switchedFireplace.GetComponent<Collider2D>(), ColliderPoint.Centre, ColliderPoint.Centre);
-						MovementState.MovementOverridden = true;
-						return true;
-					}
-				}
+				_fireplace = switchedFireplace;
+				MoveToFireplace();
+				return true;
 			}
 			return false;
+		}
+
+		private FirePlace GetSwitchedFireplace(FirePlace currentFireplace, Vector2 direction)
+		{
+			foreach (FirePlace fireplace in currentFireplace.GetConnectedFireplaces())
+			{
+				if (Vector2.Angle(direction, fireplace.transform.position - transform.position) < 10f)
+				{
+					FirePlace switchedFireplace = fireplace is Pipe && fireplace.IsAccessible == false
+						? fireplace.GetConnectedFireplaces().First(fp => fp != currentFireplace)
+						: switchedFireplace = fireplace;
+
+					if (switchedFireplace is Pipe && fireplace.IsAccessible == false)
+					{
+						switchedFireplace = switchedFireplace.GetConnectedFireplaces().First(fp => fp != fireplace);
+					}
+
+					return switchedFireplace;
+				}
+			}
+			return null;
+		}
+
+		private void MoveToFireplace()
+		{
+			MovementState.SetPivot(_fireplace.GetComponent<Collider2D>(), ColliderPoint.Centre, ColliderPoint.Centre);
+			MovementState.MovementOverridden = true;
+			_isFireplaceActive = true;
 		}
 
 		public void ActivatePoint()
@@ -241,7 +258,7 @@ namespace Assets.Scripts.Player.PL
 
 		void OnTriggerEnter2D(Collider2D col)
 		{
-			if (col.gameObject.layer == LayerMask.NameToLayer(Layers.PlSpot))
+			if (ShouldTrigger(col))
 			{
 				if (col.GetComponent<FirePlace>().IsAccessible)
 				{
@@ -259,6 +276,11 @@ namespace Assets.Scripts.Player.PL
 			{
 				col.GetComponent<FirePlace>().PlLeave();
 			}
+		}
+
+		private bool ShouldTrigger(Collider2D col)
+		{
+			return MovementState.MovementOverridden == false && col.gameObject.layer == LayerMask.NameToLayer(Layers.PlSpot);
 		}
 
 		void OnDestroy()
