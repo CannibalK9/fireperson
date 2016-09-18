@@ -38,6 +38,7 @@ namespace Assets.Scripts.Player
 				_animator.ResetTrigger("transitionAcross");
 				_animator.ResetTrigger("flipUp");
 				PlayerMotor.CancelClimbingState();
+				InteractionComplete();
 			}
 
 			if (_isHanging)
@@ -127,6 +128,11 @@ namespace Assets.Scripts.Player
 					_animator.SetTrigger("transitionAcross");
 					break;
 			}
+		}
+
+		private void InteractionComplete()
+		{
+			PlayerMotor.Interaction.IsInteracting = false;
 		}
 
 		private void FlipSpriteTowardsEdge()

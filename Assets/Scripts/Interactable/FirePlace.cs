@@ -163,6 +163,20 @@ namespace Assets.Scripts.Interactable
 				F4 = null;
 		}
 
+		public void Connect(FirePlace fp)
+		{
+			IsAccessible = false;
+
+			if (F1 == null)
+				F1 = fp;
+			else if (F2 == null)
+				F2 = fp;
+			else if (F3 == null)
+				F3 = fp;
+			else if (F4 == null)
+				F4 = fp;
+		}
+
 		void OnDrawGizmos()
 		{
 			Gizmos.color = new Color(0, 1, 0, 0.5F);

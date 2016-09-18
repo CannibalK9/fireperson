@@ -1,27 +1,34 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Helpers;
+using UnityEngine;
 
 namespace Assets.Scripts.Interactable
 {
 	public class PipeBreaker : MonoBehaviour
 	{
-		public FirePlace Fp1;
-		public FirePlace Fp2;
+		private FirePlace _fireplace;
+		private CircleCollider2D _thisCol;
 
-		private bool _broken;
-
-		void Update()
+		void Awake()
 		{
-			if (_broken == false && Vector2.Distance(Fp1.transform.position, Fp2.transform.position) < 1f)
-			{
-				Disconnect();
-				_broken = true;
-			}
+			_thisCol = GetComponent<CircleCollider2D>();
+			_fireplace = GetComponent<FirePlace>();
 		}
 
-		public void Disconnect()
+		void OnTriggerStay2D(Collider2D col)
 		{
-			Fp1.Disconnect(Fp2);
-			Fp2.Disconnect(Fp1);
+			if (col.gameObject.layer == LayerMask.NameToLayer(Layers.PlSpot))
+			{
+				FirePlace connectedFireplace = col.GetComponent<FirePlace>();
+
+				if (_fireplace.IsAccessible && Vector2.Distance(col.bounds.center, _thisCol.bounds.center) < 0.1f)
+				{
+					_fireplace.Connect(connectedFireplace);
+				}
+				else if (_fireplace.IsAccessible == false && _fireplace.GetConnectedFireplaces().Contains(connectedFireplace) && Vector2.Distance(col.bounds.center, _thisCol.bounds.center) > 0.1f)
+				{
+					_fireplace.Disconnect(connectedFireplace);
+				}
+			}
 		}
 	}
 }
