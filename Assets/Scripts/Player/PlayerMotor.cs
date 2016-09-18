@@ -111,6 +111,7 @@ namespace Assets.Scripts.Player
 				return SetMotorToClimbState();
 			else if (TryInteract())
 			{
+
 				Interaction.IsInteracting = true;
 				return PlayerState.Interacting;
 			}
@@ -184,14 +185,17 @@ namespace Assets.Scripts.Player
 			if (_movement.IsCollidingWithNonPivot())
 			{
 				CancelAnimation();
+				return;
 			}
-			else if (Mathf.Abs(Interaction.Point.x - Collider.bounds.center.x) > 0.1f)
-			{
-				_normalizedHorizontalSpeed = Interaction.Point.x > Collider.bounds.center.x ? 1 : -1;
-				SetHorizontalVelocity();
-				MoveWithVelocity(0);
-			}
-        }
+
+			if (Mathf.Abs(Interaction.Centre - Collider.bounds.center.x) > 0.2f)
+				_normalizedHorizontalSpeed = Interaction.Centre > Collider.bounds.center.x ? 1 : -1;
+			else
+				_normalizedHorizontalSpeed = 0;
+
+			SetHorizontalVelocity();
+			MoveWithVelocity(0);
+		}
 
 		public void UpdateClimbingSpeed(float speed)
 		{
@@ -424,19 +428,27 @@ namespace Assets.Scripts.Player
 				RaycastHit2D hit = CheckInteractableInFront(GetDirectionFacing());
 				if (hit)
 				{
-					Interaction.Point = hit.collider.bounds.center;
+					Interaction.Point = hit.collider;
 					Interaction.Object = hit.collider.transform.parent;
 
-					string interactName = Interaction.Object.name;
-
-					if (interactName.Contains(Interactables.Stilt))
-						InteractWithStilt();
-					else if (interactName.Contains(Interactables.ChimneyLid))
-						Anim.PlayAnimation(Animations.OpenChimney);
-					else if (interactName.Contains(Interactables.Stove))
-						Anim.PlayAnimation(Animations.OpenStove);
-
-					return true;
+					var stilt = Interaction.Object.GetComponentInChildren<Stilt>();
+					if (stilt != null)
+					{
+						InteractWithStilt(stilt);
+						return true;
+					}
+					var chimney = Interaction.Object.GetComponentInChildren<ChimneyLid>();
+					if (chimney != null)
+					{
+						InteractWithChimney(chimney);
+						return true;
+					}
+					var stove = Interaction.Object.GetComponentInChildren<Stove>();
+					if (stove != null)
+					{
+						InteractWithStove(stove);
+						return true;
+					}
 				}
 			}
 			else if (KeyBindings.GetKey(Control.Ability1) && ChannelingHandler.ChannelingSet)
@@ -589,9 +601,8 @@ namespace Assets.Scripts.Player
 			return Physics2D.BoxCast(origin, Vector2.one, 0, castDirection, checkLength, 1 << LayerMask.NameToLayer(Layers.Interactable));
 		}
 
-		public void InteractWithStilt()
+		public void InteractWithStilt(Stilt stilt)
 		{
-			var stilt = Interaction.Object.GetComponentInChildren<Stilt>();
 			if (stilt.IsExtended)
 			{
 				Anim.PlayAnimation(Animations.LowerStilt);
@@ -599,6 +610,39 @@ namespace Assets.Scripts.Player
 			else if (stilt.IsExtended == false && AbilityState.IsActive(Ability.Tools))
 			{
 				Anim.PlayAnimation(Animations.RaiseStilt);
+			}
+		}
+
+		public void InteractWithChimney(ChimneyLid chimney)
+		{
+			if (chimney.IsAccessible)
+			{
+				if (Interaction.IsLeft)
+					Anim.PlayAnimation(Animations.CloseChimneyFromLeft);
+				else
+					Anim.PlayAnimation(Animations.CloseChimneyFromRight);
+			}
+			else
+			{
+				if (Interaction.IsLeft)
+					Anim.PlayAnimation(Animations.OpenChimneyFromLeft);
+				else
+					Anim.PlayAnimation(Animations.OpenChimneyFromRight);
+			}
+		}
+
+		public void InteractWithStove(Stove stove)
+		{
+			if (stove.IsAccessible)
+			{
+				if (Interaction.IsLeft)
+					Anim.PlayAnimation(Animations.CloseStoveFromLeft);
+				else
+					Anim.PlayAnimation(Animations.CloseStoveFromRight);
+			}
+			else
+			{
+				Anim.PlayAnimation(Animations.OpenStoveFromLeft);
 			}
 		}
 

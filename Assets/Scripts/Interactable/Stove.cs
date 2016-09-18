@@ -5,11 +5,8 @@ namespace Assets.Scripts.Interactable
 {
     public class Stove : FirePlace
     {
-		private List<FirePlace> _connectedFireplaces;
-
 		void Start()
 		{
-			_connectedFireplaces = GetAllConnectedFirePlaces(this, null);
 			if (IsFullyIgnited)
 				LightAllConnectedFireplaces();
 		}
@@ -31,7 +28,7 @@ namespace Assets.Scripts.Interactable
 
 	    public void LightAllConnectedFireplaces()
 	    {
-		    foreach (FirePlace fireplace in _connectedFireplaces)
+		    foreach (FirePlace fireplace in GetAllConnectedFirePlaces(this, null))
 		    {
 				if (fireplace is Stove == false)
 					fireplace.IsLit = true;
@@ -40,7 +37,7 @@ namespace Assets.Scripts.Interactable
 
 		public void ExtinguishAllConnectedFireplaces()
 		{
-			foreach (FirePlace fireplace in _connectedFireplaces)
+			foreach (FirePlace fireplace in GetAllConnectedFirePlaces(this, null))
 			{
 				fireplace.IsLit = false;
 			}
@@ -48,12 +45,12 @@ namespace Assets.Scripts.Interactable
 
 		public bool AllChimneysAreClosed()
         {
-            return _connectedFireplaces.OfType<ChimneyLid>().All(lid => lid.IsAccessible == false);
+            return GetAllConnectedFirePlaces(this, null).Any(fp => fp is Stove == false && fp.IsAccessible) == false;
         }
 
 		public bool HasConnectedFullyLitStove()
 		{
-			return _connectedFireplaces.OfType<Stove>().Any(stove => stove.IsFullyIgnited);
+			return GetAllConnectedFirePlaces(this, null).OfType<Stove>().Any(stove => stove.IsFullyIgnited);
 		}
 	}
 }

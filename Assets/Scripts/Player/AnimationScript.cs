@@ -153,6 +153,18 @@ namespace Assets.Scripts.Player
 				PlayerMotor.FlipSprite();
 		}
 
+		private void FlipSpriteRight()
+		{
+			if (PlayerMotor.GetDirectionFacing() == DirectionFacing.Left)
+				PlayerMotor.FlipSprite();
+		}
+
+		private void FlipSpriteLeft()
+		{
+			if (PlayerMotor.GetDirectionFacing() == DirectionFacing.Right)
+				PlayerMotor.FlipSprite();
+		}
+
 		private void AllowMovement()
 		{
 			var a = PlayerMotor.Transform.GetComponent<AudioSource>();

@@ -97,32 +97,52 @@
             get { return "Open"; }
         }
 
-        public static string OpenChimney
+        public static string OpenChimneyFromLeft
         {
-            get { return "OpenChimney"; }
+            get { return "OpenChimneyFromLeft"; }
         }
 
-        public static string OpenStove
+		public static string OpenChimneyFromRight
+		{
+			get { return "OpenChimneyFromRight"; }
+		}
+
+		public static string OpenStoveFromLeft
         {
-            get { return "OpenStove"; }
+            get { return "OpenStoveFromLeft"; }
         }
 
-        public static string Close
+		public static string OpenStoveFromRight
+		{
+			get { return "OpenStoveFromRight"; }
+		}
+
+		public static string Close
         {
             get { return "Close"; }
         }
 
-        public static string CloseChimney
+        public static string CloseChimneyFromLeft
         {
-            get { return "CloseChimney"; }
+            get { return "CloseChimneyFromLeft"; }
         }
 
-        public static string CloseStove
+		public static string CloseChimneyFromRight
+		{
+			get { return "CloseChimneyFromRight"; }
+		}
+
+		public static string CloseStoveFromLeft
         {
-            get { return "CloseStove"; }
+            get { return "CloseStoveFromLeft"; }
         }
 
-        public static string CreatePL
+		public static string CloseStoveFromRight
+		{
+			get { return "CloseStoveFromRight"; }
+		}
+
+		public static string CreatePL
         {
             get { return "CreatePL"; }
         }

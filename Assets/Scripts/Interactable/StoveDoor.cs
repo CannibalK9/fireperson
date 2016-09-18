@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Interactable
 {
-    class StoveDoor : MonoBehaviour
+    public class StoveDoor : MonoBehaviour
     {
         private Animator _anim;
         private Stove _stove;

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 21ddbd2e9a71e9540b16d017f68d72c2
-timeCreated: 1469781776
+timeCreated: 1474209777
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -12,6 +12,7 @@ TextureImporter:
     21300010: furniture_5
     21300012: furniture_6
     21300014: furniture_7
+    21300016: furniture_8
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -62,18 +63,19 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 896
+        y: 895
         width: 64
-        height: 128
+        height: 129
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -32, y: 64}
-        - {x: -32, y: -64}
-        - {x: 32, y: -64}
-        - {x: 32, y: 10}
-        - {x: -17, y: 64}
+      - - {x: -32, y: 64.5}
+        - {x: -32, y: -18.5}
+        - {x: -30, y: -64.5}
+        - {x: 32, y: -64.5}
+        - {x: 32, y: 17.5}
+        - {x: 8, y: 64.5}
     - name: furniture_1
       rect:
         serializedVersion: 2
@@ -142,55 +144,74 @@ TextureImporter:
         - {x: 64, y: -46}
         - {x: 64, y: 16}
         - {x: 31, y: 58}
-    - name: furniture_5
-      rect:
-        serializedVersion: 2
-        x: 640
-        y: 960
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 18, y: -32}
-        - {x: 18, y: 32}
-        - {x: -18, y: 32}
-        - {x: -18, y: -32}
-    - name: furniture_6
-      rect:
-        serializedVersion: 2
-        x: 640
-        y: 896
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -8}
-        - {x: -8, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 2}
-        - {x: 2, y: 32}
     - name: furniture_7
       rect:
         serializedVersion: 2
-        x: 704
-        y: 960
-        width: 128
-        height: 64
+        x: 345
+        y: 847
+        width: 8
+        height: 24
+      alignment: 9
+      pivot: {x: 0.67529297, y: 0.8505834}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: furniture_8
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 768
+        width: 64
+        height: 90
+      alignment: 9
+      pivot: {x: 1.0040746, y: 0.28185967}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -64.26077, y: 64.63263}
+        - {x: -64.26077, y: -25.36737}
+        - {x: -0.2607727, y: -25.36737}
+        - {x: -0.2607727, y: 53.63263}
+        - {x: -12.260773, y: 64.63263}
+      - - {x: -27.260773, y: 55.63263}
+        - {x: -12.260773, y: 47.63263}
+        - {x: -8.260773, y: 21.63263}
+        - {x: -56.260773, y: 21.63263}
+    - name: furniture_5
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 774
+        width: 58
+        height: 46
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -40, y: 24}
-        - {x: -64, y: 10}
-        - {x: -64, y: -22}
-        - {x: 64, y: -22}
-        - {x: 64, y: 8}
-        - {x: 39, y: 24}
+      - - {x: -22, y: 23}
+        - {x: -29, y: 22}
+        - {x: -29, y: -23}
+        - {x: 29, y: -23}
+        - {x: 29, y: 17}
+        - {x: 23, y: 23}
+    - name: furniture_6
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 960
+        width: 66
+        height: 55
+      alignment: 9
+      pivot: {x: 0.7397738, y: 0.047897063}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -24.825073, y: 52.36566}
+        - {x: -48.825073, y: 23.365662}
+        - {x: -48.825073, y: 11.365662}
+        - {x: -40.825073, y: 3.3656616}
+        - {x: -17.825073, y: -2.6343384}
+        - {x: 7.1749268, y: -2.6343384}
+        - {x: 17.174927, y: 12.365662}
+        - {x: 17.174927, y: 30.365662}
+        - {x: -7.8250732, y: 52.36566}
     outline: []
   spritePackingTag: 
   userData: 
