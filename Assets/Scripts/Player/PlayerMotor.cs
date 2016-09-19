@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Assets.Scripts.Helpers;
 using Assets.Scripts.Interactable;
 using Assets.Scripts.Movement;
@@ -19,7 +18,7 @@ namespace Assets.Scripts.Player
 		public float RunSpeed = 8f;
 		public float GroundDamping = 1f;
 
-		public AnimationScript Anim { get; private set; }
+        public AnimationScript Anim { get; private set; }
 		public bool MovementAllowed { get; set; }
 		public DirectionFacing ClimbingSide { get { return _climbHandler.ClimbSide; } }
 		public Transform Transform { get; set; }
@@ -92,9 +91,9 @@ namespace Assets.Scripts.Player
 					return SetMotorToClimbState();
 				else
 				{
-					Anim.SetBool("falling", true);
-					Anim.SetBool("moving", false);
-					Anim.SetBool("upright", false);
+					Anim.SetBool(PlayerAnimBool.Falling, true);
+					Anim.SetBool(PlayerAnimBool.Moving, false);
+					Anim.SetBool(PlayerAnimBool.Upright, false);
 
 					return PlayerState.Falling;
 				}
@@ -118,8 +117,8 @@ namespace Assets.Scripts.Player
 			else if (TryChannel())
 				return PlayerState.Static;
 
-			Anim.SetBool("falling", false);
-			Anim.SetBool("moving", _normalizedHorizontalSpeed != 0);
+			Anim.SetBool(PlayerAnimBool.Falling, false);
+			Anim.SetBool(PlayerAnimBool.Moving, _normalizedHorizontalSpeed != 0);
 
 			MovementInput();
 
@@ -140,10 +139,10 @@ namespace Assets.Scripts.Player
 			if (Physics2D.Raycast(Collider.GetTopLeft() + Vector3.up * 0.1f, Vector2.right, Collider.bounds.size.x, Layers.Platforms))
 			{
 				maxX = ConstantVariables.SquashedSpeed;
-				Anim.SetBool("squashed", true);
+				Anim.SetBool(PlayerAnimBool.Squashed, true);
 			}
 			else
-				Anim.SetBool("squashed", false);
+				Anim.SetBool(PlayerAnimBool.Squashed, false);
 
 			if (_velocity.x * _normalizedHorizontalSpeed > maxX)
 				_velocity.x = maxX * _normalizedHorizontalSpeed;
@@ -152,7 +151,7 @@ namespace Assets.Scripts.Player
 
 			_velocity.y += gravity * Time.fixedDeltaTime;
 			bool isKinetic = _playerState == PlayerState.Jumping;
-			_movement.BoxCastMove(_velocity * Time.fixedDeltaTime, isKinetic);	
+			_movement.BoxCastMove(_velocity * Time.fixedDeltaTime, isKinetic);
 		}
 
 		private void MoveToClimbingPoint()
@@ -161,7 +160,7 @@ namespace Assets.Scripts.Player
 				? ClimbingState.MovementSpeed
 				: 0;
 
-			bool applyRotation = Anim.GetBool("corner") && MovementState.CharacterPoint == ColliderPoint.Centre;
+			bool applyRotation = Anim.GetBool(PlayerAnimBool.Corner) && MovementState.CharacterPoint == ColliderPoint.Centre;
 
 			if (_climbHandler.CurrentClimb == Climb.Down && _movement.IsCollidingWithNonPivot())
 			{
@@ -326,7 +325,6 @@ namespace Assets.Scripts.Player
 			}
 			if (MovementState.RightCollision || MovementState.LeftCollision)
 			{
-				Debug.Log("against wall");
 				//BackToWallAnimation
 			}
 		}
@@ -347,8 +345,8 @@ namespace Assets.Scripts.Player
 			DirectionFacing directionFacing = GetDirectionFacing();
 			if (KeyBindings.GetKey(Control.Left))
 			{
-				Anim.SetBool("isGrabbing", true);
-				Anim.SetBool("inverted", directionFacing != DirectionFacing.Left);
+				Anim.SetBool(PlayerAnimBool.IsGrabbing, true);
+				Anim.SetBool(PlayerAnimBool.Inverted, directionFacing != DirectionFacing.Left);
 				if (_climbHandler.CheckGrab(DirectionFacing.Left))
 				{
 					MovementState.IsGrounded = true;
@@ -358,8 +356,8 @@ namespace Assets.Scripts.Player
 			}
 			else if (KeyBindings.GetKey(Control.Right))
 			{
-				Anim.SetBool("isGrabbing", true);
-				Anim.SetBool("inverted", directionFacing != DirectionFacing.Right);
+				Anim.SetBool(PlayerAnimBool.IsGrabbing, true);
+				Anim.SetBool(PlayerAnimBool.Inverted, directionFacing != DirectionFacing.Right);
 				if (_climbHandler.CheckGrab(DirectionFacing.Right))
 				{
 					MovementState.IsGrounded = true;
@@ -373,12 +371,12 @@ namespace Assets.Scripts.Player
 				{
 					MovementState.IsGrounded = true;
 					MovementAllowed = true;
-					Anim.SetBool("isGrabbing", true);
-					Anim.SetBool("inverted", (ClimbingState.PivotCollider.gameObject.layer == LayerMask.NameToLayer(Layers.RightClimbSpot)) == (directionFacing == DirectionFacing.Right));
+					Anim.SetBool(PlayerAnimBool.IsGrabbing, true);
+					Anim.SetBool(PlayerAnimBool.Inverted, (ClimbingState.PivotCollider.gameObject.layer == LayerMask.NameToLayer(Layers.RightClimbSpot)) == (directionFacing == DirectionFacing.Right));
 					return true;
 				}
 			}
-			Anim.SetBool("isGrabbing", false);
+			Anim.SetBool(PlayerAnimBool.IsGrabbing, false);
 			return false;
 		}
 
@@ -489,7 +487,7 @@ namespace Assets.Scripts.Player
 
 		public void CancelVelocity()
 		{
-			Anim.SetBool("moving", false);
+			Anim.SetBool(PlayerAnimBool.Moving, false);
 			_normalizedHorizontalSpeed = 0;
 			_velocity = Vector3.zero;
 		}

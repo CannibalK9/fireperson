@@ -24,7 +24,8 @@ namespace Assets.Scripts.Player.PL
 		public float FlySpeed = 2f;
 		public float AirDamping = 500f;
 		public float Gravity = 0f;
-		public Collider2D Collider { get; set; }
+
+        public Collider2D Collider { get; set; }
 		public float SlopeLimit { get { return 0; } }
 		public MovementState MovementState { get; set; }
 		public Transform Transform { get; set; }

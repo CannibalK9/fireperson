@@ -4,7 +4,12 @@ namespace Assets.Scripts.Helpers
 {
 	public static class Layers
 	{
-		public static string Player
+        public static string Default
+        {
+            get { return "Default"; }
+        }
+
+        public static string Player
 		{
 			get { return "Player"; }
 		}

@@ -22,8 +22,8 @@ namespace Assets.Scripts.Denizens
 		private bool _hasFirstLanded;
         private bool _wasGrounded;
         private bool _hitSnow;
-        private bool _playerSpotted;
         private FirePlace _fireplace;
+        private bool _isSliding;
 
         void Awake()
 		{
@@ -34,31 +34,61 @@ namespace Assets.Scripts.Denizens
 		void Update()
 		{
 			if (_controller.SatAtFireplace || DirectionTravelling == DirectionTravelling.None)
-			{
 				_velocity = Vector3.zero;
-			}
 
 			if (_isJumping == false && _controller.SatAtFireplace == false && CanMove)
 				DetermineMovement();
 
-			if (_isJumping == false)
-			{
-				MoveWithVelocity();
-				SpotPlayer(); //don't spot player if sliding etc
-			}
-			else
-				JumpAcross();
-		}
+			if (_isJumping)
+                JumpAcross();
+            else
+                MoveWithVelocity();
 
-		void MoveToFireplace(DirectionTravelling direction)
+            _isSliding = _controller.MovementState.IsOnSlope && _controller.MovementState.TrappedBetweenSlopes == false;
+            _animator.SetBool(DenizenAnimBool.Sliding, _isSliding);
+			_animator.SetBool(DenizenAnimBool.PlayerSpotted, SpotPlayer());
+        }
+
+        void MoveToFireplace(DirectionTravelling direction)
 		{
 			DirectionTravelling = direction;
-		}
+			_animator.SetBool(DenizenAnimBool.MoveToFireplace, true);
+        }
 
+        void ChangeDirection()
+        {
+            DirectionTravelling = DirectionTravelling == DirectionTravelling.Right ? DirectionTravelling.Left : DirectionTravelling.Right;
+            FlipSprite();
+            _normalizedHorizontalSpeed = -_normalizedHorizontalSpeed;
+        }
 
-		private void DetermineMovement()
+        void LightStove()
+        {
+            _fireplace.LightFully();
+        }
+
+        void OnTriggerEnter2D(Collider2D col)
+        {
+            if (_isSliding == false &&  col.gameObject.layer == LayerMask.NameToLayer(Layers.Flash) && _controller.CanSeeFlash(col.transform.position))
+            {
+                DirectionTravelling = DirectionTravelling.None;
+
+                bool isFacingRight = GetDirectionFacing() == DirectionFacing.Right;
+                bool isPlRight = col.transform.position.x >= transform.position.x;
+
+                if (isFacingRight == isPlRight)
+                {
+                    FlipSprite();
+                    _animator.Play(Animator.StringToHash(Animations.FlashInFront));
+                }
+                else
+                    _animator.Play(Animator.StringToHash(Animations.FlashBehind));
+            }
+        }
+
+        private void DetermineMovement()
 		{
-			if (_controller.MovementState.IsGrounded)
+            if (_controller.MovementState.IsGrounded)
 			{
 				_velocity.y = 0;
 
@@ -77,7 +107,6 @@ namespace Assets.Scripts.Denizens
 			{
 				DirectionTravelling = DirectionTravelling.None;
 				_wasGrounded = false;
-				//SetAnimationWhenFalling();
 			}
 			else
 				return;
@@ -91,16 +120,7 @@ namespace Assets.Scripts.Denizens
 					_controller.Collider.bounds.max.x + HazardWarningDistance,
 					_controller.Collider.bounds.min.y);
 
-				if (ApproachingEdge(hazardRay) || ApproachingSnow(hazardRay) || _controller.MovementState.RightCollision)
-				{
-					DirectionTravelling = DirectionTravelling.Left;
-					FlipSprite();
-					_normalizedHorizontalSpeed = -_normalizedHorizontalSpeed;
-				}
-				else
-				{
-					_normalizedHorizontalSpeed = 1;
-				}
+                HazardHandler(hazardRay);
 			}
 			else if (DirectionTravelling == DirectionTravelling.Left)
 			{
@@ -111,22 +131,25 @@ namespace Assets.Scripts.Denizens
 					_controller.Collider.bounds.min.x - HazardWarningDistance,
 					_controller.Collider.bounds.min.y);
 
-				if (ApproachingEdge(hazardRay) || ApproachingSnow(hazardRay) || _controller.MovementState.LeftCollision)
-				{
-					DirectionTravelling = DirectionTravelling.Right;
-					FlipSprite();
-					_normalizedHorizontalSpeed = -_normalizedHorizontalSpeed;
-				}
-				else
-					_normalizedHorizontalSpeed = -1;
-			}
-			else
+                HazardHandler(hazardRay);
+            }
+            else
 			{
 				_normalizedHorizontalSpeed = 0;
 			}
+        }
 
-			//if (_isJumping == false)
-				//SetAnimationWhenGrounded();
+        private void HazardHandler(Vector2 hazardRay)
+        {
+            if (_animator.GetBool(DenizenAnimBool.Sliding))
+                return;
+
+            if (ApproachingEdge(hazardRay))
+                _animator.SetTrigger(DenizenAnimBool.AtEdge);
+            else if (ApproachingSnow(hazardRay))
+                _animator.SetTrigger(DenizenAnimBool.AtSnow);
+            else if (_controller.MovementState.RightCollision || _controller.MovementState.LeftCollision)
+                _animator.SetTrigger(DenizenAnimBool.AtWall);
         }
 
 		public void SetTravelInDirectionFacing()
@@ -141,8 +164,8 @@ namespace Assets.Scripts.Denizens
 			if (Physics2D.Raycast(edgeRay, _controller.MovementState.GetSurfaceDownDirection(), 2f, Layers.Platforms))
 				return false;
 
-			if (CanJump == false)
-				return true;
+            if (CanJump == false)
+                return true;
 
 			const float checkLength = 6f;
 			const float checkDepth = 4f;
@@ -164,7 +187,7 @@ namespace Assets.Scripts.Denizens
 			{
 				_isJumping = true;
 				_controller.MovementState.SetPivot(hit.collider, ColliderPoint.TopFace, ColliderPoint.BottomFace);
-				_animator.Play(Animator.StringToHash(Animations.Jump));
+				_animator.SetTrigger(DenizenAnimBool.Jump);
 				return false;
 			}
 			return true;
@@ -178,7 +201,6 @@ namespace Assets.Scripts.Denizens
 			{
 				_hitSnow = true;
 				DirectionTravelling = DirectionTravelling.None;
-				_animator.Play(Animator.StringToHash(Animations.Shiver));
 			}
 			else
 			{
@@ -190,14 +212,6 @@ namespace Assets.Scripts.Denizens
 		private void FlipSprite()
 		{
 			transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-		}
-
-		private void SetAnimationWhenGrounded()
-		{
-			_animator.Play(
-				_normalizedHorizontalSpeed == 0
-				? Animator.StringToHash(Animations.Idle)
-				: Animator.StringToHash(Animations.Moving));
 		}
 
 		private void MoveWithVelocity()
@@ -217,49 +231,34 @@ namespace Assets.Scripts.Denizens
 				_velocity.y = ConstantVariables.MaxVerticalSpeed;
 
 			_controller.Movement.BoxCastMove(_velocity * Time.deltaTime, false);
-		}
+            _animator.SetBool(DenizenAnimBool.Falling, _controller.MovementState.IsGrounded == false);
+        }
 
-		private void JumpAcross()
+        private void JumpAcross()
 		{
 			if (_controller.Movement.MoveLinearly(ConstantVariables.AcrossSpeed))
 				_isJumping = _animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Jump);
 			else
 			{
-				_animator.Play(Animator.StringToHash(Animations.Falling));
+				_animator.SetTrigger(DenizenAnimBool.CancelJump);
 				_isJumping = false;
 			}
 		}
 
-		private void SpotPlayer()
+		private bool SpotPlayer()
 		{
 			Vector2 direction = GetDirectionFacing() == DirectionFacing.Right
 				? Vector2.right
 				: Vector2.left;
 
-			if (_controller.SpotPlayer(direction) && _playerSpotted == false)
-			{
-				_playerSpotted = true;
-				DirectionTravelling = DirectionTravelling.None;
-				_animator.Play(Animator.StringToHash(Animations.Gasp));
-			}
-			else if (_playerSpotted)
-			{
-				SetTravelInDirectionFacing();
-				_playerSpotted = false;
-				_animator.Play(Animator.StringToHash(Animations.Relief));
-			}
-		}
+            return _controller.SpotPlayer(direction);
+        }
 
         public void BeginLighting(FirePlace fireplace)
         {
             _fireplace = fireplace;
 			DirectionTravelling = DirectionTravelling.None;
-            _animator.Play(Animator.StringToHash(Animations.LightStove));
-        }
-
-        private void LightStove()
-        {
-			_fireplace.LightFully();
+            _animator.SetTrigger(DenizenAnimBool.LightStove);
         }
 
         private enum DirectionFacing
@@ -273,25 +272,6 @@ namespace Assets.Scripts.Denizens
 			return transform.localScale.x > 0f
 				? DirectionFacing.Right
 				: DirectionFacing.Left;
-		}
-
-		void OnTriggerEnter2D(Collider2D col)
-		{
-			if (col.gameObject.layer == LayerMask.NameToLayer(Layers.Flash) && _controller.CanSeeFlash(col.transform.position))
-			{
-				DirectionTravelling = DirectionTravelling.None;
-
-				bool isFacingRight = GetDirectionFacing() == DirectionFacing.Right;
-				bool isPlRight = col.transform.position.x >= transform.position.x;
-
-				if (isFacingRight == isPlRight)
-				{
-					FlipSprite();
-					_animator.Play(Animator.StringToHash(Animations.FlashInFront));
-				}
-				else
-					_animator.Play(Animator.StringToHash(Animations.FlashBehind));
-			}
 		}
 	}
 }

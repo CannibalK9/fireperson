@@ -16,6 +16,7 @@ namespace Assets.Scripts.Movement
 		public ColliderPoint CharacterPoint { get; set; }
 		public ColliderPoint PreviousCharacterPoint { get; set; }
 		public ColliderPoint TargetPoint { get; private set; }
+        public bool TrappedBetweenSlopes { get; set; }
 		public Vector3 Normal { get; set; }
 		private bool _updatePivot;
 		private Vector2 _colliderDimensions;
@@ -69,6 +70,7 @@ namespace Assets.Scripts.Movement
 			RightCollision = false;
 			IsOnSlope = false;
 			CurrentAcceleration = currentAcceleration;
+            TrappedBetweenSlopes = false;
 		}
 
 		public void OnLeftCollision()

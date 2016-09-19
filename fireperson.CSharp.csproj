@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraHandler\SmoothCamera2D.cs" />
+    <Compile Include="Assets\Scripts\Denizens\DenizenAnimBool.cs" />
     <Compile Include="Assets\Scripts\Denizens\DenizenController.cs" />
     <Compile Include="Assets\Scripts\Denizens\DenizenMotor.cs" />
     <Compile Include="Assets\Scripts\Fire\Fire.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Assets\Scripts\Player\DirectionFacing.cs" />
     <Compile Include="Assets\Scripts\Player\FollowingLight.cs" />
     <Compile Include="Assets\Scripts\Player\Interaction.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerAnimBool.cs" />
     <Compile Include="Assets\Scripts\Player\PL\PilotedLightController.cs" />
     <Compile Include="Assets\Scripts\Player\PL\PilotedLightMotor.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />

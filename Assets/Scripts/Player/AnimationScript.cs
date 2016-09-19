@@ -106,7 +106,7 @@ namespace Assets.Scripts.Player
 			}
 
 			_isJumping = nextState.Climb == Climb.Jump;
-			SetBool("isJumping", _isJumping);
+			SetBool(PlayerAnimBool.IsJumping, _isJumping);
 
 			switch (nextState.Climb)
 			{
@@ -173,7 +173,7 @@ namespace Assets.Scripts.Player
 			if (_isJumping)
 			{
 				_animator.speed = 1;
-				if (_animator.GetBool("forward"))
+				if (_animator.GetBool(PlayerAnimBool.Forward))
 					PlayerMotor.SetJumpingVelocity(true);
 				else
 					PlayerMotor.SetJumpingVelocity(false);

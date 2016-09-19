@@ -1,9 +1,9 @@
 ﻿#define DEBUG_CC2D_RAYS
+using Assets.Scripts.Helpers;
+using Assets.Scripts.Interactable;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Helpers;
 using UnityEngine;
-using Assets.Scripts.Interactable;
 
 namespace Assets.Scripts.Movement
 {
@@ -24,6 +24,7 @@ namespace Assets.Scripts.Movement
 				return false;
 
 			_motor.Rigidbody.isKinematic = true;
+            Physics2D.IgnoreLayerCollision(_motor.Transform.gameObject.layer, Layers.Platforms, true);
 			_motor.MovementState.UpdatePivotToTarget();
 
 			float distance;
@@ -63,7 +64,8 @@ namespace Assets.Scripts.Movement
 				deltaMovement.x = 0;
 
 			_motor.Rigidbody.isKinematic = isKinematic;
-			_motor.MovementState.Reset(deltaMovement);
+            Physics2D.IgnoreLayerCollision(_motor.Transform.gameObject.layer, Layers.Platforms, isKinematic);
+            _motor.MovementState.Reset(deltaMovement);
 			Bounds bounds = _motor.Collider.bounds;
 
 			RaycastHit2D[] downHits = Physics2D.BoxCastAll(new Vector2(bounds.center.x, bounds.min.y + 0.5f), new Vector2(bounds.size.x, 0.001f), 0, Vector2.down, 1f, Layers.Platforms);
@@ -110,14 +112,18 @@ namespace Assets.Scripts.Movement
 					_previousColliderPoint = hitLocation;
 				}
 
-				if ((_motor.MovementState.IsOnSlope && ((leftHit && _downHit.normal.x < 0) || (rightHit && _downHit.normal.x > 0))) == false)
-				{
-					_motor.MovementState.Pivot.transform.Translate(MoveAlongSurface(), Space.World);
+                _motor.MovementState.TrappedBetweenSlopes = _motor.MovementState.IsOnSlope
+                    && ((leftHit && _downHit.normal.x < 0)
+                        || (rightHit && _downHit.normal.x > 0));
 
-					pivotPosition = _motor.MovementState.Pivot.transform.position + _motor.Transform.position - offset;
-					_motor.Transform.position = Vector3.MoveTowards(_motor.Transform.position, pivotPosition, 100f);
-					DrawRay(_motor.MovementState.Pivot.transform.position, _downHit.normal, Color.yellow);
-				}
+                if (_motor.MovementState.TrappedBetweenSlopes == false)
+                {
+                    _motor.MovementState.Pivot.transform.Translate(MoveAlongSurface(), Space.World);
+
+                    pivotPosition = _motor.MovementState.Pivot.transform.position + _motor.Transform.position - offset;
+                    _motor.Transform.position = Vector3.MoveTowards(_motor.Transform.position, pivotPosition, 100f);
+                    DrawRay(_motor.MovementState.Pivot.transform.position, _downHit.normal, Color.yellow);
+                }
 			}
 			else
 			{

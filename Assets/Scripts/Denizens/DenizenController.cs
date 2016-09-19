@@ -27,7 +27,6 @@ namespace Assets.Scripts.Denizens
         public Vector3 Velocity { get; set; }
         public List<RaycastHit2D> RaycastHitsThisFrame { get; set; }
         public bool SatAtFireplace { get; set; }
-
         public MovementHandler Movement;
 		public MovementState MovementState { get; set; }
         private DenizenMotor _motor;
