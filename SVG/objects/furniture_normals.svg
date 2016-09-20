@@ -17,11 +17,23 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="furniture_normals.svg"
-   inkscape:export-filename="C:\code\fireperson\Assets\Sprites\objects\furniture_normals.png"
+   inkscape:export-filename="C:\code\fireperson\Assets\Materials\Objects\furniture_normals.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
      id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3445">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop3447" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop3449" />
+    </linearGradient>
     <linearGradient
        inkscape:collect="always"
        id="linearGradient4480">
@@ -161,6 +173,15 @@
        r="16"
        gradientTransform="matrix(1,2.5099969e-7,-6.9024985e-7,2.7500028,4.9948012e-5,-126.63416)"
        gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3445"
+       id="linearGradient3451"
+       x1="384"
+       y1="249.36215"
+       x2="407"
+       y2="28.362144"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -169,16 +190,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7071068"
-     inkscape:cx="304.89836"
-     inkscape:cy="829.60455"
+     inkscape:zoom="1"
+     inkscape:cx="268.68694"
+     inkscape:cy="942.74163"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="927"
      inkscape:window-height="460"
-     inkscape:window-x="487"
-     inkscape:window-y="420"
+     inkscape:window-x="233"
+     inkscape:window-y="138"
      inkscape:window-maximized="0"
      gridtolerance="10"
      units="px">
@@ -227,18 +248,24 @@
        x="712.74786"
        y="68.15818" />
     <rect
-       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-opacity:1"
+       style="fill:url(#linearGradient3451);fill-opacity:1;stroke:none;stroke-opacity:1"
        id="rect4153"
        width="80"
        height="113.16317"
        x="343"
-       y="28.362194" />
+       y="28.362194"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Objects\rect4155-8nor.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1"
        d="m 361.2716,57.121845 c 11.36177,-19.696857 34.12281,-19.826044 45.4321,-2e-6 8.13923,14.268704 4.93826,65.468037 4.93826,65.468037 l -55.30864,0 c 0,0 -3.15746,-51.433212 4.93828,-65.468035 z"
        id="rect4172"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ssccs" />
+       sodipodi:nodetypes="ssccs"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Objects\rect4155-8nor.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        style="opacity:0.5;fill:#ffffff;fill-opacity:1;stroke:none;stroke-opacity:1"
        d="m 329.62318,240.59725 c 11.52281,-11.06116 34.60645,-11.13371 46.07603,0 8.2546,8.01288 5.00825,36.7649 5.00825,36.7649 l -56.09254,0 c 0,0 -3.20221,-28.88336 5.00826,-36.7649 z"
@@ -283,14 +310,20 @@
        width="12.839506"
        height="15.353796"
        x="343.98767"
-       y="141.00839" />
+       y="141.00839"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Objects\rect4155-8nor.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-opacity:1"
        id="rect4155-8"
        width="12.839506"
        height="15.353796"
        x="409.15298"
-       y="141.00839" />
+       y="141.00839"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Objects\rect4155-8nor.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        style="fill:url(#radialGradient4488);fill-opacity:1;stroke:none;stroke-opacity:1"
        d="m 464,52.36219 32,0 c 0,0 -9.31056,7.442189 -8.99648,15.379826 0.29696,7.50522 10.32905,15.41399 6.73374,19.22545 -6.85099,7.26286 -21.19522,7.1838 -27.95939,-0.18578 -3.83316,-4.17622 6.0693,-11.31398 6.65847,-19.22327 C 472.96262,60.493376 464,52.36219 464,52.36219 Z"

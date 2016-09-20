@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: edd77e9fb14801440a78e06a89494770
-timeCreated: 1461412744
+guid: 4983a01cb5a58604f978dcf762f892bc
+timeCreated: 1474340714
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
@@ -17,7 +17,7 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 1
     externalNormalMap: 1
-    heightScale: 0.012
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
@@ -44,7 +44,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   alphaIsTransparency: 0
   textureType: 1
   buildTargetSettings: []

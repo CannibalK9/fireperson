@@ -24,7 +24,7 @@ namespace Assets.Scripts.Movement
 				return false;
 
 			_motor.Rigidbody.isKinematic = true;
-            Physics2D.IgnoreLayerCollision(_motor.Transform.gameObject.layer, Layers.Platforms, true);
+			IgnorePlatforms(true);
 			_motor.MovementState.UpdatePivotToTarget();
 
 			float distance;
@@ -64,7 +64,7 @@ namespace Assets.Scripts.Movement
 				deltaMovement.x = 0;
 
 			_motor.Rigidbody.isKinematic = isKinematic;
-            Physics2D.IgnoreLayerCollision(_motor.Transform.gameObject.layer, Layers.Platforms, isKinematic);
+			IgnorePlatforms(isKinematic);
             _motor.MovementState.Reset(deltaMovement);
 			Bounds bounds = _motor.Collider.bounds;
 
@@ -130,6 +130,15 @@ namespace Assets.Scripts.Movement
 				_motor.MovementState.PivotCollider = null;
 				_motor.Transform.Translate(deltaMovement, Space.World);
 			}
+		}
+
+		private void IgnorePlatforms(bool ignore)
+		{
+			int layer = _motor.Transform.gameObject.layer;
+			Physics2D.IgnoreLayerCollision(layer, LayerMask.NameToLayer(Layers.OutdoorMetal), ignore);
+			Physics2D.IgnoreLayerCollision(layer, LayerMask.NameToLayer(Layers.OutdoorWood), ignore);
+			Physics2D.IgnoreLayerCollision(layer, LayerMask.NameToLayer(Layers.IndoorMetal), ignore);
+			Physics2D.IgnoreLayerCollision(layer, LayerMask.NameToLayer(Layers.IndoorWood), ignore);
 		}
 
 		private RaycastHit2D DirectionCast(Bounds bounds, DirectionTravelling direction)

@@ -1,20 +1,20 @@
 fileFormatVersion: 2
 guid: 6035b6603a26f22438faf9707668550e
-timeCreated: 1464547821
+timeCreated: 1474340376
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: cross-section_0
-    21300002: cross-section_1
+    21300000: floor
+    21300002: girder
     21300004: cross-section_2
-    21300006: cross-section_3
+    21300006: wall
     21300008: cross-section_4
     21300010: cross-section_5
     21300012: cross-section_6
     21300014: cross-section_7
     21300016: cross-section_8
-    21300018: cross-section_9
-    21300020: cross-section_10
+    21300018: backPanel
+    21300020: roof
     21300022: cross-section_11
     21300024: cross-section_12
   serializedVersion: 2
@@ -63,7 +63,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: cross-section_0
+    - name: floor
       rect:
         serializedVersion: 2
         x: 0
@@ -74,13 +74,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -41, y: 32}
-        - {x: -64, y: 3}
+      - - {x: -64, y: 32}
         - {x: -64, y: -32}
-        - {x: 41, y: -32}
-        - {x: 64, y: -3}
+        - {x: 64, y: -32}
         - {x: 64, y: 32}
-    - name: cross-section_1
+    - name: girder
       rect:
         serializedVersion: 2
         x: 128
@@ -103,106 +101,10 @@ TextureImporter:
         - {x: 256, y: -32}
         - {x: 256, y: -14}
         - {x: 222, y: -14}
-    - name: cross-section_2
+    - name: wall
       rect:
         serializedVersion: 2
         x: 0
-        y: 1920
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 12, y: -32}
-        - {x: 32, y: -3}
-        - {x: 32, y: 32}
-    - name: cross-section_3
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 1920
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 9, y: -32}
-        - {x: 32, y: -3}
-        - {x: 32, y: 32}
-    - name: cross-section_4
-      rect:
-        serializedVersion: 2
-        x: 640
-        y: 2016
-        width: 128
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -64, y: 16}
-        - {x: -64, y: -16}
-        - {x: 64, y: -16}
-        - {x: 64, y: 16}
-    - name: cross-section_5
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 1920
-        width: 128
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -64, y: 32}
-        - {x: -64, y: -32}
-        - {x: 46, y: -32}
-        - {x: 64, y: -12}
-        - {x: 64, y: 12}
-        - {x: 46, y: 32}
-    - name: cross-section_6
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 1920
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -10, y: 32}
-        - {x: -32, y: 3}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 32}
-    - name: cross-section_7
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 1920
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -9, y: 32}
-        - {x: -32, y: 3}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 32}
-    - name: cross-section_8
-      rect:
-        serializedVersion: 2
-        x: 384
         y: 1920
         width: 128
         height: 64
@@ -214,7 +116,7 @@ TextureImporter:
         - {x: -64, y: -32}
         - {x: 64, y: -32}
         - {x: 64, y: 32}
-    - name: cross-section_9
+    - name: backPanel
       rect:
         serializedVersion: 2
         x: 768
@@ -229,21 +131,24 @@ TextureImporter:
         - {x: -256, y: -64}
         - {x: 256, y: -64}
         - {x: 256, y: 64}
-    - name: cross-section_10
+    - name: roof
       rect:
         serializedVersion: 2
         x: 0
-        y: 1792
-        width: 1024
-        height: 128
+        y: 1862
+        width: 128
+        height: 58
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -512, y: 64}
-        - {x: -512, y: -64}
-        - {x: 512, y: -64}
-        - {x: 512, y: 64}
+      - - {x: -64, y: -26}
+        - {x: -63, y: -29}
+        - {x: 64, y: -29}
+        - {x: 64, y: 29}
+        - {x: 28, y: 29}
+        - {x: -61, y: 15}
+        - {x: -64, y: 12}
     outline: []
   spritePackingTag: 
   userData: 

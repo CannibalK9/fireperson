@@ -17,7 +17,7 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="furniture.svg"
-   inkscape:export-filename="C:\code\fireperson\Assets\Materials\Objects\furniture.png"
+   inkscape:export-filename="C:\code\fireperson\Assets\Materials\Objects\objects1.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -159,17 +159,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.765"
-     inkscape:cx="395.2215"
-     inkscape:cy="810.50906"
+     inkscape:zoom="1"
+     inkscape:cx="415.94809"
+     inkscape:cy="780.88956"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1090"
-     inkscape:window-height="616"
-     inkscape:window-x="702"
-     inkscape:window-y="395"
-     inkscape:window-maximized="0"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
      gridtolerance="10"
      units="px">
     <inkscape:grid
@@ -657,18 +657,24 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc" />
     <rect
-       style="fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1"
+       style="fill:#cc7333;fill-opacity:1;stroke:none;stroke-opacity:1"
        id="rect4153"
        width="80"
        height="113.16317"
        x="343.00012"
-       y="28.362188" />
+       y="28.362188"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Objects\rect4155-8.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
-       style="fill:#c8beb7;fill-opacity:1;stroke:none;stroke-opacity:1"
+       style="fill:#be4f00;fill-opacity:1;stroke:none;stroke-opacity:1"
        d="m 361.27174,57.121837 c 11.36177,-19.696858 34.12281,-19.826048 45.4321,-2e-6 8.13923,14.268704 4.93826,65.468035 4.93826,65.468035 l -55.30864,0 c 0,0 -3.15746,-51.43321 4.93828,-65.468033 z"
        id="rect4172"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ssccs" />
+       sodipodi:nodetypes="ssccs"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Objects\rect4155-8.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        style="opacity:0.5;fill:#c8beb7;fill-opacity:1;stroke:none;stroke-opacity:1"
        d="m 329.62332,240.59724 c 11.52281,-11.06116 34.60645,-11.13371 46.07603,0 8.2546,8.01289 5.00825,36.76491 5.00825,36.76491 l -56.09254,0 c 0,0 -3.20221,-28.88336 5.00826,-36.76491 z"
@@ -676,7 +682,7 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ssccs" />
     <rect
-       style="fill:#000000;stroke:#000000;stroke-width:3.4717536;stroke-opacity:1"
+       style="fill:#be4f00;stroke:#be4f00;stroke-width:3.472;stroke-opacity:1;fill-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        id="rect3467-5"
        width="58.836143"
        height="26.725428"
@@ -684,21 +690,27 @@
        y="242.14053"
        ry="0" />
     <rect
-       style="fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1"
+       style="fill:#ae5f27;fill-opacity:1;stroke:none;stroke-opacity:1"
        id="rect4155"
        width="12.839506"
        height="15.353796"
        x="343.98779"
-       y="141.00838" />
+       y="141.00838"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Objects\rect4155-8.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
-       style="fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1"
+       style="fill:#ae5f27;fill-opacity:1;stroke:none;stroke-opacity:1"
        id="rect4155-8"
        width="12.839506"
        height="15.353796"
        x="409.15311"
-       y="141.00838" />
+       y="141.00838"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Objects\rect4155-8.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
-       style="fill:#000000;stroke:#000000;stroke-width:3.19836116;stroke-opacity:1"
+       style="fill:#cc7333;stroke:#be4f00;stroke-width:3.19836116;stroke-opacity:1;fill-opacity:1"
        id="rect3467"
        width="59.099979"
        height="22.580769"
@@ -706,20 +718,20 @@
        y="260.18222"
        ry="5.0444798" />
     <rect
-       style="fill:#999999;fill-opacity:1;stroke:none;stroke-opacity:1"
+       style="fill:#ffbc00;fill-opacity:1;stroke:none;stroke-opacity:1"
        id="rect4175"
        width="4.4444442"
        height="16.285017"
        x="346.26718"
        y="188.8766" />
     <path
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:4.15990543;stroke-opacity:1"
+       style="fill:none;fill-opacity:1;stroke:#be4f00;stroke-width:4.15990543;stroke-opacity:1"
        d="m 391.89547,206.06012 c 11.91653,-12.78209 35.78895,-12.86592 47.65048,0 8.53665,9.25953 5.17937,42.48484 5.17937,42.48484 l -58.00926,0 c 0,0 -3.31164,-33.37707 5.17941,-42.48484 z"
        id="rect4172-9-9"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ssccs" />
     <ellipse
-       style="fill:#999999;fill-opacity:1;stroke:none;stroke-opacity:1"
+       style="fill:#e8ac31;fill-opacity:1;stroke:none;stroke-opacity:1"
        id="path4177"
        cx="348.98325"
        cy="186.31761"
