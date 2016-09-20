@@ -37,8 +37,8 @@ namespace Assets.Scripts.Interactable
 			_wasLeft = LeftEdge;
 			_wasRight = RightEdge;
 
-            _leftEdgeObject = Resources.Load("edges/left edge") as GameObject;
-            _rightEdgeObject = Resources.Load("edges/right edge") as GameObject;
+            _leftEdgeObject = Resources.Load("terrain/edges/left edge") as GameObject;
+            _rightEdgeObject = Resources.Load("terrain/edges/right edge") as GameObject;
         }
 
         void Update()

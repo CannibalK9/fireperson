@@ -132,8 +132,7 @@
     <Compile Include="Assets\Scripts\Player\PlayerState.cs" />
     <Compile Include="Assets\Scripts\Rendering\MeshSortingOrder.cs" />
     <Compile Include="Assets\Scripts\Rendering\ParticleSystemAutoDestroy.cs" />
-    <Compile Include="Assets\Scripts\Rendering\RepeatSpriteBoundary.cs" />
-    <Compile Include="Assets\Scripts\Rendering\TextureTilingController.cs" />
+    <Compile Include="Assets\Scripts\Rendering\SpriteTiler.cs" />
     <Compile Include="Assets\SpritesAndBones\Scripts\AnimationWindowUtils.cs" />
     <Compile Include="Assets\SpritesAndBones\Scripts\Bone.cs" />
     <Compile Include="Assets\SpritesAndBones\Scripts\ControlPoint.cs" />
