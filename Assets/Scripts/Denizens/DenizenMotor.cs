@@ -31,22 +31,34 @@ namespace Assets.Scripts.Denizens
 			_controller = GetComponent<DenizenController>();
 		}
 
-		void Update()
-		{
-			if (_controller.SatAtFireplace || DirectionTravelling == DirectionTravelling.None)
-				_velocity = Vector3.zero;
-
-			if (_isJumping == false && _controller.SatAtFireplace == false && CanMove)
-				DetermineMovement();
-
-			if (_isJumping)
-                JumpAcross();
-            else
-                MoveWithVelocity();
-
+        void Update()
+        {
             _isSliding = _controller.MovementState.IsOnSlope && _controller.MovementState.TrappedBetweenSlopes == false;
             _animator.SetBool(DenizenAnimBool.Sliding, _isSliding);
-			_animator.SetBool(DenizenAnimBool.PlayerSpotted, SpotPlayer());
+            _animator.SetBool(DenizenAnimBool.PlayerSpotted, SpotPlayer());
+            _animator.SetBool(DenizenAnimBool.SatAtFireplace, _controller.SatAtFireplace);
+
+            if (_isSliding)
+            {
+                MoveWithVelocity();
+            }
+            else if (_isJumping)
+            {
+                JumpAcross();
+            }
+            else
+            {
+                if (_controller.SatAtFireplace)
+                {
+                    DirectionTravelling = DirectionTravelling.None;
+                }
+
+                if (CanMove)
+                {
+                    DetermineMovement();
+                    MoveWithVelocity();
+                }
+            }
         }
 
         void MoveToFireplace(DirectionTravelling direction)
@@ -113,6 +125,7 @@ namespace Assets.Scripts.Denizens
 
 			if (DirectionTravelling == DirectionTravelling.Right)
 			{
+                _normalizedHorizontalSpeed = 1;
 				if (GetDirectionFacing() == DirectionFacing.Left)
 					FlipSprite();
 
@@ -124,6 +137,7 @@ namespace Assets.Scripts.Denizens
 			}
 			else if (DirectionTravelling == DirectionTravelling.Left)
 			{
+                _normalizedHorizontalSpeed = -1;
 				if (GetDirectionFacing() == DirectionFacing.Right)
 					FlipSprite();
 
@@ -137,6 +151,7 @@ namespace Assets.Scripts.Denizens
 			{
 				_normalizedHorizontalSpeed = 0;
 			}
+            _animator.SetBool(DenizenAnimBool.Moving, _normalizedHorizontalSpeed != 0);
         }
 
         private void HazardHandler(Vector2 hazardRay)

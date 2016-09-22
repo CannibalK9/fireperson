@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\Denizens\DenizenAnimBool.cs" />
     <Compile Include="Assets\Scripts\Denizens\DenizenController.cs" />
     <Compile Include="Assets\Scripts\Denizens\DenizenMotor.cs" />
+    <Compile Include="Assets\Scripts\Environment\Weather.cs" />
     <Compile Include="Assets\Scripts\Fire\Fire.cs" />
     <Compile Include="Assets\Scripts\Heat\BoxHeater.cs" />
     <Compile Include="Assets\Scripts\Heat\CircleHeater.cs" />
