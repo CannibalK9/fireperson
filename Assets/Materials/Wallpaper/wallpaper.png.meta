@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b39b2d5559725ec4ab452bd058654528
-timeCreated: 1474340806
+timeCreated: 1474480769
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -55,8 +55,8 @@ TextureImporter:
     - name: swirly
       rect:
         serializedVersion: 2
-        x: 0
-        y: 768
+        x: 64
+        y: 704
         width: 256
         height: 256
       alignment: 0
@@ -70,7 +70,7 @@ TextureImporter:
     - name: leafy
       rect:
         serializedVersion: 2
-        x: 256
+        x: 384
         y: 768
         width: 256
         height: 256

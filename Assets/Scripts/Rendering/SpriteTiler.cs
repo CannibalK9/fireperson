@@ -9,19 +9,22 @@ namespace Assets.Scripts.Rendering
 	class SpriteTiler : MonoBehaviour
 	{
 		#if UNITY_EDITOR
-		private float _gridX;
-		private float _gridY;
+		private int _gridX;
+		private int _gridY;
 
 		void Update()
 		{
-			if (transform.localScale.x < 1 || transform.localScale.y < 1 || (_gridX == transform.localScale.x && _gridY == transform.localScale.y))
+			int gridX = Mathf.RoundToInt(transform.localScale.x);
+			int gridY = Mathf.RoundToInt(transform.localScale.y);
+
+			if (transform.localScale.x < 1 || transform.localScale.y < 1 || (_gridX == gridX && _gridY == gridY))
 				return;
 
 			Quaternion rotation = transform.rotation;
 			transform.rotation = new Quaternion();
 
-			_gridX = transform.localScale.x;
-			_gridY = transform.localScale.y;
+			_gridX = gridX;
+			_gridY = gridY;
 
 			var children = new List<GameObject>();
 			foreach (Transform c in transform.GetComponentsInChildren<Transform>())
@@ -32,7 +35,7 @@ namespace Assets.Scripts.Rendering
 			children.ForEach(c => DestroyImmediate(c));
 
 			var sprite = GetComponent<SpriteRenderer>();
-			Vector2 spriteSize_wu = new Vector2(sprite.bounds.size.x / transform.localScale.x, sprite.bounds.size.y / transform.localScale.y);
+			Vector2 spriteSize_wu = new Vector2(sprite.bounds.size.x / _gridX, sprite.bounds.size.y / _gridY);
 			var scale = Vector3.one;
 
 			if (_gridX != 0)
@@ -76,7 +79,7 @@ namespace Assets.Scripts.Rendering
 
 			transform.rotation = rotation;
 			DestroyImmediate(childPrefab);
-			sprite.enabled = false; // Disable this SpriteRenderer and let the prefab children render themselves
+			sprite.enabled = false;
 		}
 		#endif
 	}

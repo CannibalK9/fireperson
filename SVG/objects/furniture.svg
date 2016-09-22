@@ -160,7 +160,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="415.94809"
+     inkscape:cx="266.44809"
      inkscape:cy="780.88956"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -196,6 +196,16 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-28.362161)">
+    <rect
+       style="fill:#cc7333;fill-opacity:1;stroke:none;stroke-opacity:1"
+       id="rect4153-5"
+       width="80"
+       height="51.16317"
+       x="343.00012"
+       y="90.36216"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Objects\rect4155-8.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="opacity:1;fill:#ae5f27;fill-opacity:1;stroke:none;stroke-width:4;stroke-opacity:1"
        id="rect4393"
@@ -302,7 +312,8 @@
        id="g5893"
        inkscape:export-filename="C:\code\fireperson\Assets\Materials\Objects\pipe.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-ydpi="90"
+       transform="translate(0,1.9999994)">
       <rect
          transform="scale(-1,1)"
          inkscape:export-ydpi="90"
@@ -665,7 +676,8 @@
        y="28.362188"
        inkscape:export-filename="C:\code\fireperson\Assets\Materials\Objects\rect4155-8.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-ydpi="90"
+       ry="18" />
     <path
        style="fill:#be4f00;fill-opacity:1;stroke:none;stroke-opacity:1"
        d="m 361.27174,57.121837 c 11.36177,-19.696858 34.12281,-19.826048 45.4321,-2e-6 8.13923,14.268704 4.93826,65.468035 4.93826,65.468035 l -55.30864,0 c 0,0 -3.15746,-51.43321 4.93828,-65.468033 z"

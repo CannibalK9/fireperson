@@ -570,6 +570,39 @@
          x="0"
          y="412.36215" />
     </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath5355-3-1">
+      <rect
+         style="opacity:1;fill:#ffeeaa;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5357-5-3"
+         width="74.713448"
+         height="39.858574"
+         x="165.0045"
+         y="224.99832" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath5355-3-4">
+      <rect
+         style="opacity:1;fill:#ffeeaa;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5357-5-7"
+         width="74.713448"
+         height="39.858574"
+         x="165.0045"
+         y="224.99832" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath5355-3-0">
+      <rect
+         style="opacity:1;fill:#ffeeaa;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5357-5-9"
+         width="74.713448"
+         height="39.858574"
+         x="165.0045"
+         y="224.99832" />
+    </clipPath>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -578,9 +611,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.5"
-     inkscape:cx="69.74207"
-     inkscape:cy="596.12245"
+     inkscape:zoom="1"
+     inkscape:cx="163.35624"
+     inkscape:cy="808.18899"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -616,127 +649,477 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-28.362138)">
-    <g
-       id="g3490"
-       transform="translate(-512,0)">
-      <rect
-         inkscape:export-ydpi="90"
-         inkscape:export-xdpi="90"
-         inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
-         clip-path="url(#clipPath5355-3)"
-         transform="matrix(3.4264247,0,0,6.4227085,-53.375499,-1416.7365)"
-         y="213.72577"
-         x="147.16667"
-         height="121.21212"
-         width="191.66667"
-         id="rect4381-0"
-         style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <path
-         inkscape:export-ydpi="90"
-         inkscape:export-xdpi="90"
-         inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
-         sodipodi:nodetypes="cszsssssc"
-         inkscape:connector-curvature="0"
-         id="path4338-2"
-         d="m 575.89671,97.791413 c 0,0 -12.48732,-4.913242 -6.97186,-14.233342 2.16288,-3.654865 9.08854,-7.356591 16.91596,-5.494808 7.82742,1.861783 17.37589,14.729645 14.75857,25.733827 -3.18006,13.37015 -17.26102,20.83709 -30.06943,17.59924 -15.37971,-3.88786 -23.94504,-20.67522 -20.12254,-35.925609 4.54214,-18.121471 23.73439,-28.189126 41.1482,-23.581599 20.50011,5.424127 31.86468,27.915142 26.54667,48.298718 -2.74604,10.52537 -9.55387,19.67603 -18.61935,25.43645"
-         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <ellipse
-         inkscape:export-ydpi="90"
-         inkscape:export-xdpi="90"
-         inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
-         transform="matrix(0.71672099,-0.69736004,0.69736004,0.71672099,0,0)"
-         ry="2.2728431"
-         rx="5.8083777"
-         cy="470.03305"
-         cx="354.60352"
-         id="path4336-2-1"
-         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <ellipse
-         inkscape:export-ydpi="90"
-         inkscape:export-xdpi="90"
-         inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
-         transform="matrix(0.99316951,-0.11668042,0.11668042,0.99316951,0,0)"
-         ry="2.2728431"
-         rx="5.8083777"
-         cy="165.38203"
-         cx="570.57513"
-         id="path4336-23-9"
-         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <ellipse
-         inkscape:export-ydpi="90"
-         inkscape:export-xdpi="90"
-         inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
-         transform="matrix(-0.29812299,-0.95452747,0.95452747,-0.29812299,0,0)"
-         ry="2.2728431"
-         rx="5.8083777"
-         cy="520.84131"
-         cx="-274.41098"
-         id="path4336-29-8"
-         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <ellipse
-         inkscape:export-ydpi="90"
-         inkscape:export-xdpi="90"
-         inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
-         transform="matrix(0.71672099,-0.69736004,0.69736004,0.71672099,0,0)"
-         ry="2.2728431"
-         rx="5.8083777"
-         cy="472.13394"
-         cx="334.5867"
-         id="path4336-6-3"
-         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <path
-         inkscape:export-ydpi="90"
-         inkscape:export-xdpi="90"
-         inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
-         sodipodi:nodetypes="cszsssssc"
-         inkscape:connector-curvature="0"
-         id="path4338-9-5"
-         d="m 684.59483,208.04135 c 0,0 12.33931,5.27394 6.55542,14.42988 -2.26814,3.59048 -9.29842,7.08945 -17.06845,5.00106 -7.77003,-2.0884 -16.94064,-15.22822 -14.00474,-26.15172 3.56713,-13.27212 17.85907,-20.32685 30.56801,-16.71827 15.26028,4.33302 23.3343,21.36213 19.07036,36.49504 -5.06667,17.98186 -24.54329,27.48771 -41.8159,22.37624 -20.33387,-6.01739 -31.04026,-28.82907 -25.13233,-49.04955 3.05066,-10.44114 10.12145,-19.39017 19.35045,-24.88479"
-         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <ellipse
-         inkscape:export-ydpi="90"
-         inkscape:export-xdpi="90"
-         inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
-         transform="matrix(-0.73667761,0.67624412,-0.67624412,-0.73667761,0,0)"
-         ry="2.2728431"
-         rx="5.8083777"
-         cy="-617.8761"
-         cx="-353.59686"
-         id="path4336-2-4-5"
-         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <ellipse
-         inkscape:export-ydpi="90"
-         inkscape:export-xdpi="90"
-         inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
-         transform="matrix(-0.99614002,0.08777844,-0.08777844,-0.99614002,0,0)"
-         ry="2.2728431"
-         rx="5.8083777"
-         cy="-266.26825"
-         cx="-653.66833"
-         id="path4336-23-0-7"
-         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <ellipse
-         inkscape:export-ydpi="90"
-         inkscape:export-xdpi="90"
-         inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
-         transform="matrix(0.27026702,0.96278541,-0.96278541,0.27026702,0,0)"
-         ry="2.2728431"
-         rx="5.8083777"
-         cy="-602.60529"
-         cx="375.94424"
-         id="path4336-29-1-3"
-         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <ellipse
-         inkscape:export-ydpi="90"
-         inkscape:export-xdpi="90"
-         inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
-         transform="matrix(-0.73667761,0.67624412,-0.67624412,-0.73667761,0,0)"
-         ry="2.2728431"
-         rx="5.8083777"
-         cy="-615.77521"
-         cx="-373.61371"
-         id="path4336-6-6-5"
-         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    </g>
+    <rect
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4381-0"
+       width="191.66667"
+       height="121.21212"
+       x="147.16667"
+       y="213.72577"
+       transform="matrix(1.7801347,0,0,3.4622412,-234.73024,-696.63635)"
+       clip-path="url(#clipPath5355-3)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#666666;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 95.948355,127.07678 c 0,0 -6.24366,-2.45662 -3.48593,-7.11667 1.08144,-1.82744 4.54427,-3.6783 8.457985,-2.74741 3.9137,0.93089 8.68794,7.36483 7.37928,12.86692 -1.59003,6.68507 -8.63051,10.41854 -15.034715,8.79962 -7.689855,-1.94393 -11.97252,-10.33761 -10.06127,-17.96281 2.27107,-9.06073 11.867195,-14.09456 20.574105,-11.7908 10.25005,2.71207 15.93234,13.95757 13.27333,24.14936 -1.37302,5.26269 -4.77694,9.83802 -9.30968,12.71823"
+       id="path4338-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cszsssssc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-2-1"
+       cx="-14.829026"
+       cy="157.15741"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(0.71672099,-0.69736003,0.69736003,0.71672099,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-23-9"
+       cx="85.476822"
+       cy="137.93544"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(0.99316951,-0.11668042,0.11668042,0.99316951,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-29-8"
+       cx="-154.59186"
+       cy="53.843811"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(-0.29812298,-0.95452747,0.95452747,-0.29812298,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-6-3"
+       cx="-24.837433"
+       cy="158.20786"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(0.71672099,-0.69736003,0.69736003,0.71672099,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#666666;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 150.29741,182.20175 c 0,0 6.16966,2.63697 3.27772,7.21494 -1.13408,1.79524 -4.64921,3.54472 -8.53423,2.50053 -3.88502,-1.0442 -8.47032,-7.61411 -7.00237,-13.07586 1.78357,-6.63606 8.92954,-10.16343 15.28401,-8.35914 7.63013,2.16651 11.66714,10.68107 9.53518,18.24752 -2.53334,8.99093 -12.27165,13.74386 -20.90795,11.18812 -10.16694,-3.00869 -15.52013,-14.41453 -12.56617,-24.52477 1.52533,-5.22057 5.06073,-9.69509 9.67523,-12.4424"
+       id="path4338-9-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cszsssssc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-2-4-5"
+       cx="17.513157"
+       cy="-236.69344"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(-0.73667761,0.67624411,-0.67624411,-0.73667761,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-23-0-7"
+       cx="-128.71268"
+       cy="-194.15996"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(-0.99614002,0.08777844,-0.08777844,-0.99614002,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-29-1-3"
+       cx="211.35245"
+       cy="-95.318077"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(0.27026702,0.96278541,-0.96278541,0.27026702,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-6-6-5"
+       cx="7.5047336"
+       cy="-235.64299"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(-0.73667761,0.67624411,-0.67624411,-0.73667761,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4381-0-6"
+       width="191.66667"
+       height="121.21212"
+       x="147.16667"
+       y="213.72577"
+       transform="matrix(1.7801347,0,0,3.4622412,-101.73024,-696.63635)"
+       clip-path="url(#clipPath5355-3-1)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#666666;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 223.94835,127.07678 c 0,0 -6.24365,-2.45662 -3.48593,-7.11667 1.08144,-1.82743 4.54427,-3.6783 8.45799,-2.74741 3.9137,0.9309 8.68794,7.36483 7.37928,12.86692 -1.59003,6.68507 -8.63051,10.41854 -15.03472,8.79962 -7.68985,-1.94393 -11.97251,-10.33761 -10.06126,-17.96281 2.27107,-9.06073 11.86719,-14.09456 20.57409,-11.7908 10.25006,2.71207 15.93234,13.95757 13.27334,24.14936 -1.37302,5.26269 -4.77694,9.83802 -9.30968,12.71823"
+       id="path4338-2-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cszsssssc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-2-1-7"
+       cx="76.911263"
+       cy="246.41949"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(0.71672099,-0.69736003,0.69736003,0.71672099,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-23-9-0"
+       cx="212.60252"
+       cy="152.87053"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(0.99316951,-0.11668042,0.11668042,0.99316951,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-29-8-9"
+       cx="-192.7516"
+       cy="176.02333"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(-0.29812298,-0.95452747,0.95452747,-0.29812298,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-6-3-6"
+       cx="66.902855"
+       cy="247.46994"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(0.71672099,-0.69736003,0.69736003,0.71672099,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#666666;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 278.29741,182.20175 c 0,0 6.16966,2.63697 3.27772,7.21494 -1.13408,1.79524 -4.64921,3.54472 -8.53423,2.50053 -3.88502,-1.0442 -8.47032,-7.61411 -7.00237,-13.07586 1.78357,-6.63606 8.92954,-10.16343 15.28401,-8.35914 7.63013,2.16651 11.66714,10.68107 9.53518,18.24752 -2.53334,8.99093 -12.27165,13.74386 -20.90795,11.18812 -10.16694,-3.00869 -15.52013,-14.41453 -12.56617,-24.52477 1.52533,-5.22057 5.06073,-9.69509 9.67523,-12.4424"
+       id="path4338-9-5-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cszsssssc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-2-4-5-2"
+       cx="-76.781578"
+       cy="-323.25269"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(-0.73667761,0.67624411,-0.67624411,-0.73667761,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-23-0-7-2"
+       cx="-256.2186"
+       cy="-205.3956"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(-0.99614002,0.08777844,-0.08777844,-0.99614002,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-29-1-3-6"
+       cx="245.94662"
+       cy="-218.55461"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(0.27026702,0.96278541,-0.96278541,0.27026702,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-6-6-5-1"
+       cx="-86.790001"
+       cy="-322.20224"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(-0.73667761,0.67624411,-0.67624411,-0.73667761,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4381-0-1"
+       width="191.66667"
+       height="121.21212"
+       x="147.16667"
+       y="213.72577"
+       transform="matrix(1.8069036,0,0,3.3618864,-106.14724,-536.05668)"
+       clip-path="url(#clipPath5355-3-4)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#666666;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 223.94835,255.07678 c 0,0 -6.24365,-2.45662 -3.48593,-7.11667 1.08144,-1.82744 4.54427,-3.6783 8.45799,-2.74741 3.9137,0.93089 8.68794,7.36482 7.37928,12.86691 -1.59003,6.68508 -8.63051,10.41855 -15.03472,8.79962 -7.68985,-1.94392 -11.97251,-10.33761 -10.06126,-17.9628 2.27107,-9.06074 11.86719,-14.09456 20.57409,-11.7908 10.25006,2.71206 15.93234,13.95757 13.27334,24.14936 -1.37302,5.26268 -4.77694,9.83801 -9.30968,12.71823"
+       id="path4338-2-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cszsssssc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-2-1-2"
+       cx="-12.350822"
+       cy="338.15979"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(0.71672099,-0.69736003,0.69736003,0.71672099,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-23-9-5"
+       cx="197.66742"
+       cy="279.99622"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(0.99316951,-0.11668042,0.11668042,0.99316951,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-29-8-90"
+       cx="-314.93112"
+       cy="137.86359"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(-0.29812298,-0.95452747,0.95452747,-0.29812298,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-6-3-1"
+       cx="-22.35923"
+       cy="339.21024"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(0.71672099,-0.69736003,0.69736003,0.71672099,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#666666;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 278.29741,310.20175 c 0,0 6.16966,2.63696 3.27772,7.21494 -1.13408,1.79523 -4.64921,3.54472 -8.53423,2.50052 -3.88502,-1.0442 -8.47032,-7.6141 -7.00237,-13.07585 1.78357,-6.63607 8.92954,-10.16343 15.28401,-8.35914 7.63013,2.16651 11.66714,10.68106 9.53518,18.24752 -2.53334,8.99093 -12.27165,13.74385 -20.90795,11.18812 -10.16694,-3.0087 -15.52013,-14.41453 -12.56617,-24.52478 1.52533,-5.22057 5.06073,-9.69508 9.67523,-12.44239"
+       id="path4338-9-5-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cszsssssc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-2-4-5-0"
+       cx="9.777668"
+       cy="-417.54739"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(-0.73667761,0.67624411,-0.67624411,-0.73667761,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-23-0-7-6"
+       cx="-244.98296"
+       cy="-332.90152"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(-0.99614002,0.08777844,-0.08777844,-0.99614002,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-29-1-3-8"
+       cx="369.18317"
+       cy="-183.96043"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(0.27026702,0.96278541,-0.96278541,0.27026702,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-6-6-5-5"
+       cx="-0.23075511"
+       cy="-416.49695"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(-0.73667761,0.67624411,-0.67624411,-0.73667761,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4381-0-2"
+       width="191.66667"
+       height="121.21212"
+       x="147.16667"
+       y="213.72577"
+       transform="matrix(1.7935191,0,0,3.3869751,-237.93874,-541.7016)"
+       clip-path="url(#clipPath5355-3-0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#666666;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 95.948355,255.07678 c 0,0 -6.24366,-2.45662 -3.48593,-7.11667 1.08144,-1.82744 4.54427,-3.6783 8.457985,-2.74741 3.9137,0.93089 8.68794,7.36482 7.37928,12.86691 -1.59003,6.68508 -8.63051,10.41855 -15.034715,8.79962 -7.689855,-1.94392 -11.97252,-10.33761 -10.06127,-17.9628 2.27107,-9.06074 11.867195,-14.09456 20.574105,-11.7908 10.25005,2.71206 15.93234,13.95757 13.27333,24.14936 -1.37302,5.26268 -4.77694,9.83801 -9.30968,12.71823"
+       id="path4338-2-71"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cszsssssc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-2-1-1"
+       cx="-104.09111"
+       cy="248.89771"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(0.71672099,-0.69736003,0.69736003,0.71672099,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-23-9-2"
+       cx="70.541733"
+       cy="265.06113"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(0.99316951,-0.11668042,0.11668042,0.99316951,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-29-8-7"
+       cx="-276.77136"
+       cy="15.684069"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(-0.29812298,-0.95452747,0.95452747,-0.29812298,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-6-3-9"
+       cx="-114.09952"
+       cy="249.94815"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(0.71672099,-0.69736003,0.69736003,0.71672099,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#666666;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 150.29741,310.20175 c 0,0 6.16966,2.63696 3.27772,7.21494 -1.13408,1.79523 -4.64921,3.54472 -8.53423,2.50052 -3.88502,-1.0442 -8.47032,-7.6141 -7.00237,-13.07585 1.78357,-6.63607 8.92954,-10.16343 15.28401,-8.35914 7.63013,2.16651 11.66714,10.68106 9.53518,18.24752 -2.53334,8.99093 -12.27165,13.74385 -20.90795,11.18812 -10.16694,-3.0087 -15.52013,-14.41453 -12.56617,-24.52478 1.52533,-5.22057 5.06073,-9.69508 9.67523,-12.44239"
+       id="path4338-9-5-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cszsssssc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-2-4-5-9"
+       cx="104.0724"
+       cy="-330.98816"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(-0.73667761,0.67624411,-0.67624411,-0.73667761,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-23-0-7-8"
+       cx="-117.47703"
+       cy="-321.66589"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(-0.99614002,0.08777844,-0.08777844,-0.99614002,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-29-1-3-1"
+       cx="334.58899"
+       cy="-60.7239"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(0.27026702,0.96278541,-0.96278541,0.27026702,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="opacity:1;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4336-6-6-5-3"
+       cx="94.06398"
+       cy="-329.93771"
+       rx="2.9041889"
+       ry="1.1364216"
+       transform="matrix(-0.73667761,0.67624411,-0.67624411,-0.73667761,0,0)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\wallpaper1_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>
