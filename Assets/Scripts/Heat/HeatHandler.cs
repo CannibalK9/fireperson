@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Interactable;
+using UnityEngine;
 
 namespace Assets.Scripts.Heat
 {
@@ -8,25 +9,21 @@ namespace Assets.Scripts.Heat
 		private GameObject _steam;
         private GameObject _emberLight;
         private GameObject _emberStrong;
+		private FirePlace _fireplace;
 		protected ParticleSystem _ps;
-
-		protected float _defaultWidth;
-		protected Vector3 _defaultScale;
+		protected BoxCollider2D _box;
+		protected float _width;
 
 		void Awake()
 		{
-			var col = GetComponent<Collider2D>();
-			var circleCol = col as CircleCollider2D;
-			if (circleCol != null)
-				_defaultWidth = circleCol.bounds.size.x;
-			else
-			{
-				var boxCol = col as BoxCollider2D;
-				_defaultWidth = boxCol.size.x;
-			}
-			_defaultScale = transform.localScale;
+			_fireplace = GetComponentInParent<FirePlace>();
 			_ps = GetComponentInChildren<ParticleSystem>();
-			UpdateHeat(new HeatMessage(1, 2f));
+
+			if (this is BoxHeater)
+			{
+				_box = GetComponent<BoxCollider2D>();
+				_width = _box.size.x;
+			}
 		}
 
 		void Start()
@@ -36,13 +33,23 @@ namespace Assets.Scripts.Heat
 			_emberStrong = (GameObject)Resources.Load("particles/emberStrong");
 		}
 
+		void Update()
+		{
+			if (_fireplace != null)
+			{
+				EnableCollider(_fireplace.IsLit);
+				if (_fireplace.IsLit && (HeatMessage.DistanceToMove != _fireplace.HeatIntensity || HeatMessage.HeatRange != _fireplace.HeatRayDistance))
+					UpdateHeat(new HeatMessage(_fireplace.HeatIntensity, _fireplace.HeatRayDistance));
+			}
+		}
+
 		public void UpdateHeat(HeatMessage heatMessage)
 		{
 			HeatMessage = heatMessage;
 			SetColliderSizes(heatMessage.HeatRange);
 		}
 
-		protected virtual void SetColliderSizes(float additionalRange)
+		protected virtual void SetColliderSizes(float range)
 		{ }
 
 		public void EnableCollider(bool enable)

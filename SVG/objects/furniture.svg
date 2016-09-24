@@ -160,8 +160,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="266.44809"
-     inkscape:cy="780.88956"
+     inkscape:cx="484"
+     inkscape:cy="846.77234"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -200,9 +200,9 @@
        style="fill:#cc7333;fill-opacity:1;stroke:none;stroke-opacity:1"
        id="rect4153-5"
        width="80"
-       height="51.16317"
+       height="15.16317"
        x="343.00012"
-       y="90.36216"
+       y="126.36216"
        inkscape:export-filename="C:\code\fireperson\Assets\Materials\Objects\rect4155-8.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
@@ -667,26 +667,11 @@
        id="path4423"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc" />
-    <rect
-       style="fill:#cc7333;fill-opacity:1;stroke:none;stroke-opacity:1"
-       id="rect4153"
-       width="80"
-       height="113.16317"
-       x="343.00012"
-       y="28.362188"
-       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Objects\rect4155-8.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90"
-       ry="18" />
     <path
-       style="fill:#be4f00;fill-opacity:1;stroke:none;stroke-opacity:1"
-       d="m 361.27174,57.121837 c 11.36177,-19.696858 34.12281,-19.826048 45.4321,-2e-6 8.13923,14.268704 4.93826,65.468035 4.93826,65.468035 l -55.30864,0 c 0,0 -3.15746,-51.43321 4.93828,-65.468033 z"
-       id="rect4172"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ssccs"
-       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Objects\rect4155-8.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       style="fill:#cc7333;fill-opacity:1;stroke:none;stroke-opacity:1"
+       d="M 361 0 C 351.028 0 343 8.028 343 18 L 343 95.164062 C 343 105.13606 351.028 113.16406 361 113.16406 L 405 113.16406 C 414.972 113.16406 423 105.13606 423 95.164062 L 423 18 C 423 8.028 414.972 1.1141088e-016 405 0 L 361 0 z M 384.00781 13.939453 C 392.53195 13.923304 401.04848 18.846743 406.70312 28.759766 C 414.84235 43.02847 411.64258 94.228516 411.64258 94.228516 L 356.33398 94.228516 C 356.33398 94.228516 353.17574 42.794589 361.27148 28.759766 C 366.95237 18.911337 375.48367 13.955602 384.00781 13.939453 z "
+       transform="translate(0,28.362161)"
+       id="rect4153" />
     <path
        style="opacity:0.5;fill:#c8beb7;fill-opacity:1;stroke:none;stroke-opacity:1"
        d="m 329.62332,240.59724 c 11.52281,-11.06116 34.60645,-11.13371 46.07603,0 8.2546,8.01289 5.00825,36.76491 5.00825,36.76491 l -56.09254,0 c 0,0 -3.20221,-28.88336 5.00826,-36.76491 z"
@@ -766,5 +751,14 @@
        x="396.52792"
        y="168.00784"
        ry="0.93005562" />
+    <path
+       style="fill:#be4f00;fill-opacity:1;stroke:none;stroke-opacity:1"
+       d="m 454.27668,176.97588 c 12.8619,-22.07916 38.62817,-22.22398 51.43067,0 9.21388,15.99448 5.59028,73.38628 5.59028,73.38628 l -62.61125,0 c 0,0 -3.57436,-57.65396 5.5903,-73.38628 z"
+       id="rect4172-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ssccs"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Objects\rect4155-8.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>

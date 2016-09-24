@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Heat;
 using Assets.Scripts.Helpers;
 using Assets.Scripts.Player.Abilities;
-using Assets.Scripts.Player.Config;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.PL

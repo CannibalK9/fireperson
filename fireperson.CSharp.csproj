@@ -99,6 +99,7 @@
     <Compile Include="Assets\Scripts\Interactable\FirePlace.cs" />
     <Compile Include="Assets\Scripts\Interactable\Pipe.cs" />
     <Compile Include="Assets\Scripts\Interactable\PipeBreaker.cs" />
+    <Compile Include="Assets\Scripts\Interactable\PipeParticle.cs" />
     <Compile Include="Assets\Scripts\Interactable\Stilt.cs" />
     <Compile Include="Assets\Scripts\Interactable\Stove.cs" />
     <Compile Include="Assets\Scripts\Interactable\StoveDoor.cs" />

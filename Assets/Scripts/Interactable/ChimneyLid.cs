@@ -7,10 +7,10 @@ namespace Assets.Scripts.Interactable
     {
         private Animator _anim;
 
-        void Start()
-        {
-            _anim = GetComponentInParent<Animator>();
-        }
+		void Start()
+		{
+			_anim = GetComponentInParent<Animator>();
+		}
 
         public void Switch()
         {

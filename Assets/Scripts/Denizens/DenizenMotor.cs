@@ -13,17 +13,19 @@ namespace Assets.Scripts.Denizens
 		public DirectionTravelling DirectionTravelling;
 		public bool CanJump;
 		public bool CanMove;
+		public bool StartsMoving;
 
 		private float _normalizedHorizontalSpeed;
 		private DenizenController _controller;
 		private Animator _animator;
 		private Vector3 _velocity;
 		private bool _isJumping;
-		private bool _hasFirstLanded;
         private bool _wasGrounded;
         private bool _hitSnow;
         private FirePlace _fireplace;
+		private bool _wasSliding;
         private bool _isSliding;
+		private bool _transitioning;
 
         void Awake()
 		{
@@ -34,11 +36,20 @@ namespace Assets.Scripts.Denizens
         void Update()
         {
             _isSliding = _controller.MovementState.IsOnSlope && _controller.MovementState.TrappedBetweenSlopes == false;
-            _animator.SetBool(DenizenAnimBool.Sliding, _isSliding);
+			_animator.SetBool(DenizenAnimBool.Sliding, _isSliding);
+			_wasSliding = _isSliding && _wasSliding;
+			if (_isSliding && _wasSliding == false)
+			{
+				_animator.Play(Animator.StringToHash(Animations.BeginSlide));
+				_wasSliding = true;
+			}
             _animator.SetBool(DenizenAnimBool.PlayerSpotted, SpotPlayer());
             _animator.SetBool(DenizenAnimBool.SatAtFireplace, _controller.SatAtFireplace);
+			//_animator.SetBool(DenizenAnimBool.InSnow, );
 
-            if (_isSliding)
+			CheckStopMoving();
+
+			if (_isSliding)
             {
                 MoveWithVelocity();
             }
@@ -48,36 +59,46 @@ namespace Assets.Scripts.Denizens
             }
             else
             {
-                if (_controller.SatAtFireplace)
+                if (_controller.SatAtFireplace || CanMove == false)
                 {
                     DirectionTravelling = DirectionTravelling.None;
                 }
 
-                if (CanMove)
-                {
-                    DetermineMovement();
-                    MoveWithVelocity();
-                }
+				_animator.SetBool(DenizenAnimBool.Moving, DirectionTravelling != DirectionTravelling.None);
+                DetermineMovement();
+                MoveWithVelocity();
             }
         }
+
+		private void CheckStopMoving()
+		{
+			if (_animator.GetBool(DenizenAnimBool.InSnow)
+				|| _animator.GetBool(DenizenAnimBool.PlayerSpotted)
+				|| _animator.GetBool(DenizenAnimBool.SatAtFireplace)
+				)
+				_animator.SetBool(DenizenAnimBool.Moving, false);
+		}
 
         void MoveToFireplace(DirectionTravelling direction)
 		{
 			DirectionTravelling = direction;
-			_animator.SetBool(DenizenAnimBool.MoveToFireplace, true);
-        }
-
-        void ChangeDirection()
-        {
-            DirectionTravelling = DirectionTravelling == DirectionTravelling.Right ? DirectionTravelling.Left : DirectionTravelling.Right;
-            FlipSprite();
-            _normalizedHorizontalSpeed = -_normalizedHorizontalSpeed;
+			_animator.SetTrigger(DenizenAnimBool.MoveToFireplace);
         }
 
         void LightStove()
         {
             _fireplace.LightFully();
         }
+
+		void StartMoving()
+		{
+			if (CanMove)
+			{
+				_animator.SetBool(DenizenAnimBool.Moving, true);
+				SetTravelInDirectionFacing();
+				_transitioning = false;
+			}
+		}
 
         void OnTriggerEnter2D(Collider2D col)
         {
@@ -104,9 +125,9 @@ namespace Assets.Scripts.Denizens
 			{
 				_velocity.y = 0;
 
-				if (_hasFirstLanded == false)
+				if (StartsMoving == false)
 				{
-					_hasFirstLanded = true;
+					StartsMoving = true;
 					_wasGrounded = true;
 				}
 				else if (_wasGrounded == false)
@@ -115,63 +136,82 @@ namespace Assets.Scripts.Denizens
 					_wasGrounded = true;
 				}
 			}
-			else if (_hasFirstLanded)
+			else if (StartsMoving)
 			{
 				DirectionTravelling = DirectionTravelling.None;
 				_wasGrounded = false;
+				return;
 			}
 			else
 				return;
 
 			if (DirectionTravelling == DirectionTravelling.Right)
 			{
-                _normalizedHorizontalSpeed = 1;
+				_normalizedHorizontalSpeed = 1;
 				if (GetDirectionFacing() == DirectionFacing.Left)
 					FlipSprite();
-
-				var hazardRay = new Vector2(
-					_controller.Collider.bounds.max.x + HazardWarningDistance,
-					_controller.Collider.bounds.min.y);
-
-                HazardHandler(hazardRay);
+				HazardRight();
 			}
 			else if (DirectionTravelling == DirectionTravelling.Left)
 			{
-                _normalizedHorizontalSpeed = -1;
+				_normalizedHorizontalSpeed = -1;
 				if (GetDirectionFacing() == DirectionFacing.Right)
 					FlipSprite();
-
-				var hazardRay = new Vector2(
-					_controller.Collider.bounds.min.x - HazardWarningDistance,
-					_controller.Collider.bounds.min.y);
-
-                HazardHandler(hazardRay);
-            }
-            else
+				HazardLeft();
+			}
+			else
 			{
 				_normalizedHorizontalSpeed = 0;
+				if (_transitioning == false)
+				{
+					HazardLeft();
+					HazardRight();
+				}
 			}
-            _animator.SetBool(DenizenAnimBool.Moving, _normalizedHorizontalSpeed != 0);
         }
 
-        private void HazardHandler(Vector2 hazardRay)
-        {
-            if (_animator.GetBool(DenizenAnimBool.Sliding))
-                return;
+		private void HazardLeft()
+		{
+			var hazardRay = new Vector2(
+				_controller.Collider.bounds.min.x - HazardWarningDistance,
+				_controller.Collider.bounds.min.y);
 
-            if (ApproachingEdge(hazardRay))
-                _animator.SetTrigger(DenizenAnimBool.AtEdge);
-            else if (ApproachingSnow(hazardRay))
-                _animator.SetTrigger(DenizenAnimBool.AtSnow);
-            else if (_controller.MovementState.RightCollision || _controller.MovementState.LeftCollision)
-                _animator.SetTrigger(DenizenAnimBool.AtWall);
-        }
+			HazardHandler(hazardRay);
+		}
+
+		private void HazardRight()
+		{
+			var hazardRay = new Vector2(
+					_controller.Collider.bounds.max.x + HazardWarningDistance,
+					_controller.Collider.bounds.min.y);
+
+			HazardHandler(hazardRay);
+		}
+
+		private void HazardHandler(Vector2 hazardRay)
+		{
+			if (ApproachingEdge(hazardRay))
+				_animator.SetTrigger(DenizenAnimBool.AtEdge);
+			else if (ApproachingSnow(hazardRay))
+				_animator.SetTrigger(DenizenAnimBool.AtSnow);
+			else if (_controller.MovementState.RightCollision || _controller.MovementState.LeftCollision)
+				_animator.SetTrigger(DenizenAnimBool.AtWall);
+			else
+				return;
+
+			if (CanMove)
+			{
+				DirectionTravelling = DirectionTravelling.None;
+				_transitioning = true;
+			}
+		}
 
 		public void SetTravelInDirectionFacing()
 		{
-			DirectionTravelling = GetDirectionFacing() == DirectionFacing.Right
-				? DirectionTravelling.Right
-				: DirectionTravelling.Left;
+			if (CanMove)
+				DirectionTravelling = GetDirectionFacing() == DirectionFacing.Right
+					? DirectionTravelling.Right
+					: DirectionTravelling.Left;
 		}
 
 		private bool ApproachingEdge(Vector2 edgeRay)
@@ -191,8 +231,8 @@ namespace Assets.Scripts.Denizens
 
 			var size = new Vector2(0.01f, checkDepth);
 
-			Vector2 castDirection = DirectionTravelling == DirectionTravelling.Left ? Vector2.left : Vector2.right;
-			LayerMask mask = DirectionTravelling == DirectionTravelling.Left
+			Vector2 castDirection = GetDirectionFacing() == DirectionFacing.Left ? Vector2.left : Vector2.right;
+			LayerMask mask = GetDirectionFacing() == DirectionFacing.Left
                 ? 1 << LayerMask.NameToLayer(Layers.RightClimbSpot)
                 : 1 << LayerMask.NameToLayer(Layers.LeftClimbSpot);
 
@@ -200,6 +240,7 @@ namespace Assets.Scripts.Denizens
 
 			if (hit)
 			{
+			DirectionTravelling = DirectionTravelling.None;
 				_isJumping = true;
 				_controller.MovementState.SetPivot(hit.collider, ColliderPoint.TopFace, ColliderPoint.BottomFace);
 				_animator.SetTrigger(DenizenAnimBool.Jump);
@@ -215,7 +256,6 @@ namespace Assets.Scripts.Denizens
 			if (hit && _hitSnow == false)
 			{
 				_hitSnow = true;
-				DirectionTravelling = DirectionTravelling.None;
 			}
 			else
 			{
@@ -240,13 +280,14 @@ namespace Assets.Scripts.Denizens
 
 			_velocity.y += Gravity * Time.deltaTime;
 
-			if (_velocity.x * _normalizedHorizontalSpeed > RunSpeed)
+			if (Mathf.Abs(_velocity.x * _normalizedHorizontalSpeed) > RunSpeed)
 				_velocity.x = RunSpeed * _normalizedHorizontalSpeed;
 			if (_velocity.y < ConstantVariables.MaxVerticalSpeed)
 				_velocity.y = ConstantVariables.MaxVerticalSpeed;
 
 			_controller.Movement.BoxCastMove(_velocity * Time.deltaTime, false);
-            _animator.SetBool(DenizenAnimBool.Falling, _controller.MovementState.IsGrounded == false);
+			if (_controller.MovementState.IsGrounded == false)
+	            _animator.Play(Animator.StringToHash(Animations.Falling));
         }
 
         private void JumpAcross()

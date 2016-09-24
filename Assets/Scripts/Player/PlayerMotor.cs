@@ -144,7 +144,7 @@ namespace Assets.Scripts.Player
 			else
 				Anim.SetBool(PlayerAnimBool.Squashed, false);
 
-			if (_velocity.x * _normalizedHorizontalSpeed > maxX)
+			if (Mathf.Abs(_velocity.x * _normalizedHorizontalSpeed) > maxX)
 				_velocity.x = maxX * _normalizedHorizontalSpeed;
 			if (_velocity.y < ConstantVariables.MaxVerticalSpeed)
 				_velocity.y = ConstantVariables.MaxVerticalSpeed;

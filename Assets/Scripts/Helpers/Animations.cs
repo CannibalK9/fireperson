@@ -151,5 +151,10 @@
 		{
 			get { return "Jump"; }
 		}
+
+		public static string BeginSlide
+		{
+			get { return "BeginSlide"; }
+		}
 	}
 }

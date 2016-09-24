@@ -187,6 +187,7 @@ namespace Assets.Scripts.Player.PL
 			FirePlace switchedFireplace = GetSwitchedFireplace(_fireplace, direction);
 			if (switchedFireplace != null)
 			{
+				_fireplace.PlLeave();
 				_fireplace = switchedFireplace;
 				MoveToFireplace();
 				return true;
@@ -225,7 +226,7 @@ namespace Assets.Scripts.Player.PL
 		public void ActivatePoint()
 		{
 			_renderer.enabled = false;
-			if (_fireplace.IsHeatSource && IsScouting == false)
+			if (IsScouting == false)
 				_fireplace.PlEnter();
 		}
 
@@ -275,7 +276,7 @@ namespace Assets.Scripts.Player.PL
 		{
 			if (col.gameObject.layer == LayerMask.NameToLayer(Layers.PlSpot))
 			{
-				col.GetComponent<FirePlace>().PlLeave();
+				//col.GetComponent<FirePlace>().PlLeave();
 			}
 		}
 

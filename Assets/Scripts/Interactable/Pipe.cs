@@ -2,6 +2,6 @@
 {
 	public class Pipe : FirePlace
 	{
-
+		
 	}
 }

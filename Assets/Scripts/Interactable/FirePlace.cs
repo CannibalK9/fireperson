@@ -23,70 +23,69 @@ namespace Assets.Scripts.Interactable
         public FirePlace F3;
         public FirePlace F4;
 
-		private HeatHandler[] _heatHandlers;
+		protected HeatHandler[] _heatHandlers;
 
-	    public float DefaultHeatIntensity = 1f;
+		public float DefaultHeatIntensity = 1f;
 	    public float DefaultHeatRayDistance = 1f;
 
-	    void Awake()
+		private GameObject _particleObject;
+		private PipeParticle _currentPipeParticle;
+
+		void Update()
+		{
+			PipeParticle particle;
+			if (IsAccessible && IsLit)
+				particle = PipeParticle.Flames;
+			else if (IsAccessible && IsLit == false)
+				particle = PipeParticle.Wind;
+			else if (IsAccessible == false && this is ChimneyLid && IsLit)
+				particle = PipeParticle.Smoke;
+			else
+				particle = PipeParticle.None;
+
+			if (_currentPipeParticle != particle)
+			{
+				_currentPipeParticle = particle;
+				Destroy(_particleObject);
+				if (particle == PipeParticle.Flames)
+				{
+					GameObject obj = Resources.Load("particles/" + particle) as GameObject;
+					if (obj == null)
+						return;
+					_particleObject = Instantiate(obj);
+					ParticleSystem particles = _particleObject.GetComponent<ParticleSystem>();
+					_particleObject.transform.parent = transform;
+					_particleObject.transform.localPosition = new Vector2(0, 0.5f);
+					switch (particle)
+					{
+						case PipeParticle.Flames:
+							SetParticlesTransform();
+							break;
+						case PipeParticle.Wind:
+							SetParticlesTransform();
+							break;
+						case PipeParticle.Smoke:
+							SetParticlesTransform();
+							break;
+						default:
+							break;
+					}
+				}
+			}
+		}
+
+		private void SetParticlesTransform()
+		{
+			
+		}
+
+		void Awake()
 		{
 			Collider = GetComponent<CircleCollider2D>();
 			HeatIntensity = DefaultHeatIntensity;
 			HeatRayDistance = DefaultHeatRayDistance;
 			_heatHandlers = GetComponentsInChildren<HeatHandler>();
 		}
-
-		private bool _firstUpdate = true;
-
-        void Update()
-        {
-			var stove = this as Stove;
-			if (IsFullyIgnited && stove != null)
-			{
-				if (ContainsPl == false && stove.AllChimneysAreClosed() == false)
-				{
-					IsFullyIgnited = false;
-					IsLit = false;
-					if (stove.HasConnectedFullyLitStove() == false)
-						stove.ExtinguishAllConnectedFireplaces();
-				}
-			}
-
-			foreach (var hh in _heatHandlers)
-			{
-				hh.EnableCollider(IsLit);
-			}
-
-			if (IsLit)
-			{
-				var effect = EmberEffect.None;
-
-				if (_firstUpdate)
-				{
-					effect = EmberEffect.Strong;
-					_firstUpdate = false;
-				}
-			}
-			else
-			{
-				_firstUpdate = false;
-			}
-
-            if (IsLit == false || IsHeatSource == false)
-                return;
-
-            LayerMask mask = 1 << LayerMask.NameToLayer(Layers.Denizens) | 1 << LayerMask.NameToLayer(Layers.OutdoorWood);
-
-            Vector2 rotation = new Vector2(transform.rotation.x, transform.rotation.y);
-
-            RaycastHit2D leftHit = Physics2D.Raycast(transform.position, Vector2.left + rotation, 10f, mask);
-            if (leftHit)
-                SendRaycastMessage(leftHit, DirectionTravelling.Right);
-
-            RaycastHit2D rightHit = Physics2D.Raycast(transform.position, Vector2.right + rotation, 10f, mask);
-            if (rightHit)
-                SendRaycastMessage(rightHit, DirectionTravelling.Left);
-        }
 
         private void SendRaycastMessage(RaycastHit2D hit, DirectionTravelling direction)
         {
@@ -116,21 +115,24 @@ namespace Assets.Scripts.Interactable
 		public void PlLeave()
 		{
 			ContainsPl = false;
-
-			var stove = this as Stove;
-			if (stove != null && stove.IsFullyIgnited == false)
+			if (IsFullyIgnited == false)
 			{
 				IsLit = false;
-				stove.ExtinguishAllConnectedFireplaces();
+				var stove = this as Stove;
+				if (stove != null)
+				{
+					stove.ExtinguishAllConnectedFireplaces();
+				}
 			}
-			else if (IsFullyIgnited == false && GetConnectedFireplaces().Any() == false)
-				IsLit = false;
 		}
 
 		public void Burst()
 		{
 			if (IsHeatSource)
+			{
 				IsFullyIgnited = !IsFullyIgnited;
+				LightFireplace();
+			}
 		}
 
 		public void LightFully()
@@ -141,12 +143,30 @@ namespace Assets.Scripts.Interactable
 
 		private void LightFireplace()
 		{
-			_firstUpdate = true;
 			IsLit = true;
+			SendMessages();
 
 			Stove stove = this as Stove;
 			if (stove != null)
 				stove.LightAllConnectedFireplaces();
+		}
+
+		private void SendMessages()
+		{
+			if (IsHeatSource)
+			{
+				LayerMask mask = 1 << LayerMask.NameToLayer(Layers.Denizens) | Layers.Platforms;
+
+				Vector2 rotation = new Vector2(transform.rotation.x, transform.rotation.y);
+
+				RaycastHit2D leftHit = Physics2D.Raycast(transform.position, Vector2.left + rotation, 10f, mask);
+				if (leftHit)
+					SendRaycastMessage(leftHit, DirectionTravelling.Right);
+
+				RaycastHit2D rightHit = Physics2D.Raycast(transform.position, Vector2.right + rotation, 10f, mask);
+				if (rightHit)
+					SendRaycastMessage(rightHit, DirectionTravelling.Left);
+			}
 		}
 
 		public void Disconnect(FirePlace fp)
