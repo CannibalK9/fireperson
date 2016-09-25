@@ -26,8 +26,9 @@ namespace Assets.Scripts.Denizens
 		private bool _wasSliding;
         private bool _isSliding;
 		private bool _transitioning;
+		private bool _isFlashed;
 
-        void Awake()
+		void Awake()
 		{
 			_animator = GetComponent<Animator>();
 			_controller = GetComponent<DenizenController>();
@@ -43,9 +44,21 @@ namespace Assets.Scripts.Denizens
 				_animator.Play(Animator.StringToHash(Animations.BeginSlide));
 				_wasSliding = true;
 			}
-            _animator.SetBool(DenizenAnimBool.PlayerSpotted, SpotPlayer());
-            _animator.SetBool(DenizenAnimBool.SatAtFireplace, _controller.SatAtFireplace);
+
 			//_animator.SetBool(DenizenAnimBool.InSnow, );
+			if (_isSliding == false
+				&& _animator.GetBool(DenizenAnimBool.InSnow) == false
+				&& _isFlashed == false)
+			{
+				bool playerSpotted = SpotPlayer();
+				if (playerSpotted
+					&& _isJumping == false
+					&& _animator.GetBool(DenizenAnimBool.SatAtFireplace) == false
+					&& _animator.GetBool(DenizenAnimBool.PlayerSpotted) == false)
+						_animator.Play(Animator.StringToHash(Animations.Gasp));
+				_animator.SetBool(DenizenAnimBool.PlayerSpotted, playerSpotted);
+			}
+            _animator.SetBool(DenizenAnimBool.SatAtFireplace, _controller.SatAtFireplace);
 
 			CheckStopMoving();
 
@@ -76,7 +89,7 @@ namespace Assets.Scripts.Denizens
 				|| _animator.GetBool(DenizenAnimBool.PlayerSpotted)
 				|| _animator.GetBool(DenizenAnimBool.SatAtFireplace)
 				)
-				_animator.SetBool(DenizenAnimBool.Moving, false);
+				DirectionTravelling = DirectionTravelling.None;
 		}
 
         void MoveToFireplace(DirectionTravelling direction)
@@ -92,6 +105,8 @@ namespace Assets.Scripts.Denizens
 
 		void StartMoving()
 		{
+			ResetTriggers();
+
 			if (CanMove)
 			{
 				_animator.SetBool(DenizenAnimBool.Moving, true);
@@ -100,10 +115,24 @@ namespace Assets.Scripts.Denizens
 			}
 		}
 
-        void OnTriggerEnter2D(Collider2D col)
+		private void ResetTriggers()
+		{
+			_animator.ResetTrigger(DenizenAnimBool.MoveToFireplace);
+			_animator.ResetTrigger(DenizenAnimBool.AtEdge);
+			_animator.ResetTrigger(DenizenAnimBool.AtSnow);
+			_animator.ResetTrigger(DenizenAnimBool.AtWall);
+			_animator.ResetTrigger(DenizenAnimBool.Jump);
+			_animator.ResetTrigger(DenizenAnimBool.CancelJump);
+			_animator.ResetTrigger(DenizenAnimBool.LightStove);
+
+			_isFlashed = false;
+		}
+
+		void OnTriggerEnter2D(Collider2D col)
         {
-            if (_isSliding == false &&  col.gameObject.layer == LayerMask.NameToLayer(Layers.Flash) && _controller.CanSeeFlash(col.transform.position))
+            if (_isSliding == false && col.gameObject.layer == LayerMask.NameToLayer(Layers.Flash) && _controller.CanSeeFlash(col.transform.position))
             {
+				_isFlashed = true;
                 DirectionTravelling = DirectionTravelling.None;
 
                 bool isFacingRight = GetDirectionFacing() == DirectionFacing.Right;
@@ -202,6 +231,7 @@ namespace Assets.Scripts.Denizens
 			if (CanMove)
 			{
 				DirectionTravelling = DirectionTravelling.None;
+				_normalizedHorizontalSpeed = 0;
 				_transitioning = true;
 			}
 		}

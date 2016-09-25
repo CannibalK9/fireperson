@@ -15,7 +15,7 @@ namespace Assets.Scripts.Player.PL
 		private float _normalizedVerticalSpeed;
 		private const float _acceleration = 0.05f;
 		private float _timeToWake = 1f;
-		private SpriteRenderer _renderer;
+		private Renderer _renderer;
 		private bool _noGravity;
 		private FirePlace _fireplace;
 		private MovementHandler _movement;
@@ -40,7 +40,7 @@ namespace Assets.Scripts.Player.PL
 			Rigidbody = Transform.GetComponent<Rigidbody2D>();
 
 			_movement = new MovementHandler(this);
-			_renderer = GetComponent<SpriteRenderer>();
+			_renderer = GetComponent<Renderer>();
 			_controller = GetComponent<PilotedLightController>();
 		}
 
@@ -232,6 +232,7 @@ namespace Assets.Scripts.Player.PL
 
 		public void LeaveSpot()
 		{
+			_movement.IgnorePlatforms(false);
 			_fireplace.PlLeave();
 			_renderer.enabled = true;
 			_noGravity = false;

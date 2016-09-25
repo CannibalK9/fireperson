@@ -143,7 +143,7 @@ namespace Assets.Scripts.Player.Climbing
             return edgeObstructionHit == false &&
                 (obstacleHit == false
                 || originalHit.transform.parent == obstacleHit.collider.transform
-                || Vector2.Distance(originalHit.transform.position, obstacleHit.point) < 1);
+                || Vector2.Distance(originalHit.transform.position, obstacleHit.point) < 0.5f);
 		}
 
 		private bool IsCornerAccessible(Collider2D hit)
@@ -322,7 +322,7 @@ namespace Assets.Scripts.Player.Climbing
 
 		public bool CheckGrab(DirectionFacing direction = DirectionFacing.None)
 		{
-			const float checkLength = 1f;
+			float checkLength = ConstantVariables.GrabDistance;
 
 			var origin = new Vector2(_playerCollider.bounds.center.x, _playerCollider.bounds.max.y - 0.5f);
 

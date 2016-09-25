@@ -15,5 +15,7 @@
 		public static float FlashRadius = 3f;
 		public static float StiltSpeed = 2f;
         public static float MaxLipHeight = 1f;
-    }
+		public static float GrabDistance = 1.2f;
+
+	}
 }

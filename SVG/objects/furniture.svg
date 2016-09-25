@@ -18,8 +18,8 @@
    inkscape:version="0.91 r13725"
    sodipodi:docname="furniture.svg"
    inkscape:export-filename="C:\code\fireperson\Assets\Materials\Objects\objects1.png"
-   inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
+   inkscape:export-xdpi="180"
+   inkscape:export-ydpi="180">
   <defs
      id="defs4">
     <linearGradient
@@ -151,6 +151,17 @@
            transform="matrix(-0.70710678,0.70710678,0.70710678,0.70710678,0,0)" />
       </g>
     </pattern>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3507">
+      <rect
+         style="fill:#666666;stroke:none"
+         id="rect3509"
+         width="1586"
+         height="1586"
+         x="1341.5514"
+         y="-394.23599" />
+    </clipPath>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -159,9 +170,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="484"
-     inkscape:cy="846.77234"
+     inkscape:zoom="0.2675"
+     inkscape:cx="1649.1963"
+     inkscape:cy="699.01753"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"

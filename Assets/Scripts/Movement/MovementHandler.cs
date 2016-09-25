@@ -23,7 +23,6 @@ namespace Assets.Scripts.Movement
 			if (_motor.MovementState.PivotCollider == null)
 				return false;
 
-			_motor.Rigidbody.isKinematic = true;
 			IgnorePlatforms(true);
 			_motor.MovementState.UpdatePivotToTarget();
 
@@ -63,7 +62,6 @@ namespace Assets.Scripts.Movement
 			if (Mathf.Abs(deltaMovement.x) < 0.05f)
 				deltaMovement.x = 0;
 
-			_motor.Rigidbody.isKinematic = isKinematic;
 			IgnorePlatforms(isKinematic);
             _motor.MovementState.Reset(deltaMovement);
 			Bounds bounds = _motor.Collider.bounds;
@@ -132,8 +130,9 @@ namespace Assets.Scripts.Movement
 			}
 		}
 
-		private void IgnorePlatforms(bool ignore)
+		public void IgnorePlatforms(bool ignore)
 		{
+			_motor.Rigidbody.isKinematic = ignore;
 			int layer = _motor.Transform.gameObject.layer;
 			Physics2D.IgnoreLayerCollision(layer, LayerMask.NameToLayer(Layers.OutdoorMetal), ignore);
 			Physics2D.IgnoreLayerCollision(layer, LayerMask.NameToLayer(Layers.OutdoorWood), ignore);
@@ -231,7 +230,7 @@ namespace Assets.Scripts.Movement
 			if (_motor.MovementState.IsOnSlope)
 			{
 				moveRight = _downHit.normal.x > 0;
-				speed = 0.2f + Mathf.Abs(_motor.MovementState.CurrentAcceleration.y);
+				speed = 0.1f + Mathf.Abs(_motor.MovementState.CurrentAcceleration.y);
 			}
 			else
 			{

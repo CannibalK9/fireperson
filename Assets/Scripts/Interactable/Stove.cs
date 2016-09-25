@@ -6,39 +6,47 @@ namespace Assets.Scripts.Interactable
 {
     public class Stove : FirePlace
     {
-		private ParticleSystem _particles;
+		private List<ParticleSystem> _particles;
 
 		void Start()
 		{
-			_particles = GetComponentInChildren<ParticleSystem>();
+			_particles = GetComponentsInChildren<ParticleSystem>().Where(p => p.tag == "StoveParticles").ToList();
 			if (IsFullyIgnited)
 				LightAllConnectedFireplaces();
 		}
 
 		void Update()
 		{
-			if (IsFullyIgnited)
+			if (IsFullyIgnited && AllChimneysAreClosed() == false)
 			{
-				if (ContainsPl == false && AllChimneysAreClosed() == false)
+				IsFullyIgnited = false;
+				if (ContainsPl == false)
 				{
-					IsFullyIgnited = false;
 					IsLit = false;
-					if (HasConnectedFullyLitStove() == false)
-						ExtinguishAllConnectedFireplaces();
+					ExtinguishAllConnectedFireplaces();
 				}
 			}
 
 			if (IsLit)
 			{
-				_particles.startSpeed = IsFullyIgnited ? 5 : 2;
-				//_particles.colorBySpeed.color = new ParticleSystem.MinMaxGradient(ContainsPl ? Color.cyan : Color.red);
-				_particles.GetComponent<Renderer>().sortingOrder = IsAccessible ? 3 : 1;
-				if (_particles.isPlaying == false)
-					_particles.Play();
+				foreach (var ps in _particles)
+				{
+					ps.startSpeed = IsFullyIgnited ? 5 : 2;
+					//ps.colorBySpeed.color = new ParticleSystem.MinMaxGradient(ContainsPl ? Color.cyan : Color.red);
+					ps.GetComponent<Renderer>().sortingOrder = IsAccessible ? 3 : 1;
+					if (ps.isPlaying == false)
+						ps.Play();
+				}
+
 			}
 			else
-				if (_particles.isStopped == false)
-					_particles.Stop();
+			{
+				foreach (var ps in _particles)
+				{
+					if (ps.isStopped == false)
+						ps.Stop();
+				}
+			}
 		}
 
 		private List<FirePlace> GetAllConnectedFirePlaces(FirePlace fireplace, FirePlace origin)

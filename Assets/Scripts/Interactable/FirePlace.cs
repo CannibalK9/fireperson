@@ -54,8 +54,8 @@ namespace Assets.Scripts.Interactable
 						return;
 					_particleObject = Instantiate(obj);
 					ParticleSystem particles = _particleObject.GetComponent<ParticleSystem>();
-					_particleObject.transform.parent = transform;
-					_particleObject.transform.localPosition = new Vector2(0, 0.5f);
+					_particleObject.transform.parent = transform.GetComponentInChildren<CircleCollider2D>().transform;
+					_particleObject.transform.localPosition = new Vector2(0, 0f);
 					switch (particle)
 					{
 						case PipeParticle.Flames:
