@@ -227,16 +227,8 @@ namespace Assets.Scripts.Movement
 			bool moveRight;
 			float speed;
 
-			if (_motor.MovementState.IsOnSlope)
-			{
-				moveRight = _downHit.normal.x > 0;
-				speed = 0.1f + Mathf.Abs(_motor.MovementState.CurrentAcceleration.y);
-			}
-			else
-			{
-				moveRight = _motor.MovementState.CurrentAcceleration.x > 0;
-				speed = Mathf.Abs(_motor.MovementState.CurrentAcceleration.x);
-			}
+			moveRight = _motor.MovementState.CurrentAcceleration.x > 0;
+			speed = Mathf.Abs(_motor.MovementState.CurrentAcceleration.x);
 
 			Vector3 direction = _motor.MovementState.GetSurfaceDirection(moveRight ? DirectionTravelling.Right : DirectionTravelling.Left);
 			return direction.normalized * speed;

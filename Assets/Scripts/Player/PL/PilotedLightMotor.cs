@@ -20,6 +20,7 @@ namespace Assets.Scripts.Player.PL
 		private FirePlace _fireplace;
 		private MovementHandler _movement;
 		private bool _isFireplaceActive;
+		private ParticleSystem _particles;
 
 		public float FlySpeed = 2f;
 		public float AirDamping = 500f;
@@ -42,6 +43,7 @@ namespace Assets.Scripts.Player.PL
 			_movement = new MovementHandler(this);
 			_renderer = GetComponent<Renderer>();
 			_controller = GetComponent<PilotedLightController>();
+			_particles = GetComponentInChildren<ParticleSystem>();
 		}
 
 		void FixedUpdate()
@@ -226,6 +228,7 @@ namespace Assets.Scripts.Player.PL
 		public void ActivatePoint()
 		{
 			_renderer.enabled = false;
+			_particles.Stop();
 			if (IsScouting == false)
 				_fireplace.PlEnter();
 		}
@@ -235,6 +238,7 @@ namespace Assets.Scripts.Player.PL
 			_movement.IgnorePlatforms(false);
 			_fireplace.PlLeave();
 			_renderer.enabled = true;
+			_particles.Play();
 			_noGravity = false;
 			_fireplace = null;
 		}
@@ -277,7 +281,7 @@ namespace Assets.Scripts.Player.PL
 		{
 			if (col.gameObject.layer == LayerMask.NameToLayer(Layers.PlSpot))
 			{
-				//col.GetComponent<FirePlace>().PlLeave();
+				col.GetComponent<FirePlace>().PlLeave();
 			}
 		}
 

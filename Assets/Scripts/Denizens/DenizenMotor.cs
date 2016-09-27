@@ -63,20 +63,20 @@ namespace Assets.Scripts.Denizens
 
 			if (_isSliding)
             {
-				_velocity.x = RunSpeed;
 				if (_controller.MovementState.Normal.x > 0)
 				{
 					if (GetDirectionFacing() == DirectionFacing.Left)
 						FlipSprite();
 					_normalizedHorizontalSpeed = 1;
+				DirectionTravelling = DirectionTravelling.Right;
 				}
 				else
 				{
 					if (GetDirectionFacing() == DirectionFacing.Right)
 						FlipSprite();
 					_normalizedHorizontalSpeed = -1;
+				DirectionTravelling = DirectionTravelling.Left;
 				}
-				DirectionTravelling = DirectionTravelling.None;
 				MoveWithVelocity();
             }
             else if (_isJumping)
@@ -293,7 +293,10 @@ namespace Assets.Scripts.Denizens
 
 		private void MoveWithVelocity()
 		{
-			if (_controller.MovementState.IsGrounded)
+			float runspeed = RunSpeed;
+			if (_controller.MovementState.IsOnSlope)
+				RunSpeed *= 3;
+			if (_controller.MovementState.IsGrounded || _controller.MovementState.IsOnSlope)
 				_velocity.x = Mathf.SmoothDamp(
 					_velocity.x,
 					_normalizedHorizontalSpeed * RunSpeed,
@@ -312,6 +315,8 @@ namespace Assets.Scripts.Denizens
 				_animator.Play(Animator.StringToHash(Animations.Falling));
 
 			_animator.SetBool(DenizenAnimBool.Falling, _controller.MovementState.IsGrounded == false);
+
+			RunSpeed = runspeed;
 		}
 
         private void JumpAcross()
