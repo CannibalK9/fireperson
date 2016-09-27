@@ -4,6 +4,7 @@ namespace Assets.Scripts.Player.Config
 {
 	public enum Ability
 	{
+        None,
 		Tether,
 		Ignite,
 		Flash,

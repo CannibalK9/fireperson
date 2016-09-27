@@ -111,6 +111,7 @@
     <Compile Include="Assets\Scripts\Movement\MovementHandler.cs" />
     <Compile Include="Assets\Scripts\Movement\MovementState.cs" />
     <Compile Include="Assets\Scripts\Player\Abilities\AbilityMeter.cs" />
+    <Compile Include="Assets\Scripts\Player\Abilities\AbilityPoint.cs" />
     <Compile Include="Assets\Scripts\Player\Abilities\Flash.cs" />
     <Compile Include="Assets\Scripts\Player\Abilities\Tether.cs" />
     <Compile Include="Assets\Scripts\Player\AnimationScript.cs" />
