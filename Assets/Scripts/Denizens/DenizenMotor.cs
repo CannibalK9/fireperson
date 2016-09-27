@@ -20,7 +20,6 @@ namespace Assets.Scripts.Denizens
 		private Animator _animator;
 		private Vector3 _velocity;
 		private bool _isJumping;
-        private bool _wasGrounded;
         private bool _hitSnow;
         private FirePlace _fireplace;
 		private bool _wasSliding;
@@ -39,7 +38,7 @@ namespace Assets.Scripts.Denizens
             _isSliding = _controller.MovementState.IsOnSlope && _controller.MovementState.TrappedBetweenSlopes == false;
 			_animator.SetBool(DenizenAnimBool.Sliding, _isSliding);
 			_wasSliding = _isSliding && _wasSliding;
-			if (_isSliding && _wasSliding == false)
+			if (_isSliding && _wasSliding == false && _animator.GetBool(DenizenAnimBool.Falling) == false)
 			{
 				_animator.Play(Animator.StringToHash(Animations.BeginSlide));
 				_wasSliding = true;
@@ -64,7 +63,21 @@ namespace Assets.Scripts.Denizens
 
 			if (_isSliding)
             {
-                MoveWithVelocity();
+				_velocity.x = RunSpeed;
+				if (_controller.MovementState.Normal.x > 0)
+				{
+					if (GetDirectionFacing() == DirectionFacing.Left)
+						FlipSprite();
+					_normalizedHorizontalSpeed = 1;
+				}
+				else
+				{
+					if (GetDirectionFacing() == DirectionFacing.Right)
+						FlipSprite();
+					_normalizedHorizontalSpeed = -1;
+				}
+				DirectionTravelling = DirectionTravelling.None;
+				MoveWithVelocity();
             }
             else if (_isJumping)
             {
@@ -107,12 +120,13 @@ namespace Assets.Scripts.Denizens
 		{
 			ResetTriggers();
 
-			if (CanMove)
+			if (CanMove && StartsMoving)
 			{
 				_animator.SetBool(DenizenAnimBool.Moving, true);
 				SetTravelInDirectionFacing();
 				_transitioning = false;
 			}
+			StartsMoving = true;
 		}
 
 		private void ResetTriggers()
@@ -139,65 +153,43 @@ namespace Assets.Scripts.Denizens
                 bool isPlRight = col.transform.position.x >= transform.position.x;
 
                 if (isFacingRight == isPlRight)
-                {
                     FlipSprite();
-                    _animator.Play(Animator.StringToHash(Animations.FlashInFront));
-                }
-                else
-                    _animator.Play(Animator.StringToHash(Animations.FlashBehind));
+
+                _animator.Play(Animator.StringToHash(Animations.Flash));
             }
         }
 
-        private void DetermineMovement()
+		private void DetermineMovement()
 		{
-            if (_controller.MovementState.IsGrounded)
+			if (_controller.MovementState.IsGrounded)
 			{
 				_velocity.y = 0;
 
-				if (StartsMoving == false)
+				if (DirectionTravelling == DirectionTravelling.Right)
 				{
-					StartsMoving = true;
-					_wasGrounded = true;
-				}
-				else if (_wasGrounded == false)
-				{
-					SetTravelInDirectionFacing();
-					_wasGrounded = true;
-				}
-			}
-			else if (StartsMoving)
-			{
-				DirectionTravelling = DirectionTravelling.None;
-				_wasGrounded = false;
-				return;
-			}
-			else
-				return;
-
-			if (DirectionTravelling == DirectionTravelling.Right)
-			{
-				_normalizedHorizontalSpeed = 1;
-				if (GetDirectionFacing() == DirectionFacing.Left)
-					FlipSprite();
-				HazardRight();
-			}
-			else if (DirectionTravelling == DirectionTravelling.Left)
-			{
-				_normalizedHorizontalSpeed = -1;
-				if (GetDirectionFacing() == DirectionFacing.Right)
-					FlipSprite();
-				HazardLeft();
-			}
-			else
-			{
-				_normalizedHorizontalSpeed = 0;
-				if (_transitioning == false)
-				{
-					HazardLeft();
+					_normalizedHorizontalSpeed = 1;
+					if (GetDirectionFacing() == DirectionFacing.Left)
+						FlipSprite();
 					HazardRight();
 				}
+				else if (DirectionTravelling == DirectionTravelling.Left)
+				{
+					_normalizedHorizontalSpeed = -1;
+					if (GetDirectionFacing() == DirectionFacing.Right)
+						FlipSprite();
+					HazardLeft();
+				}
+				else
+				{
+					_normalizedHorizontalSpeed = 0;
+					if (_transitioning == false)
+					{
+						HazardLeft();
+						HazardRight();
+					}
+				}
 			}
-        }
+		}
 
 		private void HazardLeft()
 		{
@@ -316,9 +308,11 @@ namespace Assets.Scripts.Denizens
 				_velocity.y = ConstantVariables.MaxVerticalSpeed;
 
 			_controller.Movement.BoxCastMove(_velocity * Time.deltaTime, false);
-			if (_controller.MovementState.IsGrounded == false)
-	            _animator.Play(Animator.StringToHash(Animations.Falling));
-        }
+			if (_controller.MovementState.IsGrounded == false && _animator.GetBool(DenizenAnimBool.Falling) == false)
+				_animator.Play(Animator.StringToHash(Animations.Falling));
+
+			_animator.SetBool(DenizenAnimBool.Falling, _controller.MovementState.IsGrounded == false);
+		}
 
         private void JumpAcross()
 		{

@@ -15,7 +15,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="denizen.svg"
+   sodipodi:docname="denizen shivering.svg"
    inkscape:export-filename="C:\code\fireperson\Assets\Materials\Player\denizen.png"
    inkscape:export-xdpi="256"
    inkscape:export-ydpi="256">
@@ -112,17 +112,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.85"
-     inkscape:cx="480.82732"
+     inkscape:zoom="1.97"
+     inkscape:cx="622.75625"
      inkscape:cy="751.10599"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1366"
-     inkscape:window-height="705"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
+     inkscape:window-width="690"
+     inkscape:window-height="406"
+     inkscape:window-x="692"
+     inkscape:window-y="71"
+     inkscape:window-maximized="0"
      gridtolerance="10"
      units="px">
     <inkscape:grid
@@ -140,7 +140,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -193,76 +193,72 @@
        sodipodi:nodetypes="ccccccccccccccccccccccc" />
     <path
        style="fill:#483737;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 511.06448,282.66528 c -2.6693,4.51667 -4.74769,9.45984 -7.0531,13.73257 -4.89206,7.77465 -13.13331,13.8882 -21.31885,18.76402 -6.71662,4.01177 -14.54705,5.39549 -21.87004,6.60948 -6.67,1.75262 -12.4674,3.17394 -18.2174,4.99419 -8.39233,2.05247 -12.6504,-6.41331 -10.15456,-12.70525 l 8.86624,-6.60948 c 1.84098,-1.2335 5.79917,-2.77274 8.27515,-3.85552 8.07096,-4.54924 17.60347,-7.08718 26.00762,-11.56659 9.89799,-3.52596 16.84495,-10.97859 20.68789,-19.82843 z"
+       d="m 525.7853,282.66528 c -2.6693,4.51667 -4.74769,9.45984 -7.0531,13.73257 -4.89206,7.77465 -13.13331,13.8882 -21.31885,18.76402 -6.71662,4.01177 -14.54705,5.39549 -21.87004,6.60948 -6.67,1.75262 -12.4674,3.17394 -18.2174,4.99419 -8.39233,2.05247 -12.6504,-6.41331 -10.15456,-12.70525 l 8.86624,-6.60948 c 1.84098,-1.2335 5.79917,-2.77274 8.27515,-3.85552 8.07096,-4.54924 17.60347,-7.08718 26.00762,-11.56659 9.89799,-3.52596 16.84495,-10.97859 20.68789,-19.82843 z"
        id="path3458"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccccccc" />
-    <g
-       transform="matrix(-1,0,0,1,1250.7629,-65.048629)"
-       id="g6109">
-      <path
-         inkscape:export-ydpi="256"
-         inkscape:export-xdpi="256"
-         inkscape:export-filename="C:\code\fireperson\Assets\Materials\Player\denizen.png"
-         sodipodi:nodetypes="csscccc"
-         inkscape:connector-curvature="0"
-         id="path3492-5"
-         d="m 547.68246,310.31332 c -0.55564,3.06953 13.29026,4.37597 18.32004,8.19975 1.7408,1.32341 0.0175,3.26043 -0.24735,5.02436 -0.39779,2.64943 -0.11931,5.16977 -0.75129,6.72188 -0.83638,2.72865 -3.28656,4.19078 -5.22199,5.25443 -1.56918,1.60698 -23.10477,-0.32456 -25.57162,-0.0511 z"
-         style="fill:#deaa87;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:export-ydpi="256"
-         inkscape:export-xdpi="256"
-         inkscape:export-filename="C:\code\fireperson\Assets\Materials\Player\denizen.png"
-         sodipodi:nodetypes="cccc"
-         inkscape:connector-curvature="0"
-         id="path3470-3"
-         d="m 537.74317,496.07139 c 14.95949,1.89514 8.69968,11.87124 -4.31875,9.89623 -3.82316,-0.32514 -17.77643,-0.36977 -21.52295,-0.65647 z"
-         style="fill:#280b0b;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:export-ydpi="256"
-         inkscape:export-xdpi="256"
-         inkscape:export-filename="C:\code\fireperson\Assets\Materials\Player\denizen.png"
-         sodipodi:nodetypes="csccccc"
-         inkscape:connector-curvature="0"
-         id="path3496-2"
-         d="m 559.41276,347.17004 c 0.55993,-1.67295 5.19583,-5.5639 6.679,-9.33724 1.53916,-3.91575 -0.0905,-7.70483 -0.50221,-8.75706 1.28177,-2.19846 -7.31331,-1.19034 -9.80131,-1.48989 -3.97773,-1.04932 -6.48762,2.74959 -11.00856,2.23985 l -9.67526,14.30908 z"
-         style="fill:#ff5599;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:export-ydpi="256"
-         inkscape:export-xdpi="256"
-         inkscape:export-filename="C:\code\fireperson\Assets\Materials\Player\denizen.png"
-         sodipodi:nodetypes="cscccccc"
-         inkscape:connector-curvature="0"
-         id="path3490-5"
-         d="m 565.3298,286.89847 c 2.77992,1.35393 5.53982,1.08855 5.68482,3.47642 0.27126,4.46725 -2.1606,10.16605 -0.15715,14.93463 2.46627,3.58345 2.88472,12.05858 3.0199,16.77823 -4.5099,1.57622 -9.65709,-0.18536 -15.91782,-0.66856 -3.98773,0.84217 -7.15975,19.6917 -10.87669,22.15611 -0.46639,1.22071 -6.41629,-3.22166 -7.37024,-2.32803 z"
-         style="fill:#cccccc;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:export-ydpi="256"
-         inkscape:export-xdpi="256"
-         inkscape:export-filename="C:\code\fireperson\Assets\Materials\Player\denizen.png"
-         sodipodi:nodetypes="cscaacccccccscc"
-         inkscape:connector-curvature="0"
-         id="path3450-5"
-         d="m 542.1521,338.52228 c -3.43362,-0.10016 0.0514,14.84131 -2.98671,10.78276 -4.10801,-5.48784 -18.23052,-5.47029 -26.35873,-6.22646 -1.88125,-0.13386 -3.33347,3.30975 -5.05519,2.54027 -3.4505,-1.54213 -2.47436,-7.19635 -2.96471,-10.94384 -0.6404,-4.89426 0.65709,-9.27046 0.0642,-14.80781 0.65627,-4.45112 0.20996,-9.36303 1.15593,-13.68087 0.64279,-4.87298 3.50537,-10.02652 4.6237,-14.25359 2.45956,-1.41324 2.63186,-5.28754 6.33912,-5.65656 4.00899,-3.23331 11.35012,-3.93598 16.77935,-5.17617 7.16467,-0.35563 13.68435,0.8248 20.80663,0.57014 4.3615,0.91908 14.10383,2.23243 16.06779,4.76534 0.82,0.4094 4.41989,9.30822 3.21231,14.60781 -0.91284,4.00609 -5.58192,3.93718 -10.54113,8.05857 -15.69475,13.23152 -16.31268,25.58668 -21.14256,29.42041 z"
-         style="fill:#c8b7b7;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:export-ydpi="256"
-         inkscape:export-xdpi="256"
-         inkscape:export-filename="C:\code\fireperson\Assets\Materials\Player\denizen.png"
-         sodipodi:nodetypes="ccssccccccccccscsc"
-         inkscape:connector-curvature="0"
-         id="path3460-5"
-         d="M 463.05595,497.52265 C 448,476.36215 451.3716,478.77162 453.91339,462.15514 c 0.63657,-8.85265 0.39399,-6.69788 5.89441,-33.09512 1.67433,-8.03534 4.74648,-16.904 7.67225,-26.59126 2.6757,-8.8593 11.01929,-18.49956 14.15421,-26.83169 2.26732,-2.76118 9.17778,-19.05225 10.89264,-22.32595 3.25533,-3.58651 14.39427,-11.41769 11.03861,-16.48553 l 29.42799,2.97311 6.70766,0 c 6.84442,-0.16364 8.68592,0.51038 14.43744,3.90247 l 5.19577,0.93724 c 0.3414,8.50145 -4.41733,14.06306 -4.41733,14.06306 -2.40612,19.20389 -2.939,18.76077 -2.86559,35.32868 -16.59036,34.27344 -11.23477,37.48361 -9.07841,50.73483 0,0 1.77675,7.90717 2.77003,26.07871 0.66045,12.08196 -3.90263,24.05138 -13.93934,33.38964 0,0 -18.66223,4.78663 -44.64537,4.84958 -14.96929,0.0363 -16.72626,-6.56139 -24.10241,-11.56026 z"
-         style="fill:#be68d9;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:export-ydpi="256"
-         inkscape:export-xdpi="256"
-         inkscape:export-filename="C:\code\fireperson\Assets\Materials\Player\denizen.png"
-         sodipodi:nodetypes="ssssssssccss"
-         inkscape:connector-curvature="0"
-         id="path3458-3"
-         d="m 495.60368,361.53376 c -4.13107,2.82658 5.21122,18.41534 4.5419,22.99345 -1.86554,12.76021 15.32894,19.9228 23.78894,23.63083 18.19117,7.97322 29.45184,-2.34327 36.20406,-5.87474 2.59581,-1.35763 12.25153,-11.50658 13.64745,-15.80263 1.45903,-4.49028 1.35873,-12.12061 -5.58441,-16.706 -2.2044,-1.45583 -8.80384,2.68852 -11.46238,0.48095 -3.91833,-3.25365 -7.99668,10.09407 -9.95763,11.82199 -1.96501,1.7315 -12.96822,1.26124 -12.96822,1.26124 0,0 -8.1328,-8.48688 -7.86678,-16.98477 0,0 0.36843,-16.68927 -7.20723,-16.62256 -6.9665,0.0614 -23.1357,11.80224 -23.1357,11.80224 z"
-         style="fill:#483737;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    </g>
+    <path
+       style="fill:#deaa87;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 703.08044,245.26469 c 0.55564,3.06953 -13.29026,4.37597 -18.32004,8.19975 -1.7408,1.32341 -0.0175,3.26043 0.24735,5.02436 0.39779,2.64943 0.11931,5.16977 0.75129,6.72188 0.83638,2.72865 3.28656,4.19078 5.22199,5.25443 1.56918,1.60698 23.10477,-0.32456 25.57162,-0.0511 z"
+       id="path3492-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csscccc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Player\denizen.png"
+       inkscape:export-xdpi="256"
+       inkscape:export-ydpi="256" />
+    <path
+       style="fill:#280b0b;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 713.01973,431.02276 c -14.95949,1.89514 -8.69968,11.87124 4.31875,9.89623 3.82316,-0.32514 17.77643,-0.36977 21.52295,-0.65647 z"
+       id="path3470-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Player\denizen.png"
+       inkscape:export-xdpi="256"
+       inkscape:export-ydpi="256" />
+    <path
+       style="fill:#ff5599;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 691.35014,282.12141 c -0.55993,-1.67295 -5.19583,-5.5639 -6.679,-9.33724 -1.53916,-3.91575 0.0905,-7.70483 0.50221,-8.75706 -1.28177,-2.19846 7.31331,-1.19034 9.80131,-1.48989 3.97773,-1.04932 6.48762,2.74959 11.00856,2.23985 l 9.67526,14.30908 z"
+       id="path3496-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csccccc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Player\denizen.png"
+       inkscape:export-xdpi="256"
+       inkscape:export-ydpi="256" />
+    <path
+       style="fill:#cccccc;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 705.73767,239.10872 c -2.77992,1.35393 -18.23018,-12.61703 -18.37518,-10.22916 -0.27126,4.46725 -5.45361,6.61275 -7.45706,11.38133 -2.46627,3.58345 -2.88472,12.05858 -3.0199,16.77823 4.5099,1.57622 9.65709,-0.18536 15.91782,-0.66856 3.98773,0.84217 7.15975,19.6917 10.87669,22.15611 0.46639,1.22071 6.41629,-3.22166 7.37024,-2.32803 z"
+       id="path3490-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscccccc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Player\denizen.png"
+       inkscape:export-xdpi="256"
+       inkscape:export-ydpi="256" />
+    <path
+       style="fill:#c8b7b7;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 708.6108,273.47365 c 3.43362,-0.10016 -0.0514,14.84131 2.98671,10.78276 4.10801,-5.48784 18.23052,-5.47029 26.35873,-6.22646 1.88125,-0.13386 3.31245,3.26089 5.05519,2.54027 2.39909,-0.99202 2.0886,-4.82073 2.4571,-7.39054 0.74914,-5.22435 -1.16471,-10.28569 -0.57182,-15.82304 0,0 4.86618,-13.93156 3.92021,-18.2494 -0.64279,-4.87298 -3.50537,-11.54936 -4.6237,-15.77643 -2.45956,-1.41324 -6.69277,-6.30277 -10.40003,-6.67179 -4.00899,-3.23331 -7.79682,-2.92075 -13.22605,-4.16094 -7.16467,-0.35563 -17.23765,4.3781 -24.35993,4.12344 -4.3615,0.91908 -9.5353,5.78573 -11.49926,8.31864 -0.82,0.4094 -8.98842,5.75492 -7.78084,11.05451 0.91284,4.00609 5.58192,3.93718 10.54113,8.05857 15.69475,13.23152 16.31268,25.58668 21.14256,29.42041 z"
+       id="path3450-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscaacccccccscc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Player\denizen.png"
+       inkscape:export-xdpi="256"
+       inkscape:export-ydpi="256" />
+    <path
+       style="fill:#be68d9;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 787.70695,432.47402 c 15.05595,-21.1605 11.68435,-18.75103 9.14256,-35.36751 -0.63657,-8.85265 -0.39399,-6.69788 -5.89441,-33.09512 -1.67433,-8.03534 -4.74648,-16.904 -7.67225,-26.59126 -2.6757,-8.8593 -11.01929,-18.49956 -14.15421,-26.83169 -2.26732,-2.76118 -9.17778,-19.05225 -10.89264,-22.32595 0,0 -4.11808,-12.13736 -6.9777,-17.50076 l -33.4889,3.98834 -6.70766,0 c -6.84442,-0.16364 -8.68592,0.51038 -14.43744,3.90247 l -5.19577,0.93724 c -0.3414,8.50145 4.41733,14.06306 4.41733,14.06306 2.40612,19.20389 2.939,18.76077 2.86559,35.32868 16.59036,34.27344 11.23477,37.48361 9.07841,50.73483 0,0 -1.77675,7.90717 -2.77003,26.07871 -0.66045,12.08196 3.90263,24.05138 13.93934,33.38964 0,0 18.66223,4.78663 44.64537,4.84958 14.96929,0.0363 16.72626,-6.56139 24.10241,-11.56026 z"
+       id="path3460-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccssccccccccccscsc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Player\denizen.png"
+       inkscape:export-xdpi="256"
+       inkscape:export-ydpi="256" />
+    <path
+       style="fill:#483737;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 755.15922,303.08411 c -5.55713,16.90208 -4.10256,12.5099 -5.55713,16.90208 -4.22583,12.76021 -21.75848,21.60038 -21.75848,21.60038 -12.18183,6.77558 -25.89854,-4.37373 -32.65076,-7.9052 -2.59581,-1.35763 -7.17539,-7.95328 -8.57131,-12.24933 -1.45903,-4.49028 -4.84533,-14.77461 3.04634,-12.13747 2.50555,0.83727 14.50806,-4.08758 14.50806,-4.08758 4.66648,-2.04048 1.90531,10.09407 3.86626,11.82199 1.96501,1.7315 8.90731,1.26124 8.90731,1.26124 0,0 14.22417,-7.97927 13.95815,-16.47716 l 7.20723,-11.54641 z"
+       id="path3458-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssssscscccc"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Player\denizen.png"
+       inkscape:export-xdpi="256"
+       inkscape:export-ydpi="256" />
   </g>
 </svg>

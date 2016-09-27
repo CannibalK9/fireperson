@@ -22,14 +22,9 @@
             get { return "Gasp"; }
         }
 
-		public static string FlashInFront
+		public static string Flash
 		{
-			get { return "FlashInFront"; }
-		}
-
-		public static string FlashBehind
-		{
-			get { return "FlashBehind"; }
+			get { return "Flash"; }
 		}
 
 		public static string LightStove
