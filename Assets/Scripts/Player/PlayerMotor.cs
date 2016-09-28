@@ -33,6 +33,7 @@ namespace Assets.Scripts.Player
 		private Vector3 _velocity;
 		private PlayerState _playerState;
 		private float _normalizedHorizontalSpeed;
+		private bool _wasSliding;
 
 		void Awake()
 		{
@@ -58,6 +59,10 @@ namespace Assets.Scripts.Player
 					SetHorizontalVelocity();
 					MoveWithVelocity(0);
 					break;
+				case PlayerState.Sliding:
+					SetSliding();
+					MoveWithVelocity(0);
+					break;
 				case PlayerState.Climbing:
 					MoveToClimbingPoint();
 					break;
@@ -81,6 +86,19 @@ namespace Assets.Scripts.Player
 
 		private PlayerState HandleMovementInputs()
 		{
+			if (MovementState.IsOnSlope)
+			{
+				if (TryClimb())
+					return SetMotorToClimbState();
+				else
+					return PlayerState.Sliding;
+			}
+			else
+			{
+				_wasSliding = false;
+				Anim.SetBool(PlayerAnimBool.Sliding, false);
+			}
+
 			if (_climbHandler.CurrentClimb == Climb.Jump)
 				return PlayerState.Jumping;
 			else if (Interaction.IsInteracting)
@@ -110,7 +128,6 @@ namespace Assets.Scripts.Player
 				return SetMotorToClimbState();
 			else if (TryInteract())
 			{
-
 				Interaction.IsInteracting = true;
 				return PlayerState.Interacting;
 			}
@@ -123,6 +140,32 @@ namespace Assets.Scripts.Player
 			MovementInput();
 
 			return PlayerState.WaitingForInput;
+		}
+
+		private void SetSliding()
+		{
+			Anim.SetBool(PlayerAnimBool.Sliding, true);
+			if (_wasSliding == false)
+			{
+				bool slidingRight = MovementState.Normal.x > 0;
+				bool facingRight = GetDirectionFacing() == DirectionFacing.Right;
+				Anim.SetBool(PlayerAnimBool.Forward, slidingRight == facingRight);
+				_normalizedHorizontalSpeed = slidingRight ? 1 : -1;
+				if (slidingRight == facingRight)
+					Anim.PlayAnimation(Animations.SlideForward);
+				else
+					Anim.PlayAnimation(Animations.SlideBackward);
+
+				_wasSliding = true;
+			}
+			else
+			{
+				bool slidingRight = MovementState.Normal.x > 0;
+				if (KeyBindings.GetKey(Control.Left))
+					Anim.SetBool(PlayerAnimBool.Forward, !slidingRight);
+				else if (KeyBindings.GetKey(Control.Right))
+					Anim.SetBool(PlayerAnimBool.Forward, slidingRight);
+			}
 		}
 
 		private void SetHorizontalVelocity()
@@ -458,7 +501,10 @@ namespace Assets.Scripts.Player
 
 		private bool TryChannel()
 		{
-			if (ChannelingHandler.ChannelingSet == false && KeyBindings.GetKeyDown(Control.Light) && ChannelingHandler.IsChanneling == false)
+			if (ChannelingHandler.ChannelingSet == false
+				&& ChannelingHandler.IsChanneling == false
+				&& KeyBindings.GetKeyDown(Control.Light)
+				&& Pointer.IsPointerOverUIObject() == false)
 			{
 				ChannelingHandler.Channel();
 				Anim.PlayAnimation(Animations.CreatePL);

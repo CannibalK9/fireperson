@@ -870,6 +870,22 @@
          rx="8.9396701e-007"
          ry="4.4698399e-007" />
     </clipPath>
+    <filter
+       inkscape:label="Channel Transparency"
+       style="color-interpolation-filters:sRGB;"
+       id="filter6379">
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -10 -10 -10 10 0 "
+         in="SourceGraphic"
+         result="colormatrix"
+         id="feColorMatrix6381" />
+      <feComposite
+         in="colormatrix"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite6383" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -878,9 +894,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="33.755358"
-     inkscape:cy="1965.8939"
+     inkscape:zoom="0.35355339"
+     inkscape:cx="1182.9147"
+     inkscape:cy="1285.0912"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -916,35 +932,13 @@
      id="layer1"
      transform="translate(0,995.63784)">
     <rect
-       style="fill:#000000;stroke:none;stroke-width:80;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect4539"
-       width="80"
-       height="723"
-       x="248"
-       y="-1066.6378"
-       ry="30.125004"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:80;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 288.01155,-963.63784 c 0,0 -190.822671,22.24207 -192.000001,92 -1.19779,70.97033 192.000001,100 192.000001,100 0,0 190,25.04148 190,96 0,70.95852 -190,96 -190,96 0,0 -191.406191,22.74395 -192.000001,94 -0.59878,71.8523 192.000001,98 192.000001,98"
-       id="path3649"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cscscsc"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-21-6-7"
-       cx="176"
-       cy="935.63782"
-       r="32"
-       transform="scale(1,-1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
+       style="fill:#0000f5;stroke:none;stroke-width:80;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1"
+       id="rect6257"
+       width="896"
+       height="1024"
+       x="640"
+       y="-1123.6378"
+       ry="30.124701" />
     <ellipse
        style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        id="path3520"
@@ -1035,314 +1029,12 @@
        inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
        inkscape:export-xdpi="180"
        inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-44"
-       cx="232"
-       cy="-397.63785"
-       r="32"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-21"
-       cx="176"
-       cy="-415.63785"
-       r="32"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-58"
-       cx="128"
-       cy="-441.63785"
-       r="32"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-26"
-       cx="96"
-       cy="-487.63782"
-       r="32"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-44-1"
-       cx="232"
-       cy="569.63782"
-       r="32"
-       transform="scale(1,-1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-21-6"
-       cx="176"
-       cy="551.63782"
-       r="32"
-       transform="scale(1,-1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-58-9"
-       cx="128"
-       cy="525.63782"
-       r="32"
-       transform="scale(1,-1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-44-5"
-       cx="232"
-       cy="-781.63788"
-       r="32"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-21-5"
-       cx="176"
-       cy="-799.63788"
-       r="32"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-58-3"
-       cx="128"
-       cy="-825.63788"
-       r="32"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-26-4"
-       cx="96"
-       cy="-871.63782"
-       r="32"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-44-1-1"
-       cx="232"
-       cy="953.63782"
-       r="32"
-       transform="scale(1,-1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-58-9-1"
-       cx="128"
-       cy="909.63782"
-       r="32"
-       transform="scale(1,-1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-44-3"
-       cx="-344"
-       cy="-589.63788"
-       r="32"
-       transform="scale(-1,1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-21-0"
-       cx="-400"
-       cy="-607.63788"
-       r="32"
-       transform="scale(-1,1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-58-4"
-       cx="-448"
-       cy="-633.63788"
-       r="32"
-       transform="scale(-1,1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-26-9"
-       cx="-480"
-       cy="-679.63782"
-       r="32"
-       transform="scale(-1,1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-44-1-3"
-       cx="-344"
-       cy="761.63782"
-       r="32"
-       transform="scale(-1,-1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-21-6-8"
-       cx="-400"
-       cy="743.63782"
-       r="32"
-       transform="scale(-1,-1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-58-9-9"
-       cx="-448"
-       cy="717.63782"
-       r="32"
-       transform="scale(-1,-1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
     <ellipse
        style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        id="path3520-267"
        cx="288"
        cy="-1027.6378"
        r="32"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-44-1-1-9"
-       cx="288"
-       cy="387.63785"
-       r="32"
-       transform="scale(1,-1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-44-1-1-6"
-       cx="288"
-       cy="451.63785"
-       r="32"
-       transform="scale(1,-1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-44-1-1-0"
-       cx="288"
-       cy="515.63782"
-       r="32"
-       transform="scale(1,-1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-44-1-1-01"
-       cx="288"
-       cy="579.63782"
-       r="32"
-       transform="scale(1,-1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-44-1-1-1"
-       cx="288"
-       cy="643.63782"
-       r="32"
-       transform="scale(1,-1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-44-1-1-2"
-       cx="288"
-       cy="707.63782"
-       r="32"
-       transform="scale(1,-1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-44-1-1-3"
-       cx="288"
-       cy="771.63782"
-       r="32"
-       transform="scale(1,-1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-44-1-1-4"
-       cx="288"
-       cy="835.63782"
-       r="32"
-       transform="scale(1,-1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-44-1-1-7"
-       cx="288"
-       cy="899.63782"
-       r="32"
-       transform="scale(1,-1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-44-1-1-25"
-       cx="288"
-       cy="963.63782"
-       r="32"
-       transform="scale(1,-1)"
-       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <circle
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="path3520-44-1-1-5"
-       cx="288"
-       cy="1027.6378"
-       r="32"
-       transform="scale(1,-1)"
        inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
        inkscape:export-xdpi="180"
        inkscape:export-ydpi="180" />
@@ -1678,5 +1370,361 @@
        inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
        inkscape:export-xdpi="180"
        inkscape:export-ydpi="180" />
+    <path
+       style="fill:#000000;stroke:none;stroke-width:80;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 222.11886,-994.6378 c -16.68925,0 -30.125,13.4357 -30.125,30.125 l 0,55.19723 c 3.65074,2.10903 6.84871,4.91871 9.41016,8.26757 4.019,-13.08 16.19212,-22.58984 30.58984,-22.58984 -17.67311,0 -32,-14.32686 -32,-31.99996 0,-17.6732 14.32689,-32 32,-32 17.67311,0 32,14.3268 32,32 0,17.6731 -14.32689,31.99996 -32,31.99996 17.67311,0 32,14.32689 32,32 0,17.67311 -14.32689,32 -32,32 17.67311,0 32,14.32689 32,32 0,17.67311 -14.32689,32 -32,32 17.67311,0 32,14.32689 32,32 0,17.67311 -14.32689,32 -32,32 14.4042,0 26.58224,9.51832 30.5957,22.60742 2.55896,-3.35109 5.75495,-6.16343 9.4043,-8.27539 l 0,-247.20699 c 0,-16.6893 -13.43575,-30.125 -30.125,-30.125 z m 9.875,262.99996 c -17.67311,0 -32,-14.32689 -32,-32 0,-17.67311 14.32689,-32 32,-32 -17.67311,0 -32,-14.32689 -32,-32 0,-17.67311 14.32689,-32 32,-32 -10.36496,0 -19.57394,-4.93158 -25.42188,-12.57227 -2.38844,7.69925 -7.59473,14.2134 -14.57812,18.24024 l 0,116.6543 c 6.98221,4.04068 12.18064,10.56941 14.55469,18.27929 5.84676,-7.65768 15.06687,-12.60156 25.44531,-12.60156 z m -30.5957,41.39258 c -2.55896,3.35109 -5.75495,6.16343 -9.4043,8.27539 l 0,156.6543 c 3.65074,2.10903 6.84871,4.91871 9.41016,8.26757 4.019,-13.08 16.19212,-22.58984 30.58984,-22.58984 -17.67311,0 -32,-14.32689 -32,-32 0,-17.67311 14.32689,-32 32,-32 -17.67311,0 -32,-14.32689 -32,-32 0,-17.67311 14.32689,-32 32,-32 -14.4042,0 -26.58224,-9.51832 -30.5957,-22.60742 z m 30.5957,22.60742 c 17.67311,0 32,14.32689 32,32 0,17.67311 -14.32689,32 -32,32 17.67311,0 32,14.32689 32,32 0,17.67311 -14.32689,32 -32,32 10.36496,0 19.57394,4.93158 25.42188,12.57227 2.38844,-7.69925 7.59473,-14.2134 14.57812,-18.24024 l 0,-116.6543 c -6.98221,-4.04068 -12.18064,-10.56941 -14.55469,-18.27929 -5.84676,7.65768 -15.06687,12.60156 -25.44531,12.60156 z m 30.58984,169.41016 c -4.019,13.08 -16.19212,22.58984 -30.58984,22.58984 17.67311,0 32,14.32689 32,32 0,17.67311 -14.32689,32 -32,32 17.67311,0 32,14.32689 32,32 0,17.67311 -14.32689,32 -32,32 17.67311,0 32,14.32689 32,32 0,17.67311 -14.32689,32 -32,32 -14.4042,0 -26.58224,-9.51832 -30.5957,-22.60742 -2.50522,3.28145 -5.62176,6.04713 -9.17774,8.14453 1.79766,14.94803 12.95035,24.96289 28.64844,27.71289 6.58333,1.75 17.66667,2 23.75,0 17.43925,-2.5 27.375,-14.68575 27.375,-31.375 l 0,-188.19727 c -3.65074,-2.10903 -6.84871,-4.91871 -9.41016,-8.26757 z m -70.58984,144.91211 c -165.33333,985.11853 -82.66667,492.55923 0,0 z m 0,0 c 6.98221,4.04068 12.18064,10.56941 14.55469,18.27929 5.84676,-7.65768 15.06687,-12.60156 25.44531,-12.60156 -17.67311,0 -32,-14.32689 -32,-32 0,-17.67311 14.32689,-32 32,-32 -17.67311,0 -32,-14.32689 -32,-32 0,-17.67311 14.32689,-32 32,-32 -10.36496,0 -19.57394,-4.93158 -25.42188,-12.57227 -2.38844,7.69925 -7.59473,14.2134 -14.57812,18.24024 z m 9.4043,47.07031 c -171.602864,953.73832 -85.80143,476.86912 0,0 z"
+       id="rect4539"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sscccssscscscscccssscscscccccccccccscscccscsccccccccscscssccccscccccccscscccccc" />
+    <path
+       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;baseline-shift:baseline;text-anchor:start;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:80;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       d="m 193.39425,-923.4855 c -8.14018,0.0799 -29.30462,1.69707 -68.38477,13.35938 -26.053397,7.77487 -52.896367,17.72394 -76.513667,33.2832 -23.617277,15.55926 -47.88298906,40.89877 -48.48437206,76.53125 -0.606387,35.92906 22.99431206,62.33564 46.37890206,78.88867 23.38461,16.55303 50.27986,27.55825 76.460937,36.32813 37.17766,12.45339 73.22731,19.74801 91.2207,22.98047 5.2883,-3.58964 11.53037,-5.51342 17.92188,-5.52344 10.16257,0.0146 19.714,4.8556 25.73438,13.04297 16.21503,3.24184 36.83446,7.99405 57.13671,14.46094 21.5962,6.87905 42.41661,15.95901 54.69141,24.45312 12.2748,8.49411 12.44922,12.15414 12.44922,12.04297 0,-0.11118 -0.17442,3.55081 -12.44922,12.04492 -12.2748,8.49411 -33.09521,17.57408 -54.69141,24.45313 -20.31997,6.47252 -40.93943,11.22593 -57.14062,14.46484 -6.0208,8.18405 -15.57032,13.02261 -25.73047,13.03711 9.96869,0.01 19.36348,4.6644 25.41016,12.58984 4.019,-13.08 16.19212,-22.58984 30.58984,-22.58984 9.27562,0.007 18.09166,4.03914 24.16406,11.05078 1.52251,-16.44946 15.31617,-29.03639 31.83594,-29.05078 5.64416,0.0134 11.18437,1.5194 16.05859,4.36523 0.87007,-17.00901 14.91016,-30.35629 31.94141,-30.36523 1.12735,0.0121 2.25327,0.0839 3.37305,0.21484 -2.20541,-4.4148 -3.35984,-9.27986 -3.37305,-14.21484 0.008,-2.02147 0.20739,-4.03764 0.5957,-6.02148 -0.1985,0.009 -0.39707,0.0162 -0.5957,0.0215 -17.03125,-0.009 -31.07134,-13.35622 -31.94141,-30.36523 -4.87422,2.84575 -10.41443,4.35181 -16.05859,4.36521 -16.51977,-0.0144 -30.31343,-12.60132 -31.83594,-29.05078 -6.0724,7.01164 -14.88844,11.04341 -24.16406,11.05078 -14.93473,0 -27.47873,-10.23075 -31.00781,-24.06641 -6.06241,7.61332 -15.26001,13.82157 -24.99219,13.83399 -13.50539,-0.0136 -25.54833,-10.27217 -30.09766,-22.98828 -5.81617,8.00831 -15.2477,13.2207 -25.90234,13.2207 -16.51977,-0.0144 -30.31343,-12.60132 -31.83594,-29.05078 -6.0724,7.01164 -14.88844,11.04341 -24.16406,11.05078 -17.03125,-0.009 -31.071337,-13.35622 -31.941407,-30.36523 -4.87422,2.84583 -10.41443,4.35183 -16.05859,4.36523 -17.67311,0 -32,-14.32689 -32,-32 0.01321,-4.93498 1.167642,-9.80004 3.373047,-14.21484 -1.119779,0.13098 -2.245698,0.2027 -3.373047,0.21484 -17.673112,0 -32.0000001,-14.32689 -32.0000001,-32 0,-17.67311 14.3268881,-32 32.0000001,-32 0.196701,0.008 0.393324,0.0177 0.589844,0.0293 -0.38684,-1.9866 -0.584339,-4.0054 -0.589844,-6.0293 0,-17.67311 14.32689,-32 32,-32 5.64416,0.0134 11.18437,1.51941 16.05859,4.36523 0.87006,-17.00901 14.910157,-30.35629 31.941407,-30.36523 9.27562,0.007 18.09166,4.03915 24.16406,11.05078 1.52251,-16.44946 15.31617,-29.03639 31.83594,-29.05078 0,0 18.48701,2.29383 24.75977,11.36328 0.29424,0.42543 0.43182,0.97277 0.64843,1.45313 l -4.02734,-22.54688 c 0,0 -1.26708,-0.14382 -3.98047,-0.11719 z m 69.17773,425.27539 c -212.385407,1081.71487 -106.19271,540.85742 0,0 z m 0,0 c -4.13671,13.4178 -16.53711,22.57158 -30.57812,22.57227 6.49945,0.003 12.84399,1.9845 18.18945,5.68164 18.09445,-2.95741 52.91483,-9.47658 88.96289,-20.95898 25.90381,-8.25114 52.58339,-18.73626 75.9336,-34.89454 23.3502,-16.15823 46.92578,-42.23769 46.92578,-77.82812 0,-35.59044 -23.57558,-61.66988 -46.92578,-77.82812 -23.35021,-16.15826 -50.02979,-26.64339 -75.9336,-34.89454 -36.20025,-11.53087 -71.08647,-18.05555 -88.98828,-20.97656 -3.12591,2.16214 -6.61202,3.7501 -10.29492,4.68945 11.14119,2.83494 20.15385,11.54255 23.10547,23.07618 5.86321,-7.35118 14.89137,-12.06641 25.02539,-12.06641 16.51977,0.0144 30.31343,12.60132 31.83594,29.05078 6.0724,-7.01164 14.88844,-11.04341 24.16406,-11.05078 17.03125,0.009 31.07134,13.35622 31.94141,30.36523 4.87422,-2.84583 10.41443,-4.35183 16.05859,-4.36523 17.67311,0 32,14.32689 32,32 -0.005,2.0239 -0.203,4.04271 -0.58984,6.0293 0.19652,-0.0116 0.39314,-0.0213 0.58984,-0.0293 17.67311,0 32,14.32689 32,32 0,17.67311 -14.32689,32 -32,32 -1.12735,-0.0121 -2.25327,-0.0839 -3.37305,-0.21484 2.20541,4.4148 3.35984,9.27986 3.37305,14.21484 0,17.67311 -14.32689,32 -32,32 -5.64416,-0.0134 -11.18437,-1.5194 -16.05859,-4.36523 -0.87007,17.00901 -14.91016,30.35629 -31.94141,30.36523 -9.27562,-0.007 -18.09166,-4.03914 -24.16406,-11.05078 -1.52251,16.44946 -15.31617,29.03639 -31.83594,29.05078 -10.36496,0 -19.57395,-4.93158 -25.42188,-12.57227 z m -30.57812,22.57227 c -9.96869,-0.01 -19.36348,-4.6644 -25.41016,-12.58984 -4.019,13.08 -16.19212,22.58984 -30.58984,22.58984 -9.27562,-0.007 -18.09166,-4.03914 -24.16406,-11.05078 -1.52251,16.44946 -15.31617,29.03639 -31.83594,29.05078 -5.64416,-0.0134 -11.18437,-1.5194 -16.05859,-4.36523 -0.87007,17.00901 -14.910157,30.35629 -31.941407,30.36523 -0.19863,-0.005 -0.3972,-0.0125 -0.5957,-0.0215 0.38831,1.98384 0.58777,4.00001 0.5957,6.02148 -0.0132,4.93498 -1.16764,9.80004 -3.37305,14.21484 1.11978,-0.13098 2.2457,-0.2027 3.37305,-0.21484 17.03125,0.009 31.071337,13.35622 31.941407,30.36523 4.87422,-2.84575 10.41443,-4.35181 16.05859,-4.36521 16.51977,0.0144 30.31343,12.60132 31.83594,29.05078 6.0724,-7.01164 14.88844,-11.04341 24.16406,-11.05078 9.46306,0 17.96369,4.11114 23.82227,10.64062 l -0.42969,-10.27539 c 0,0 -7.54875,-4.35758 -51.31836,-18.48632 -21.8848,-7.06437 -42.97255,-16.35653 -55.406247,-25.04297 -12.4337,-8.68645 -12.65883,-12.42712 -12.6582,-12.50196 -6.2e-4,0.0742 0.18543,-3.53772 12.61132,-11.91406 12.425887,-8.37634 33.464687,-17.23739 55.263677,-23.875 20.96439,-6.38348 42.25848,-10.96498 58.77148,-14.01758 6.04534,-7.88342 15.40926,-12.51197 25.34375,-12.52734 z m -30.57812,-41.42773 c -171.614584,1094.28513 -85.80729,547.14258 0,0 z m 0,0 c 4.13671,-13.4178 16.53711,-22.57158 30.57812,-22.57227 -6.57541,-0.006 -12.9893,-2.03771 -18.36914,-5.81836 -18.24448,2.75789 -52.95829,8.84277 -89.04883,19.83203 -26.126787,7.95539 -53.047947,18.14139 -76.677727,34.07031 -23.629795,15.92892 -47.59310506,41.88174 -47.89062806,77.58399 -0.298766,35.8513 23.32773406,62.32335 46.83788806,78.74805 23.51017,16.42471 50.4584,27.1416 76.648437,35.5957 52.38009,16.90818 79.13086,19.625 79.13086,19.625 l -1.08594,-25.9375 c -0.0344,-0.10074 -0.0682,-0.20166 -0.10156,-0.30274 -5.84668,7.65779 -15.06483,12.60352 -25.44336,12.60352 -16.51977,-0.0144 -30.31343,-12.60132 -31.83594,-29.05078 -6.0724,7.01164 -14.88844,11.04341 -24.16406,11.05078 -17.03125,-0.009 -31.071337,-13.35622 -31.941407,-30.36523 -4.87422,2.84583 -10.41443,4.35183 -16.05859,4.36523 -17.67311,0 -32,-14.32689 -32,-32 0.01321,-4.93498 1.167642,-9.80004 3.373047,-14.21484 -1.119779,0.13098 -2.245698,0.2027 -3.373047,0.21484 -17.673112,0 -32.0000001,-14.32689 -32.0000001,-32 0,-17.67311 14.3268881,-32 32.0000001,-32 0.196701,0.008 0.393324,0.0177 0.589844,0.0293 -0.38684,-1.98659 -0.584339,-4.0054 -0.589844,-6.0293 0,-17.67311 14.32689,-32 32,-32 5.64416,0.0134 11.18437,1.5194 16.05859,4.36523 0.87007,-17.00901 14.910157,-30.35629 31.941407,-30.36523 9.27562,0.007 18.09166,4.03914 24.16406,11.05078 1.52251,-16.44946 15.31617,-29.03639 31.83594,-29.05078 10.36496,0 19.57395,4.93158 25.42188,12.57227 z m 3.88476,-349.9043 c -0.1812,0.32632 -0.37026,0.64998 -0.57226,0.97266 -5.09352,8.13576 -21.61045,16.12325 -28.73438,16.35937 -9.27562,-0.007 -18.09166,-4.03914 -24.16406,-11.05078 -1.52251,16.44946 -15.31617,29.03639 -31.83594,29.05078 -5.64416,-0.0134 -11.18437,-1.51941 -16.05859,-4.36523 -0.87006,17.00901 -14.910157,30.35629 -31.941407,30.36523 -0.19863,-0.005 -0.3972,-0.0125 -0.5957,-0.0215 0.38831,1.98384 0.58777,4.00001 0.5957,6.02148 -0.0132,4.93498 -1.16764,9.80004 -3.37305,14.21484 1.11978,-0.13098 2.2457,-0.2027 3.37305,-0.21484 17.03125,0.009 31.071337,13.35622 31.941407,30.36523 4.87422,-2.84575 10.41443,-4.35181 16.05859,-4.36521 16.51977,0.0144 30.31343,12.60132 31.83594,29.05078 6.0724,-7.01164 14.88844,-11.04341 24.16406,-11.05078 13.88844,0 25.70643,8.85035 30.13281,21.2168 21.59223,-17.07943 11.53279,-8.36604 -0.36914,-24.96094 -16.39147,-3.58284 -37.09584,-8.73685 -57.49609,-15.57031 -21.96865,-7.35884 -43.1473,-16.91714 -55.650387,-25.76758 -10.89196,-7.70998 -12.36871,-11.60862 -12.57422,-12.19336 -0.0311,0.0594 -0.0388,0.0537 -0.0371,-0.0488 9.6e-4,-0.0572 0.007,-0.0377 0.0371,0.0488 0.19722,-0.37685 1.67758,-4.01442 12.4707,-11.125 12.493077,-8.23055 33.577557,-16.92234 55.376947,-23.42773 43.59884,-13.01078 50.75196,-16.43946 50.75196,-16.43946 z m 31.93164,127.67578 0.7168,0.10156 c 0,0 -0.13072,-0.0205 -0.13672,-0.0215 -0.10214,-0.0135 -0.58008,-0.0801 -0.58008,-0.0801 z m -9.94726,191.93555 c -0.13867,0.0171 -0.27734,0.0339 -0.41602,0.0508 -0.003,4e-4 -0.0898,0.0137 -0.0898,0.0137 z"
+       id="path3649"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssscccssssscccccccccccccccccccccccccccsccccccccsccscccccssssscccccccccccsccccccccccccccccccccccccccsscsscccccccssssscccccccccccsccccccccccccccccccccccccccsscccssccccccccccc" />
+    <path
+       style="fill:#000000;stroke:none;stroke-width:80;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 568,-867.63782 a 32,32 0 0 1 -32,32 32,32 0 0 1 -32,-32 32,32 0 0 1 32,-32 32,32 0 0 1 32,32 z"
+       id="path5391-3-3" />
+    <g
+       id="g5669"
+       style="filter:url(#filter6379)"
+       transform="translate(715.59206,-14.142139)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities2.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         ry="30.124744"
+         y="-983.90637"
+         x="1069.9681"
+         height="722.99359"
+         width="79.999336"
+         id="rect4539-2-4"
+         style="fill:#000000;stroke:none;stroke-width:80;stroke-miterlimit:4;stroke-dasharray:none" />
+      <path
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         sodipodi:nodetypes="cscscsc"
+         inkscape:connector-curvature="0"
+         id="path3649-2-8"
+         d="m 1109.9792,-880.90714 c 0,0 -190.82049,22.2416 -191.99819,91.9993 -1.19753,70.9696 191.99819,99.9988 191.99819,99.9988 0,0 189.9967,25.0413 189.9967,95.99907 0,70.95798 -189.9967,95.99935 -189.9967,95.99935 0,0 -191.40409,22.74371 -191.99819,93.99943 -0.60142,71.85171 191.99819,97.99863 191.99819,97.99863"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:79.99932098;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(1,-1)"
+         r="31.999712"
+         cy="852.90662"
+         cx="997.9718"
+         id="path3520-21-6-7-1-9"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         r="31.999712"
+         cy="-314.91034"
+         cx="1053.9686"
+         id="path3520-44-6-5"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         r="31.999712"
+         cy="-332.91125"
+         cx="997.9718"
+         id="path3520-21-3-8"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         r="31.999712"
+         cy="-358.91266"
+         cx="949.96765"
+         id="path3520-58-36-4"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         r="31.999712"
+         cy="-404.9104"
+         cx="917.96973"
+         id="path3520-26-6-6"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(1,-1)"
+         r="31.999712"
+         cy="486.90997"
+         cx="1053.9686"
+         id="path3520-44-1-8-4"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(1,-1)"
+         r="31.999712"
+         cy="468.90973"
+         cx="997.9718"
+         id="path3520-21-6-0-2"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(1,-1)"
+         r="31.999712"
+         cy="442.91083"
+         cx="949.96765"
+         id="path3520-58-9-2-6"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         r="31.999712"
+         cy="-698.90796"
+         cx="1053.9686"
+         id="path3520-44-5-0-8"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         r="31.999712"
+         cy="-716.9071"
+         cx="997.9718"
+         id="path3520-21-5-9-3"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         r="31.999712"
+         cy="-742.90784"
+         cx="949.96765"
+         id="path3520-58-3-5-4"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         r="31.999712"
+         cy="-788.90833"
+         cx="917.96973"
+         id="path3520-26-4-2-6"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(1,-1)"
+         r="31.999712"
+         cy="870.90625"
+         cx="1053.9686"
+         id="path3520-44-1-1-14-2"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(1,-1)"
+         r="31.999712"
+         cy="826.90845"
+         cx="949.96765"
+         id="path3520-58-9-1-2-6"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(-1,1)"
+         r="31.999712"
+         cy="-506.90948"
+         cx="-1165.9636"
+         id="path3520-44-3-2-9"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(-1,1)"
+         r="31.999712"
+         cy="-524.90936"
+         cx="-1221.9646"
+         id="path3520-21-0-7-3"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(-1,1)"
+         r="31.999712"
+         cy="-550.91107"
+         cx="-1269.9579"
+         id="path3520-58-4-7-5"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(-1,1)"
+         r="31.999712"
+         cy="-596.90955"
+         cx="-1301.9596"
+         id="path3520-26-9-5-9"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(-1,-1)"
+         r="31.999712"
+         cy="678.90845"
+         cx="-1165.9636"
+         id="path3520-44-1-3-5-2"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(-1,-1)"
+         r="31.999712"
+         cy="660.90851"
+         cx="-1221.9646"
+         id="path3520-21-6-8-5-4"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(-1,-1)"
+         r="31.999712"
+         cy="634.9093"
+         cx="-1269.9579"
+         id="path3520-58-9-9-7-0"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(1,-1)"
+         r="31.999712"
+         cy="304.91266"
+         cx="1109.9689"
+         id="path3520-44-1-1-9-7-9"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(1,-1)"
+         r="31.999712"
+         cy="368.91064"
+         cx="1109.9689"
+         id="path3520-44-1-1-6-7-7"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(1,-1)"
+         r="31.999712"
+         cy="432.91003"
+         cx="1109.9689"
+         id="path3520-44-1-1-0-7-6"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(1,-1)"
+         r="31.999712"
+         cy="496.9101"
+         cx="1109.9689"
+         id="path3520-44-1-1-01-1-5"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(1,-1)"
+         r="31.999712"
+         cy="560.91016"
+         cx="1109.9689"
+         id="path3520-44-1-1-1-4-0"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(1,-1)"
+         r="31.999712"
+         cy="624.90851"
+         cx="1109.9689"
+         id="path3520-44-1-1-2-6-1"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(1,-1)"
+         r="31.999712"
+         cy="688.90857"
+         cx="1109.9689"
+         id="path3520-44-1-1-3-8-4"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(1,-1)"
+         r="31.999712"
+         cy="752.90759"
+         cx="1109.9689"
+         id="path3520-44-1-1-4-4-0"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(1,-1)"
+         r="31.999712"
+         cy="816.90698"
+         cx="1109.9689"
+         id="path3520-44-1-1-7-0-4"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(1,-1)"
+         r="31.999712"
+         cy="880.90845"
+         cx="1109.9689"
+         id="path3520-44-1-1-25-4-3"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <circle
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="C:\code\fireperson\Assets\Resources\UI\Abilities.png"
+         transform="scale(1,-1)"
+         r="31.999712"
+         cy="944.90674"
+         cx="1109.9689"
+         id="path3520-44-1-1-5-4-8"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
   </g>
 </svg>

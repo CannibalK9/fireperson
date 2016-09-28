@@ -3,6 +3,7 @@
 	public enum PlayerState
 	{
 		WaitingForInput,
+		Sliding,
 		Climbing,
 		Interacting,
 		Falling,

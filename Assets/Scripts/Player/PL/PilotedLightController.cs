@@ -51,7 +51,7 @@ namespace Assets.Scripts.Player.PL
 
 			if (FirstUpdate)
 			{
-				effect = EmberEffect.Strong;
+				//effect = EmberEffect.Strong;
 				FirstUpdate = false;
 			}
 		}

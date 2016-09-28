@@ -2,19 +2,9 @@
 {
     public static class Animations
     {
-        public static string Shiver
-        {
-            get { return "Shiver"; }
-        }
-
         public static string Idle
         {
             get { return "Idle"; }
-        }
-
-        public static string Moving
-        {
-            get { return "Moving"; }
         }
 
         public static string Gasp
@@ -26,16 +16,6 @@
 		{
 			get { return "Flash"; }
 		}
-
-		public static string LightStove
-        {
-            get { return "LightStove"; }
-        }
-
-        public static string Relief
-        {
-            get { return "Relief"; }
-        }
 
         public static string Falling
         {
@@ -51,11 +31,6 @@
         {
             get { return "InverseToEdge"; }
         }
-
-		public static string Corner
-		{
-			get { return "Corner"; }
-		}
 
 		public static string Mantle
 		{
@@ -150,6 +125,16 @@
 		public static string BeginSlide
 		{
 			get { return "BeginSlide"; }
+		}
+
+		public static string SlideForward
+		{
+			get { return "SlideForward"; }
+		}
+
+		public static string SlideBackward
+		{
+			get { return "SlideBackward"; }
 		}
 	}
 }

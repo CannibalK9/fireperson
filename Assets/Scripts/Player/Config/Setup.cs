@@ -5,16 +5,16 @@ namespace Assets.Scripts.Player.Config
 {
 	public class Setup : MonoBehaviour
 	{
-		[Range(1, 10)]
+		[Range(1, 101)]
 		public float Stability;
 
-		[Range(1, 10)]
+		[Range(1, 101)]
 		public float Intensity;
 
-		[Range(1, 10)]
+		[Range(1, 101)]
 		public float Control;
 
-		[Range(1, 100)]
+		[Range(1, 75)]
 		public float AvailablePoints;
 
 		public bool Tether;
@@ -29,7 +29,10 @@ namespace Assets.Scripts.Player.Config
 		{
 			SetupVariables();
 			SetupAbilities();
+		}
 
+		void Update()
+		{
 			Stability = PlayerPrefs.GetFloat(Variable.Stability.ToString());
 			Intensity = PlayerPrefs.GetFloat(Variable.Intensity.ToString());
 			Control = PlayerPrefs.GetFloat(Variable.Control.ToString());
@@ -44,28 +47,12 @@ namespace Assets.Scripts.Player.Config
 			Tools = AbilityState.IsActive(Ability.Tools);
 		}
 
-		void Update()
-		{
-			PlayerPrefs.SetFloat(Variable.Stability.ToString(), Stability);
-			PlayerPrefs.SetFloat(Variable.Intensity.ToString(), Intensity);
-			PlayerPrefs.SetFloat(Variable.Control.ToString(), Control);
-			PlayerPrefs.SetFloat(Variable.AvailablePoints.ToString(), AvailablePoints);
-			AbilityState.SetActive(Ability.Tether, Tether);
-			AbilityState.SetActive(Ability.Ignite, Ignite);
-			AbilityState.SetActive(Ability.Flash, Flash);
-			AbilityState.SetActive(Ability.Steam, Steam);
-			AbilityState.SetActive(Ability.Burn, Burn);
-			AbilityState.SetActive(Ability.Scout, Scout);
-			AbilityState.SetActive(Ability.Tools, Tools);
-			PlayerPrefs.Save();
-		}
-
 		private static void SetupVariables()
 		{
 			foreach (Variable variable in Enum.GetValues(typeof(Variable)))
 			{
-				if (PlayerPrefs.HasKey(variable.ToString()) == false)
-					PlayerPrefs.SetFloat(variable.ToString(), 1f);
+				//if (PlayerPrefs.HasKey(variable.ToString()) == false)
+					PlayerPrefs.SetFloat(variable.ToString(), 75f);
 			}
 		}
 

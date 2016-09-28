@@ -1,19 +1,22 @@
-﻿using Assets.Scripts.Player.Config;
+﻿using Assets.Scripts.Helpers;
+using Assets.Scripts.Player.Config;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.Abilities
 {
-	public class AbilityMeter
+	public class AbilityMeter : MonoBehaviour
 	{
+		public string Meter = "Stability";
 		private int _currentPoint;
-		private bool _pointsChanging;
-		private float _scale = 1f;
-        private Variable Variable;
         private Dictionary<int,AbilityPoint> _abilityPoints;
+		private GameObject _uiLight;
+		private float _delay = 0.1f;
+		private float _elapsed;
 
 		void Awake()
 		{
+			_uiLight = Resources.Load(string.Format("particles/{0}Light", Meter)) as GameObject;
 			_currentPoint = 1; //temporary, need a way to save the whole meter and load it here
             _abilityPoints = new Dictionary<int, AbilityPoint>
             {
@@ -31,21 +34,21 @@ namespace Assets.Scripts.Player.Abilities
                 {12, new AbilityPoint(_firstCurve[0], new [] { 13, 1}, false, Ability.None) },
                 {13, new AbilityPoint(_firstCurve[1], new [] { 12, 14}, false, Ability.None) },
                 {14, new AbilityPoint(_firstCurve[2], new [] { 13, 15}, false, Ability.None) },
-                {15, new AbilityPoint(_firstCurve[3], new [] {14, 16}, false, Ability.None) },
+                {15, new AbilityPoint(_firstCurve[3], new [] {14, 16}, false, Ability.Tether) },
                 {16, new AbilityPoint(_firstCurve[4], new [] {15, 17}, false, Ability.None) },
                 {17, new AbilityPoint(_firstCurve[5], new [] {16, 18}, false, Ability.None) },
                 {18, new AbilityPoint(_firstCurve[6], new [] {17, 4}, false, Ability.None) },
                 {19, new AbilityPoint(_secondCurve[0], new [] {20, 4}, false, Ability.None) },
                 {20, new AbilityPoint(_secondCurve[1], new [] {19, 21}, false, Ability.None) },
                 {21, new AbilityPoint(_secondCurve[2], new [] {20, 22}, false, Ability.None) },
-                {22, new AbilityPoint(_secondCurve[3], new [] {21, 23}, false, Ability.None) },
+                {22, new AbilityPoint(_secondCurve[3], new [] {21, 23}, false, Ability.Scout) },
                 {23, new AbilityPoint(_secondCurve[4], new [] {22, 24}, false, Ability.None) },
                 {24, new AbilityPoint(_secondCurve[5], new [] {23, 25}, false, Ability.None) },
                 {25, new AbilityPoint(_secondCurve[6], new [] {24, 7}, false, Ability.None) },
                 {26, new AbilityPoint(_thirdCurve[0], new [] {27, 7}, false, Ability.None) },
                 {27, new AbilityPoint(_thirdCurve[1], new [] {26, 28}, false, Ability.None) },
                 {28, new AbilityPoint(_thirdCurve[2], new [] {27, 29}, false, Ability.None) },
-                {29, new AbilityPoint(_thirdCurve[3], new [] {28, 30}, false, Ability.None) },
+                {29, new AbilityPoint(_thirdCurve[3], new [] {28, 30}, false, Ability.Flash) },
                 {30, new AbilityPoint(_thirdCurve[4], new [] {29, 31}, false, Ability.None) },
                 {31, new AbilityPoint(_thirdCurve[5], new [] {30, 32}, false, Ability.None) },
                 {32, new AbilityPoint(_thirdCurve[6], new [] {31, 10}, false, Ability.None) },
@@ -54,35 +57,81 @@ namespace Assets.Scripts.Player.Abilities
 
 		void Update()
 		{
-            bool isClickingOnThisGuiObject = true;
-            if (isClickingOnThisGuiObject && Input.GetKey(KeyCode.Mouse0))
+			if (_elapsed > 0 && _elapsed < _delay)
+			{
+				_elapsed += Time.deltaTime;
+				return;
+			}
+			else if (_elapsed > _delay)
+			{
+				_elapsed = 0;
+			}
+
+            if (Input.GetKey(KeyCode.Mouse0) && Pointer.IsPointerOverUIObject())
             {
                 var direction = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
                 foreach (int connection in _abilityPoints[_currentPoint].Connections)
                 {
-                    if (Vector2.Angle(direction, _abilityPoints[connection].Point - _abilityPoints[_currentPoint].Point) < 10f)
+                    if (Vector2.Angle(direction, _abilityPoints[connection].Point - _abilityPoints[_currentPoint].Point) < 30f)
                     {
+						_elapsed += Time.deltaTime;
+
+						if ((_currentPoint == 4 && connection == 3 && _abilityPoints[3].IsActivated == false)
+							|| (_currentPoint == 4 && connection == 18 && _abilityPoints[18].IsActivated == false)
+							|| (_currentPoint == 7 && connection == 6 && _abilityPoints[6].IsActivated == false)
+							|| (_currentPoint == 7 && connection == 25 && _abilityPoints[25].IsActivated == false)
+							|| (_currentPoint == 10 && connection == 9 && _abilityPoints[9].IsActivated == false)
+							|| (_currentPoint == 10 && connection == 32 && _abilityPoints[32].IsActivated == false))
+							return;
+
                         AbilityPoint abilityPoint = _abilityPoints[connection];
-                        if (abilityPoint.IsActivated)// || pointsAvailable)
+                        if (abilityPoint.IsActivated)
                         {
-                            SetNewCurrentPoint(connection, abilityPoint);
-                            return;
+							PlayerPrefs.SetFloat(Meter, (abilityPoint.Point.y * 10) + 1);
+							DeactivateCurrentPoint();
+							_currentPoint = connection;
                         }
-                    }
-                }
+						else if (PlayerPrefs.GetFloat(Variable.AvailablePoints.ToString()) > 0)
+						{
+							SetNewCurrentPoint(connection, abilityPoint);
+						}
+                        return;
+					}
+				}
             }
+		}
+
+		private void DeactivateCurrentPoint()
+		{
+			AbilityPoint abilityPoint = _abilityPoints[_currentPoint];
+			abilityPoint.IsActivated = false;
+			_abilityPoints[_currentPoint] = abilityPoint;
+			AbilityState.SetActive(abilityPoint.Ability, false);
+			PlayerPrefs.SetFloat(Variable.AvailablePoints.ToString(), PlayerPrefs.GetFloat(Variable.AvailablePoints.ToString()) + 1);
+			PlayerPrefs.Save();
+
+			Transform t = transform.FindChild(_currentPoint.ToString());
+			if (t != null)
+				Destroy(t.gameObject);
 		}
 
         private void SetNewCurrentPoint(int key, AbilityPoint abilityPoint)
         {
-            //pointsAvailable go up or down
-            //activate/deactivate ability
-            //create/destroy associated gameobject
-            abilityPoint.IsActivated = !abilityPoint.IsActivated;
-            _abilityPoints[key] = abilityPoint;
-            _currentPoint = key;
-        }
+			abilityPoint.IsActivated = true;
+			_abilityPoints[key] = abilityPoint;
+			_currentPoint = key;
+
+			AbilityState.SetActive(abilityPoint.Ability, true);
+			PlayerPrefs.SetFloat(Meter, (abilityPoint.Point.y * 10) + 1);
+			PlayerPrefs.SetFloat(Variable.AvailablePoints.ToString(), PlayerPrefs.GetFloat(Variable.AvailablePoints.ToString()) - 1);
+			PlayerPrefs.Save();
+
+			GameObject g = Instantiate(_uiLight);
+			g.name = key.ToString();
+			g.transform.parent = transform;
+			g.transform.localPosition = abilityPoint.Point;
+		}
 
 		private List<Vector2> _straight = new List<Vector2>
 		{
@@ -101,35 +150,35 @@ namespace Assets.Scripts.Player.Abilities
 
 		private List<Vector2> _firstCurve = new List<Vector2>
 		{
-			new Vector2(-56/64,10/64),
-			new Vector2(-112/64,28/64),
-			new Vector2(-160/64,54/64),
-			new Vector2(-3,100/64),
-			new Vector2(-160/64,138/64),
-			new Vector2(-112/64,164/64),
-			new Vector2(-56/64,182/64),
+			new Vector2(-56f/64f,10f/64f),
+			new Vector2(-112f/64f,28f/64f),
+			new Vector2(-160f/64f,54f/64f),
+			new Vector2(-3f,100f/64f),
+			new Vector2(-160f/64f,138f/64f),
+			new Vector2(-112f/64f,164f/64f),
+			new Vector2(-56f/64f,182f/64f),
 		};
 
 		private List<Vector2> _secondCurve = new List<Vector2>
 		{
-			new Vector2(56/64,202/64),
-			new Vector2(112/64,220/64),
-			new Vector2(160/64,246/64),
-			new Vector2(3,292/64),
-			new Vector2(160/64,330/64),
-			new Vector2(112/64,356/64),
-			new Vector2(56/64,374/64),
+			new Vector2(56f/64f,202f/64f),
+			new Vector2(112f/64f,220f/64f),
+			new Vector2(160f/64f,246f/64f),
+			new Vector2(3f,292f/64f),
+			new Vector2(160f/64f,330f/64f),
+			new Vector2(112f/64f,356f/64f),
+			new Vector2(56f/64f,374f/64f),
 		};
 
 		private List<Vector2> _thirdCurve = new List<Vector2>
 		{
-			new Vector2(-56/64,394/64),
-			new Vector2(-112/64,412/64),
-			new Vector2(-160/64,438/64),
-			new Vector2(-3,484/64),
-			new Vector2(-160/64,522/64),
-			new Vector2(-112/64,548/64),
-			new Vector2(-56/64,566/64),
+			new Vector2(-56f/64f,394f/64f),
+			new Vector2(-112f/64f,412f/64f),
+			new Vector2(-160f/64f,438f/64f),
+			new Vector2(-3f,484f/64f),
+			new Vector2(-160f/64f,522f/64f),
+			new Vector2(-112f/64f,548f/64f),
+			new Vector2(-56f/64f,566f/64f),
 		};
 	}
 }

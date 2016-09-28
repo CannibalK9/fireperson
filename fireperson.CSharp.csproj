@@ -71,6 +71,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Helpers\Pointer.cs" />
     <Compile Include="Assets\Scripts\Misc\SmoothCamera2D.cs" />
     <Compile Include="Assets\Scripts\Denizens\DenizenAnimBool.cs" />
     <Compile Include="Assets\Scripts\Denizens\DenizenController.cs" />

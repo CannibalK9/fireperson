@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Assets.Scripts.Player
+﻿namespace Assets.Scripts.Player
 {
     public static  class PlayerAnimBool
     {
@@ -16,5 +11,6 @@ namespace Assets.Scripts.Player
         public static string Inverted { get { return "inverted"; } }
         public static string IsJumping { get { return "isJumping"; } }
         public static string Forward { get { return "forward"; } }
-    }
+		public static string Sliding { get { return "sliding"; } }
+	}
 }
