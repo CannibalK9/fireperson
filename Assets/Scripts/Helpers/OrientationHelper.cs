@@ -7,6 +7,7 @@ namespace Assets.Scripts.Helpers
         public static Orientation GetOrientation(float rotation)
         {
             float slopeLimit = ConstantVariables.DefaultPlayerSlopeLimit;
+			rotation = Mathf.Abs(rotation);
 
             if (rotation < slopeLimit || rotation > 360f - slopeLimit)
                 return Orientation.Flat;

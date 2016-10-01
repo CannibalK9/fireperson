@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Helpers\Pointer.cs" />
+    <Compile Include="Assets\Scripts\Helpers\Serialise.cs" />
     <Compile Include="Assets\Scripts\Misc\SmoothCamera2D.cs" />
     <Compile Include="Assets\Scripts\Denizens\DenizenAnimBool.cs" />
     <Compile Include="Assets\Scripts\Denizens\DenizenController.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Assets\Scripts\Movement\MovementState.cs" />
     <Compile Include="Assets\Scripts\Player\Abilities\AbilityMeter.cs" />
     <Compile Include="Assets\Scripts\Player\Abilities\AbilityPoint.cs" />
+    <Compile Include="Assets\Scripts\Player\Abilities\AbilityTemp.cs" />
     <Compile Include="Assets\Scripts\Player\Abilities\Flash.cs" />
     <Compile Include="Assets\Scripts\Player\Abilities\Tether.cs" />
     <Compile Include="Assets\Scripts\Player\AnimationScript.cs" />
@@ -123,10 +125,11 @@
     <Compile Include="Assets\Scripts\Player\Config\Ability.cs" />
     <Compile Include="Assets\Scripts\Player\Config\GameCursor.cs" />
     <Compile Include="Assets\Scripts\Player\Config\KeyBindings.cs" />
+    <Compile Include="Assets\Scripts\Player\Config\PointsText.cs" />
     <Compile Include="Assets\Scripts\Player\Config\Setup.cs" />
     <Compile Include="Assets\Scripts\Player\Config\Variable.cs" />
     <Compile Include="Assets\Scripts\Player\Control.cs" />
-    <Compile Include="Assets\Scripts\Player\DirectionFacing.cs" />
+    <Compile Include="Assets\Scripts\Helpers\DirectionFacing.cs" />
     <Compile Include="Assets\Scripts\Player\FollowingLight.cs" />
     <Compile Include="Assets\Scripts\Player\Interaction.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAnimBool.cs" />

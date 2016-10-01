@@ -24,6 +24,7 @@ namespace Assets.Scripts.Player.Config
 		public static void SetActive(Ability ability, bool isActive)
 		{
 			PlayerPrefs.SetInt(ability.ToString(), isActive ? 1 : 0);
+			PlayerPrefs.Save();
 		}
 	}
 }

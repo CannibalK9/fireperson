@@ -15,7 +15,7 @@ namespace Assets.Scripts.Player.Config
 		public float Control;
 
 		[Range(1, 75)]
-		public float AvailablePoints;
+		public int AvailablePoints;
 
 		public bool Tether;
 		public bool Ignite;
@@ -29,14 +29,18 @@ namespace Assets.Scripts.Player.Config
 		{
 			SetupVariables();
 			SetupAbilities();
+			PlayerPrefs.SetInt(IntVariable.SpentPoints.ToString(), 0);
+			if (PlayerPrefs.GetInt(IntVariable.AvailablePoints.ToString()) < 5)
+				PlayerPrefs.SetInt(IntVariable.AvailablePoints.ToString(), 5);
+			AvailablePoints = PlayerPrefs.GetInt(IntVariable.AvailablePoints.ToString());
+			PlayerPrefs.Save();
 		}
 
 		void Update()
 		{
-			Stability = PlayerPrefs.GetFloat(Variable.Stability.ToString());
-			Intensity = PlayerPrefs.GetFloat(Variable.Intensity.ToString());
-			Control = PlayerPrefs.GetFloat(Variable.Control.ToString());
-			AvailablePoints = PlayerPrefs.GetFloat(Variable.AvailablePoints.ToString());
+			Stability = PlayerPrefs.GetFloat(FloatVariable.Stability.ToString());
+			Intensity = PlayerPrefs.GetFloat(FloatVariable.Intensity.ToString());
+			Control = PlayerPrefs.GetFloat(FloatVariable.Control.ToString());
 
 			Tether = AbilityState.IsActive(Ability.Tether);
 			Ignite = AbilityState.IsActive(Ability.Ignite);
@@ -45,14 +49,16 @@ namespace Assets.Scripts.Player.Config
 			Burn = AbilityState.IsActive(Ability.Burn);
 			Scout = AbilityState.IsActive(Ability.Scout);
 			Tools = AbilityState.IsActive(Ability.Tools);
+
+			PlayerPrefs.SetInt(IntVariable.AvailablePoints.ToString(), AvailablePoints);
+			PlayerPrefs.Save();
 		}
 
 		private static void SetupVariables()
 		{
-			foreach (Variable variable in Enum.GetValues(typeof(Variable)))
+			foreach (FloatVariable variable in Enum.GetValues(typeof(FloatVariable)))
 			{
-				//if (PlayerPrefs.HasKey(variable.ToString()) == false)
-					PlayerPrefs.SetFloat(variable.ToString(), 75f);
+				PlayerPrefs.SetFloat(variable.ToString(), 0f);
 			}
 		}
 
@@ -60,8 +66,7 @@ namespace Assets.Scripts.Player.Config
 		{
 			foreach (Ability ability in Enum.GetValues(typeof(Ability)))
 			{
-				if (PlayerPrefs.HasKey(ability.ToString()) == false)
-					PlayerPrefs.SetInt(ability.ToString(), 0);
+				PlayerPrefs.SetInt(ability.ToString(), 0);
 			}
 		}
 	}

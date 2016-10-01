@@ -36,10 +36,13 @@ namespace Assets.Scripts.Interactable
 			_col = gameObject.GetComponent<BoxCollider2D>();
 			_wasLeft = LeftEdge;
 			_wasRight = RightEdge;
-
-            _leftEdgeObject = Resources.Load("terrain/edges/left edge") as GameObject;
-            _rightEdgeObject = Resources.Load("terrain/edges/right edge") as GameObject;
         }
+
+		void Start()
+		{
+			_leftEdgeObject = Resources.Load("terrain/edges/left edge") as GameObject;
+			_rightEdgeObject = Resources.Load("terrain/edges/right edge") as GameObject;
+		}
 
         void Update()
 		{

@@ -34,6 +34,7 @@ namespace Assets.Scripts.Player
 		private PlayerState _playerState;
 		private float _normalizedHorizontalSpeed;
 		private bool _wasSliding;
+		private bool _wasGrounded;
 
 		void Awake()
 		{
@@ -61,6 +62,7 @@ namespace Assets.Scripts.Player
 					break;
 				case PlayerState.Sliding:
 					SetSliding();
+					SetHorizontalVelocity();
 					MoveWithVelocity(0);
 					break;
 				case PlayerState.Climbing:
@@ -89,26 +91,76 @@ namespace Assets.Scripts.Player
 			if (MovementState.IsOnSlope)
 			{
 				if (TryClimb())
+				{
+					MovementState.WasOnSlope = true;
+					MovementState.IsGrounded = true;
+					MovementState.IsOnSlope = false;
+					_wasSliding = false;
+					Anim.SetBool(PlayerAnimBool.Sliding, false);
 					return SetMotorToClimbState();
+				}
 				else
 					return PlayerState.Sliding;
 			}
 			else
 			{
+				if (_wasSliding)
+					_normalizedHorizontalSpeed = 0;
 				_wasSliding = false;
 				Anim.SetBool(PlayerAnimBool.Sliding, false);
 			}
 
 			if (_climbHandler.CurrentClimb == Climb.Jump)
-				return PlayerState.Jumping;
-			else if (Interaction.IsInteracting)
-				return PlayerState.Interacting;
-			else if (MovementState.IsGrounded == false)
 			{
 				if (TryGrab())
 					return SetMotorToClimbState();
 				else
+					return PlayerState.Jumping;
+			}
+			else if (MovementState.IsGrounded)
+			{
+				if (_wasGrounded == false)
 				{
+					_wasGrounded = true;
+					return WaitForInput();
+				}
+				else if (Interaction.IsInteracting)
+					return PlayerState.Interacting;
+				else if (ChannelingHandler.IsChanneling && ChannelingHandler.ChannelingSet == false)
+				{
+					if (KeyBindings.GetKey(Control.Light))
+						ChannelingHandler.Channel();
+					return PlayerState.Static;
+				}
+				else if (IsClimbing())
+					return PlayerState.Climbing;
+				else if (TryClimb())
+					return SetMotorToClimbState();
+				else if (TryInteract())
+				{
+					Interaction.IsInteracting = true;
+					return PlayerState.Interacting;
+				}
+				else if (TryChannel())
+					return PlayerState.Static;
+				else
+				{
+					return WaitForInput();
+				}
+			}
+			else
+			{
+				_wasGrounded = false;
+
+				if (TryGrab())
+				{
+					_wasGrounded = true;
+					return SetMotorToClimbState();
+				}
+				else
+				{
+					if (Anim.GetBool(PlayerAnimBool.Falling) == false)
+						Anim.PlayAnimation(Animations.Falling);
 					Anim.SetBool(PlayerAnimBool.Falling, true);
 					Anim.SetBool(PlayerAnimBool.Moving, false);
 					Anim.SetBool(PlayerAnimBool.Upright, false);
@@ -116,24 +168,10 @@ namespace Assets.Scripts.Player
 					return PlayerState.Falling;
 				}
 			}
-			else if (ChannelingHandler.IsChanneling && ChannelingHandler.ChannelingSet == false)
-			{
-				if (KeyBindings.GetKey(Control.Light))
-					ChannelingHandler.Channel();
-				return PlayerState.Static;
-			}
-			else if (IsClimbing())
-				return PlayerState.Climbing;
-			else if (TryClimb())
-				return SetMotorToClimbState();
-			else if (TryInteract())
-			{
-				Interaction.IsInteracting = true;
-				return PlayerState.Interacting;
-			}
-			else if (TryChannel())
-				return PlayerState.Static;
+		}
 
+		private PlayerState WaitForInput()
+		{
 			Anim.SetBool(PlayerAnimBool.Falling, false);
 			Anim.SetBool(PlayerAnimBool.Moving, _normalizedHorizontalSpeed != 0);
 
@@ -147,7 +185,7 @@ namespace Assets.Scripts.Player
 			Anim.SetBool(PlayerAnimBool.Sliding, true);
 			if (_wasSliding == false)
 			{
-				bool slidingRight = MovementState.Normal.x > 0;
+				bool slidingRight = MovementState.NormalDirection == DirectionFacing.Right;
 				bool facingRight = GetDirectionFacing() == DirectionFacing.Right;
 				Anim.SetBool(PlayerAnimBool.Forward, slidingRight == facingRight);
 				_normalizedHorizontalSpeed = slidingRight ? 1 : -1;
@@ -160,11 +198,17 @@ namespace Assets.Scripts.Player
 			}
 			else
 			{
-				bool slidingRight = MovementState.Normal.x > 0;
+				bool slidingRight = MovementState.NormalDirection == DirectionFacing.Right;
 				if (KeyBindings.GetKey(Control.Left))
+				{
+					Anim.FlipSpriteLeft();
 					Anim.SetBool(PlayerAnimBool.Forward, !slidingRight);
+				}
 				else if (KeyBindings.GetKey(Control.Right))
+				{
+					Anim.FlipSpriteRight();
 					Anim.SetBool(PlayerAnimBool.Forward, slidingRight);
+				}
 			}
 		}
 
@@ -332,9 +376,11 @@ namespace Assets.Scripts.Player
 		{
 			Interaction.Object = null;
 			CancelVelocity();
-			ClimbingState = _climbHandler.GetClimbingState(true);
-			MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
-
+			if (_climbHandler.CurrentClimb != Climb.Jump)
+			{
+				ClimbingState = _climbHandler.GetClimbingState(true);
+				MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
+			}
 			return PlayerState.Climbing;
 		}
 
@@ -425,7 +471,12 @@ namespace Assets.Scripts.Player
 
 		private bool TryClimb()
 		{
+			bool topOfSlope = MovementState.IsOnSlope
+				? topOfSlope = MovementState.NormalDirection != GetDirectionFacing()
+				: false;
+
 			Climb climb;
+			string animation = "";
 			if (KeyBindings.GetKey(Control.Up) && _climbHandler.CheckLedgeAbove(GetDirectionFacing(), out climb, false))
 			{
 				switch (climb)
@@ -441,20 +492,10 @@ namespace Assets.Scripts.Player
 						break;
 				}
 			}
-			else if (KeyBindings.GetKey(Control.Down) && _climbHandler.CheckLedgeBelow(Climb.Down, GetDirectionFacing()))
-			{
-				Anim.PlayAnimation(_climbHandler.DistanceToEdge > ConstantVariables.DistanceToTriggerRollDown
-						? Animations.RollDown
-						: Animations.ClimbDown);
-			}
-			else if (KeyBindings.GetKey(Control.Jump) && _climbHandler.CheckLedgeBelow(Climb.MoveToEdge, GetDirectionFacing()))
-			{
-				Anim.PlayAnimation(Animations.MoveToEdge);
-				_climbHandler.NextClimbs.Add(
-					GetDirectionFacing() == DirectionFacing.Left
-					? Climb.AcrossLeft
-					: Climb.AcrossRight);
-			}
+			else if (topOfSlope == false && KeyBindings.GetKey(Control.Down) && _climbHandler.CheckLedgeBelow(Climb.Down, GetDirectionFacing(), out animation))
+				Anim.PlayAnimation(animation);
+			else if (topOfSlope == false && KeyBindings.GetKey(Control.Jump) && _climbHandler.CheckLedgeBelow(Climb.MoveToEdge, GetDirectionFacing(), out animation))
+				Anim.PlayAnimation(animation);
 			else 
 				return false;
 
@@ -603,7 +644,7 @@ namespace Assets.Scripts.Player
 				_climbHandler.NextClimbs.Add(Climb.AcrossLeft);
 				direction = DirectionFacing.Left;
 			}
-			if (KeyBindings.GetKey(Control.Right))
+			else if (KeyBindings.GetKey(Control.Right))
 			{
 				_climbHandler.NextClimbs.Add(Climb.AcrossRight);
 				direction = DirectionFacing.Right;
@@ -722,7 +763,7 @@ namespace Assets.Scripts.Player
                 ? ClimbingState.MovementSpeed
                 : ConstantVariables.DefaultMovementSpeed;
 
-            float animSpeed = 4 / (distance / speed);
+			float animSpeed = 0.6f;// distance / speed;
             return animSpeed < 10
                 ? animSpeed
                 : 10;

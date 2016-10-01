@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Player
+﻿namespace Assets.Scripts.Helpers
 {
     public enum DirectionFacing
     {

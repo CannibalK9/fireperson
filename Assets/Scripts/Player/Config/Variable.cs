@@ -1,10 +1,15 @@
 ﻿namespace Assets.Scripts.Player.Config
 {
-    public enum Variable
+    public enum FloatVariable
     {
         Intensity,
 		Stability,
 		Control,
-		AvailablePoints
     }
+
+	public enum IntVariable
+	{
+		AvailablePoints,
+		SpentPoints
+	}
 }

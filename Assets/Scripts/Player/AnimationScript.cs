@@ -60,12 +60,17 @@ namespace Assets.Scripts.Player
 			_animator.SetTrigger("transitionAcross");
 		}
 
+		public void ResetAcrossTrigger()
+		{
+			_animator.ResetTrigger("transitionAcross");
+		}
+
 		public void PlayAnimation(string anim)
 		{
 			_animator.Play(Animator.StringToHash(anim));
 		}
 
-		private void SwitchClimbingState()
+		public void SwitchClimbingState()
 		{
 			ClimbingState nextState = PlayerMotor.SwitchClimbingState();
 			SetupNextState(nextState);
@@ -153,13 +158,13 @@ namespace Assets.Scripts.Player
 				PlayerMotor.FlipSprite();
 		}
 
-		private void FlipSpriteRight()
+		public void FlipSpriteRight()
 		{
 			if (PlayerMotor.GetDirectionFacing() == DirectionFacing.Left)
 				PlayerMotor.FlipSprite();
 		}
 
-		private void FlipSpriteLeft()
+		public void FlipSpriteLeft()
 		{
 			if (PlayerMotor.GetDirectionFacing() == DirectionFacing.Right)
 				PlayerMotor.FlipSprite();

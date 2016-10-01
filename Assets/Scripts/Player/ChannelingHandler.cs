@@ -61,6 +61,11 @@ namespace Assets.Scripts.Player
 		private const float _breakChannelTime = 2f;
 		private static float _breakChannelingTime;
 
+		public static void StartBreaking()
+		{
+			_breakChannelingTime += Time.deltaTime;
+		}
+
 		public static void BreakChannel()
 		{
 			if (ChannelingSet == false)
@@ -69,6 +74,9 @@ namespace Assets.Scripts.Player
 				_breakChannelingTime = 0;
 				return;
 			}
+
+			if (_breakChannelingTime == 0)
+				return;
 
 			_breakChannelingTime += Time.deltaTime;
 			if (_breakChannelingTime > _breakChannelTime)

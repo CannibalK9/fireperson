@@ -52,6 +52,11 @@
             get { return "MoveToEdge"; }
         }
 
+		public static string DiveAcross
+		{
+			get { return "DiveAcross"; }
+		}
+
 		public static string LowerStilt
         {
             get { return "LowerStilt"; }

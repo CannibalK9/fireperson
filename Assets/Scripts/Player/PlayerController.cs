@@ -52,9 +52,9 @@ namespace Assets.Scripts.Player
 
 		void Update()
 		{
-			BaseStability = PlayerPrefs.GetFloat(Variable.Stability.ToString());
-			BaseIntensity = PlayerPrefs.GetFloat(Variable.Intensity.ToString());
-			BaseControl = PlayerPrefs.GetFloat(Variable.Control.ToString());
+			BaseStability = PlayerPrefs.GetFloat(FloatVariable.Stability.ToString());
+			BaseIntensity = PlayerPrefs.GetFloat(FloatVariable.Intensity.ToString());
+			BaseControl = PlayerPrefs.GetFloat(FloatVariable.Control.ToString());
 
 			SetVariablesByChanneler();
 			SelectEmberEffect();

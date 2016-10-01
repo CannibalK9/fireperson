@@ -138,7 +138,12 @@ namespace Assets.Scripts.Player.PL
 				Destroy(transform.root.gameObject);
 			}
 
-            if (KeyBindings.GetKey(Control.Light))
+			if (KeyBindings.GetKeyDown(Control.Light) && Pointer.IsPointerOverUIObject() == false)
+			{
+				ChannelingHandler.StartBreaking();
+			}
+
+			if (KeyBindings.GetKey(Control.Light))
             {
 				ChannelingHandler.BreakChannel();
             }

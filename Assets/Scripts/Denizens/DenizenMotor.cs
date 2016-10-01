@@ -63,7 +63,7 @@ namespace Assets.Scripts.Denizens
 
 			if (_isSliding)
             {
-				if (_controller.MovementState.Normal.x > 0)
+				if (_controller.MovementState.NormalDirection == DirectionFacing.Right)
 				{
 					if (GetDirectionFacing() == DirectionFacing.Left)
 						FlipSprite();
@@ -345,12 +345,6 @@ namespace Assets.Scripts.Denizens
 			DirectionTravelling = DirectionTravelling.None;
             _animator.SetTrigger(DenizenAnimBool.LightStove);
         }
-
-        private enum DirectionFacing
-		{
-			Right,
-			Left
-		}
 
 		private DirectionFacing GetDirectionFacing()
 		{

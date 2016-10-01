@@ -66,10 +66,13 @@ namespace Assets.Scripts.Movement
             _motor.MovementState.Reset(deltaMovement);
 			Bounds bounds = _motor.Collider.bounds;
 
-			RaycastHit2D[] downHits = Physics2D.BoxCastAll(new Vector2(bounds.center.x, bounds.min.y + 0.5f), new Vector2(bounds.size.x, 0.001f), 0, Vector2.down, 1f, Layers.Platforms);
-			_downHit = GetDownwardsHit(downHits);
+			if (isKinematic == false)
+			{
+				RaycastHit2D[] downHits = Physics2D.BoxCastAll(new Vector2(bounds.center.x, bounds.min.y + 0.5f), new Vector2(bounds.size.x, 0.001f), 0, Vector2.down, 1f, Layers.Platforms);
+				_downHit = GetDownwardsHit(downHits);
+			}
 
-			if (_downHit)
+			if (isKinematic == false && _downHit)
 			{
 				_motor.MovementState.Normal = _downHit.normal;
 				deltaMovement.y = 0;
@@ -205,7 +208,10 @@ namespace Assets.Scripts.Movement
 				hitAngle = Vector2.Angle(hit.normal, Vector2.up);
 
 				if (_downHit && _downHit.collider != hit.collider && hitAngle >= _motor.SlopeLimit)
+				{
+					hitAngle = maxAngle;
 					continue;
+				}
 
 				if (hitAngle < maxAngle)
 				{

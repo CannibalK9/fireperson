@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Helpers;
+using Assets.Scripts.Player;
 using UnityEngine;
 
 namespace Assets.Scripts.Movement
@@ -18,17 +19,28 @@ namespace Assets.Scripts.Movement
 		public ColliderPoint TargetPoint { get; private set; }
         public bool TrappedBetweenSlopes { get; set; }
 		public Vector3 Normal { get; set; }
+		public bool WasOnSlope { get; set; }
+		public DirectionFacing NormalDirection
+		{
+			get
+			{
+				if (Normal.x == 0)
+					return DirectionFacing.None;
+				else
+					return Normal.x > 0 ? DirectionFacing.Right : DirectionFacing.Left;
+			}
+		}
 		private bool _updatePivot;
 		private Vector2 _colliderDimensions;
 
 		public MovementState()
 		{
 			Pivot = new GameObject();
+			Pivot.name = "Pivot";
 		}
 
-		public MovementState(Vector2 colliderDimensions)
+		public MovementState(Vector2 colliderDimensions) : this()
 		{
-			Pivot = new GameObject();
 			_colliderDimensions = colliderDimensions;
 		}
 
@@ -128,6 +140,11 @@ namespace Assets.Scripts.Movement
 			{
 				Pivot.transform.position = PivotCollider.GetPoint(TargetPoint);
 			}
+		}
+
+		public void JumpInPlace()
+		{
+			_updatePivot = false;
 		}
 
 		public void UnsetPivot()

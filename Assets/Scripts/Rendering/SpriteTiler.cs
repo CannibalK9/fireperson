@@ -29,8 +29,8 @@ namespace Assets.Scripts.Rendering
 			var children = new List<GameObject>();
 			foreach (Transform c in transform.GetComponentsInChildren<Transform>())
 			{
-				if (c != transform)
-				children.Add(c.gameObject);
+				if (c != transform && c.GetComponent<SpriteRenderer>() != null)
+					children.Add(c.gameObject);
 			}
 			children.ForEach(c => DestroyImmediate(c));
 
@@ -73,6 +73,7 @@ namespace Assets.Scripts.Rendering
 					child = Instantiate(childPrefab) as GameObject;
 					child.transform.position = transform.position - (new Vector3(spriteSize_wu.x * j, spriteSize_wu.y * i, 0)) + offSet;
 					child.transform.localScale = scale;
+					child.transform.localRotation = new Quaternion();
 					child.transform.parent = transform;
 				}
 			}

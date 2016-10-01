@@ -17,9 +17,9 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="wallpaper.svg"
-   inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\wallpaper.png"
-   inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
+   inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\wallpaper4096.png"
+   inkscape:export-xdpi="360"
+   inkscape:export-ydpi="360">
   <defs
      id="defs4">
     <inkscape:path-effect
@@ -737,9 +737,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="540.37466"
-     inkscape:cy="963.10923"
+     inkscape:zoom="0.3535534"
+     inkscape:cx="449.99559"
+     inkscape:cy="788.57605"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
