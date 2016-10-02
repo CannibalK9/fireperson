@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Heat;
+﻿using Assets.Scripts.CameraHandler;
+using Assets.Scripts.Heat;
 using Assets.Scripts.Player.Abilities;
 using Assets.Scripts.Player.Config;
 using Assets.Scripts.Player.PL;
@@ -30,6 +31,7 @@ namespace Assets.Scripts.Player
 		public Collider2D Collider { get; set; }
 
 		private HeatHandler[] _heatHandlers;
+		private SmoothCamera2D _camera;
 
 		void Awake()
 		{
@@ -37,6 +39,7 @@ namespace Assets.Scripts.Player
 			Collider = Transform.GetComponent<BoxCollider2D>();
 
 			_heatHandlers = Transform.GetComponentsInChildren<HeatHandler>();
+			_camera = Transform.GetComponent<AnimationScript>().CameraScript;
 		}
 
 		void Start()
@@ -124,6 +127,7 @@ namespace Assets.Scripts.Player
 				transform.rotation);
 
 			pl.GetComponent<PilotedLightController>().Player = this;
+			_camera.Pl = pl.transform;
 
 			if (AbilityState.IsActive(Ability.Tether))
 			{

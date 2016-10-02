@@ -215,7 +215,7 @@ namespace Assets.Scripts.Denizens
 				_animator.SetTrigger(DenizenAnimBool.AtEdge);
 			else if (ApproachingSnow(hazardRay))
 				_animator.SetTrigger(DenizenAnimBool.AtSnow);
-			else if (_controller.MovementState.RightCollision || _controller.MovementState.LeftCollision)
+			else if ((_controller.MovementState.RightCollision && DirectionTravelling == DirectionTravelling.Right) || (_controller.MovementState.LeftCollision && DirectionTravelling == DirectionTravelling.Left))
 				_animator.SetTrigger(DenizenAnimBool.AtWall);
 			else
 				return;
@@ -351,6 +351,12 @@ namespace Assets.Scripts.Denizens
 			return transform.localScale.x > 0f
 				? DirectionFacing.Right
 				: DirectionFacing.Left;
+		}
+
+		public void SetDirectionFacing(DirectionFacing direction)
+		{
+			if (GetDirectionFacing() != direction)
+				FlipSprite();
 		}
 	}
 }

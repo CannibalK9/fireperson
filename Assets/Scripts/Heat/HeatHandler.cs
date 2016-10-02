@@ -12,7 +12,6 @@ namespace Assets.Scripts.Heat
 		private FirePlace _fireplace;
 		protected ParticleSystem _ps;
 		protected BoxCollider2D _box;
-		protected float _width;
 
 		void Awake()
 		{
@@ -22,7 +21,6 @@ namespace Assets.Scripts.Heat
 			if (this is BoxHeater)
 			{
 				_box = GetComponent<BoxCollider2D>();
-				_width = _box.size.x;
 			}
 		}
 

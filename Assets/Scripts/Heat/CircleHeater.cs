@@ -4,7 +4,7 @@
 	{
 		protected override void SetColliderSizes(float range)
 		{
-			transform.localScale = UnityEngine.Vector3.one * HeatMessage.HeatRange;
+			transform.localScale = UnityEngine.Vector3.one * (HeatMessage.HeatRange);
 		}
 	}
 }

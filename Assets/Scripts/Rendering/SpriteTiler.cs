@@ -21,7 +21,7 @@ namespace Assets.Scripts.Rendering
 				return;
 
 			Quaternion rotation = transform.rotation;
-			transform.rotation = new Quaternion();
+			transform.rotation = Quaternion.Euler(Vector3.zero);
 
 			_gridX = gridX;
 			_gridY = gridY;

@@ -324,7 +324,7 @@ namespace Assets.Scripts.Player.Climbing
 					SetClimbingParameters(edge);
 					DistanceToEdge = distance;
 					if (down)
-						animation = DistanceToEdge > ConstantVariables.DistanceToTriggerRollDown ? Animations.RollDown : Animations.ClimbDown;
+						animation = _motor.Anim.GetBool(PlayerAnimBool.Moving) ? Animations.RollDown : Animations.ClimbDown;
 					else
 					{
 						NextClimbs.Add(

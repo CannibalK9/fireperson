@@ -30,6 +30,7 @@ namespace Assets.Scripts.Denizens
         public MovementHandler Movement;
 		public MovementState MovementState { get; set; }
         private DenizenMotor _motor;
+		private FirePlace _fireplace;
 		private Vector2 _eyeLevel { get { return new Vector2(Collider.bounds.center.x, Collider.bounds.max.y - 0.5f); } }
 
         void Awake()
@@ -43,6 +44,15 @@ namespace Assets.Scripts.Denizens
             _motor = GetComponent<DenizenMotor>();
 			MovementState = new MovementState();
         }
+
+		void Update()
+		{
+			if (_fireplace != null && _fireplace.IsLit == false)
+			{
+				_fireplace = null;
+				SatAtFireplace = false;
+			}
+		}
 
         public bool SpotPlayer(Vector2 direction)
         {
@@ -77,20 +87,18 @@ namespace Assets.Scripts.Denizens
 					{
 						if (stove.AllChimneysAreClosed())
 							_motor.BeginLighting(fireplace);
-						else
-						{
-							SatAtFireplace = false;
-							_motor.SetTravelInDirectionFacing();
-						}
 					}
-					else if (stove == null)
-						_motor.BeginLighting(fireplace);
 				}
-				else if (fireplace.IsHeatSource)
+				else if (fireplace.IsHeatSource && _fireplace == null)
                 {
+					_fireplace = fireplace;
                     SatAtFireplace = true;
-                }
-            }
+					if (_fireplace.transform.position.x > transform.position.x)
+						_motor.SetDirectionFacing(DirectionFacing.Right);
+					else
+						_motor.SetDirectionFacing(DirectionFacing.Left);
+				}
+			}
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Assets.Scripts.Interactable
 		public bool IsFullyIgnited;
 
 		public Collider2D Collider { get; set; }
-		public float HeatRayDistance { get; set; }
+		public float HeatRayDistance;
 		public float HeatIntensity { get; set; }
 		public bool ContainsPl { get; set; }
 

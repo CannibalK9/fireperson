@@ -23,7 +23,7 @@ namespace Assets.Scripts.Player
 
 		 void Start()
         {
-            CameraScript.Target = transform;
+            CameraScript.Player = transform;
         }
 
 		void Update()
@@ -237,7 +237,7 @@ namespace Assets.Scripts.Player
         {
             if (col.gameObject.layer == LayerMask.NameToLayer(Layers.CameraSpot))
             {
-                CameraScript.Target = col.transform;
+                CameraScript.Player = col.transform;
             }
         }
 
@@ -245,7 +245,7 @@ namespace Assets.Scripts.Player
         {
             if (col.gameObject.layer == LayerMask.NameToLayer(Layers.CameraSpot))
             {
-                CameraScript.Target = transform;
+                CameraScript.Player = transform;
             }
         }
     }
