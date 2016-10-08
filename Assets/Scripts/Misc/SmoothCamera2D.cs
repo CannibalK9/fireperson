@@ -12,19 +12,21 @@ namespace Assets.Scripts.CameraHandler
 		public Transform Pl { get; set; }
 		public float Height { get; set; }
 
-		private Vector2 _velocity = Vector2.zero;
+		private Vector3 _velocity = Vector2.zero;
 		private float _speed;
 		private Camera _camera;
+		private float _zAxis;
 
 		void Awake()
 		{
 			_camera = GetComponent<Camera>();
+			_zAxis = transform.position.z;
 			Height = 16;
 		}
 
 		void Update()
 		{
-			Vector2 point = transform.position;
+			Vector3 point = transform.position;
 
 			if (CameraSpot != null)
 			{
@@ -55,7 +57,8 @@ namespace Assets.Scripts.CameraHandler
 					}
 				}
 			}
-			transform.position = Vector2.SmoothDamp(transform.position, point, ref _velocity, MovementDampTime);
+			point.z = _zAxis;
+			transform.position = Vector3.SmoothDamp(transform.position, point, ref _velocity, MovementDampTime);
 			_camera.orthographicSize = Mathf.SmoothDamp(_camera.orthographicSize, Height / 2, ref _speed, SizeDampTime);
 		}
 	}

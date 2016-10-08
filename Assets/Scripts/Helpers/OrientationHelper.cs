@@ -72,5 +72,13 @@ namespace Assets.Scripts.Helpers
 					return 0;
 			}
 		}
+
+		public static float GetCornerRotationConsideringOrientation(Transform trans)
+		{
+			float rotation = trans.rotation.eulerAngles.z;
+			return trans.up.x > 0
+				? rotation - 90
+				: rotation + 90;
+		}
 	}
 }

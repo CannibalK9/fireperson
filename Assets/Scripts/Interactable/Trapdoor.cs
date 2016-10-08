@@ -36,10 +36,10 @@ namespace Assets.Scripts.Interactable
 		private void AddEdges()
 		{
 			if (LeftPlatform != null)
-				LeftPlatform.GetComponent<ClimbableEdges>().LeftEdge = true;
+				LeftPlatform.GetComponent<ClimbableEdges>().RightEdge = true;
 
 			if (RightPlatform != null)
-				RightPlatform.GetComponent<ClimbableEdges>().RightEdge = true;
+				RightPlatform.GetComponent<ClimbableEdges>().LeftEdge = true;
 		}
 	}
 }

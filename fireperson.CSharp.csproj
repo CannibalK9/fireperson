@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.5f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -63,6 +61,12 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="Cloo">
+      <HintPath>Assets\Fluvio\_Main\Cloo.dll</HintPath>
+    </Reference>
+    <Reference Include="Fluvio.Runtime">
+      <HintPath>Assets\Fluvio\_Main\Fluvio.Runtime.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="fireperson.CSharp.Plugins.csproj">
@@ -71,9 +75,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Helpers\Pointer.cs" />
-    <Compile Include="Assets\Scripts\Helpers\Serialise.cs" />
-    <Compile Include="Assets\Scripts\Misc\SmoothCamera2D.cs" />
+    <Compile Include="Assets\Fluvio\_Main\PlatformSource\Cloo\Bindings\CL10.cs" />
+    <Compile Include="Assets\Fluvio\_Main\PlatformSource\Cloo\Bindings\CL11.cs" />
+    <Compile Include="Assets\Fluvio\_Main\PlatformSource\Cloo\Bindings\CL12.cs" />
+    <Compile Include="Assets\Fluvio\_Main\PlatformSource\Thinksquirrel\Fluvio\Internal\ComputeIncludeParser.cs" />
+    <Compile Include="Assets\Fluvio\_Main\PlatformSource\Thinksquirrel\Fluvio\Internal\FluvioRuntimeHelper.cs" />
+    <Compile Include="Assets\Fluvio\_Main\PlatformSource\Thinksquirrel\Fluvio\Internal\Threading\FluvioThreadPool.cs" />
+    <Compile Include="Assets\Fluvio\_Main\PlatformSource\Thinksquirrel\Fluvio\SamplePlugins\FluidMixer.cs" />
+    <Compile Include="Assets\Fluvio\_Main\PlatformSource\Thinksquirrel\Fluvio\SamplePlugins\FluidTouch.cs" />
     <Compile Include="Assets\Scripts\Denizens\DenizenAnimBool.cs" />
     <Compile Include="Assets\Scripts\Denizens\DenizenController.cs" />
     <Compile Include="Assets\Scripts\Denizens\DenizenMotor.cs" />
@@ -88,11 +97,14 @@
     <Compile Include="Assets\Scripts\Helpers\ColliderExtension.cs" />
     <Compile Include="Assets\Scripts\Helpers\ColliderPoint.cs" />
     <Compile Include="Assets\Scripts\Helpers\ConstantVariables.cs" />
+    <Compile Include="Assets\Scripts\Helpers\DirectionFacing.cs" />
     <Compile Include="Assets\Scripts\Helpers\DirectionTravelling.cs" />
     <Compile Include="Assets\Scripts\Helpers\Interactables.cs" />
     <Compile Include="Assets\Scripts\Helpers\Layers.cs" />
     <Compile Include="Assets\Scripts\Helpers\Orientation.cs" />
     <Compile Include="Assets\Scripts\Helpers\OrientationHelper.cs" />
+    <Compile Include="Assets\Scripts\Helpers\Pointer.cs" />
+    <Compile Include="Assets\Scripts\Helpers\Serialise.cs" />
     <Compile Include="Assets\Scripts\Ice\Ice.cs" />
     <Compile Include="Assets\Scripts\Ice\Steam.cs" />
     <Compile Include="Assets\Scripts\Ice\Triangulator.cs" />
@@ -107,6 +119,7 @@
     <Compile Include="Assets\Scripts\Interactable\StoveDoor.cs" />
     <Compile Include="Assets\Scripts\Interactable\Trapdoor.cs" />
     <Compile Include="Assets\Scripts\Interactable\spin.cs" />
+    <Compile Include="Assets\Scripts\Misc\SmoothCamera2D.cs" />
     <Compile Include="Assets\Scripts\Movement\CharacterRaycastOrigins.cs" />
     <Compile Include="Assets\Scripts\Movement\CollisionState.cs" />
     <Compile Include="Assets\Scripts\Movement\IMotor.cs" />
@@ -129,12 +142,11 @@
     <Compile Include="Assets\Scripts\Player\Config\Setup.cs" />
     <Compile Include="Assets\Scripts\Player\Config\Variable.cs" />
     <Compile Include="Assets\Scripts\Player\Control.cs" />
-    <Compile Include="Assets\Scripts\Helpers\DirectionFacing.cs" />
     <Compile Include="Assets\Scripts\Player\FollowingLight.cs" />
     <Compile Include="Assets\Scripts\Player\Interaction.cs" />
-    <Compile Include="Assets\Scripts\Player\PlayerAnimBool.cs" />
     <Compile Include="Assets\Scripts\Player\PL\PilotedLightController.cs" />
     <Compile Include="Assets\Scripts\Player\PL\PilotedLightMotor.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerAnimBool.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMotor.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerState.cs" />
@@ -261,6 +273,57 @@
     <Compile Include="Assets\SpritesAndBones\Scripts\Utils\Vertices.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Fluvio\README.txt" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\FluidParticleSystem\ComputeShader.cginc" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\FluidParticleSystem\ComputeShader.compute" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\FluidParticleSystem\OpenCLShader.cl.txt" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\Includes\FluvioCompute.cginc" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\Includes\FluvioLanguageSupport.cginc" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\Plugins\ColorByDensity\ComputeShader.cginc" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\Plugins\ColorByDensity\ComputeShader.compute" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\Plugins\ColorByDensity\OpenCLShader.cl.txt" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\Plugins\FluidEffector\ComputeShader.cginc" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\Plugins\FluidEffector\ComputeShader.compute" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\Plugins\FluidEffector\OpenCLShader.cl.txt" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\Plugins\SizeByDensity\ComputeShader.cginc" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\Plugins\SizeByDensity\ComputeShader.compute" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\Plugins\SizeByDensity\OpenCLShader.cl.txt" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\SamplePlugins\FluidMixer\ComputeShader.cginc" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\SamplePlugins\FluidMixer\ComputeShader.compute" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\SamplePlugins\FluidMixer\OpenCLShader.cl.txt" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\SamplePlugins\FluidTouch\ComputeShader.cginc" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\SamplePlugins\FluidTouch\ComputeShader.compute" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\SamplePlugins\FluidTouch\OpenCLShader.cl.txt" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\Solvers\SPHSimulationSolver\ComputeShader.cginc" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\Solvers\SPHSimulationSolver\ComputeShader.compute" />
+    <None Include="Assets\Fluvio\Resources\ComputeShaders\Solvers\SPHSimulationSolver\OpenCLShader.cl.txt" />
+    <None Include="Assets\Fluvio\Shaders\FluidEffect\FluidEffect.cginc" />
+    <None Include="Assets\Fluvio\Shaders\FluidEffect\FluidEffectShadow.cginc" />
+    <None Include="Assets\Fluvio\Shaders\FluidEffect\Fluvio-FluidEffectMetal.shader" />
+    <None Include="Assets\Fluvio\Shaders\FluidEffect\Fluvio-FluidEffectSpecular.shader" />
+    <None Include="Assets\Fluvio\Shaders\FluidEffect\Hidden-FluidEffectBlur.shader" />
+    <None Include="Assets\Fluvio\Shaders\FluidEffect\Hidden-FluidEffectComposite.shader" />
+    <None Include="Assets\Fluvio\Shaders\FluidEffect\Hidden-FluidEffectPreComposite.shader" />
+    <None Include="Assets\Fluvio\Shaders\FluidEffect\Hidden-FluidEffectReplaceDepth.shader" />
+    <None Include="Assets\Fluvio\Shaders\FluidEffect\Hidden-FluidEffectReplaceMetal.shader" />
+    <None Include="Assets\Fluvio\Shaders\FluidEffect\Hidden-FluidEffectReplaceSpecular.shader" />
+    <None Include="Assets\Fluvio\Shaders\Particles\FluidParticleShader-Lighting.cginc" />
+    <None Include="Assets\Fluvio\Shaders\Particles\FluidParticleShader-Mobile.cginc" />
+    <None Include="Assets\Fluvio\Shaders\Particles\FluidParticleShader.cginc" />
+    <None Include="Assets\Fluvio\Shaders\Particles\Fluvio-Mobile-Particles-Additive.shader" />
+    <None Include="Assets\Fluvio\Shaders\Particles\Fluvio-Mobile-Particles-AlphaBlended.shader" />
+    <None Include="Assets\Fluvio\Shaders\Particles\Fluvio-Mobile-Particles-Multiply.shader" />
+    <None Include="Assets\Fluvio\Shaders\Particles\Fluvio-Particles-Additive.shader" />
+    <None Include="Assets\Fluvio\Shaders\Particles\Fluvio-Particles-AdditiveLit.shader" />
+    <None Include="Assets\Fluvio\Shaders\Particles\Fluvio-Particles-AlphaBlended.shader" />
+    <None Include="Assets\Fluvio\Shaders\Particles\Fluvio-Particles-Multiply.shader" />
+    <None Include="Assets\Fluvio\Shaders\Particles\Fluvio-Particles-NoGrabPass-Additive.shader" />
+    <None Include="Assets\Fluvio\Shaders\Particles\Fluvio-Particles-NoGrabPass-AdditiveLit.shader" />
+    <None Include="Assets\Fluvio\Shaders\Particles\Fluvio-Particles-NoGrabPass-AlphaBlended.shader" />
+    <None Include="Assets\Fluvio\Shaders\Particles\Fluvio-Particles-NoGrabPass-Multiply.shader" />
+    <None Include="Assets\Fluvio\Shaders\Particles\Fluvio-Particles-NoGrabPass-VertexLitBlended.shader" />
+    <None Include="Assets\Fluvio\Shaders\Particles\Fluvio-Particles-VertexLitBlended.shader" />
+    <None Include="Assets\Fluvio\_Main\Fluvio.Runtime.xml" />
     <None Include="Assets\Shaders\Solid Color.shader" />
     <None Include="Assets\Shaders\Transparency Projector.shader" />
     <None Include="Assets\Shaders\Transparency Projectors.shader" />

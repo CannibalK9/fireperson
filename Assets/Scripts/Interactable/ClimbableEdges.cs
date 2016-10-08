@@ -19,8 +19,8 @@ namespace Assets.Scripts.Interactable
         private GameObject _leftEdgeObject;
 		private GameObject _rightEdgeObject;
 
-		public Collider2D Exception;
-		public Collider2D Exception2;
+		public Collider2D LeftException;
+		public Collider2D RightException;
 
 		private GameObject _leftEdge;
 		private GameObject _rightEdge;

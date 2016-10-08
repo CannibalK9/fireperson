@@ -33,7 +33,22 @@ namespace Assets.Scripts.Movement
 
 			if (applyRotation)
 			{
-				float fullRotation = OrientationHelper.GetRotationConsideringOrientation(_motor.MovementState.Pivot.transform.parent);
+				float fullRotation;
+				
+				if (_motor.MovementState.PivotCollider.IsUpright())
+					fullRotation= OrientationHelper.GetRotationConsideringOrientation(_motor.MovementState.Pivot.transform.parent);
+				else
+				{
+					bool left = OrientationHelper.GetOrientation(_motor.MovementState.Pivot.transform.parent.rotation.eulerAngles.z) == Orientation.Flat
+						? _motor.MovementState.Pivot.transform.position.x < _motor.MovementState.Pivot.transform.parent.position.x
+						: _motor.MovementState.Pivot.transform.position.x > _motor.MovementState.Pivot.transform.parent.position.x;
+					
+					Collider2D cornerCollider = left
+						? _motor.MovementState.Pivot.transform.parent.GetComponent<ClimbableEdges>().LeftException
+						: _motor.MovementState.Pivot.transform.parent.GetComponent<ClimbableEdges>().RightException;
+
+					fullRotation = OrientationHelper.GetCornerRotationConsideringOrientation(cornerCollider.transform);
+				}
 				float rotation = Mathf.Lerp(fullRotation, 0, distance);
 				_motor.Transform.rotation = Quaternion.Euler(0,0, rotation);
 			}
@@ -50,8 +65,8 @@ namespace Assets.Scripts.Movement
 
 			return hits.Any(hit =>
 				hit.collider.transform != _motor.MovementState.Pivot.transform.parent
-				&& hit.collider != _motor.MovementState.Pivot.transform.parent.GetComponent<ClimbableEdges>().Exception
-				&& hit.collider != _motor.MovementState.Pivot.transform.parent.GetComponent<ClimbableEdges>().Exception2);
+				&& hit.collider != _motor.MovementState.Pivot.transform.parent.GetComponent<ClimbableEdges>().LeftException
+				&& hit.collider != _motor.MovementState.Pivot.transform.parent.GetComponent<ClimbableEdges>().RightException);
 		}
 
 		public void BoxCastMove(Vector3 deltaMovement, bool isKinematic)

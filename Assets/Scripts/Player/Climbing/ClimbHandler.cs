@@ -447,7 +447,7 @@ namespace Assets.Scripts.Player.Climbing
 			BoxCollider2D[] edges = _climbParent.GetComponentsInChildren<BoxCollider2D>();
 			foreach (BoxCollider2D edge in edges)
 			{
-				if (_climbLayer == edge.gameObject.layer)
+				if (_climbLayer == edge.gameObject.layer && Vector2.Distance(edge.bounds.center, _playerCollider.GetTopFace()) < 2)
 				{
 					SetClimbingParameters(edge);
 					_motor.MovementState.SetPivotCollider(edge);
