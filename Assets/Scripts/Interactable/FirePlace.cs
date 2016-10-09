@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Heat;
 using Assets.Scripts.Helpers;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Interactable

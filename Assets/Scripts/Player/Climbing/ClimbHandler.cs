@@ -20,6 +20,7 @@ namespace Assets.Scripts.Player.Climbing
 		private bool _retryCheckAbove = true;
 		private bool _shouldHang;
 		private bool _sameEdge;
+		private bool _shouldAvoidSamePlatform;
 
 		public Climb CurrentClimb { get; set; }
 		public List<Climb> NextClimbs { get; set; }
@@ -281,12 +282,17 @@ namespace Assets.Scripts.Player.Climbing
 
 			const float checkWidth = 2f;
 
+			int layer = direction == DirectionFacing.Right ? _rightClimbLayer : _leftClimbLayer;
+			BoxCollider2D edge = _motor.MovementState.PivotCollider.gameObject.GetComponentsInChildren<BoxCollider2D>().SingleOrDefault(c => c.gameObject.layer == layer);
+
 			bool downhill = _motor.MovementState.NormalDirection == direction;
 
 			if (downhill && down == false)
 			{
+				_shouldAvoidSamePlatform = true;
 				if (CheckLedgeAcross(direction))
 				{
+					_shouldAvoidSamePlatform = true;
 					_climbParent = null;
 					CurrentClimb = intendedClimbingState;
 					_climbCollider = _motor.MovementState.PivotCollider;
@@ -300,10 +306,7 @@ namespace Assets.Scripts.Player.Climbing
 					return true;
 				}
 			}
-
-			int layer = direction == DirectionFacing.Right ? _rightClimbLayer : _leftClimbLayer;
-			BoxCollider2D edge = _motor.MovementState.PivotCollider.gameObject.GetComponentsInChildren<BoxCollider2D>().SingleOrDefault(c => c.gameObject.layer == layer);
-
+			
 			if (edge != null)
 			{
 				canDrop = edge.CanClimbDown();
@@ -432,7 +435,7 @@ namespace Assets.Scripts.Player.Climbing
 
 			foreach (RaycastHit2D h in checkHits)
 			{
-				if (IsEdgeUnblocked(h.collider) && IsCornerAccessible(h.collider) && IsUprightAccessible(h))
+				if (IsEdgeUnblocked(h.collider) && IsCornerAccessible(h.collider) && IsUprightAccessible(h) && AvoidSamePlatform(h.transform))
 				{
 					hit = h;
 					SetClimbingParameters(hit.collider);
@@ -440,6 +443,17 @@ namespace Assets.Scripts.Player.Climbing
 				}
 			}
 			return hit;
+		}
+
+		private bool AvoidSamePlatform(Transform t)
+		{
+			if (_shouldAvoidSamePlatform == false)
+				return true;
+			else
+			{
+				_shouldAvoidSamePlatform = false;
+				return t.parent != _motor.MovementState.PivotCollider.transform;
+			}
 		}
 
 		public bool CheckReattach()

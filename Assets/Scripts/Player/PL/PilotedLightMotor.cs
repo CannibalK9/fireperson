@@ -50,6 +50,9 @@ namespace Assets.Scripts.Player.PL
 		{
 			Rigidbody.isKinematic = false;
 
+			if (ChannelingHandler.ChannelingSet == false)
+				return;
+
 			if (MovementState.MovementOverridden == false)
 				HandleMovementInputs();
 
@@ -85,11 +88,11 @@ namespace Assets.Scripts.Player.PL
 					{
 						if (_fireplace.IsLit)
 						{
-							_controller.HeatHandler.UpdateHeat(new Heat.HeatMessage(_fireplace.HeatIntensity, _fireplace.HeatRayDistance));
+							_controller.HeatHandler.UpdateHeat(new Heat.HeatMessage(_controller.HeatIntensity + _fireplace.HeatIntensity, _controller.Stability + _fireplace.HeatRayDistance));
 						}
 						else
 						{
-							_controller.HeatHandler.UpdateHeat(new Heat.HeatMessage(_controller.HeatIntensity, 0));
+							_controller.HeatHandler.UpdateHeat(new Heat.HeatMessage(_controller.HeatIntensity, _controller.Stability));
 						}
 					}
 				}
@@ -299,6 +302,7 @@ namespace Assets.Scripts.Player.PL
 		{
 			DestroyObject(MovementState.Pivot);
 			ChannelingHandler.ChannelingSet = false;
+			ChannelingHandler.PlExists = false;
 			ChannelingHandler.BreakChannel();
 		}
 	}

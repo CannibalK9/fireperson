@@ -9,20 +9,7 @@ namespace Assets.Scripts.Heat
 		private GameObject _steam;
         private GameObject _emberLight;
         private GameObject _emberStrong;
-		private FirePlace _fireplace;
-		protected ParticleSystem _ps;
-		protected BoxCollider2D _box;
-
-		void Awake()
-		{
-			_fireplace = GetComponentInParent<FirePlace>();
-			_ps = GetComponentInChildren<ParticleSystem>();
-
-			if (this is BoxHeater)
-			{
-				_box = GetComponent<BoxCollider2D>();
-			}
-		}
+		protected FirePlace _fireplace;
 
 		void Start()
 		{
@@ -35,9 +22,10 @@ namespace Assets.Scripts.Heat
 		{
 			if (_fireplace != null)
 			{
-				EnableCollider(_fireplace.IsLit);
 				if (_fireplace.IsLit && (HeatMessage.DistanceToMove != _fireplace.HeatIntensity || HeatMessage.HeatRange != _fireplace.HeatRayDistance))
 					UpdateHeat(new HeatMessage(_fireplace.HeatIntensity, _fireplace.HeatRayDistance));
+				else
+					EnableCollider(_fireplace.IsLit);
 			}
 		}
 
@@ -45,21 +33,10 @@ namespace Assets.Scripts.Heat
 		{
 			HeatMessage = heatMessage;
 			SetColliderSizes(heatMessage.HeatRange);
+			EnableCollider(true);
 		}
 
-		protected virtual void SetColliderSizes(float range)
-		{ }
-
-		public void EnableCollider(bool enable)
-		{
-			GetComponent<Collider2D>().enabled = enable;
-			if (_ps != null)
-			{
-				if (enable)
-					_ps.Play();
-				else
-					_ps.Stop();
-			}
-		}
+		protected abstract void SetColliderSizes(float range);
+		protected abstract void EnableCollider(bool enable);
 	}
 }

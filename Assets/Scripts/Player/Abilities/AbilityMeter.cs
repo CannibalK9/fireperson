@@ -63,10 +63,9 @@ namespace Assets.Scripts.Player.Abilities
 			}
 
 			_uiLight = Resources.Load(string.Format("particles/{0}Light", Meter)) as GameObject;
+			float maxY = 0;
 			foreach (var ap in _abilityPoints)
 			{
-				float maxY = 0;
-
 				if (ap.Value.IsActivated)
 				{
 					if (maxY < ap.Value.Point.y)

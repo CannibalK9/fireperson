@@ -88,14 +88,14 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>Library\UnityAssemblies\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="Fluvio.Editor">
+      <HintPath>Assets\Fluvio\Editor\Fluvio.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Ionic.Zip.Reduced">
       <HintPath>Assets\Fluvio\Editor\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="Cloo">
       <HintPath>Assets\Fluvio\_Main\Cloo.dll</HintPath>
-    </Reference>
-    <Reference Include="Fluvio.Editor">
-      <HintPath>Assets\Fluvio\Editor\Fluvio.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Fluvio.Runtime">
       <HintPath>Assets\Fluvio\_Main\Fluvio.Runtime.dll</HintPath>
@@ -133,6 +133,21 @@
     <Compile Include="Assets\SpritesAndBones\Scripts\Editor\SortingLayerDrawer.cs" />
     <Compile Include="Assets\SpritesAndBones\Scripts\Editor\SortingLayerHelper.cs" />
     <Compile Include="Assets\SpritesAndBones\Scripts\Editor\Weightpainter.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Editor\Bases\VLSBehaviourEditor.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Editor\Bases\VLSLightEditor.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Editor\Helpers\VLSMenu.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Editor\Helpers\VLSSettingsWindow.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Editor\Objects\VLSDirectionalEditor.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Editor\Objects\VLSObstructorEditor.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Editor\Objects\VLSRadialCSEditor.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Editor\Objects\VLSRadialEditor.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Editor\ProShader\Drawers\VLSBlurSettingsDrawer.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Editor\ProShader\Drawers\VLSLayerDrawer.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Editor\ProShader\Drawers\VLSLayerList.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Editor\ProShader\Drawers\VLSLightLayerDrawer.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Editor\ProShader\Drawers\VLSOverlaySettingsDrawer.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Editor\ProShader\Drawers\VLSPassLayerDrawer.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Editor\ProShader\VLSProShaderEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fluvio\README.txt" />
@@ -275,6 +290,13 @@
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSAddOverlay.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSBlur.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSComposite.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSDepthMask.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSLight.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSLight_Custom.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSMultiply.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

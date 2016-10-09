@@ -4,7 +4,6 @@ using Assets.Scripts.Player.Abilities;
 using Assets.Scripts.Player.Config;
 using Assets.Scripts.Player.PL;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Player
 {
@@ -17,15 +16,17 @@ namespace Assets.Scripts.Player
 		public float BaseIntensity { get; private set; }
 		public float BaseControl { get; private set; }
 
-		private float _stability;
-		private float _currentHeatRayDistance = 1f;
-		public float HeatRayDistance { get { return _currentHeatRayDistance; } }
+		private float _currentStability = 1f;
+		public float Stability { get { return _currentStability; } }
+		private float _stabilityLastFrame;
 
-		private float _intensity;
-		private float _currentHeatIntensity = 1f;
-		public float HeatIntensity { get { return _currentHeatIntensity; } }
+		private float _currentIntensity = 1f;
+		public float Intensity { get { return _currentIntensity; } }
+		private float _intensityLastFrame;
 
-		private float _control;
+		private float _currentControl = 1f;
+		public float Control { get { return _currentControl; } }
+		private float _controlLastFrame;
 
 		public Transform Transform { get; set; }
 		public Collider2D Collider { get; set; }
@@ -44,78 +45,74 @@ namespace Assets.Scripts.Player
 
 		void Start()
 		{
-			SetVariablesByChanneler();
-
-			SetHeatRayDistanceToDefault();
-			SetHeatIntensityToDefault();
+			SetBases();
+			SetStabilityToDefault();
+			SetIntensityToDefault();
+			SetControlToDefault();
 		}
 
-		private float _heatRayDistanceLastFrame;
-		private float _emberEffectTime;
-
 		void Update()
+		{
+			SetBases();
+			_currentControl = BaseControl;
+			if (ChannelingHandler.IsChanneling && ChannelingHandler.ChannelingSet == false && ChannelingHandler.PlExists)
+			{
+				_currentStability = BaseStability - ChannelingHandler.ChannelPercent * BaseStability;
+			}
+			UpdateStabilityIntensity();
+		}
+
+		private void SetBases()
 		{
 			BaseStability = PlayerPrefs.GetFloat(FloatVariable.Stability.ToString());
 			BaseIntensity = PlayerPrefs.GetFloat(FloatVariable.Intensity.ToString());
 			BaseControl = PlayerPrefs.GetFloat(FloatVariable.Control.ToString());
-
-			SetVariablesByChanneler();
-			SelectEmberEffect();
 		}
 
-		private void SetVariablesByChanneler()
+		private void UpdateStabilityIntensity()
 		{
-			_stability = ChannelingHandler.Stability(BaseStability);
-			_intensity = ChannelingHandler.Intensity(BaseIntensity);
-			_control = ChannelingHandler.Control(BaseControl);
-		}
-
-		private void SelectEmberEffect()
-		{
-			var effect = EmberEffect.None;
-
-			if (_currentHeatRayDistance != _stability && _heatRayDistanceLastFrame == _currentHeatRayDistance && _currentHeatRayDistance != 0)
+			if (_currentStability != BaseStability && _stabilityLastFrame == _currentStability && _currentStability >= 0 && ChannelingHandler.IsChanneling == false)
 			{
-				SetHeatRayDistanceToDefault();
-				effect = EmberEffect.Strong;
-				//play a sound
+				_currentStability = BaseStability;
+				_currentIntensity = BaseIntensity;
 			}
-			else if (_heatRayDistanceLastFrame != _currentHeatRayDistance)
-				effect = EmberEffect.Light;
-			else if (_currentHeatRayDistance < 0)
+
+			if (_currentStability < 0)
 			{
-				_currentHeatRayDistance = 0;
+				_currentStability = 0;
 				//frozen
 			}
-			_heatRayDistanceLastFrame = _currentHeatRayDistance;
 
-			_emberEffectTime -= Time.deltaTime;
-
-			if (_emberEffectTime < 0)
+			if (_stabilityLastFrame != _currentStability || _intensityLastFrame != _currentIntensity)
 			{
-				effect = EmberEffect.Light;
-				_emberEffectTime = Random.Range(10, 60);
+				foreach (var hh in _heatHandlers)
+				{
+					hh.UpdateHeat(new HeatMessage(_currentIntensity / 50, 1 + _currentStability / 50));
+				}
 			}
-			foreach (var hh in _heatHandlers)
-			{
-				hh.UpdateHeat(new HeatMessage(_currentHeatIntensity / 100, _heatRayDistanceLastFrame / 10));
-			}
+			
+			_stabilityLastFrame = _currentStability;
+			_intensityLastFrame = _currentIntensity;
 		}
 
-		private void SetHeatRayDistanceToDefault()
+		private void SetStabilityToDefault()
 		{
-			_currentHeatRayDistance = _stability;
-			_heatRayDistanceLastFrame = _stability;
+			_currentStability = BaseStability;
 		}
 
-		private void SetHeatIntensityToDefault()
+		private void SetIntensityToDefault()
 		{
-			_currentHeatIntensity = _intensity;
+			_currentIntensity = BaseIntensity;
+		}
+
+		private void SetControlToDefault()
+		{
+			_currentControl = BaseControl;
 		}
 
 		public void CreateLight()
 		{
-			ChannelingHandler.StopChanneling(_stability, _intensity, _control);
+			ChannelingHandler.PlExists = true;
 
 			Vector3 pilotedLightPosition = Transform.localScale.x > 0f
 				? transform.position + new Vector3(0.4f, 0, 0)
@@ -131,10 +128,7 @@ namespace Assets.Scripts.Player
 
 			if (AbilityState.IsActive(Ability.Tether))
 			{
-				var tetherObject = (GameObject)Instantiate(
-					Tether,
-					pilotedLightPosition,
-					transform.rotation);
+				var tetherObject = Instantiate(Tether);
 
 				var tether = tetherObject.GetComponent<Tether>();
 				tether.Player = transform;
@@ -142,9 +136,14 @@ namespace Assets.Scripts.Player
 			}
 		}
 
+		public void StopChanneling()
+		{
+			ChannelingHandler.StopChanneling();
+		}
+
 		public void Spotted()
 		{
-			_currentHeatRayDistance -= Time.deltaTime * 3f;
+			_currentStability -= Time.deltaTime * 3f;
 		}
 
 		void OnDrawGizmos()

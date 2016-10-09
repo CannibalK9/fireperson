@@ -547,7 +547,7 @@ namespace Assets.Scripts.Player
 				&& KeyBindings.GetKeyDown(Control.Light)
 				&& Pointer.IsPointerOverUIObject() == false)
 			{
-				ChannelingHandler.Channel();
+				ChannelingHandler.StartChanneling();
 				Anim.PlayAnimation(Animations.CreatePL);
 				return true;
 			}

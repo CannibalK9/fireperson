@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.5f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -88,7 +90,9 @@
     <Compile Include="Assets\Scripts\Denizens\DenizenMotor.cs" />
     <Compile Include="Assets\Scripts\Environment\Weather.cs" />
     <Compile Include="Assets\Scripts\Fire\Fire.cs" />
+    <Compile Include="Assets\Scripts\Heat\PlayerHeater.cs" />
     <Compile Include="Assets\Scripts\Heat\BoxHeater.cs" />
+    <Compile Include="Assets\Scripts\Heat\CircleHeaterUnlit.cs" />
     <Compile Include="Assets\Scripts\Heat\CircleHeater.cs" />
     <Compile Include="Assets\Scripts\Heat\EmberEffect.cs" />
     <Compile Include="Assets\Scripts\Heat\HeatHandler.cs" />
@@ -150,6 +154,7 @@
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMotor.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerState.cs" />
+    <Compile Include="Assets\Scripts\Rendering\FlipWithParent.cs" />
     <Compile Include="Assets\Scripts\Rendering\MeshSortingOrder.cs" />
     <Compile Include="Assets\Scripts\Rendering\ParticleSystemAutoDestroy.cs" />
     <Compile Include="Assets\Scripts\Rendering\SpriteTiler.cs" />
@@ -271,6 +276,32 @@
     <Compile Include="Assets\SpritesAndBones\Scripts\Utils\Triangulator.cs" />
     <Compile Include="Assets\SpritesAndBones\Scripts\Utils\Utils.cs" />
     <Compile Include="Assets\SpritesAndBones\Scripts\Utils\Vertices.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Bases\Utils\VLSEdge.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Bases\Utils\VLSMeshBuffer.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Bases\Utils\VLSPoint.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Bases\Utils\VLSRayHit.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Bases\VLSBehaviour.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Bases\VLSLight.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Helpers\VLSConverter.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Helpers\VLSDebug.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Helpers\VLSGlobals.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Helpers\VLSUtility.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Objects\VLSDirectional.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Objects\VLSObstructor.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Objects\VLSRadial.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Objects\VLSRadialCS.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Objects\VLSViewer.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Shader Basic\VLSBasicShader.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Shader Pro\Utility\VLSBlurSettings.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Shader Pro\Utility\VLSLayer.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Shader Pro\Utility\VLSLightLayer.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Shader Pro\Utility\VLSOverlaySettings.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Shader Pro\Utility\VLSPassLayer.cs" />
+    <Compile Include="Assets\VLS2D\DLLSource\Core\Shader Pro\VLSProShader.cs" />
+    <Compile Include="Assets\VLS2D\_SAMPLE\Scripts\Draggable2D.cs" />
+    <Compile Include="Assets\VLS2D\_SAMPLE\Scripts\Kill_Respawn.cs" />
+    <Compile Include="Assets\VLS2D\_SAMPLE\Scripts\VLSFlicker.cs" />
+    <Compile Include="Assets\VLS2D\_SAMPLE\Scripts\VLSLookAt.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fluvio\README.txt" />
@@ -413,6 +444,13 @@
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSAddOverlay.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSBlur.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSComposite.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSDepthMask.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSLight.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSLight_Custom.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSMultiply.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

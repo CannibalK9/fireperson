@@ -12,6 +12,7 @@ namespace Assets.Scripts.Movement
 		private readonly IMotor _motor;
 		private RaycastHit2D _downHit;
 		private ColliderPoint _previousColliderPoint;
+		private float _angle;
 
 		public MovementHandler(IMotor motor)
 		{
@@ -33,24 +34,12 @@ namespace Assets.Scripts.Movement
 
 			if (applyRotation)
 			{
-				float fullRotation;
-				
-				if (_motor.MovementState.PivotCollider.IsUpright())
-					fullRotation= OrientationHelper.GetRotationConsideringOrientation(_motor.MovementState.Pivot.transform.parent);
-				else
-				{
-					bool left = OrientationHelper.GetOrientation(_motor.MovementState.Pivot.transform.parent.rotation.eulerAngles.z) == Orientation.Flat
-						? _motor.MovementState.Pivot.transform.position.x < _motor.MovementState.Pivot.transform.parent.position.x
-						: _motor.MovementState.Pivot.transform.position.x > _motor.MovementState.Pivot.transform.parent.position.x;
-					
-					Collider2D cornerCollider = left
-						? _motor.MovementState.Pivot.transform.parent.GetComponent<ClimbableEdges>().LeftException
-						: _motor.MovementState.Pivot.transform.parent.GetComponent<ClimbableEdges>().RightException;
+				float angle = _motor.MovementState.GetCornerAngle();
+				//float rotation = Mathf.Lerp(fullRotation, 0, distance);
+				if (_angle != angle)
+					_motor.Transform.rotation = Quaternion.Euler(0,0, angle);
 
-					fullRotation = OrientationHelper.GetCornerRotationConsideringOrientation(cornerCollider.transform);
-				}
-				float rotation = Mathf.Lerp(fullRotation, 0, distance);
-				_motor.Transform.rotation = Quaternion.Euler(0,0, rotation);
+				_angle = angle;
 			}
 			else
 				_motor.Transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -71,6 +60,8 @@ namespace Assets.Scripts.Movement
 
 		public void BoxCastMove(Vector3 deltaMovement, bool isKinematic)
 		{
+			_angle = 0;
+
 			if (Time.timeSinceLevelLoad < 1)
 				return;
 

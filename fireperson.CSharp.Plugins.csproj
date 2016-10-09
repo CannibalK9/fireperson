@@ -259,6 +259,13 @@
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSAddOverlay.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSBlur.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSComposite.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSDepthMask.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSLight.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSLight_Custom.shader" />
+    <None Include="Assets\VLS2D\Resources\VLSMultiply.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

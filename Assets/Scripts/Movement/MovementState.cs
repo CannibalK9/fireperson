@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Helpers;
+using Assets.Scripts.Interactable;
 using Assets.Scripts.Player;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ namespace Assets.Scripts.Movement
         public bool TrappedBetweenSlopes { get; set; }
 		public Vector3 Normal { get; set; }
 		public bool WasOnSlope { get; set; }
+		public Transform CornerCollider { get; set; }
 		public DirectionFacing NormalDirection
 		{
 			get
@@ -124,14 +126,46 @@ namespace Assets.Scripts.Movement
 
 		private Vector3 GetPivotPositionWhenCorner(ColliderPoint targetPoint)
 		{
-			Orientation o = OrientationHelper.GetOrientation(GetPivotParentRotation());
-			Vector3 vDown = OrientationHelper.GetDownwardVector(o, Pivot.transform.parent);
-			Vector3 vAcross = OrientationHelper.GetSurfaceVectorTowardsRight(o, Pivot.transform.parent);
+			if (PivotCollider.IsUpright())
+				CornerCollider = Pivot.transform.parent;
+			else
+			{
+				bool left = OrientationHelper.GetOrientation(Pivot.transform.parent.rotation.eulerAngles.z) == Orientation.Flat
+						? Pivot.transform.position.x < Pivot.transform.parent.position.x
+						: Pivot.transform.position.x > Pivot.transform.parent.position.x;
 
-			if (targetPoint == ColliderPoint.TopLeft)
+				CornerCollider = left
+					? Pivot.transform.parent.GetComponent<ClimbableEdges>().LeftException.transform
+					: Pivot.transform.parent.GetComponent<ClimbableEdges>().RightException.transform;
+			}
+
+			Vector3 vAcross = CornerCollider.up;
+			Vector3 vDown = CornerCollider.right;
+
+			if (vDown.y > 0)
+				vDown = -vDown;
+
+			if ((vAcross.x > 0 && targetPoint == ColliderPoint.TopLeft) || (vAcross.x < 0 && targetPoint == ColliderPoint.TopRight))
 				vAcross = -vAcross;
 
 			return PivotCollider.GetPoint(targetPoint) + (vAcross.normalized * _colliderDimensions.x) + (vDown.normalized * _colliderDimensions.y);
+		}
+
+		public float GetCornerAngle()
+		{
+			float angle = Mathf.Abs(Vector2.Angle(Vector2.up, CornerCollider.right));
+
+			if (angle > 180)
+				angle -= 180;
+
+			Vector3 vDown = CornerCollider.right;
+
+			if (vDown.y > 0)
+				vDown = -vDown;
+
+			return vDown.x < 0
+				? -angle
+				: angle;
 		}
 
 		public void UpdatePivotToTarget()

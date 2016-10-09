@@ -141,7 +141,14 @@ namespace Assets.Scripts.Ice
 		{
 			if (col.gameObject.layer == LayerMask.NameToLayer(Layers.Heat))
 			{
-				Melt(col.gameObject.GetComponent<HeatHandler>().HeatMessage, col);
+				if (col.gameObject.name != "Tether")
+				{
+					RaycastHit2D hit = Physics2D.Raycast(col.bounds.center, transform.position - col.bounds.center, 20f, Layers.Platforms);
+					if (hit.transform == this || Vector2.Distance(hit.point, transform.position) < 0.5f)
+						Melt(col.gameObject.GetComponent<HeatHandler>().HeatMessage, col);
+				}
+				else
+					Melt(col.gameObject.GetComponent<HeatHandler>().HeatMessage, col);
 			}
 		}
 

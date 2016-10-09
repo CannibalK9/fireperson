@@ -9,61 +9,51 @@ namespace Assets.Scripts.Player.PL
 	{
 		public float Stability;
 		public float Intensity;
-		public float Control;
 		public float HeatIntensity { get { return Intensity; } }
 		public float HeatRayDistance { get { return Stability; } }
 		public Collider2D Collider { get; set; }
 		public PlayerController Player;
 		public bool FirstUpdate = true;
-		public HeatHandler HeatHandler;
+		public CircleHeater HeatHandler;
 
-		private float _emberEffectTime;
 		private float _distanceFromPlayer;
 		private Flash _flash;
+		private Renderer _renderer;
 
 		void Awake()
 		{
 			Collider = GetComponent<CircleCollider2D>();
-			HeatHandler = transform.GetComponentInChildren<HeatHandler>();
+			HeatHandler = transform.GetComponentInChildren<CircleHeater>();
 			_flash = GetComponentInChildren<Flash>();
+			_renderer = GetComponent<Renderer>();
+			_renderer.enabled = false;
 		}
 
 		void Start()
 		{
-			Stability = ChannelingHandler.PlStability();
-			Intensity = ChannelingHandler.PlIntensity();
-			Control = ChannelingHandler.PlControl();
-			_distanceFromPlayer = Control;
-			HeatIce();
+			_distanceFromPlayer = Player.Control * ConstantVariables.DistanceFromPlayerMultiplier;
 		}
 
 		void Update()
 		{
-			var effect = EmberEffect.None;
-
-			_emberEffectTime -= Time.deltaTime;
-
-			if (_emberEffectTime < 0)
+			if (ChannelingHandler.ChannelingSet == false)
 			{
-				effect = EmberEffect.Light;
-				_emberEffectTime = Random.Range(10, 60);
+				Stability = ChannelingHandler.ChannelPercent * Player.BaseStability;
+				Intensity = ChannelingHandler.ChannelPercent * Player.BaseIntensity;
 			}
-
-			if (FirstUpdate)
+			else if (FirstUpdate)
 			{
-				//effect = EmberEffect.Strong;
 				FirstUpdate = false;
+				_renderer.enabled = true;
 			}
-		}
-		public void HeatIce()
-		{
-			HeatHandler.UpdateHeat(new HeatMessage(HeatIntensity / 100, Stability));
+
+			HeatHandler.UpdateHeat(new HeatMessage(Intensity / 50, 1 + Stability / 10));
 		}
 
 		public bool IsWithinPlayerDistance()
 		{
 			float distance = Vector2.Distance(Player.transform.position, transform.position);
-			float maxDistance = _distanceFromPlayer * ConstantVariables.DistanceFromPlayerMultiplier;
+			float maxDistance = _distanceFromPlayer;
 
 			return distance < maxDistance;
 		}

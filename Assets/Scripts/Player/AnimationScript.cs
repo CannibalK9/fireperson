@@ -218,6 +218,11 @@ namespace Assets.Scripts.Player
             PlayerController.CreateLight();
         }
 
+		private void StopChanneling()
+		{
+			PlayerController.StopChanneling();
+		}
+
         private void SwitchChimney()
         {
             PlayerMotor.SwitchChimney();
