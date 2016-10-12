@@ -128,7 +128,7 @@ namespace Assets.Scripts.Player
 					return PlayerState.Interacting;
 				else if (ChannelingHandler.IsChanneling && ChannelingHandler.ChannelingSet == false)
 				{
-					if (KeyBindings.GetKey(Control.Light))
+					if (KeyBindings.GetKey(Controls.Light))
 						ChannelingHandler.Channel();
 					return PlayerState.Static;
 				}
@@ -199,12 +199,12 @@ namespace Assets.Scripts.Player
 			else
 			{
 				bool slidingRight = MovementState.NormalDirection == DirectionFacing.Right;
-				if (KeyBindings.GetKey(Control.Left))
+				if (KeyBindings.GetKey(Controls.Left))
 				{
 					Anim.FlipSpriteLeft();
 					Anim.SetBool(PlayerAnimBool.Forward, !slidingRight);
 				}
-				else if (KeyBindings.GetKey(Control.Right))
+				else if (KeyBindings.GetKey(Controls.Right))
 				{
 					Anim.FlipSpriteRight();
 					Anim.SetBool(PlayerAnimBool.Forward, slidingRight);
@@ -386,11 +386,11 @@ namespace Assets.Scripts.Player
 
 		private void MovementInput()
 		{
-			if (KeyBindings.GetKey(Control.Anchor))
+			if (KeyBindings.GetKey(Controls.Anchor))
 			{
 				_normalizedHorizontalSpeed = 0;
 			}
-			else if (KeyBindings.GetKey(Control.Right))
+			else if (KeyBindings.GetKey(Controls.Right))
 			{
 				if (MovementState.RightCollision == false && NotAtEdge(DirectionTravelling.Right))
 					_normalizedHorizontalSpeed = 1;
@@ -399,7 +399,7 @@ namespace Assets.Scripts.Player
 				if (GetDirectionFacing() == DirectionFacing.Left)
 					FlipSprite();
 			}
-			else if (KeyBindings.GetKey(Control.Left))
+			else if (KeyBindings.GetKey(Controls.Left))
 			{
 				if (MovementState.LeftCollision == false && NotAtEdge(DirectionTravelling.Left))
 					_normalizedHorizontalSpeed = -1;
@@ -432,7 +432,7 @@ namespace Assets.Scripts.Player
 		private bool TryGrab() //forward is not being set correctly, all else seems to work!
 		{
 			DirectionFacing directionFacing = GetDirectionFacing();
-			if (KeyBindings.GetKey(Control.Left))
+			if (KeyBindings.GetKey(Controls.Left))
 			{
 				Anim.SetBool(PlayerAnimBool.IsGrabbing, true);
 				Anim.SetBool(PlayerAnimBool.Inverted, directionFacing != DirectionFacing.Left);
@@ -443,7 +443,7 @@ namespace Assets.Scripts.Player
 					return true;
 				}
 			}
-			else if (KeyBindings.GetKey(Control.Right))
+			else if (KeyBindings.GetKey(Controls.Right))
 			{
 				Anim.SetBool(PlayerAnimBool.IsGrabbing, true);
 				Anim.SetBool(PlayerAnimBool.Inverted, directionFacing != DirectionFacing.Right);
@@ -477,7 +477,7 @@ namespace Assets.Scripts.Player
 
 			Climb climb;
 			string animation = "";
-			if (KeyBindings.GetKey(Control.Up) && _climbHandler.CheckLedgeAbove(GetDirectionFacing(), out climb, false))
+			if (KeyBindings.GetKey(Controls.Up) && _climbHandler.CheckLedgeAbove(GetDirectionFacing(), out climb, false))
 			{
 				switch (climb)
 				{
@@ -492,9 +492,9 @@ namespace Assets.Scripts.Player
 						break;
 				}
 			}
-			else if (topOfSlope == false && KeyBindings.GetKey(Control.Down) && _climbHandler.CheckLedgeBelow(Climb.Down, GetDirectionFacing(), out animation))
+			else if (topOfSlope == false && KeyBindings.GetKey(Controls.Down) && _climbHandler.CheckLedgeBelow(Climb.Down, GetDirectionFacing(), out animation))
 				Anim.PlayAnimation(animation);
-			else if (topOfSlope == false && KeyBindings.GetKey(Control.Jump) && _climbHandler.CheckLedgeBelow(Climb.MoveToEdge, GetDirectionFacing(), out animation))
+			else if (topOfSlope == false && KeyBindings.GetKey(Controls.Jump) && _climbHandler.CheckLedgeBelow(Climb.MoveToEdge, GetDirectionFacing(), out animation))
 				Anim.PlayAnimation(animation);
 			else 
 				return false;
@@ -505,7 +505,7 @@ namespace Assets.Scripts.Player
 
 		private bool TryInteract()
 		{
-			if (KeyBindings.GetKey(Control.Action))
+			if (KeyBindings.GetKey(Controls.Action))
 			{
 				RaycastHit2D hit = CheckInteractableInFront(GetDirectionFacing());
 				if (hit)
@@ -533,10 +533,6 @@ namespace Assets.Scripts.Player
 					}
 				}
 			}
-			else if (KeyBindings.GetKey(Control.Ability1) && ChannelingHandler.ChannelingSet)
-			{
-				ChannelingHandler.IsTethered = !ChannelingHandler.IsTethered;
-			}
 			return false;
 		}
 
@@ -544,7 +540,7 @@ namespace Assets.Scripts.Player
 		{
 			if (ChannelingHandler.ChannelingSet == false
 				&& ChannelingHandler.IsChanneling == false
-				&& KeyBindings.GetKeyDown(Control.Light)
+				&& KeyBindings.GetKeyDown(Controls.Light)
 				&& Pointer.IsPointerOverUIObject() == false)
 			{
 				ChannelingHandler.StartChanneling();
@@ -639,19 +635,19 @@ namespace Assets.Scripts.Player
 		{
 			var direction = DirectionFacing.None;
 
-			if (KeyBindings.GetKey(Control.Left))
+			if (KeyBindings.GetKey(Controls.Left))
 			{
 				_climbHandler.NextClimbs.Add(Climb.AcrossLeft);
 				direction = DirectionFacing.Left;
 			}
-			else if (KeyBindings.GetKey(Control.Right))
+			else if (KeyBindings.GetKey(Controls.Right))
 			{
 				_climbHandler.NextClimbs.Add(Climb.AcrossRight);
 				direction = DirectionFacing.Right;
 			}
-			if (KeyBindings.GetKey(Control.Up))
+			if (KeyBindings.GetKey(Controls.Up))
 				_climbHandler.NextClimbs.Add(Climb.Up);
-			if (KeyBindings.GetKey(Control.Down))
+			if (KeyBindings.GetKey(Controls.Down))
 				_climbHandler.NextClimbs.Add(Climb.Down);
 
 			return direction;

@@ -14,13 +14,15 @@ namespace Assets.Scripts.Player.PL
 		private float _normalizedHorizontalSpeed;
 		private float _normalizedVerticalSpeed;
 		private const float _acceleration = 0.05f;
-		private float _timeToWake = 1f;
 		private Renderer _renderer;
 		private bool _noGravity;
 		private FirePlace _fireplace;
 		private MovementHandler _movement;
 		private bool _isFireplaceActive;
 		private ParticleSystem _particles;
+		private float _timeClicked;
+		private float _burstTime;
+		private bool _fireplaceWasLit;
 
 		public float FlySpeed = 2f;
 		public float AirDamping = 500f;
@@ -46,18 +48,60 @@ namespace Assets.Scripts.Player.PL
 			_particles = GetComponentInChildren<ParticleSystem>();
 		}
 
+		void Update()
+		{
+			if (ChannelingHandler.ChannelingSet)
+				HandleActions();
+		}
+
+		private void HandleActions()
+		{
+			if (KeyBindings.GetKeyDown(Controls.Light) && Pointer.IsPointerOverUIObject() == false)
+			{
+				float timeClicked = Time.realtimeSinceStartup;
+				if (Mathf.Abs(timeClicked - _timeClicked) < 0.4f)
+					Destroy(gameObject);
+				else
+					_timeClicked = timeClicked;
+			}
+
+			if (((AbilityState.IsActive(Ability.Flash) && _fireplace == null)
+				|| (AbilityState.IsActive(Ability.Ignite) && _fireplace != null))
+				&& IsScouting == false)
+			{
+				if (KeyBindings.GetKey(Controls.Light) && Pointer.IsPointerOverUIObject() == false)
+				{
+					float maxTime = 2f;
+					_burstTime += Time.deltaTime;
+					_burstTime = _burstTime > maxTime ? maxTime : _burstTime;
+					_controller.DecreaseVariables(1 - _burstTime / maxTime);
+				}
+
+				if (KeyBindings.GetKeyUp(Controls.Light))
+				{
+					_burstTime = 0;
+					_controller.ResetVariables();
+					Burst();
+				}
+			}
+			else
+			{
+				_burstTime = 0;
+			}
+		}
+
 		void FixedUpdate()
 		{
-			Rigidbody.isKinematic = false;
-
 			if (ChannelingHandler.ChannelingSet == false)
 				return;
+
+			Rigidbody.isKinematic = false;
 
 			if (MovementState.MovementOverridden == false)
 				HandleMovementInputs();
 
 			if (MovementState.MovementOverridden == false)
-			{ 
+			{
 				float appliedGravity = _noGravity ? 0 : Gravity;
 
 				_velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * FlySpeed, ref _velocity.x, Time.deltaTime * AirDamping);
@@ -77,27 +121,32 @@ namespace Assets.Scripts.Player.PL
 			{
 				if (OnPoint())
 				{
+					MoveTowardsPoint();
+					MovementState.MovementOverridden = false;
+
 					if (_isFireplaceActive)
 					{
 						ActivatePoint();
 						_isFireplaceActive = false;
 					}
-					MoveTowardsPoint();
-					MovementState.MovementOverridden = false;
-					if (IsScouting == false)
+
+					if (_fireplace.IsLit && _fireplaceWasLit == false && IsScouting == false)
 					{
-						if (_fireplace.IsLit)
-						{
-							_controller.HeatHandler.UpdateHeat(new Heat.HeatMessage(_controller.HeatIntensity + _fireplace.HeatIntensity, _controller.Stability + _fireplace.HeatRayDistance));
-						}
-						else
-						{
-							_controller.HeatHandler.UpdateHeat(new Heat.HeatMessage(_controller.HeatIntensity, _controller.Stability));
-						}
+						_controller.EnterFireplace(_fireplace);
+						_fireplaceWasLit = true;
+					}
+					else if (_fireplace.IsLit == false && _fireplaceWasLit && IsScouting == false)
+					{
+						_controller.LeaveFireplace(_fireplace);
+						_fireplaceWasLit = false;
 					}
 				}
 				else if (OnPoint() == false && MovementState.MovementOverridden == false)
 				{
+					if (_fireplace.IsLit && IsScouting == false)
+						_controller.LeaveFireplace(_fireplace);
+
+					_fireplaceWasLit = false;
 					LeaveSpot();
 				}
 				else
@@ -106,18 +155,20 @@ namespace Assets.Scripts.Player.PL
 			else if (_controller.IsWithinPlayerDistance() == false)
 			{
 				if (AbilityState.IsActive(Ability.Scout) && _controller.IsWithinScoutingDistance())
+				{
+					if (IsScouting == false)
+						_controller.DecreaseVariables(0);
 					IsScouting = true;
+				}
 				else
 					DestroyObject(gameObject);
 			}
 			else
+			{
+				if (IsScouting)
+					_controller.ResetVariables();
 				IsScouting = false;
-
-			_timeToWake -= Time.deltaTime;
-			if (_timeToWake > 0)
-				return;
-
-            HandleActions();
+			}
 		}
 
 		private void MoveTowardsPoint()
@@ -126,37 +177,10 @@ namespace Assets.Scripts.Player.PL
 			_movement.MoveLinearly(0.2f);
 		}
 
-		private float _lightPressTime;
-
 		public PilotedLightMotor(MovementHandler movement)
 		{
 			_movement = movement;
 		}
-
-		private void HandleActions()
-        {
-			if (ChannelingHandler.ChannelingSet == false)
-			{
-				ChannelingHandler.StopBreaking();
-				Destroy(transform.root.gameObject);
-			}
-
-			if (KeyBindings.GetKeyDown(Control.Light) && Pointer.IsPointerOverUIObject() == false)
-			{
-				ChannelingHandler.StartBreaking();
-			}
-
-			if (KeyBindings.GetKey(Control.Light))
-            {
-				ChannelingHandler.BreakChannel();
-            }
-
-            if (KeyBindings.GetKeyUp(Control.Light))
-            {
-                ChannelingHandler.StopBreaking();
-				Burst();
-            }
-        }
 
 		private void HandleMovementInputs()
 		{
@@ -244,10 +268,14 @@ namespace Assets.Scripts.Player.PL
 		public void LeaveSpot()
 		{
 			_movement.IgnorePlatforms(false);
-			_fireplace.PlLeave();
 			_renderer.enabled = true;
 			_particles.Play();
 			_noGravity = false;
+
+			if (IsScouting == false)
+				_fireplace.PlLeave();
+
+			_fireplaceWasLit = false;
 			_fireplace = null;
 		}
 
@@ -301,8 +329,6 @@ namespace Assets.Scripts.Player.PL
 		void OnDestroy()
 		{
 			DestroyObject(MovementState.Pivot);
-			ChannelingHandler.ChannelingSet = false;
-			ChannelingHandler.PlExists = false;
 			ChannelingHandler.BreakChannel();
 		}
 	}

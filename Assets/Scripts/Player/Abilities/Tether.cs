@@ -16,7 +16,7 @@ namespace Assets.Scripts.Player.Abilities
 		{
 			_heatLightPrefab = (GameObject)Resources.Load("fireplaces/TetherLight");
 			_col = GetComponent<BoxCollider2D>();
-			HeatMessage = new HeatMessage(1, 0);
+			HeatMessage = new HeatMessage(20, 0);
 		}
 
 		void Update()

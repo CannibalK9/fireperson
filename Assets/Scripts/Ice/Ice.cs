@@ -4,6 +4,7 @@ using System.Linq;
 using Assets.Scripts.Heat;
 using Assets.Scripts.Helpers;
 using UnityEngine;
+using Assets.Scripts.Player.Abilities;
 
 namespace Assets.Scripts.Ice
 {
@@ -52,11 +53,12 @@ namespace Assets.Scripts.Ice
 				Vector2 end = i + 1 == _polyCollider.points.Length ? _polyCollider.points[0] : _polyCollider.points[i + 1];
 
 				float distanceBetweenPoints = interval / Vector2.Distance(start, end);
-				while (Vector2.Distance(start, end) > distanceBetweenPoints)
+				do
 				{
 					newPoints.Add(start);
 					start = Vector2.MoveTowards(start, end, distanceBetweenPoints);
 				}
+				while (Vector2.Distance(start, end) > distanceBetweenPoints);
 			}
 			return newPoints.ToArray();
 		}
@@ -67,9 +69,6 @@ namespace Assets.Scripts.Ice
 			_mesh.vertices = GetNewMeshFilterVertices();
 			_mesh.triangles = GetNewMeshFilterTriangles(_polyCollider.points);
 			_mesh.RecalculateNormals();
-
-			_meshCollider.sharedMesh = null;
-			_meshCollider.sharedMesh = _mesh;
 		}
 
 		private Vector3[] GetNewMeshFilterVertices()
@@ -99,8 +98,7 @@ namespace Assets.Scripts.Ice
 					joint.enabled = false;
 			}
 
-			if (_joints.Length > 0 && _joints.Any(j => j.enabled) == false)
-				AnyJointEnabled = false;
+			AnyJointEnabled = _joints.Any(j => j.enabled);
 
 			_polyCollider.enabled = true;
 			_meshRenderer.enabled = true;
@@ -141,10 +139,11 @@ namespace Assets.Scripts.Ice
 		{
 			if (col.gameObject.layer == LayerMask.NameToLayer(Layers.Heat))
 			{
-				if (col.gameObject.name != "Tether")
+				_meltedThisFrame = true;
+				if (col.gameObject.GetComponent<Tether>() == null)
 				{
 					RaycastHit2D hit = Physics2D.Raycast(col.bounds.center, transform.position - col.bounds.center, 20f, Layers.Platforms);
-					if (hit.transform == this || Vector2.Distance(hit.point, transform.position) < 0.5f)
+					if (hit.transform == transform || Vector2.Distance(hit.point, transform.position) < 0.5f)
 						Melt(col.gameObject.GetComponent<HeatHandler>().HeatMessage, col);
 				}
 				else
@@ -154,17 +153,20 @@ namespace Assets.Scripts.Ice
 
 		private void Melt(HeatMessage message, Collider2D col)
 		{
-			_meltedThisFrame = true;
-			_polyCollider.points = MovePointsInwards(message, col);
-			_polyCollider.points = FlattenAngles();
-			SetMeshFilterToPolyColliderPoints();
+			if (Random.value < message.Intensity / 100)
+			{
+				_polyCollider.points = MovePointsInwards(col);
+				_polyCollider.points = FlattenAngles();
+				SetMeshFilterToPolyColliderPoints();
+			}
 		}
 
 		//A message arrives at the ice. A single raycasthit and the origin of the cast. The points of the ice that are within the distance to the origin, and that are not
 		//on the wrong side of the normal, move away from the origin proportionally to the distance. If moving would break the polycollider then the point does not move
 
-		private Vector2[] MovePointsInwards(HeatMessage message, Collider2D col)
+		private Vector2[] MovePointsInwards(Collider2D col)
 		{
+			float distanceToMove = 0.01f;
 			Vector2[] newPoints = _polyCollider.points;
 			IEnumerable<int> allIndices = GetIndicesInRange(col);
 
@@ -180,7 +182,7 @@ namespace Assets.Scripts.Ice
 				Vector2 offSet = beforePoint - afterPoint;
 				Vector2 perpendicular = new Vector2(-offSet.y, offSet.x) / (offSet.magnitude * 100f);
 
-				Vector2 newPoint = point + (perpendicular.normalized * (message.DistanceToMove));
+				Vector2 newPoint = point + (perpendicular.normalized * (distanceToMove));
 				if (_polyCollider.OverlapPoint(newPoint))
 				{
 					newPoints[i] = transform.InverseTransformPoint(newPoint);
@@ -188,7 +190,7 @@ namespace Assets.Scripts.Ice
 				else
 				{
 					Vector2 perpendicular2 = new Vector2(-offSet.y, offSet.x) / (offSet.magnitude * -100f);
-					newPoint = point + (perpendicular2.normalized * (message.DistanceToMove));
+					newPoint = point + (perpendicular2.normalized * (distanceToMove));
 					if (_polyCollider.OverlapPoint(newPoint))
 						newPoints[i] = transform.InverseTransformPoint(newPoint);
 				}

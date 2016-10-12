@@ -110,7 +110,7 @@ namespace Assets.Scripts.Player.Abilities
 			{
 				_elapsed = 0;
 			}
-			if (KeyBindings.GetKey(Control.Light) == false)
+			if (KeyBindings.GetKey(Controls.Light) == false)
 				_setting = false;
 
             if (_setting)

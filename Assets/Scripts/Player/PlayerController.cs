@@ -1,5 +1,7 @@
 ﻿using Assets.Scripts.CameraHandler;
 using Assets.Scripts.Heat;
+using Assets.Scripts.Helpers;
+using Assets.Scripts.Player;
 using Assets.Scripts.Player.Abilities;
 using Assets.Scripts.Player.Config;
 using Assets.Scripts.Player.PL;
@@ -25,7 +27,7 @@ namespace Assets.Scripts.Player
 		private float _intensityLastFrame;
 
 		private float _currentControl = 1f;
-		public float Control { get { return _currentControl; } }
+		public float DistanceFromPlayer { get { return 5 + _currentControl / 5; } }
 		private float _controlLastFrame;
 
 		public Transform Transform { get; set; }
@@ -33,6 +35,10 @@ namespace Assets.Scripts.Player
 
 		private HeatHandler[] _heatHandlers;
 		private SmoothCamera2D _camera;
+		private float _timeSpotted;
+		private float _timeSpottedLastFrame;
+		private ControlBorder _controlBorder;
+		private bool _isScoutActive;
 
 		void Awake()
 		{
@@ -41,6 +47,7 @@ namespace Assets.Scripts.Player
 
 			_heatHandlers = Transform.GetComponentsInChildren<HeatHandler>();
 			_camera = Transform.GetComponent<AnimationScript>().CameraScript;
+			_controlBorder = GetComponentInChildren<ControlBorder>();
 		}
 
 		void Start()
@@ -54,12 +61,15 @@ namespace Assets.Scripts.Player
 		void Update()
 		{
 			SetBases();
+			ResetTimeIfNotSpotted();
 			_currentControl = BaseControl;
-			if (ChannelingHandler.IsChanneling && ChannelingHandler.ChannelingSet == false && ChannelingHandler.PlExists)
-			{
-				_currentStability = BaseStability - ChannelingHandler.ChannelPercent * BaseStability;
-			}
 			UpdateStabilityIntensity();
+			UpdateControlBorder();
+
+			if (KeyBindings.GetKeyUp(Controls.Ability1) && ChannelingHandler.ChannelingSet)
+			{
+				ChannelingHandler.IsTethered = !ChannelingHandler.IsTethered;
+			}
 		}
 
 		private void SetBases()
@@ -69,13 +79,18 @@ namespace Assets.Scripts.Player
 			BaseControl = PlayerPrefs.GetFloat(FloatVariable.Control.ToString());
 		}
 
+		private void ResetTimeIfNotSpotted()
+		{
+			if (_timeSpotted == _timeSpottedLastFrame)
+				_timeSpotted = 0;
+
+			_timeSpottedLastFrame = _timeSpotted;
+		}
+
 		private void UpdateStabilityIntensity()
 		{
-			if (_currentStability != BaseStability && _stabilityLastFrame == _currentStability && _currentStability >= 0 && ChannelingHandler.IsChanneling == false)
-			{
-				_currentStability = BaseStability;
-				_currentIntensity = BaseIntensity;
-			}
+			_currentStability = BaseStability - ChannelingHandler.ChannelPercent * BaseStability - _timeSpotted;
+			_currentIntensity = BaseIntensity - ChannelingHandler.ChannelPercent * BaseIntensity - _timeSpotted;
 
 			if (_currentStability < 0)
 			{
@@ -87,12 +102,22 @@ namespace Assets.Scripts.Player
 			{
 				foreach (var hh in _heatHandlers)
 				{
-					hh.UpdateHeat(new HeatMessage(_currentIntensity / 50, 1 + _currentStability / 50));
+					hh.UpdateHeat(new HeatMessage(_currentIntensity, 1 + _currentStability / ConstantVariables.StabilityHeatRangeModifier));
 				}
 			}
 			
 			_stabilityLastFrame = _currentStability;
 			_intensityLastFrame = _currentIntensity;
+		}
+
+		private void UpdateControlBorder()
+		{
+			if (_currentControl != _controlLastFrame || _isScoutActive != AbilityState.IsActive(Ability.Scout))
+			{
+				_controlBorder.SetSize(DistanceFromPlayer * (AbilityState.IsActive(Ability.Scout) ? 4 : 2));
+				_isScoutActive = AbilityState.IsActive(Ability.Scout);
+				_controlLastFrame = _currentControl;
+			}
 		}
 
 		private void SetStabilityToDefault()
@@ -143,7 +168,7 @@ namespace Assets.Scripts.Player
 
 		public void Spotted()
 		{
-			_currentStability -= Time.deltaTime * 3f;
+			_timeSpotted += Time.deltaTime * 3;
 		}
 
 		void OnDrawGizmos()

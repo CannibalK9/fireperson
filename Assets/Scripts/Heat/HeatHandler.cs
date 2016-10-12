@@ -22,7 +22,7 @@ namespace Assets.Scripts.Heat
 		{
 			if (_fireplace != null)
 			{
-				if (_fireplace.IsLit && (HeatMessage.DistanceToMove != _fireplace.HeatIntensity || HeatMessage.HeatRange != _fireplace.HeatRayDistance))
+				if (_fireplace.IsLit && (HeatMessage.Intensity != _fireplace.HeatIntensity || HeatMessage.Range != _fireplace.HeatRayDistance))
 					UpdateHeat(new HeatMessage(_fireplace.HeatIntensity, _fireplace.HeatRayDistance));
 				else
 					EnableCollider(_fireplace.IsLit);
@@ -32,8 +32,14 @@ namespace Assets.Scripts.Heat
 		public void UpdateHeat(HeatMessage heatMessage)
 		{
 			HeatMessage = heatMessage;
-			SetColliderSizes(heatMessage.HeatRange);
+			SetColliderSizes(heatMessage.Range);
 			EnableCollider(true);
+		}
+
+		protected Color GetIntensityColour()
+		{
+			float hue = 50f - HeatMessage.Intensity / 2;
+			return Color.HSVToRGB(hue / 360, 0.5f, 0.75f);
 		}
 
 		protected abstract void SetColliderSizes(float range);

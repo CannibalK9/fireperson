@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Helpers;
+using PicoGames.VLS2D;
 using UnityEngine;
 
 namespace Assets.Scripts.Interactable
@@ -31,6 +32,7 @@ namespace Assets.Scripts.Interactable
 			Destroy(_ice.gameObject);
 			gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
 			gameObject.layer = LayerMask.NameToLayer(Layers.Background);
+			gameObject.GetComponent<VLSObstructor>().ClearLocalVertices();
 		}
 
 		private void AddEdges()

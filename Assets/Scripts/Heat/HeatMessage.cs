@@ -2,13 +2,13 @@
 {
 	public struct HeatMessage
 	{
-		public float HeatRange { get; set; }
-        public float DistanceToMove { get; set; }
+		public float Range { get; set; }
+        public float Intensity { get; set; }
 
-		public HeatMessage(float distanceToMove, float heatRange)
+		public HeatMessage(float intensity, float range)
 		{
-			DistanceToMove = distanceToMove;
-			HeatRange = heatRange;
+			Intensity = intensity > 100 ? 100 : intensity;
+			Range = range;
 		}
 	}
 }

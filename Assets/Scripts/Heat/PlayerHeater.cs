@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using PicoGames.VLS2D;
+using UnityEngine;
 
 namespace Assets.Scripts.Heat
 {
@@ -17,7 +18,7 @@ namespace Assets.Scripts.Heat
 
 		protected override void SetColliderSizes(float range)
 		{
-			transform.localScale = new Vector3(1 + HeatMessage.HeatRange * 2, 1, 1);
+			transform.localScale = new Vector3(1.6f + HeatMessage.Range * 2, 1, 1);
 		}
 
 		protected override void EnableCollider(bool enable)
@@ -31,7 +32,8 @@ namespace Assets.Scripts.Heat
 					_heatLight = (GameObject)Instantiate(_heatLightPrefab, transform.position, transform.rotation);
 					_heatLight.transform.parent = transform;
 				}
-				_heatLight.transform.localScale = new Vector3(0.5f, 1.5f + HeatMessage.HeatRange * 1.2f, 1);
+				_heatLight.transform.localScale = new Vector3(0.5f, 1.5f + HeatMessage.Range * 1.2f, 1);
+				_heatLight.GetComponent<VLSRadial>().Color = GetIntensityColour();
 			}
 			else
 				Destroy(_heatLight);

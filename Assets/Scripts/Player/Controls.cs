@@ -1,6 +1,6 @@
 ﻿namespace Assets.Scripts.Player
 {
-	public enum Control
+	public enum Controls
 	{
 		Left,
 		Right,

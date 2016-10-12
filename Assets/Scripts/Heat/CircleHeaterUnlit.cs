@@ -16,7 +16,7 @@ namespace Assets.Scripts.Heat
 
 		protected override void SetColliderSizes(float range)
 		{
-			transform.localScale = Vector3.one * (HeatMessage.HeatRange);
+			transform.localScale = Vector3.one * (HeatMessage.Range);
 		}
 
 		protected override void EnableCollider(bool enable)

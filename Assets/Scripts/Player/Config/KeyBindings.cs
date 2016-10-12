@@ -5,50 +5,52 @@ namespace Assets.Scripts.Player.Config
 {
 	public static class KeyBindings
 	{
-		public static bool GetKey(Control control)
+		public static bool GetKey(Controls control)
 		{
 			switch (control)
 			{
-				case Control.Left:
+				case Controls.Left:
 					return Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A);
-				case Control.Right:
+				case Controls.Right:
 					return Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D);
-				case Control.Up:
+				case Controls.Up:
 					return Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W);
-				case Control.Down:
+				case Controls.Down:
 					return Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S);
-                case Control.Jump:
+                case Controls.Jump:
 					return Input.GetKey(KeyCode.Space);
-				case Control.Anchor:
+				case Controls.Anchor:
 					return Input.GetKey(KeyCode.X);
-				case Control.Action:
+				case Controls.Action:
 					return Input.GetKey(KeyCode.Q);
-                case Control.Light:
+                case Controls.Light:
 					return Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.Mouse0);
-				case Control.Ability1:
+				case Controls.Ability1:
 					return Input.GetKey(KeyCode.Alpha1);
 				default:
 					return false;
 			}
 		}
 
-        public static bool GetKeyDown(Control control)
+        public static bool GetKeyDown(Controls control)
         {
 			switch (control)
             {
-                case Control.Light:
+                case Controls.Light:
 					return Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse0);
                 default:
                     return false;
             }
         }
 
-        public static bool GetKeyUp(Control control)
+        public static bool GetKeyUp(Controls control)
         {
 			switch (control)
             {
-                case Control.Light:
-                    return Input.GetKeyUp(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse0);
+                case Controls.Light:
+                    return Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.Mouse0);
+				case Controls.Ability1:
+					return Input.GetKeyUp(KeyCode.Alpha1);
                 default:
                     return false;
             }

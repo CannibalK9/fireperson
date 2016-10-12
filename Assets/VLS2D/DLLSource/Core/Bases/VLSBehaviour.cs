@@ -141,7 +141,7 @@ namespace PicoGames.VLS2D
 
         protected virtual void Update()
         {
-            if (verticesDirty || transform.hasChanged)
+            if (verticesDirty || HasTransformChanged(transform))
             {
                 Active(VLSViewer.IsInView(bounds));
                 isDirty = true;
@@ -152,6 +152,16 @@ namespace PicoGames.VLS2D
 
             verticesDirty = false;
         }
+
+		private bool HasTransformChanged(Transform trans)
+		{
+			if (trans == null)
+				return false;
+
+			return trans.hasChanged
+				? true
+				: HasTransformChanged(trans.parent);
+		}
 
         protected virtual void LateUpdate()
         {
