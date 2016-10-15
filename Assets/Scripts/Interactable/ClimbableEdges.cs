@@ -67,6 +67,11 @@ namespace Assets.Scripts.Interactable
 			}
 		}
 
+		public void Reset()
+		{
+			_orientation = Orientation.None;
+		}
+
 		private void DeactiveEdges()
 		{
 			DestroyObject(_leftEdge);

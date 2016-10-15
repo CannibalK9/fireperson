@@ -69,12 +69,20 @@ namespace Assets.Scripts.Player.PL
 				|| (AbilityState.IsActive(Ability.Ignite) && _fireplace != null))
 				&& IsScouting == false)
 			{
+				if (KeyBindings.GetKeyDown(Controls.Light) && Pointer.IsPointerOverUIObject() == false)
+				{
+					_burstTime += Time.deltaTime;
+				}
+
 				if (KeyBindings.GetKey(Controls.Light) && Pointer.IsPointerOverUIObject() == false)
 				{
-					float maxTime = 2f;
-					_burstTime += Time.deltaTime;
-					_burstTime = _burstTime > maxTime ? maxTime : _burstTime;
-					_controller.DecreaseVariables(1 - _burstTime / maxTime);
+					if (_burstTime > 0)
+					{
+						float maxTime = 2f;
+						_burstTime += Time.deltaTime;
+						_burstTime = _burstTime > maxTime ? maxTime : _burstTime;
+						_controller.DecreaseVariables(1 - _burstTime / maxTime);
+					}
 				}
 
 				if (KeyBindings.GetKeyUp(Controls.Light))

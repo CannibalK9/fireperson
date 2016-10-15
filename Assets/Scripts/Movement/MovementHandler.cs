@@ -13,6 +13,7 @@ namespace Assets.Scripts.Movement
 		private RaycastHit2D _downHit;
 		private ColliderPoint _previousColliderPoint;
 		private float _angle;
+		private bool _lip;
 
 		public MovementHandler(IMotor motor)
 		{
@@ -52,15 +53,22 @@ namespace Assets.Scripts.Movement
 			Bounds bounds = _motor.Collider.bounds;
 			RaycastHit2D[] hits = Physics2D.BoxCastAll(new Vector2(bounds.center.x, bounds.max.y), new Vector2(bounds.size.x, 0.001f), 0, Vector2.down, bounds.size.y, Layers.Platforms);
 
-			return hits.Any(hit =>
+			ClimbableEdges climbableEdges = _motor.MovementState.Pivot.transform.parent.GetComponent<ClimbableEdges>();
+
+			if (climbableEdges != null)
+				return hits.Any(hit =>
 				hit.collider.transform != _motor.MovementState.Pivot.transform.parent
-				&& hit.collider != _motor.MovementState.Pivot.transform.parent.GetComponent<ClimbableEdges>().LeftException
-				&& hit.collider != _motor.MovementState.Pivot.transform.parent.GetComponent<ClimbableEdges>().RightException);
+				&& hit.collider != climbableEdges.LeftException
+				&& hit.collider != climbableEdges.RightException);
+			else
+				return hits.Any(hit =>
+					hit.collider.transform != _motor.MovementState.Pivot.transform);
 		}
 
 		public void BoxCastMove(Vector3 deltaMovement, bool isKinematic)
 		{
 			_angle = 0;
+			_lip = false;
 
 			if (Time.timeSinceLevelLoad < 1)
 				return;
@@ -80,7 +88,6 @@ namespace Assets.Scripts.Movement
 
 			if (isKinematic == false && _downHit)
 			{
-				_motor.MovementState.Normal = _downHit.normal;
 				deltaMovement.y = 0;
 
 				RaycastHit2D leftHit = DirectionCast(bounds, DirectionTravelling.Left);
@@ -128,8 +135,12 @@ namespace Assets.Scripts.Movement
                     _motor.MovementState.Pivot.transform.Translate(MoveAlongSurface(), Space.World);
 
                     pivotPosition = _motor.MovementState.Pivot.transform.position + _motor.Transform.position - offset;
-                    _motor.Transform.position = Vector3.MoveTowards(_motor.Transform.position, pivotPosition, 100f);
-                    DrawRay(_motor.MovementState.Pivot.transform.position, _downHit.normal, Color.yellow);
+                    Vector2 newPosition = Vector3.MoveTowards(_motor.Transform.position, pivotPosition, 100f);
+					if (_lip)
+						_motor.Transform.position = newPosition;
+					else
+						_motor.Rigidbody.MovePosition(newPosition);
+					DrawRay(_motor.MovementState.Pivot.transform.position, _downHit.normal, Color.yellow);
                 }
 			}
 			else
@@ -173,7 +184,10 @@ namespace Assets.Scripts.Movement
 					if (ActualSidewaysCollision(lipCast))
 						_motor.MovementState.OnLeftCollision();
 					else
+					{
 						hit = new RaycastHit2D();
+						_lip = true;
+					}
 				}
 				else
 				{
@@ -181,7 +195,10 @@ namespace Assets.Scripts.Movement
 					if (ActualSidewaysCollision(lipCast))
 						_motor.MovementState.OnRightCollision();
 					else
+					{
 						hit = new RaycastHit2D();
+						_lip = true;
+					}
 				}
 			}
 			return hit;
@@ -251,6 +268,7 @@ namespace Assets.Scripts.Movement
 			_motor.MovementState.Pivot.transform.position = point;
 			_motor.MovementState.PivotCollider = col;
 			_motor.MovementState.Pivot.transform.parent = _motor.MovementState.PivotCollider.transform;
+			_motor.MovementState.Normal = _downHit.normal;
 			DrawRay(point, _downHit.normal, Color.yellow);
 		}
 

@@ -9,7 +9,6 @@ namespace Assets.Scripts.Player
 		void Awake()
 		{
 			_renderer = GetComponent<SpriteRenderer>();
-
 		}
 
 		public void SetSize(float size)

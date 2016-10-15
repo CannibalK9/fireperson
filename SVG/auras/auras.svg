@@ -24,18 +24,6 @@
      id="defs4">
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient4239">
-      <stop
-         style="stop-color:#ffffff;stop-opacity:1"
-         offset="0"
-         id="stop4241" />
-      <stop
-         style="stop-color:#000000;stop-opacity:1"
-         offset="1"
-         id="stop4243" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
        id="linearGradient4523">
       <stop
          style="stop-color:#784421;stop-opacity:1;"
@@ -338,28 +326,6 @@
        x2="960"
        y2="-1119.3558"
        gradientUnits="userSpaceOnUse" />
-    <radialGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4239"
-       id="radialGradient4183"
-       cx="96"
-       cy="-963.63782"
-       fx="96"
-       fy="-963.63782"
-       r="32.5"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(26.337078,-6.5023961e-5,3.1435894e-6,1.2739845,-3459.9942,1099.6659)" />
-    <radialGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4239"
-       id="radialGradient4183-9"
-       cx="96"
-       cy="-963.63782"
-       fx="96"
-       fy="-963.63782"
-       r="32.5"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.4498339,-7.6283664e-8,8.7365533e-8,1.5449919,-1070.8219,1232.8126)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -369,8 +335,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.0396203"
-     inkscape:cx="78.320697"
-     inkscape:cy="2008.0634"
+     inkscape:cx="135.55313"
+     inkscape:cy="2002.2921"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -412,36 +378,14 @@
        ry="5.0000005"
        rx="5" />
     <ellipse
-       style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="path4247"
-       cx="31.889132"
-       cy="-899.63782"
-       rx="29.116161"
-       ry="96"
-       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Player\playerAura_normal.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       style="fill:url(#radialGradient4183);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="rect3373"
-       width="128"
-       height="128"
-       x="-995.63782"
-       y="-192"
-       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\boxHeat.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90"
-       transform="matrix(0,1,-1,0,0,0)" />
-    <rect
-       style="fill:url(#radialGradient4183-9);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="rect3373-4"
-       width="128"
-       height="128"
-       x="-995.63782"
-       y="-320"
-       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\boxHeat.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90"
-       transform="matrix(0,1,-1,0,0,0)" />
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:7.82839012;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="path3380"
+       cx="142.00806"
+       cy="-992.33191"
+       rx="124.0858"
+       ry="124.08581"
+       inkscape:export-filename="C:\code\fireperson\Assets\Sprites\ControlBorder.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
   </g>
 </svg>

@@ -14,12 +14,12 @@ namespace Assets.Scripts.Ice
 
 		public bool GrowsBack;
 		public bool ExtraPoints;
-		public bool AnyJointEnabled { get; set; }
+		public bool IsAnchored { get; set; }
 
 		private PolygonCollider2D _polyCollider;
 		private Mesh _mesh;
 		private Vector2[] _initialPoints;
-		private FixedJoint2D[] _joints;
+		private Transform[] _anchors;
 		private MeshRenderer _meshRenderer;
 		private MeshCollider _meshCollider;
 		private bool _meltedThisFrame;
@@ -27,12 +27,11 @@ namespace Assets.Scripts.Ice
 		void Awake()
 		{
 			_polyCollider = GetComponent<PolygonCollider2D>();
-			_joints = GetComponents<FixedJoint2D>();
 			_mesh = GetComponentInChildren<MeshFilter>().mesh;
 			_meshRenderer = GetComponentInChildren<MeshRenderer>();
 			_meshCollider = GetComponentInChildren<MeshCollider>();
-			AnyJointEnabled = true;
-			GrowsBack = true;
+			_anchors = GetComponentsInChildren<Transform>().Where(t => t.tag == "anchor").ToArray();
+			IsAnchored = true;
 		}
 
 		void Start()
@@ -92,13 +91,13 @@ namespace Assets.Scripts.Ice
 
 		void Update()
 		{
-			foreach (FixedJoint2D joint in _joints)
+			foreach (Transform anchor in _anchors)
 			{
-				if (_polyCollider.OverlapPoint(transform.TransformPoint(joint.anchor)) == false)
-					joint.enabled = false;
+				if (_polyCollider.OverlapPoint(anchor.position) == false)
+					anchor.gameObject.SetActive(false);
 			}
 
-			AnyJointEnabled = _joints.Any(j => j.enabled);
+			IsAnchored = _anchors.Any(j => j.gameObject.activeSelf);
 
 			_polyCollider.enabled = true;
 			_meshRenderer.enabled = true;

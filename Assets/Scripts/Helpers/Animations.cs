@@ -47,6 +47,11 @@
 			get { return "RollDown"; }
 		}
 
+		public static string HopDown
+		{
+			get { return "HopDown"; }
+		}
+
 		public static string MoveToEdge
         {
             get { return "MoveToEdge"; }

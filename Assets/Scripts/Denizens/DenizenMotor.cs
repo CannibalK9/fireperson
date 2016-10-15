@@ -26,6 +26,7 @@ namespace Assets.Scripts.Denizens
         private bool _isSliding;
 		private bool _transitioning;
 		private bool _isFlashed;
+		private bool _atStove;
 
 		void Awake()
 		{
@@ -165,7 +166,13 @@ namespace Assets.Scripts.Denizens
 			{
 				_velocity.y = 0;
 
-				if (DirectionTravelling == DirectionTravelling.Right)
+				if (_atStove)
+				{
+					DirectionTravelling = DirectionTravelling.None;
+					_animator.SetTrigger(DenizenAnimBool.LightStove);
+					_transitioning = true;
+				}
+				else if (DirectionTravelling == DirectionTravelling.Right)
 				{
 					_normalizedHorizontalSpeed = 1;
 					if (GetDirectionFacing() == DirectionFacing.Left)
@@ -189,6 +196,8 @@ namespace Assets.Scripts.Denizens
 					}
 				}
 			}
+
+			_atStove = false;
 		}
 
 		private void HazardLeft()
@@ -342,8 +351,7 @@ namespace Assets.Scripts.Denizens
         public void BeginLighting(FirePlace fireplace)
         {
             _fireplace = fireplace;
-			DirectionTravelling = DirectionTravelling.None;
-            _animator.SetTrigger(DenizenAnimBool.LightStove);
+			_atStove = true;
         }
 
 		private DirectionFacing GetDirectionFacing()

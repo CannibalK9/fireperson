@@ -1,25 +1,31 @@
 ﻿using Assets.Scripts.Helpers;
 using PicoGames.VLS2D;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Interactable
 {
     public class Trapdoor : MonoBehaviour
 	{
-		private Ice.Ice _ice;
+		private Ice.Ice[] _ice;
 		private bool _fallen;
 
 		public GameObject LeftPlatform;
 		public GameObject RightPlatform;
+		public bool IsLeftOnCorner;
+		public bool IsRightOnCorner;
+
+		public bool RemainsSolid;
+		public float Mass;
 
 		void Awake()
 		{
-			_ice = gameObject.GetComponentInChildren<Ice.Ice>();
+			_ice = gameObject.GetComponentsInChildren<Ice.Ice>();
 		}
 
 		void Update()
 		{
-			if (_fallen == false && _ice.AnyJointEnabled == false)
+			if (_fallen == false && _ice.Any(i => i.IsAnchored) == false)
 			{
 				_fallen = true;
 				CreateFallenTrapdoor();
@@ -29,19 +35,42 @@ namespace Assets.Scripts.Interactable
 
 		private void CreateFallenTrapdoor()
 		{
-			Destroy(_ice.gameObject);
-			gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
-			gameObject.layer = LayerMask.NameToLayer(Layers.Background);
-			gameObject.GetComponent<VLSObstructor>().ClearLocalVertices();
+			foreach (var ice in _ice)
+			{
+				Destroy(ice.gameObject);
+			}
+			var r = gameObject.AddComponent<Rigidbody2D>();
+			r.mass = Mass;
+
+			if (RemainsSolid == false)
+			{
+				gameObject.layer = LayerMask.NameToLayer(Layers.Background);
+				gameObject.GetComponent<VLSObstructor>().ClearLocalVertices();
+			}
 		}
 
 		private void AddEdges()
 		{
 			if (LeftPlatform != null)
-				LeftPlatform.GetComponent<ClimbableEdges>().RightEdge = true;
-
+			{
+				if (IsLeftOnCorner)
+				{
+					LeftPlatform.GetComponent<ClimbableEdges>().IsRightCorner = false;
+					LeftPlatform.GetComponent<ClimbableEdges>().Reset();
+				}
+				else
+					LeftPlatform.GetComponent<ClimbableEdges>().RightEdge = true;
+			}
 			if (RightPlatform != null)
-				RightPlatform.GetComponent<ClimbableEdges>().LeftEdge = true;
+			{
+				if (IsRightOnCorner)
+				{
+					RightPlatform.GetComponent<ClimbableEdges>().IsLeftCorner = false;
+					RightPlatform.GetComponent<ClimbableEdges>().Reset();
+				}
+				else
+					RightPlatform.GetComponent<ClimbableEdges>().LeftEdge = true;
+			}
 		}
 	}
 }
