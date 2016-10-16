@@ -93,7 +93,8 @@ namespace Assets.Scripts.Denizens
 
 				_animator.SetBool(DenizenAnimBool.Moving, DirectionTravelling != DirectionTravelling.None);
                 DetermineMovement();
-                MoveWithVelocity();
+				if (_isJumping == false)
+	                MoveWithVelocity();
             }
         }
 
@@ -220,12 +221,12 @@ namespace Assets.Scripts.Denizens
 
 		private void HazardHandler(Vector2 hazardRay)
 		{
-			if (ApproachingEdge(hazardRay))
-				_animator.SetTrigger(DenizenAnimBool.AtEdge);
-			else if (ApproachingSnow(hazardRay))
+			if (ApproachingSnow(hazardRay))
 				_animator.SetTrigger(DenizenAnimBool.AtSnow);
 			else if ((_controller.MovementState.RightCollision && DirectionTravelling == DirectionTravelling.Right) || (_controller.MovementState.LeftCollision && DirectionTravelling == DirectionTravelling.Left))
 				_animator.SetTrigger(DenizenAnimBool.AtWall);
+			else if (ApproachingEdge(hazardRay))
+				_animator.SetTrigger(DenizenAnimBool.AtEdge);
 			else
 				return;
 
@@ -271,7 +272,7 @@ namespace Assets.Scripts.Denizens
 
 			if (hit)
 			{
-			DirectionTravelling = DirectionTravelling.None;
+				DirectionTravelling = DirectionTravelling.None;
 				_isJumping = true;
 				_controller.MovementState.SetPivot(hit.collider, ColliderPoint.TopFace, ColliderPoint.BottomFace);
 				_animator.SetTrigger(DenizenAnimBool.Jump);

@@ -142,7 +142,7 @@ namespace Assets.Scripts.Ice
 				if (col.gameObject.GetComponent<Tether>() == null)
 				{
 					RaycastHit2D hit = Physics2D.Raycast(col.bounds.center, transform.position - col.bounds.center, 20f, Layers.Platforms);
-					if (hit.transform == transform || Vector2.Distance(hit.point, transform.position) < 0.5f)
+					if (hit.transform == transform)//|| Vector2.Distance(hit.point, transform.position) < 0.5f)
 						Melt(col.gameObject.GetComponent<HeatHandler>().HeatMessage, col);
 				}
 				else

@@ -328,12 +328,11 @@ namespace Assets.Scripts.Player.Climbing
 					DistanceToEdge = distance;
 					if (down)
 					{
-						animation = _motor.Anim.GetBool(
-							IsNoSpaceBelow(edge, _climbParent.GetComponent<Collider2D>(), ClimbSide)
-								? Animations.HopDown
-								: PlayerAnimBool.Moving)
-									? Animations.RollDown
-									: Animations.ClimbDown;
+						animation = IsNoSpaceBelow(edge, _climbParent.GetComponent<Collider2D>(), ClimbSide)
+							? Animations.HopDown
+							: _motor.Anim.GetBool(PlayerAnimBool.Moving)
+								? Animations.RollDown
+								: Animations.ClimbDown;
 					}
 					else
 					{

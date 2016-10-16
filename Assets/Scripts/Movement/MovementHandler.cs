@@ -50,8 +50,9 @@ namespace Assets.Scripts.Movement
 
 		public bool IsCollidingWithNonPivot()
 		{
+			float collisionFudge = 0.1f;
 			Bounds bounds = _motor.Collider.bounds;
-			RaycastHit2D[] hits = Physics2D.BoxCastAll(new Vector2(bounds.center.x, bounds.max.y), new Vector2(bounds.size.x, 0.001f), 0, Vector2.down, bounds.size.y, Layers.Platforms);
+			RaycastHit2D[] hits = Physics2D.BoxCastAll(new Vector2(bounds.center.x, bounds.max.y - collisionFudge), new Vector2(bounds.size.x - (collisionFudge * 2), 0.001f), 0, Vector2.down, bounds.size.y - (collisionFudge * 2), Layers.Platforms);
 
 			ClimbableEdges climbableEdges = _motor.MovementState.Pivot.transform.parent.GetComponent<ClimbableEdges>();
 
