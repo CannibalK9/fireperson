@@ -236,7 +236,7 @@ namespace Assets.Scripts.Denizens
 				_animator.SetTrigger(DenizenAnimBool.AtSnow);
 			else if ((_controller.MovementState.RightCollision && DirectionTravelling == DirectionTravelling.Right) || (_controller.MovementState.LeftCollision && DirectionTravelling == DirectionTravelling.Left))
 				_animator.SetTrigger(DenizenAnimBool.AtWall);
-			else if (ApproachingEdge(hazardRay))
+			else if (ApproachingEdge())
 				_animator.SetTrigger(DenizenAnimBool.AtEdge);
 			else
 				return;
@@ -257,9 +257,10 @@ namespace Assets.Scripts.Denizens
 					: DirectionTravelling.Left;
 		}
 
-		private bool ApproachingEdge(Vector2 edgeRay)
+		private bool ApproachingEdge()
 		{
-			if (Physics2D.Raycast(edgeRay, _controller.MovementState.GetSurfaceDownDirection(), 1.5f, Layers.Platforms))
+			if ((_controller.MovementState.RightEdge && DirectionTravelling == DirectionTravelling.Right) == false
+                && (_controller.MovementState.LeftEdge && DirectionTravelling == DirectionTravelling.Left) == false)
 				return false;
 
             if (CanJump == false)

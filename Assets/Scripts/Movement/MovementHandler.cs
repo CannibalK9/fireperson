@@ -68,22 +68,15 @@ namespace Assets.Scripts.Movement
 
 		public void BoxCastMove(Vector3 deltaMovement, bool isKinematic)
 		{
-			_angle = 0;
-			_lip = false;
-
 			if (Time.timeSinceLevelLoad < 1)
 				return;
 
-			if (Mathf.Abs(deltaMovement.x) < 0.05f)
-				deltaMovement.x = 0;
-
-			IgnorePlatforms(isKinematic);
-            _motor.MovementState.Reset(deltaMovement);
+            BoxCastSetup(ref deltaMovement, isKinematic);
 			Bounds bounds = _motor.Collider.bounds;
 
 			if (isKinematic == false)
 			{
-				RaycastHit2D[] downHits = Physics2D.BoxCastAll(new Vector2(bounds.center.x, bounds.min.y + 0.5f), new Vector2(bounds.size.x, 0.001f), 0, Vector2.down, 1f, Layers.Platforms);
+				List<RaycastHit2D> downHits = Physics2D.BoxCastAll(new Vector2(bounds.center.x, bounds.min.y + 0.5f), new Vector2(bounds.size.x, 0.001f), 0, Vector2.down, 1f, Layers.Platforms).ToList();
 				_downHit = GetDownwardsHit(downHits);
 			}
 
@@ -91,8 +84,8 @@ namespace Assets.Scripts.Movement
 			{
 				deltaMovement.y = 0;
 
-				RaycastHit2D leftHit = DirectionCast(bounds, DirectionTravelling.Left);
-				RaycastHit2D rightHit = DirectionCast(bounds, DirectionTravelling.Right);
+				bool leftHit = DirectionCast(bounds, DirectionTravelling.Left);
+				bool rightHit = DirectionCast(bounds, DirectionTravelling.Right);
 
 				ColliderPoint hitLocation;
 
@@ -152,6 +145,18 @@ namespace Assets.Scripts.Movement
 			}
 		}
 
+        private void BoxCastSetup(ref Vector3 deltaMovement, bool isKinematic)
+        {
+            _angle = 0;
+            _lip = false;
+
+            if (Mathf.Abs(deltaMovement.x) < 0.05f)
+                deltaMovement.x = 0;
+
+            IgnorePlatforms(isKinematic);
+            _motor.MovementState.Reset(deltaMovement);
+        }
+
 		public void IgnorePlatforms(bool ignore)
 		{
 			_motor.Rigidbody.isKinematic = ignore;
@@ -162,7 +167,7 @@ namespace Assets.Scripts.Movement
 			Physics2D.IgnoreLayerCollision(layer, LayerMask.NameToLayer(Layers.IndoorWood), ignore);
 		}
 
-		private RaycastHit2D DirectionCast(Bounds bounds, DirectionTravelling direction)
+		private bool DirectionCast(Bounds bounds, DirectionTravelling direction)
 		{
 			RaycastHit2D hit = GetDirectionHit(bounds, _motor.MovementState.GetSurfaceDirection(direction));
 			
@@ -203,10 +208,39 @@ namespace Assets.Scripts.Movement
 					}
 				}
 			}
-			return hit;
+			return hit || AtEdge(bounds, direction);
 		}
 
-		private bool ActualSidewaysCollision(RaycastHit2D lipCast)
+        private bool AtEdge(Bounds bounds, DirectionTravelling direction)
+        {
+            float xOrigin = direction == DirectionTravelling.Right
+                ? bounds.max.x + 0.1f
+                : bounds.min.x - 0.1f;
+            var edgeRay = new Vector2(xOrigin, bounds.min.y + ConstantVariables.MaxLipHeight);
+
+            Debug.DrawRay(edgeRay, _motor.MovementState.GetSurfaceDownDirection(), Color.blue);
+            RaycastHit2D hit = Physics2D.Raycast(edgeRay, _motor.MovementState.GetSurfaceDownDirection(), 1.5f + ConstantVariables.MaxLipHeight, Layers.Platforms);
+            bool atEdge = hit == false ? true : Vector2.Angle(Vector2.up, hit.normal) > ConstantVariables.DefaultPlayerSlopeLimit;
+
+            if (atEdge)
+            {
+                edgeRay += new Vector2(direction == DirectionTravelling.Right ? 1 : -1, 0);
+                RaycastHit2D hit2 = Physics2D.Raycast(edgeRay, Vector2.down, 1.5f + ConstantVariables.MaxLipHeight, Layers.Platforms);
+                atEdge = hit2 == false ? true : Vector2.Angle(Vector2.up, hit2.normal) > ConstantVariables.DefaultPlayerSlopeLimit;
+            }
+
+            if (atEdge)
+            {
+                if (direction == DirectionTravelling.Right)
+                    _motor.MovementState.OnRightEdge();
+                else
+                    _motor.MovementState.OnLeftEdge();
+            }
+
+            return atEdge;
+        }
+
+        private bool ActualSidewaysCollision(RaycastHit2D lipCast)
 		{
 			return lipCast && (lipCast.collider == _downHit.collider || Vector2.Angle(lipCast.normal, Vector2.up) > _motor.SlopeLimit);
 		}

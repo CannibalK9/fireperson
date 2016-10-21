@@ -392,7 +392,7 @@ namespace Assets.Scripts.Player
 			}
 			else if (KeyBindings.GetKey(Controls.Right))
 			{
-				if (MovementState.RightCollision == false && NotAtEdge(DirectionTravelling.Right))
+				if (MovementState.RightCollision == false && MovementState.RightEdge == false)
 					_normalizedHorizontalSpeed = 1;
 				else
 					_normalizedHorizontalSpeed = 0;
@@ -401,7 +401,7 @@ namespace Assets.Scripts.Player
 			}
 			else if (KeyBindings.GetKey(Controls.Left))
 			{
-				if (MovementState.LeftCollision == false && NotAtEdge(DirectionTravelling.Left))
+				if (MovementState.LeftCollision == false && MovementState.LeftEdge == false)
 					_normalizedHorizontalSpeed = -1;
 				else
 					_normalizedHorizontalSpeed = 0;
@@ -416,19 +416,6 @@ namespace Assets.Scripts.Player
 			{
 				//AtWallAnimation
 			}
-		}
-
-		private bool NotAtEdge(DirectionTravelling direction)
-		{
-			float xOrigin = direction == DirectionTravelling.Right
-				? Collider.bounds.max.x + 0.1f
-				: Collider.bounds.min.x - 0.1f;
-			var edgeRay = new Vector2(xOrigin, Collider.bounds.min.y + ConstantVariables.MaxLipHeight);
-
-			Debug.DrawRay(edgeRay, MovementState.GetSurfaceDownDirection(), Color.blue);
-			RaycastHit2D hit = Physics2D.Raycast(edgeRay, MovementState.GetSurfaceDownDirection(), 1.5f + ConstantVariables.MaxLipHeight, Layers.Platforms);
-
-			return hit == false ? false : Vector2.Angle(Vector2.up, hit.normal) < ConstantVariables.DefaultPlayerSlopeLimit;
 		}
 
 		private bool TryGrab() //forward is not being set correctly, all else seems to work!

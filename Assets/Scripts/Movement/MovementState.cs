@@ -12,7 +12,9 @@ namespace Assets.Scripts.Movement
 		public bool MovementOverridden { get; set; }
 		public bool LeftCollision { get; private set; }
 		public bool RightCollision { get; private set; }
-		public GameObject Pivot { get; private set; }
+        public bool LeftEdge { get; private set; }
+        public bool RightEdge { get; private set; }
+        public GameObject Pivot { get; private set; }
 		public Vector3 CurrentAcceleration { get; set; }
 		public ColliderPoint CharacterPoint { get; set; }
 		public ColliderPoint PreviousCharacterPoint { get; set; }
@@ -100,7 +102,21 @@ namespace Assets.Scripts.Movement
 			RightCollision = true;
 		}
 
-		public void SetPivotCollider(Collider2D pivotCollider)
+        public void OnLeftEdge()
+        {
+            if (CurrentAcceleration.x < 0)
+                CurrentAcceleration = new Vector2(0, CurrentAcceleration.y);
+            LeftEdge = true;
+        }
+
+        public void OnRightEdge()
+        {
+            if (CurrentAcceleration.x > 0)
+                CurrentAcceleration = new Vector2(0, CurrentAcceleration.y);
+            RightEdge = true;
+        }
+
+        public void SetPivotCollider(Collider2D pivotCollider)
 		{
 			PivotCollider = pivotCollider;
 		}

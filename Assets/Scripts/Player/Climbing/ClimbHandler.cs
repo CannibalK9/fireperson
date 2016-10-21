@@ -283,84 +283,88 @@ namespace Assets.Scripts.Player.Climbing
 
 			const float checkWidth = 2f;
 
-			int layer = direction == DirectionFacing.Right ? _rightClimbLayer : _leftClimbLayer;
-			BoxCollider2D edge = _motor.MovementState.PivotCollider.gameObject.GetComponentsInChildren<BoxCollider2D>().SingleOrDefault(c => c.gameObject.layer == layer);
+            int layer = direction == DirectionFacing.Right ? _rightClimbLayer : _leftClimbLayer;
+            BoxCollider2D edge = _motor.MovementState.PivotCollider.gameObject.GetComponentsInChildren<BoxCollider2D>().SingleOrDefault(c => c.gameObject.layer == layer);
 
-			bool downhill = _motor.MovementState.NormalDirection == direction && Vector2.Angle(Vector2.up, _motor.MovementState.Normal) > 20f;
+            if (edge != null)
+            {
+                canDrop = edge.CanClimbDown();
+                var distance = Vector2.Distance(_motor.GetGroundPivotPosition(), edge.transform.position);
+                nearEdge = distance < checkWidth && IsEdgeUnblocked(edge) && IsCornerAccessible(edge) && SpaceAboveEdge(edge);
 
-			if (downhill && down == false)
-			{
-				_shouldAvoidSamePlatform = true;
-				if (CheckLedgeAcross(direction))
-				{
-					_shouldAvoidSamePlatform = true;
-					_climbParent = null;
-					CurrentClimb = intendedClimbingState;
-					_climbCollider = _motor.MovementState.PivotCollider;
-					NextClimbs.Add(
-						direction == DirectionFacing.Left
-						? Climb.AcrossLeft
-						: Climb.AcrossRight);
-					_motor.Anim.SwitchClimbingState();
-					_motor.Anim.ResetAcrossTrigger();
-					animation = Animations.DiveAcross;
-					return true;
-				}
-			}
-			
-			if (edge != null)
-			{
-				canDrop = edge.CanClimbDown();
-				var distance = Vector2.Distance(_motor.GetGroundPivotPosition(), edge.transform.position);
-				nearEdge = distance < checkWidth && IsEdgeUnblocked(edge) && IsCornerAccessible(edge) && SpaceAboveEdge(edge);
+                Bounds projectedBounds = new Bounds(
+                    new Vector3(
+                        direction == DirectionFacing.Right
+                            ? edge.transform.position.x + _playerCollider.bounds.extents.x
+                            : edge.transform.position.x - _playerCollider.bounds.extents.x,
+                        edge.transform.position.y + _playerCollider.bounds.extents.y),
+                    _playerCollider.bounds.size);
 
-				Bounds projectedBounds = new Bounds(
-					new Vector3(
-						direction == DirectionFacing.Right
-							? edge.transform.position.x + _playerCollider.bounds.extents.x
-							: edge.transform.position.x - _playerCollider.bounds.extents.x,
-						edge.transform.position.y + _playerCollider.bounds.extents.y),
-					_playerCollider.bounds.size);
+                if (nearEdge && (down || canDrop || CheckLedgeAcross(direction, projectedBounds)))
+                {
+                    CurrentClimb = intendedClimbingState;
+                    SetClimbingParameters(edge);
+                    DistanceToEdge = distance;
+                    if (down)
+                    {
+                        animation = IsNoSpaceBelow(edge, _climbParent.GetComponent<Collider2D>(), ClimbSide)
+                            ? Animations.HopDown
+                            : _motor.Anim.GetBool(PlayerAnimBool.Moving)
+                                ? Animations.RollDown
+                                : Animations.ClimbDown;
+                    }
+                    else
+                    {
+                        NextClimbs.Add(
+                            direction == DirectionFacing.Left
+                            ? Climb.AcrossLeft
+                            : Climb.AcrossRight);
+                        animation = Animations.MoveToEdge;
+                    }
 
-				if (nearEdge && (down || canDrop || CheckLedgeAcross(direction, projectedBounds)))
-				{
-					CurrentClimb = intendedClimbingState;
-					SetClimbingParameters(edge);
-					DistanceToEdge = distance;
-					if (down)
-					{
-						animation = IsNoSpaceBelow(edge, _climbParent.GetComponent<Collider2D>(), ClimbSide)
-							? Animations.HopDown
-							: _motor.Anim.GetBool(PlayerAnimBool.Moving)
-								? Animations.RollDown
-								: Animations.ClimbDown;
-					}
-					else
-					{
-						NextClimbs.Add(
-							direction == DirectionFacing.Left
-							? Climb.AcrossLeft
-							: Climb.AcrossRight);
-						animation = Animations.MoveToEdge;
-					}
+                    return true;
+                }
+                else
+                {
+                    animation = "";
+                    return false;
+                }
+            }
 
-					return true;
-				}
-			}
+            bool downhill = _motor.MovementState.NormalDirection == direction && Vector2.Angle(Vector2.up, _motor.MovementState.Normal) > 20f;
 
-			if (downhill && down == false && canDrop)
-			{
-				CurrentClimb = intendedClimbingState;
-				_climbCollider = _motor.MovementState.PivotCollider;
-				_motor.MovementState.JumpInPlace();
-				_motor.Anim.SwitchClimbingState();
-				animation = Animations.DiveAcross;
-				return true;
-			}
+            if (downhill && down == false)
+            {
+                _shouldAvoidSamePlatform = true;
+                if (CheckLedgeAcross(direction))
+                {
+                    _shouldAvoidSamePlatform = true;
+                    _climbParent = null;
+                    CurrentClimb = intendedClimbingState;
+                    _climbCollider = _motor.MovementState.PivotCollider;
+                    NextClimbs.Add(
+                        direction == DirectionFacing.Left
+                        ? Climb.AcrossLeft
+                        : Climb.AcrossRight);
+                    _motor.Anim.SwitchClimbingState();
+                    _motor.Anim.ResetAcrossTrigger();
+                    animation = Animations.DiveAcross;
+                    return true;
+                }
+                else if (canDrop)
+                {
+                    CurrentClimb = intendedClimbingState;
+                    _climbCollider = _motor.MovementState.PivotCollider;
+                    _motor.MovementState.JumpInPlace();
+                    _motor.Anim.SwitchClimbingState();
+                    animation = Animations.DiveAcross;
+                    return true;
+                }
+            }
 
-			animation = "";
-			return false;
-		}
+            animation = "";
+            return false;
+        }
 
 		private bool IsNoSpaceBelow(Collider2D edge, Collider2D platform, DirectionFacing direction)
 		{

@@ -170,7 +170,13 @@ namespace Assets.Scripts.Player
 				PlayerMotor.FlipSprite();
 		}
 
-		private void AllowMovement()
+        private void FlipIfNoCorner()
+        {
+            if (GetBool("onCorner") == false)
+                PlayerMotor.FlipSprite();
+        }
+
+        private void AllowMovement()
 		{
 			var a = PlayerMotor.Transform.GetComponent<AudioSource>();
 			AudioSource.PlayClipAtPoint(a.clip, PlayerMotor.Transform.position);

@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Heat;
 using Assets.Scripts.Helpers;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Interactable
@@ -119,9 +120,7 @@ namespace Assets.Scripts.Interactable
 				IsLit = false;
 				var stove = this as Stove;
 				if (stove != null)
-				{
 					stove.ExtinguishAllConnectedFireplaces();
-				}
 			}
 		}
 
@@ -134,11 +133,14 @@ namespace Assets.Scripts.Interactable
 			}
 		}
 
-		public void LightFully()
-		{
-			IsFullyIgnited = true;
-			LightFireplace();
-		}
+        public void LightFully()
+        {
+            if (IsHeatSource)
+            {
+                IsFullyIgnited = true;
+                LightFireplace();
+            }
+        }
 
 		private void LightFireplace()
 		{
@@ -146,8 +148,8 @@ namespace Assets.Scripts.Interactable
 			SendMessages();
 
 			Stove stove = this as Stove;
-			if (stove != null)
-				stove.LightAllConnectedFireplaces();
+            if (stove != null)
+                stove.LightAllConnectedFireplaces();
 		}
 
 		private void SendMessages()
