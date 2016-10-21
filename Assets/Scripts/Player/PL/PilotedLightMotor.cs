@@ -260,7 +260,7 @@ namespace Assets.Scripts.Player.PL
 
 		private void MoveToFireplace()
 		{
-			MovementState.SetPivot(_fireplace.GetComponent<Collider2D>(), ColliderPoint.Centre, ColliderPoint.Centre);
+			MovementState.SetPivotCollider(_fireplace.GetComponent<Collider2D>(), ColliderPoint.Centre, ColliderPoint.Centre);
 			MovementState.MovementOverridden = true;
 			_isFireplaceActive = true;
 		}
@@ -314,7 +314,7 @@ namespace Assets.Scripts.Player.PL
 				if (col.GetComponent<FirePlace>().IsAccessible)
 				{
 					_fireplace = col.GetComponent<FirePlace>();
-					MovementState.SetPivot(col, ColliderPoint.Centre, ColliderPoint.Centre);
+					MovementState.SetPivotCollider(col, ColliderPoint.Centre, ColliderPoint.Centre);
 					MovementState.MovementOverridden = true;
 					_isFireplaceActive = true;
 				}

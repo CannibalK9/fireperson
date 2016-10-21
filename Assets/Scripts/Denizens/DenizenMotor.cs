@@ -14,6 +14,7 @@ namespace Assets.Scripts.Denizens
 		public bool CanJump;
 		public bool CanMove;
 		public bool StartsMoving;
+		public bool NoMovementWhenSpotted;
 
 		private float _normalizedHorizontalSpeed;
 		private DenizenController _controller;
@@ -27,11 +28,14 @@ namespace Assets.Scripts.Denizens
 		private bool _transitioning;
 		private bool _isFlashed;
 		private bool _atStove;
+		private bool _hasMoved;
+		private bool _moveWhenSpotted;
 
 		void Awake()
 		{
 			_animator = GetComponent<Animator>();
 			_controller = GetComponent<DenizenController>();
+			_moveWhenSpotted = !NoMovementWhenSpotted;
 		}
 
         void Update()
@@ -122,13 +126,20 @@ namespace Assets.Scripts.Denizens
 		{
 			ResetTriggers();
 
-			if (CanMove && StartsMoving)
+			if (CanMove && StartsMoving && (_moveWhenSpotted || _hasMoved))
 			{
 				_animator.SetBool(DenizenAnimBool.Moving, true);
 				SetTravelInDirectionFacing();
 				_transitioning = false;
+				_hasMoved = true;
 			}
 			StartsMoving = true;
+			_moveWhenSpotted = true;
+		}
+
+		void SpotMovement()
+		{
+			_moveWhenSpotted = !NoMovementWhenSpotted;
 		}
 
 		private void ResetTriggers()
@@ -248,7 +259,7 @@ namespace Assets.Scripts.Denizens
 
 		private bool ApproachingEdge(Vector2 edgeRay)
 		{
-			if (Physics2D.Raycast(edgeRay, _controller.MovementState.GetSurfaceDownDirection(), 2f, Layers.Platforms))
+			if (Physics2D.Raycast(edgeRay, _controller.MovementState.GetSurfaceDownDirection(), 1.5f, Layers.Platforms))
 				return false;
 
             if (CanJump == false)
@@ -274,7 +285,7 @@ namespace Assets.Scripts.Denizens
 			{
 				DirectionTravelling = DirectionTravelling.None;
 				_isJumping = true;
-				_controller.MovementState.SetPivot(hit.collider, ColliderPoint.TopFace, ColliderPoint.BottomFace);
+				_controller.MovementState.SetPivotCollider(hit.collider, ColliderPoint.TopFace, ColliderPoint.BottomFace);
 				_animator.SetTrigger(DenizenAnimBool.Jump);
 				return false;
 			}

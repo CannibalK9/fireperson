@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Helpers;
 using Assets.Scripts.Interactable;
-using Assets.Scripts.Player;
 using UnityEngine;
 
 namespace Assets.Scripts.Movement
@@ -89,11 +88,15 @@ namespace Assets.Scripts.Movement
 
 		public void OnLeftCollision()
 		{
+			if (CurrentAcceleration.x < 0)
+				CurrentAcceleration = new Vector2(0, CurrentAcceleration.y);
 			LeftCollision = true;
 		}
 
 		public void OnRightCollision()
 		{
+			if (CurrentAcceleration.x > 0)
+				CurrentAcceleration = new Vector2(0, CurrentAcceleration.y);
 			RightCollision = true;
 		}
 
@@ -102,7 +105,7 @@ namespace Assets.Scripts.Movement
 			PivotCollider = pivotCollider;
 		}
 
-		public void SetPivot(Collider2D pivotCollider, ColliderPoint targetPoint, ColliderPoint characterPoint)
+		public void SetPivotCollider(Collider2D pivotCollider, ColliderPoint targetPoint, ColliderPoint characterPoint)
 		{
 			PivotCollider = pivotCollider;
 			Pivot.transform.parent = pivotCollider.transform.parent;
@@ -122,6 +125,20 @@ namespace Assets.Scripts.Movement
 				Pivot.transform.position = PivotCollider.GetPoint(TargetPoint);
 				_updatePivot = true;
 			}
+		}
+
+		public void SetPivotPoint(Collider2D col, Vector3 point, Vector2 normal)
+		{
+			if (Pivot == null)
+			{
+				Pivot = new GameObject();
+				Pivot.name = "Pivot";
+			}
+
+			Pivot.transform.position = point;
+			PivotCollider = col;
+			Pivot.transform.parent = PivotCollider.transform;
+			Normal = normal;
 		}
 
 		private Vector3 GetPivotPositionWhenCorner(ColliderPoint targetPoint)

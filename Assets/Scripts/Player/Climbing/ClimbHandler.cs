@@ -134,9 +134,10 @@ namespace Assets.Scripts.Player.Climbing
 
 		private bool IsEdgeUnblocked(Collider2D originalHit)
 		{
-			Vector3 origin = _playerCollider.bounds.center;
-
-			Vector2 direction = originalHit.bounds.center - origin;
+			Vector2 origin = _playerCollider.bounds.center;
+			Vector2 edgeCentre = originalHit.bounds.center;
+			Vector2 face = originalHit.transform.gameObject.layer == _leftClimbLayer ? originalHit.GetLeftFace() : originalHit.GetRightFace();
+			Vector2 direction = face - origin;
 
 			RaycastHit2D obstacleHit = Physics2D.Raycast(origin, direction, 10f, Layers.Platforms);
 			Debug.DrawRay(origin, direction, Color.red);
@@ -146,7 +147,7 @@ namespace Assets.Scripts.Player.Climbing
             return edgeObstructionHit == false &&
                 (obstacleHit == false
                 || originalHit.transform.parent == obstacleHit.collider.transform
-                || Vector2.Distance(originalHit.transform.position, obstacleHit.point) < 0.5f);
+                || Vector2.Distance(edgeCentre, obstacleHit.point) < 0.5f);
 		}
 
 		private bool IsCornerAccessible(Collider2D hit)
@@ -418,7 +419,7 @@ namespace Assets.Scripts.Player.Climbing
 			return hit;
 		}
 
-		public bool CheckGrab(DirectionFacing direction = DirectionFacing.None)
+		public bool CheckGrab(DirectionFacing direction = DirectionFacing.None, bool holdingUp = false)
 		{
 			float checkLength = ConstantVariables.GrabDistance;
 
@@ -437,7 +438,8 @@ namespace Assets.Scripts.Player.Climbing
 			else if (direction == DirectionFacing.Right)
 				layer = _leftClimbLayer;
 
-			hits = hits.Where(h => h.collider.CanClimbDown() == false || h.collider.gameObject.layer == layer).ToArray();
+			if (holdingUp == false)
+				hits = hits.Where(h => h.collider.CanClimbDown() == false || h.collider.gameObject.layer == layer).ToArray();
 
 			RaycastHit2D hit = GetValidHit(hits);
 

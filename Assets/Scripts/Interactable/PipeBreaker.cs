@@ -12,6 +12,7 @@ namespace Assets.Scripts.Interactable
 		{
 			_thisCol = GetComponent<CircleCollider2D>();
 			_fireplace = GetComponent<FirePlace>();
+			_fireplace.IsAccessible = true;
 		}
 
 		void OnTriggerStay2D(Collider2D col)

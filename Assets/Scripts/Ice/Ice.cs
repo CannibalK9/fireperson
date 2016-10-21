@@ -139,14 +139,7 @@ namespace Assets.Scripts.Ice
 			if (col.gameObject.layer == LayerMask.NameToLayer(Layers.Heat))
 			{
 				_meltedThisFrame = true;
-				if (col.gameObject.GetComponent<Tether>() == null)
-				{
-					RaycastHit2D hit = Physics2D.Raycast(col.bounds.center, transform.position - col.bounds.center, 20f, Layers.Platforms);
-					if (hit.transform == transform)//|| Vector2.Distance(hit.point, transform.position) < 0.5f)
-						Melt(col.gameObject.GetComponent<HeatHandler>().HeatMessage, col);
-				}
-				else
-					Melt(col.gameObject.GetComponent<HeatHandler>().HeatMessage, col);
+				Melt(col.gameObject.GetComponent<HeatHandler>().HeatMessage, col);
 			}
 		}
 
@@ -192,6 +185,8 @@ namespace Assets.Scripts.Ice
 					newPoint = point + (perpendicular2.normalized * (distanceToMove));
 					if (_polyCollider.OverlapPoint(newPoint))
 						newPoints[i] = transform.InverseTransformPoint(newPoint);
+					else
+						newPoints[i] = transform.InverseTransformPoint(Vector2.Lerp(beforePoint, afterPoint, 0.5f));
 				}
 			}
 			return newPoints;
@@ -248,10 +243,19 @@ namespace Assets.Scripts.Ice
 
 			for (int i = 0; i < _polyCollider.points.Length; i++)
 			{
-				Vector2 worldPoint = transform.TransformPoint(_polyCollider.points[i]);
+				Vector3 worldPoint = transform.TransformPoint(_polyCollider.points[i]);
 
 				if (col.OverlapPoint(worldPoint))
-					indices.Add(i);
+				{
+					if (col.gameObject.GetComponent<Tether>() == null)
+					{
+						RaycastHit2D hit = Physics2D.Raycast(col.bounds.center, worldPoint - col.bounds.center, 20f, Layers.Platforms);
+						if (hit.transform == transform)
+							indices.Add(i);
+					}
+					else
+						indices.Add(i);
+				}
 			}
 
 			return indices;

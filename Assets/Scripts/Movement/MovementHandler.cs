@@ -50,7 +50,7 @@ namespace Assets.Scripts.Movement
 
 		public bool IsCollidingWithNonPivot()
 		{
-			float collisionFudge = 0.1f;
+			float collisionFudge = 0.2f;
 			Bounds bounds = _motor.Collider.bounds;
 			RaycastHit2D[] hits = Physics2D.BoxCastAll(new Vector2(bounds.center.x, bounds.max.y - collisionFudge), new Vector2(bounds.size.x - (collisionFudge * 2), 0.001f), 0, Vector2.down, bounds.size.y - (collisionFudge * 2), Layers.Platforms);
 
@@ -123,7 +123,8 @@ namespace Assets.Scripts.Movement
 
 				if (_downHit.collider != _motor.MovementState.PivotCollider || leftHit || rightHit || hitLocation != _previousColliderPoint)
 				{
-					SetPivotPoint(_downHit.collider, pivotPosition);
+					_motor.MovementState.SetPivotPoint(_downHit.collider, pivotPosition, _downHit.normal);
+					DrawRay(pivotPosition, _downHit.normal, Color.yellow);
 					_previousColliderPoint = hitLocation;
 				}
 
@@ -221,11 +222,16 @@ namespace Assets.Scripts.Movement
 			return new RaycastHit2D();
 		}
 
-		private RaycastHit2D GetDownwardsHit(IEnumerable<RaycastHit2D> hits)
+		private RaycastHit2D GetDownwardsHit(List<RaycastHit2D> hits)
 		{
 			var validHit = new RaycastHit2D();
 			const float maxAngle = 90f;
 			float hitAngle = maxAngle;
+
+			if (_motor.MovementState.CurrentAcceleration.x < 0)
+				hits.OrderBy(h => h.point.x);
+			else
+				hits.OrderByDescending(h => h.point.x);
 
 			foreach (RaycastHit2D hit in hits)
 			{
@@ -262,15 +268,6 @@ namespace Assets.Scripts.Movement
 
 			Vector3 direction = _motor.MovementState.GetSurfaceDirection(moveRight ? DirectionTravelling.Right : DirectionTravelling.Left);
 			return direction.normalized * speed;
-		}
-
-		private void SetPivotPoint(Collider2D col, Vector3 point)
-		{
-			_motor.MovementState.Pivot.transform.position = point;
-			_motor.MovementState.PivotCollider = col;
-			_motor.MovementState.Pivot.transform.parent = _motor.MovementState.PivotCollider.transform;
-			_motor.MovementState.Normal = _downHit.normal;
-			DrawRay(point, _downHit.normal, Color.yellow);
 		}
 
 		private Vector3 MoveTowardsPivot(out float distance, float speed, Vector3 offset)

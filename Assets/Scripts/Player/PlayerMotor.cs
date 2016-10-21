@@ -362,7 +362,7 @@ namespace Assets.Scripts.Player
                     break; ;
 			}
 			if (cornerRecovery || (MovementState.PivotCollider.IsCorner() && (newPoint == ColliderPoint.TopLeft || newPoint == ColliderPoint.TopRight)))
-				MovementState.SetPivot(MovementState.PivotCollider, MovementState.TargetPoint, newPoint);
+				MovementState.SetPivotCollider(MovementState.PivotCollider, MovementState.TargetPoint, newPoint);
 			else
 				MovementState.CharacterPoint = newPoint;
 		}
@@ -379,7 +379,7 @@ namespace Assets.Scripts.Player
 			if (_climbHandler.CurrentClimb != Climb.Jump)
 			{
 				ClimbingState = _climbHandler.GetClimbingState(true);
-				MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
+				MovementState.SetPivotCollider(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
 			}
 			return PlayerState.Climbing;
 		}
@@ -414,19 +414,21 @@ namespace Assets.Scripts.Player
 			}
 			if (MovementState.RightCollision || MovementState.LeftCollision)
 			{
-				//BackToWallAnimation
+				//AtWallAnimation
 			}
 		}
 
 		private bool NotAtEdge(DirectionTravelling direction)
 		{
 			float xOrigin = direction == DirectionTravelling.Right
-				? Collider.bounds.max.x + 0.2f
-				: Collider.bounds.min.x - 0.2f;
-			var edgeRay = new Vector2(xOrigin, Collider.bounds.min.y);
+				? Collider.bounds.max.x + 0.1f
+				: Collider.bounds.min.x - 0.1f;
+			var edgeRay = new Vector2(xOrigin, Collider.bounds.min.y + ConstantVariables.MaxLipHeight);
 
 			Debug.DrawRay(edgeRay, MovementState.GetSurfaceDownDirection(), Color.blue);
-			return Physics2D.Raycast(edgeRay, MovementState.GetSurfaceDownDirection(), 1.5f, Layers.Platforms);
+			RaycastHit2D hit = Physics2D.Raycast(edgeRay, MovementState.GetSurfaceDownDirection(), 1.5f + ConstantVariables.MaxLipHeight, Layers.Platforms);
+
+			return hit == false ? false : Vector2.Angle(Vector2.up, hit.normal) < ConstantVariables.DefaultPlayerSlopeLimit;
 		}
 
 		private bool TryGrab() //forward is not being set correctly, all else seems to work!
@@ -456,7 +458,7 @@ namespace Assets.Scripts.Player
 			}
 			else
 			{
-				if (_climbHandler.CheckGrab())
+				if (_climbHandler.CheckGrab(holdingUp: KeyBindings.GetKey(Controls.Up)))
 				{
 					MovementState.IsGrounded = true;
 					MovementAllowed = true;
@@ -596,7 +598,7 @@ namespace Assets.Scripts.Player
 
 			ClimbingState = _climbHandler.SwitchClimbingState(direction);
 			if (ClimbingState.PivotCollider != null && ClimbingState.Climb != Climb.Jump && ClimbingState.Climb != Climb.End && ClimbingState.Recalculate)
-				MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
+				MovementState.SetPivotCollider(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
 
 			return ClimbingState;
 		}
@@ -617,7 +619,7 @@ namespace Assets.Scripts.Player
 				}
 
 				if (ClimbingState.PivotCollider != null && ClimbingState.Climb != Climb.End && ClimbingState.Recalculate)
-					MovementState.SetPivot(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
+					MovementState.SetPivotCollider(ClimbingState.PivotCollider, ClimbingState.PivotPosition, ClimbingState.PlayerPosition);
 				else if (ClimbingState.PivotCollider == null || ClimbingState.Climb == Climb.End)
 					MovementState.UnsetPivot();
 

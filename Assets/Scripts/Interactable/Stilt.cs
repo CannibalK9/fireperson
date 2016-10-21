@@ -13,10 +13,11 @@ namespace Assets.Scripts.Interactable
         private HingeJoint2D _hingeJoint;
 		private float _extendedPosition;
 		private float _collapsedPosition;
-		private float _runnerLength = 5;
+		private float _runnerLength;
 
         void Awake()
         {
+			_runnerLength = GetComponentInChildren<Rigidbody2D>().transform.localScale.x;
             _hingeJoint = GetComponentInChildren<HingeJoint2D>();
 			if (IsExtended)
 			{

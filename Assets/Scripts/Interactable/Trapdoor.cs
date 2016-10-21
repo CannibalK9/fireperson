@@ -17,10 +17,12 @@ namespace Assets.Scripts.Interactable
 
 		public bool RemainsSolid;
 		public float Mass;
+		private Transform _hinge;
 
 		void Awake()
 		{
-			_ice = gameObject.GetComponentsInChildren<Ice.Ice>();
+			_ice = GetComponentsInChildren<Ice.Ice>();
+			_hinge = GetComponentsInChildren<Transform>().SingleOrDefault(t => t.name == "hinge");
 		}
 
 		void Update()
@@ -46,6 +48,21 @@ namespace Assets.Scripts.Interactable
 			{
 				gameObject.layer = LayerMask.NameToLayer(Layers.Background);
 				gameObject.GetComponent<VLSObstructor>().ClearLocalVertices();
+			}
+
+			if (_hinge != null)
+			{
+				var h = gameObject.AddComponent<HingeJoint2D>();
+				h.anchor = _hinge.localPosition;
+				Rigidbody2D rbody = null;
+				Transform t = transform.parent;
+				while (t != null && rbody == null)
+				{
+					rbody = t.GetComponent<Rigidbody2D>();
+					t = t.parent;
+				}
+				if (rbody != null)
+					h.connectedBody = rbody;
 			}
 		}
 
