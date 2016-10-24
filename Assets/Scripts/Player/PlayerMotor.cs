@@ -505,8 +505,7 @@ namespace Assets.Scripts.Player
 					var stilt = Interaction.Object.GetComponentInChildren<Stilt>();
 					if (stilt != null)
 					{
-						InteractWithStilt(stilt);
-						return true;
+						return InteractWithStilt(stilt);
 					}
 					var chimney = Interaction.Object.GetComponentInChildren<ChimneyLid>();
 					if (chimney != null)
@@ -547,6 +546,12 @@ namespace Assets.Scripts.Player
 				_normalizedHorizontalSpeed = GetDirectionFacing() == DirectionFacing.Left ? 1 : -1;
 
 			_velocity.x = _normalizedHorizontalSpeed * 20;
+		}
+
+		public void Hop()
+		{
+			_normalizedHorizontalSpeed = GetDirectionFacing() == DirectionFacing.Right ? 1 : -1;
+			_velocity.x = _normalizedHorizontalSpeed * 0.5f;
 		}
 
 		public void FlipSprite()
@@ -671,16 +676,19 @@ namespace Assets.Scripts.Player
 			return Physics2D.BoxCast(origin, Vector2.one, 0, castDirection, checkLength, 1 << LayerMask.NameToLayer(Layers.Interactable));
 		}
 
-		public void InteractWithStilt(Stilt stilt)
+		public bool InteractWithStilt(Stilt stilt)
 		{
 			if (stilt.IsExtended)
 			{
 				Anim.PlayAnimation(Animations.LowerStilt);
+				return true;
 			}
 			else if (stilt.IsExtended == false && AbilityState.IsActive(Ability.Tools))
 			{
 				Anim.PlayAnimation(Animations.RaiseStilt);
+				return true;
 			}
+			return false;
 		}
 
 		public void InteractWithChimney(ChimneyLid chimney)

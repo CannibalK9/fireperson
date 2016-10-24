@@ -1,6 +1,7 @@
 ﻿#define DEBUG_CC2D_RAYS
 using Assets.Scripts.Helpers;
 using Assets.Scripts.Interactable;
+using Assets.Scripts.Player;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -84,8 +85,8 @@ namespace Assets.Scripts.Movement
 			{
 				deltaMovement.y = 0;
 
-				bool leftHit = DirectionCast(bounds, DirectionTravelling.Left);
-				bool rightHit = DirectionCast(bounds, DirectionTravelling.Right);
+				bool leftHit = _motor.MovementState.CurrentAcceleration.x > 0 ? false : DirectionCast(bounds, DirectionTravelling.Left);
+				bool rightHit = _motor.MovementState.CurrentAcceleration.x < 0 ? false : DirectionCast(bounds, DirectionTravelling.Right);
 
 				ColliderPoint hitLocation;
 
@@ -114,28 +115,27 @@ namespace Assets.Scripts.Movement
 						_motor.Transform.RotateAround(pivotPosition, Vector3.forward, (360 - rotation) / 2);
 				}
 
-				if (_downHit.collider != _motor.MovementState.PivotCollider || leftHit || rightHit || hitLocation != _previousColliderPoint)
+				_motor.MovementState.TrappedBetweenSlopes = _motor.MovementState.IsOnSlope
+					&& ((leftHit && _downHit.normal.x < 0)
+						|| (rightHit && _downHit.normal.x > 0));
+
+				if (_downHit.collider != _motor.MovementState.PivotCollider || leftHit || rightHit || hitLocation != _previousColliderPoint || Vector2.Distance(_motor.MovementState.Pivot.transform.position, bounds.center) > 10f)
 				{
 					_motor.MovementState.SetPivotPoint(_downHit.collider, pivotPosition, _downHit.normal);
-					DrawRay(pivotPosition, _downHit.normal, Color.yellow);
 					_previousColliderPoint = hitLocation;
-				}
-
-                _motor.MovementState.TrappedBetweenSlopes = _motor.MovementState.IsOnSlope
-                    && ((leftHit && _downHit.normal.x < 0)
-                        || (rightHit && _downHit.normal.x > 0));
+				}              
 
                 if (_motor.MovementState.TrappedBetweenSlopes == false)
                 {
                     _motor.MovementState.Pivot.transform.Translate(MoveAlongSurface(), Space.World);
 
-                    pivotPosition = _motor.MovementState.Pivot.transform.position + _motor.Transform.position - offset;
-                    Vector2 newPosition = Vector3.MoveTowards(_motor.Transform.position, pivotPosition, 100f);
+                    pivotPosition = _motor.MovementState.Pivot.transform.position + bounds.center - offset;
+                    Vector2 newPosition = Vector3.MoveTowards(bounds.center, pivotPosition, 100f);
 					if (_lip)
 						_motor.Transform.position = newPosition;
 					else
 						_motor.Rigidbody.MovePosition(newPosition);
-					DrawRay(_motor.MovementState.Pivot.transform.position, _downHit.normal, Color.yellow);
+					DrawRay(newPosition, _downHit.normal, Color.green);
                 }
 			}
 			else
@@ -213,20 +213,23 @@ namespace Assets.Scripts.Movement
 
         private bool AtEdge(Bounds bounds, DirectionTravelling direction)
         {
+			if (_motor.MovementState.IsOnSlope)
+				return false;
+
             float xOrigin = direction == DirectionTravelling.Right
                 ? bounds.max.x + 0.1f
                 : bounds.min.x - 0.1f;
-            var edgeRay = new Vector2(xOrigin, bounds.min.y + ConstantVariables.MaxLipHeight);
+            var edgeRay = new Vector2(xOrigin, bounds.min.y);
 
             Debug.DrawRay(edgeRay, _motor.MovementState.GetSurfaceDownDirection(), Color.blue);
-            RaycastHit2D hit = Physics2D.Raycast(edgeRay, _motor.MovementState.GetSurfaceDownDirection(), 1.5f + ConstantVariables.MaxLipHeight, Layers.Platforms);
-            bool atEdge = hit == false ? true : Vector2.Angle(Vector2.up, hit.normal) > ConstantVariables.DefaultPlayerSlopeLimit;
+            RaycastHit2D hit = Physics2D.Raycast(edgeRay, _motor.MovementState.GetSurfaceDownDirection(), 1.5f, Layers.Platforms);
+            bool atEdge = hit == false ? true : Vector2.Angle(Vector2.up, hit.normal) > _motor.SlopeLimit;
 
             if (atEdge)
             {
-                edgeRay += new Vector2(direction == DirectionTravelling.Right ? 1 : -1, 0);
+                edgeRay += new Vector2(direction == DirectionTravelling.Right ? 1 : -1, ConstantVariables.MaxLipHeight);
                 RaycastHit2D hit2 = Physics2D.Raycast(edgeRay, Vector2.down, 1.5f + ConstantVariables.MaxLipHeight, Layers.Platforms);
-                atEdge = hit2 == false ? true : Vector2.Angle(Vector2.up, hit2.normal) > ConstantVariables.DefaultPlayerSlopeLimit;
+                atEdge = hit2 == false ? true : Vector2.Angle(Vector2.up, hit2.normal) > _motor.SlopeLimit;
             }
 
             if (atEdge)
@@ -247,7 +250,7 @@ namespace Assets.Scripts.Movement
 
 		private RaycastHit2D GetDirectionHit(Bounds bounds, Vector2 direction)
 		{
-			RaycastHit2D[] cast = Physics2D.BoxCastAll(bounds.center, new Vector2(0.001f, bounds.size.y), 0, direction, bounds.extents.x + 0.05f, Layers.Platforms);
+			RaycastHit2D[] cast = Physics2D.BoxCastAll(bounds.center, new Vector2(0.01f, bounds.size.y), 0, direction, bounds.extents.x + 0.1f, Layers.Platforms);
 
 			foreach (RaycastHit2D hit in cast.Where(hit => hit.collider != _downHit.collider && Vector2.Angle(hit.normal, Vector2.up) > _motor.SlopeLimit))
 			{

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Helpers;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,22 +10,25 @@ namespace Assets.Scripts.Interactable
 		public bool IsExtended;
 		public bool RunnerRight;
 
-		private List<ParticleSystem> _particles;
         private HingeJoint2D _hingeJoint;
 		private float _extendedPosition;
 		private float _collapsedPosition;
 		private float _runnerLength;
+		private Transform _interactionPoint;
 
         void Awake()
         {
 			_runnerLength = GetComponentInChildren<Rigidbody2D>().transform.localScale.x;
             _hingeJoint = GetComponentInChildren<HingeJoint2D>();
+			_interactionPoint = GetComponentInChildren<BoxCollider2D>().transform;
+
 			if (IsExtended)
 			{
 				_extendedPosition = _hingeJoint.connectedAnchor.x;
 				_collapsedPosition = RunnerRight
 					? _hingeJoint.connectedAnchor.x + _runnerLength
 					: _hingeJoint.connectedAnchor.x - _runnerLength;
+				SetInteractionPoint();
 			}
 			else
 			{
@@ -32,6 +36,7 @@ namespace Assets.Scripts.Interactable
 				_extendedPosition = RunnerRight
 					? _hingeJoint.connectedAnchor.x - _runnerLength
 					: _hingeJoint.connectedAnchor.x + _runnerLength;
+				SetInteractionPoint();
 			}
 		}
 
@@ -49,6 +54,7 @@ namespace Assets.Scripts.Interactable
 				{
 					_hingeJoint.connectedAnchor += movement;
 				}
+				SetInteractionPoint();
 			}
 			else
 			{
@@ -60,6 +66,7 @@ namespace Assets.Scripts.Interactable
 				{
 					_hingeJoint.connectedAnchor -= movement;
 				}
+				SetInteractionPoint();
 			}
 
 			var limits = new JointAngleLimits2D();
@@ -68,6 +75,11 @@ namespace Assets.Scripts.Interactable
 			limits.max = -angleLimit;
 			limits.min = angleLimit;
 			_hingeJoint.limits = limits;
+		}
+
+		private void SetInteractionPoint()
+		{
+			_interactionPoint.localPosition = new Vector2(-0.5f, IsExtended ? 0 : RunnerRight ? -_runnerLength : _runnerLength);
 		}
 	}
 }

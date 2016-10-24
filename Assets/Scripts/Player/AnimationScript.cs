@@ -197,6 +197,11 @@ namespace Assets.Scripts.Player
 			}
 		}
 
+		private void Hop()
+		{
+			PlayerMotor.Hop();
+		}
+
 		private void MoveHorizontally()
 		{
 			_animator.speed = 1;

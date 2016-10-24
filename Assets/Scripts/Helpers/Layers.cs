@@ -101,11 +101,11 @@ namespace Assets.Scripts.Helpers
 
 		public static LayerMask Platforms
         {
-            get { return 1 << 8
-                    | 1 << 10
-                    | 1 << 18
-                    | 1 << 19
-                    | 1 << 20; }
+            get { return 1 << LayerMask.NameToLayer(Layers.IndoorMetal)
+                    | 1 << LayerMask.NameToLayer(Layers.IndoorWood)
+					| 1 << LayerMask.NameToLayer(Layers.OutdoorMetal)
+					| 1 << LayerMask.NameToLayer(Layers.OutdoorWood)
+					| 1 << LayerMask.NameToLayer(Layers.Ice); }
         }
 	}
 }

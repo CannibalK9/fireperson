@@ -21,7 +21,7 @@ namespace Assets.Scripts.Interactable
 			{
 				FirePlace connectedFireplace = col.GetComponent<FirePlace>();
 
-				if (_fireplace.IsAccessible && Vector2.Distance(col.bounds.center, _thisCol.bounds.center) < 0.1f)
+				if (_fireplace.IsAccessible && connectedFireplace.IsAccessible && Vector2.Distance(col.bounds.center, _thisCol.bounds.center) < 0.1f)
 				{
 					_fireplace.Connect(connectedFireplace);
 				}

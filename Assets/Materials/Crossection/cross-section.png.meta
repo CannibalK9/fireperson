@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 6035b6603a26f22438faf9707668550e
-timeCreated: 1476280419
+timeCreated: 1477177569
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -21,10 +21,26 @@ TextureImporter:
     21300028: bokenFloor
     21300030: brokenWall
     21300032: brokenTile
+    21300034: stiltRail
+    21300036: stiltRailEnd
+    21300038: stiltStepRight
+    21300040: rockAnchor
+    21300042: buildingAnchorUnattached
+    21300044: anchorPoleAttached
+    21300046: anchorPoleUnattached1
+    21300048: anchorPoleUnattached2
+    21300050: buildingAnchor
+    21300052: stiltStepLeft
+    21300054: stilt
+    21300056: stiltEnd
+    21300058: stiltRivet
+    21300060: stiltBuilding
+    21300062: anchorRivet
+    21300064: stiltAnchor
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -71,7 +87,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 1984
+        y: 1982
         width: 128
         height: 64
       alignment: 0
@@ -176,7 +192,7 @@ TextureImporter:
     - name: brokenWall
       rect:
         serializedVersion: 2
-        x: 386
+        x: 384
         y: 1890
         width: 124
         height: 64
@@ -186,10 +202,8 @@ TextureImporter:
       outline:
       - - {x: -62, y: 32}
         - {x: -62, y: -32}
-        - {x: 44, y: -32}
-        - {x: 62, y: -12}
-        - {x: 62, y: 12}
-        - {x: 44, y: 32}
+        - {x: 62, y: -32}
+        - {x: 62, y: 32}
     - name: brokenTile
       rect:
         serializedVersion: 2
@@ -197,6 +211,158 @@ TextureImporter:
         y: 1890
         width: 156
         height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: stiltRail
+      rect:
+        serializedVersion: 2
+        x: 763
+        y: 1984
+        width: 128
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: stiltRailEnd
+      rect:
+        serializedVersion: 2
+        x: 916
+        y: 1984
+        width: 10
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: stiltStepRight
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 1984
+        width: 80
+        height: 32
+      alignment: 9
+      pivot: {x: 0.065, y: 0.85}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -5.200012, y: 4.800049}
+        - {x: -5.200012, y: -27.199951}
+        - {x: 32.799988, y: -27.199951}
+        - {x: 54.799988, y: -14.199951}
+        - {x: 74.79999, y: -0.19995117}
+        - {x: 74.79999, y: 4.800049}
+    - name: rockAnchor
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 1944
+        width: 129
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 11.5, y: 16}
+        - {x: -64.5, y: 9}
+        - {x: -64.5, y: -10}
+        - {x: -16.5, y: -16}
+        - {x: 63.5, y: -16}
+        - {x: 64.5, y: -11}
+        - {x: 64.5, y: 12}
+        - {x: 59.5, y: 16}
+    - name: anchorPoleAttached
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 1912
+        width: 490
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 10, y: 16}
+        - {x: -245, y: 16}
+        - {x: -245, y: -16}
+        - {x: 19, y: -16}
+        - {x: 245, y: -10}
+        - {x: 245, y: 7}
+        - {x: 237, y: 9}
+      - - {x: -102, y: 16}
+        - {x: -101, y: 13}
+        - {x: -97, y: 13}
+        - {x: -95, y: 15}
+        - {x: -95, y: 16}
+    - name: buildingAnchor
+      rect:
+        serializedVersion: 2
+        x: 961
+        y: 1951
+        width: 37
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: stiltStepLeft
+      rect:
+        serializedVersion: 2
+        x: 1108
+        y: 1984
+        width: 80
+        height: 32
+      alignment: 9
+      pivot: {x: 0.95, y: 0.85}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -76, y: 4.800049}
+        - {x: -76, y: -0.19995117}
+        - {x: -38, y: -27.199951}
+        - {x: 4, y: -27.199951}
+        - {x: 4, y: 4.800049}
+    - name: anchorRivet
+      rect:
+        serializedVersion: 2
+        x: 1022
+        y: 1946
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: stilt
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 1887
+        width: 128
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: stiltRivet
+      rect:
+        serializedVersion: 2
+        x: 1148
+        y: 1950
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: stiltAnchor
+      rect:
+        serializedVersion: 2
+        x: 1182
+        y: 1946
+        width: 25
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

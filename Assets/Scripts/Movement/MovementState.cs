@@ -83,6 +83,8 @@ namespace Assets.Scripts.Movement
 			IsGrounded = false;
 			LeftCollision = false;
 			RightCollision = false;
+			LeftEdge = false;
+			RightEdge = false;
 			IsOnSlope = false;
 			CurrentAcceleration = currentAcceleration;
             TrappedBetweenSlopes = false;
@@ -104,14 +106,14 @@ namespace Assets.Scripts.Movement
 
         public void OnLeftEdge()
         {
-            if (CurrentAcceleration.x < 0)
+            if (IsOnSlope == false && CurrentAcceleration.x < 0)
                 CurrentAcceleration = new Vector2(0, CurrentAcceleration.y);
             LeftEdge = true;
         }
 
         public void OnRightEdge()
         {
-            if (CurrentAcceleration.x > 0)
+			if (IsOnSlope == false && CurrentAcceleration.x > 0)
                 CurrentAcceleration = new Vector2(0, CurrentAcceleration.y);
             RightEdge = true;
         }
