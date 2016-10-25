@@ -90,33 +90,23 @@ namespace Assets.Scripts.Interactable
 
 			if (_orientation == Orientation.UprightAntiClockwise)
 			{
-                if (IsRightCorner == false)
-					CreateRightUpright();
+				CreateRightUpright();
 			}
             else if (_orientation == Orientation.UprightClockwise)
             {
-                if (IsLeftCorner == false)
-                    CreateLeftUpright();
+                CreateLeftUpright();
             }
 			else
 			{
-				if (IsLeftCorner)
+				if (IsLeftCorner == false)
 				{
-					if ((_orientation == Orientation.Flat && IsLeftCornerInverted == false)
-						|| (_orientation == Orientation.UpsideDown && IsLeftCornerInverted))
-						CreateLeftEdge();
-				}
-				else
 					CreateLeftEdge();
-
-				if (IsRightCorner)
-				{
-					if ((_orientation == Orientation.Flat && IsRightCornerInverted == false)
-						|| (_orientation == Orientation.UpsideDown && IsRightCornerInverted))
-						CreateRightEdge();
 				}
-				else
+
+				if (IsRightCorner == false)
+				{
 					CreateRightEdge();
+				}
 			}
 			transform.rotation = currentRotation;
 			transform.parent = currentParent;
@@ -163,8 +153,14 @@ namespace Assets.Scripts.Interactable
 			_leftEdge = Instantiate(_leftEdgeObject);
 			_rightEdge = Instantiate(_rightEdgeObject);
 
-			_leftEdge.name += " upright corner";
-			_rightEdge.name += " upright corner";
+			_leftEdge.name += " upright";
+			_rightEdge.name += " upright";
+
+			if ((_orientation == Orientation.UprightAntiClockwise && IsRightCorner) || (_orientation == Orientation.UprightClockwise && IsLeftCorner))
+			{
+				_rightEdge.name += " corner";
+				_leftEdge.name += " corner";
+			}
 		}
 
 		private void CreateLeftEdge()
@@ -174,13 +170,6 @@ namespace Assets.Scripts.Interactable
 				_leftEdge = _orientation == Orientation.UpsideDown || IsLeftCornerInverted
 					? Instantiate(_rightEdgeObject)
 					: Instantiate(_leftEdgeObject);
-
-				if (IsLeftCorner)
-				{
-					_leftEdge.name += " corner";
-					if (IsLeftCornerInverted)
-						_leftEdge.name += " inv";
-				}
 
 				if (IsLeftDropless)
 					_leftEdge.name += " dropless";
@@ -209,13 +198,6 @@ namespace Assets.Scripts.Interactable
 				_rightEdge = _orientation == Orientation.UpsideDown || IsRightCornerInverted
 					? Instantiate(_leftEdgeObject)
 					: Instantiate(_rightEdgeObject);
-
-				if (IsRightCorner)
-				{
-					_rightEdge.name += " corner";
-					if (IsRightCornerInverted)
-						_rightEdge.name += " inv";
-				}
 
 				if (IsRightDropless)
 					_rightEdge.name += " dropless";

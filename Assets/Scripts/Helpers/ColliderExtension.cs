@@ -93,11 +93,6 @@ namespace Assets.Scripts.Helpers
 			return col.name.Contains("corner");
 		}
 
-		public static bool IsInverted(this Collider2D col)
-		{
-			return col.name.Contains("inv");
-		}
-
 		public static bool IsUpright(this Collider2D col)
 		{
 			return col.name.Contains("upright");

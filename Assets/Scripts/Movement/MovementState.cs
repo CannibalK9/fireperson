@@ -128,7 +128,7 @@ namespace Assets.Scripts.Movement
 			PivotCollider = pivotCollider;
 			Pivot.transform.parent = pivotCollider.transform.parent;
 
-			if (pivotCollider.IsCorner() && (characterPoint == ColliderPoint.TopLeft || characterPoint == ColliderPoint.TopRight))
+			if (pivotCollider.IsUpright() && (characterPoint == ColliderPoint.TopLeft || characterPoint == ColliderPoint.TopRight))
 			{
 				CharacterPoint = ColliderPoint.Centre;
 				PreviousCharacterPoint = characterPoint;
@@ -161,18 +161,7 @@ namespace Assets.Scripts.Movement
 
 		private Vector3 GetPivotPositionWhenCorner(ColliderPoint targetPoint)
 		{
-			if (PivotCollider.IsUpright())
-				CornerCollider = Pivot.transform.parent;
-			else
-			{
-				bool left = OrientationHelper.GetOrientation(Pivot.transform.parent.rotation.eulerAngles.z) == Orientation.Flat
-						? Pivot.transform.position.x < Pivot.transform.parent.position.x
-						: Pivot.transform.position.x > Pivot.transform.parent.position.x;
-
-				CornerCollider = left
-					? Pivot.transform.parent.GetComponent<ClimbableEdges>().LeftException.transform
-					: Pivot.transform.parent.GetComponent<ClimbableEdges>().RightException.transform;
-			}
+			CornerCollider = Pivot.transform.parent;
 
 			Vector3 vAcross = CornerCollider.up;
 			Vector3 vDown = CornerCollider.right;

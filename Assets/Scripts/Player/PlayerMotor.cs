@@ -361,7 +361,7 @@ namespace Assets.Scripts.Player
                     newPoint = ColliderPoint.BottomFace;
                     break; ;
 			}
-			if (cornerRecovery || (MovementState.PivotCollider.IsCorner() && (newPoint == ColliderPoint.TopLeft || newPoint == ColliderPoint.TopRight)))
+			if (cornerRecovery || (MovementState.PivotCollider.IsUpright() && (newPoint == ColliderPoint.TopLeft || newPoint == ColliderPoint.TopRight)))
 				MovementState.SetPivotCollider(MovementState.PivotCollider, MovementState.TargetPoint, newPoint);
 			else
 				MovementState.CharacterPoint = newPoint;

@@ -55,16 +55,7 @@ namespace Assets.Scripts.Movement
 			Bounds bounds = _motor.Collider.bounds;
 			RaycastHit2D[] hits = Physics2D.BoxCastAll(new Vector2(bounds.center.x, bounds.max.y - collisionFudge), new Vector2(bounds.size.x - (collisionFudge * 2), 0.001f), 0, Vector2.down, bounds.size.y - (collisionFudge * 2), Layers.Platforms);
 
-			ClimbableEdges climbableEdges = _motor.MovementState.Pivot.transform.parent.GetComponent<ClimbableEdges>();
-
-			if (climbableEdges != null)
-				return hits.Any(hit =>
-				hit.collider.transform != _motor.MovementState.Pivot.transform.parent
-				&& hit.collider != climbableEdges.LeftException
-				&& hit.collider != climbableEdges.RightException);
-			else
-				return hits.Any(hit =>
-					hit.collider.transform != _motor.MovementState.Pivot.transform);
+			return ClimbCollision.IsCollisionInvalid(hits, _motor.MovementState.Pivot.transform);
 		}
 
 		public void BoxCastMove(Vector3 deltaMovement, bool isKinematic)

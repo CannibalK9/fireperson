@@ -16,5 +16,6 @@
         public static float MaxLipHeight = 1f;
 		public static float GrabDistance = 1.2f;
 		public static float StabilityHeatRangeModifier = 20f;
+		public static float FingerHoldSpace = 0.1f;
 	}
 }
