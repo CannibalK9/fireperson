@@ -156,6 +156,12 @@ namespace Assets.Scripts.Interactable
 			_leftEdge.name += " upright";
 			_rightEdge.name += " upright";
 
+			if (IsLeftDropless)
+				_leftEdge.name += " dropless";
+
+			if (IsRightDropless)
+				_rightEdge.name += " dropless";
+
 			if ((_orientation == Orientation.UprightAntiClockwise && IsRightCorner) || (_orientation == Orientation.UprightClockwise && IsLeftCorner))
 			{
 				_rightEdge.name += " corner";

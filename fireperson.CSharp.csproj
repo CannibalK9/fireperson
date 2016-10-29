@@ -124,6 +124,9 @@
     <Compile Include="Assets\Scripts\Interactable\StoveDoor.cs" />
     <Compile Include="Assets\Scripts\Interactable\Trapdoor.cs" />
     <Compile Include="Assets\Scripts\Interactable\spin.cs" />
+    <Compile Include="Assets\Scripts\Misc\ParallaxBackground.cs" />
+    <Compile Include="Assets\Scripts\Misc\ParallaxCamera.cs" />
+    <Compile Include="Assets\Scripts\Misc\ParallaxLayer.cs" />
     <Compile Include="Assets\Scripts\Misc\SmoothCamera2D.cs" />
     <Compile Include="Assets\Scripts\Movement\CharacterRaycastOrigins.cs" />
     <Compile Include="Assets\Scripts\Movement\CollisionState.cs" />

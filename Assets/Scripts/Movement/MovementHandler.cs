@@ -113,8 +113,8 @@ namespace Assets.Scripts.Movement
 				if (_downHit.collider != _motor.MovementState.PivotCollider || leftHit || rightHit || hitLocation != _previousColliderPoint || Vector2.Distance(_motor.MovementState.Pivot.transform.position, bounds.center) > 10f)
 				{
 					_motor.MovementState.SetPivotPoint(_downHit.collider, pivotPosition, _downHit.normal);
-					_previousColliderPoint = hitLocation;
 				}              
+				_previousColliderPoint = hitLocation;
 
                 if (_motor.MovementState.TrappedBetweenSlopes == false)
                 {

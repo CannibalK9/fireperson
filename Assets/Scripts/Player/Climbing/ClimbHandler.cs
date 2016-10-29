@@ -3,6 +3,7 @@ using System.Linq;
 using Assets.Scripts.Helpers;
 using UnityEngine;
 using Assets.Scripts.Interactable;
+using System;
 
 namespace Assets.Scripts.Player.Climbing
 {
@@ -143,7 +144,7 @@ namespace Assets.Scripts.Player.Climbing
 			RaycastHit2D obstacleHit = Physics2D.Raycast(origin, direction, 10f, Layers.Platforms);
 			Debug.DrawRay(origin, direction, Color.red);
 
-            RaycastHit2D edgeObstructionHit = Physics2D.Raycast(originalHit.GetTopFace() + new Vector3(0, 0.03f), Vector2.up, ConstantVariables.FingerHoldSpace, Layers.Platforms);
+            RaycastHit2D edgeObstructionHit = Physics2D.Raycast(originalHit.GetTopFace() + new Vector3(0, 0.1f), Vector2.up, ConstantVariables.FingerHoldSpace, Layers.Platforms);
 
             return edgeObstructionHit == false &&
                 (obstacleHit == false
@@ -235,7 +236,7 @@ namespace Assets.Scripts.Player.Climbing
 			int layer = _climbCollider.gameObject.layer;
 
 			float xValue = layer == _leftClimbLayer ? _playerCollider.bounds.max.x - (checkWidth / 2) : _playerCollider.bounds.min.x + (checkWidth / 2);
-            float yValue = _playerCollider.bounds.max.y;
+            float yValue = _playerCollider.bounds.max.y + 1;
 
             var origin = new Vector3(xValue, yValue);
             var size = new Vector2(checkWidth, 0.01f);
@@ -271,38 +272,44 @@ namespace Assets.Scripts.Player.Climbing
 			const float checkWidth = 2f;
 
             int layer = direction == DirectionFacing.Right ? _rightClimbLayer : _leftClimbLayer;
-            BoxCollider2D edge = _motor.MovementState.PivotCollider.gameObject.GetComponentsInChildren<BoxCollider2D>().SingleOrDefault(c => c.gameObject.layer == layer);
-
-			if (edge == null)
+			BoxCollider2D edge = null;
+			try
 			{
-				var climbableEdges = _motor.MovementState.PivotCollider.gameObject.GetComponent<ClimbableEdges>();
+				edge = _motor.MovementState.PivotCollider.gameObject.GetComponentsInChildren<BoxCollider2D>().SingleOrDefault(c => c.gameObject.layer == layer);
 
-				if (climbableEdges != null)
+				if (edge == null)
 				{
-					Orientation orientation = OrientationHelper.GetOrientation(_motor.MovementState.PivotCollider.transform.rotation.eulerAngles.z);
+					var climbableEdges = _motor.MovementState.PivotCollider.gameObject.GetComponent<ClimbableEdges>();
 
-					Collider2D excluded = null;
-					if (orientation == Orientation.Flat)
+					if (climbableEdges != null)
 					{
-						if (direction == DirectionFacing.Left && climbableEdges.IsLeftCorner && climbableEdges.IsLeftCornerInverted == false)
-							excluded = climbableEdges.LeftException;
-						else if (direction == DirectionFacing.Right && climbableEdges.IsRightCorner && climbableEdges.IsRightCornerInverted == false)
-							excluded = climbableEdges.RightException;
-					}
-					else if (orientation == Orientation.UpsideDown)
-					{
-						if (direction == DirectionFacing.Left && climbableEdges.IsRightCorner && climbableEdges.IsRightCornerInverted)
-							excluded = climbableEdges.RightException;
-						else if (direction == DirectionFacing.Right && climbableEdges.IsLeftCorner && climbableEdges.IsLeftCornerInverted)
-							excluded = climbableEdges.LeftException;
-					}
+						Orientation orientation = OrientationHelper.GetOrientation(_motor.MovementState.PivotCollider.transform.rotation.eulerAngles.z);
 
-					if (excluded != null)
-					{
-						edge =excluded.gameObject.GetComponentsInChildren<BoxCollider2D>().SingleOrDefault(c => c.gameObject.layer == layer);
+						Collider2D excluded = null;
+						if (orientation == Orientation.Flat)
+						{
+							if (direction == DirectionFacing.Left && climbableEdges.IsLeftCorner && climbableEdges.IsLeftCornerInverted == false)
+								excluded = climbableEdges.LeftException;
+							else if (direction == DirectionFacing.Right && climbableEdges.IsRightCorner && climbableEdges.IsRightCornerInverted == false)
+								excluded = climbableEdges.RightException;
+						}
+						else if (orientation == Orientation.UpsideDown)
+						{
+							if (direction == DirectionFacing.Left && climbableEdges.IsRightCorner && climbableEdges.IsRightCornerInverted)
+								excluded = climbableEdges.RightException;
+							else if (direction == DirectionFacing.Right && climbableEdges.IsLeftCorner && climbableEdges.IsLeftCornerInverted)
+								excluded = climbableEdges.LeftException;
+						}
+
+						if (excluded != null)
+						{
+							edge = excluded.gameObject.GetComponentsInChildren<BoxCollider2D>().SingleOrDefault(c => c.gameObject.layer == layer);
+						}
 					}
 				}
 			}
+			catch (Exception)
+			{ }
 
             if (edge != null && SpaceAboveEdge(edge))
 			{
@@ -535,13 +542,14 @@ namespace Assets.Scripts.Player.Climbing
 
         private bool SpaceAboveEdge(Collider2D col)
         {
-            return Physics2D.Raycast(col.transform.gameObject.layer == _leftClimbLayer ? col.GetTopLeft() : col.GetTopRight() + new Vector3(0, 0.01f), Vector2.up, _playerCollider.bounds.size.y, Layers.Platforms) == false;
-        }
+			RaycastHit2D hit = Physics2D.Raycast((col.transform.gameObject.layer == _leftClimbLayer ? col.GetTopLeft() : col.GetTopRight()) + new Vector3(0, 0.1f, 0), Vector2.up, _playerCollider.bounds.size.y, Layers.Platforms);
+			return hit == false;
+		}
 
 		private bool SpaceBelowEdge(Collider2D col)
 		{
 			bool isLeft = col.transform.gameObject.layer == _leftClimbLayer;
-			RaycastHit2D[] hits = Physics2D.BoxCastAll(isLeft ? col.GetTopLeft() : col.GetTopRight() + new Vector3(isLeft ? -_playerCollider.bounds.extents.x : _playerCollider.bounds.extents.x, 0),
+			RaycastHit2D[] hits = Physics2D.BoxCastAll((isLeft ? col.GetTopLeft() : col.GetTopRight()) + new Vector3(isLeft ? -_playerCollider.bounds.extents.x : _playerCollider.bounds.extents.x, 0),
 				new Vector2(_playerCollider.bounds.size.x, 0.1f), 0, -col.transform.up, _playerCollider.bounds.size.y, Layers.Platforms);
 
 			return ClimbCollision.IsCollisionInvalid(hits, col.transform) == false;
@@ -550,8 +558,8 @@ namespace Assets.Scripts.Player.Climbing
 		private bool SpaceOffEdge(Collider2D col)
 		{
 			bool isLeft = col.transform.gameObject.layer == _leftClimbLayer;
-			RaycastHit2D[] hits = Physics2D.BoxCastAll(isLeft ? col.GetTopLeft() : col.GetTopRight() + new Vector3(isLeft ? -_playerCollider.bounds.extents.x : _playerCollider.bounds.extents.x, 0),
-				new Vector2(_playerCollider.bounds.size.x, 0.1f), 0, Vector2.up, _playerCollider.bounds.size.y + ConstantVariables.MaxLipHeight, Layers.Platforms);
+			RaycastHit2D[] hits = Physics2D.BoxCastAll((isLeft ? col.GetTopLeft() : col.GetTopRight()) + new Vector3(isLeft ? -_playerCollider.bounds.extents.x : _playerCollider.bounds.extents.x, 0),
+				new Vector2(_playerCollider.bounds.size.x, 0.1f), 0, Vector2.up, _playerCollider.bounds.size.y, Layers.Platforms);
 
 			return ClimbCollision.IsCollisionInvalid(hits, col.transform) == false;
 		}

@@ -550,8 +550,8 @@ namespace Assets.Scripts.Player
 
 		public void Hop()
 		{
-			_normalizedHorizontalSpeed = GetDirectionFacing() == DirectionFacing.Right ? 1 : -1;
-			_velocity.x = _normalizedHorizontalSpeed * 0.5f;
+			MovementState.MovePivotDown();
+			CancelClimbingState();
 		}
 
 		public void FlipSprite()
@@ -757,9 +757,9 @@ namespace Assets.Scripts.Player
                 : ConstantVariables.DefaultMovementSpeed;
 
 			float animSpeed = 0.6f;// distance / speed;
-            return animSpeed < 10
+            return animSpeed < 5
                 ? animSpeed
-                : 10;
+                : 5;
         }
 
 		public Vector2 GetGroundPivotPosition()

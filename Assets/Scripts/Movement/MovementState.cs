@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Helpers;
-using Assets.Scripts.Interactable;
 using UnityEngine;
 
 namespace Assets.Scripts.Movement
@@ -72,6 +71,17 @@ namespace Assets.Scripts.Movement
 			_updatePivot = false;
 			Pivot.transform.Translate(movement, Space.World);
         }
+
+		public void MovePivotDown()
+		{
+			Orientation o = OrientationHelper.GetOrientation(GetPivotParentRotation());
+			Vector3 v = OrientationHelper.GetDownwardVector(o, Pivot.transform.parent);
+
+			Vector3 movement = v.normalized * 0.5f;
+
+			_updatePivot = false;
+			Pivot.transform.Translate(movement, Space.World);
+		}
 
 		public float GetPivotParentRotation()
 		{

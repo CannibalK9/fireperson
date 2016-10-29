@@ -27,7 +27,7 @@ namespace Assets.Scripts.Player
 		private float _intensityLastFrame;
 
 		private float _currentControl = 1f;
-		public float DistanceFromPlayer { get { return 5 + _currentControl / 5; } }
+		public float DistanceFromPlayer { get { return 10 + _currentControl / 5; } }
 		private float _controlLastFrame;
 
 		public Transform Transform { get; set; }

@@ -199,6 +199,7 @@ namespace Assets.Scripts.Player
 
 		private void Hop()
 		{
+			_animator.speed = 1;
 			PlayerMotor.Hop();
 		}
 

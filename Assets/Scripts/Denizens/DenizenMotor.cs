@@ -129,6 +129,7 @@ namespace Assets.Scripts.Denizens
 
 			if (CanMove && StartsMoving && (_moveWhenSpotted || _hasMoved))
 			{
+				_velocity = Vector2.zero;
 				_animator.SetBool(DenizenAnimBool.Moving, true);
 				SetTravelInDirectionFacing();
 				_transitioning = false;
