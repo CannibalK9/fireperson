@@ -151,6 +151,7 @@
     <Compile Include="Assets\Scripts\Player\Config\Variable.cs" />
     <Compile Include="Assets\Scripts\Player\ControlBorder.cs" />
     <Compile Include="Assets\Scripts\Player\Controls.cs" />
+    <Compile Include="Assets\Scripts\Player\CurrentClimate.cs" />
     <Compile Include="Assets\Scripts\Player\Interaction.cs" />
     <Compile Include="Assets\Scripts\Player\PL\PilotedLightController.cs" />
     <Compile Include="Assets\Scripts\Player\PL\PilotedLightMotor.cs" />

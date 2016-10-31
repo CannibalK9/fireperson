@@ -23,6 +23,9 @@ namespace Assets.Scripts.Player.PL
 		private float _timeClicked;
 		private float _burstTime;
 		private bool _fireplaceWasLit;
+        private float _timeAwayFromPlayer;
+        private float _maxBurstTime = 2f;
+        private float _maxDistanceAwayTime;
 
 		public float FlySpeed = 2f;
 		public float AirDamping = 500f;
@@ -81,7 +84,7 @@ namespace Assets.Scripts.Player.PL
 						float maxTime = 2f;
 						_burstTime += Time.deltaTime;
 						_burstTime = _burstTime > maxTime ? maxTime : _burstTime;
-						_controller.DecreaseVariables(1 - _burstTime / maxTime);
+                        DecreaseVariables();
 					}
 				}
 
@@ -125,61 +128,98 @@ namespace Assets.Scripts.Player.PL
 
 			GetComponentInChildren<CircleCollider2D>().enabled = IsScouting == false;
 
-			if (_fireplace != null)
-			{
-				if (OnPoint())
-				{
-					MoveTowardsPoint();
-					MovementState.MovementOverridden = false;
+            if (_fireplace != null)
+            {
+                _controller.ResetVariables();
+                _timeAwayFromPlayer = 0;
 
-					if (_isFireplaceActive)
-					{
-						ActivatePoint();
-						_isFireplaceActive = false;
-					}
+                if (OnPoint())
+                {
+                    MoveTowardsPoint();
+                    MovementState.MovementOverridden = false;
 
-					if (_fireplace.IsLit && _fireplaceWasLit == false && IsScouting == false)
-					{
-						_controller.EnterFireplace(_fireplace);
-						_fireplaceWasLit = true;
-					}
-					else if (_fireplace.IsLit == false && _fireplaceWasLit && IsScouting == false)
-					{
-						_controller.LeaveFireplace(_fireplace);
-						_fireplaceWasLit = false;
-					}
-				}
-				else if (OnPoint() == false && MovementState.MovementOverridden == false)
-				{
-					if (_fireplace.IsLit && IsScouting == false)
-						_controller.LeaveFireplace(_fireplace);
+                    if (_isFireplaceActive)
+                    {
+                        ActivatePoint();
+                        _isFireplaceActive = false;
+                    }
 
-					_fireplaceWasLit = false;
-					LeaveSpot();
-				}
-				else
-					MoveTowardsPoint();
-			}
-			else if (_controller.IsWithinPlayerDistance() == false)
-			{
-				if (AbilityState.IsActive(Ability.Scout) && _controller.IsWithinScoutingDistance())
-				{
-					if (IsScouting == false)
-						_controller.DecreaseVariables(0);
-					IsScouting = true;
-				}
-				else
-					DestroyObject(gameObject);
-			}
-			else
-			{
-				if (IsScouting)
-					_controller.ResetVariables();
-				IsScouting = false;
-			}
+                    if (_fireplace.IsLit && _fireplaceWasLit == false && IsScouting == false)
+                    {
+                        _controller.EnterFireplace(_fireplace);
+                        _fireplaceWasLit = true;
+                    }
+                    else if (_fireplace.IsLit == false && _fireplaceWasLit && IsScouting == false)
+                    {
+                        _controller.LeaveFireplace(_fireplace);
+                        _fireplaceWasLit = false;
+                    }
+                }
+                else if (OnPoint() == false && MovementState.MovementOverridden == false)
+                {
+                    if (_fireplace.IsLit && IsScouting == false)
+                        _controller.LeaveFireplace(_fireplace);
+
+                    _fireplaceWasLit = false;
+                    LeaveSpot();
+                }
+                else
+                    MoveTowardsPoint();
+            }
+            else if (_controller.IsWithinPlayerDistance() == false)
+            {
+                if (AbilityState.IsActive(Ability.Scout))
+                {
+                    if (_controller.IsWithinScoutingDistance())
+                    {
+                        if (IsScouting == false)
+                            _controller.DecreaseVariables(0);
+                        IsScouting = true;
+                    }
+                    else
+                        DestroyObject(gameObject);
+                }
+                else
+                {
+                    DecreaseOverTimeDependingOnStability();
+                    IsScouting = false;
+                }
+            }
+            else
+            {
+                _controller.ResetVariables();
+                _timeAwayFromPlayer = 0;
+                IsScouting = false;
+            }
 		}
 
-		private void MoveTowardsPoint()
+        private void DecreaseOverTimeDependingOnStability()
+        {
+            _timeAwayFromPlayer += Time.deltaTime;
+            _maxDistanceAwayTime = _controller.BaseStability / 10;
+
+            DecreaseVariables();
+        }
+
+        private void DecreaseVariables()
+        {
+            float distanceProportion = _timeAwayFromPlayer / _maxDistanceAwayTime;
+            float burstProportion = _burstTime / _maxBurstTime;
+            float totalProportion = 1 - distanceProportion - burstProportion;
+
+            if (totalProportion >= 0)
+            {
+                _controller.DecreaseVariables(totalProportion);
+            }
+            else
+            {
+                if (_burstTime > 0)
+                    Burst();
+                DestroyObject(gameObject);
+            }
+        }
+
+        private void MoveTowardsPoint()
 		{
 			_noGravity = true;
 			_movement.MoveLinearly(0.2f);

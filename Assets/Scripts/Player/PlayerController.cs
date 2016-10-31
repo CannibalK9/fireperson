@@ -66,7 +66,11 @@ namespace Assets.Scripts.Player
 			UpdateStabilityIntensity();
 			UpdateControlBorder();
 
-			if (KeyBindings.GetKeyUp(Controls.Ability1) && ChannelingHandler.ChannelingSet)
+            CurrentClimate.Stability = _currentStability;
+            CurrentClimate.Intensity = _currentIntensity;
+            CurrentClimate.Control = _currentControl;
+
+            if (KeyBindings.GetKeyUp(Controls.Ability1) && ChannelingHandler.ChannelingSet)
 			{
 				ChannelingHandler.IsTethered = !ChannelingHandler.IsTethered;
 			}

@@ -25,8 +25,7 @@ namespace Assets.Scripts.Interactable
 		private GameObject _leftEdge;
 		private GameObject _rightEdge;
 
-		private bool _wasLeft;
-		private bool _wasRight;
+        private bool[] _oldBools;
 
 		private BoxCollider2D _col;
 		private Orientation _orientation;
@@ -34,8 +33,7 @@ namespace Assets.Scripts.Interactable
 		void Awake()
 		{
 			_col = gameObject.GetComponent<BoxCollider2D>();
-			_wasLeft = LeftEdge;
-			_wasRight = RightEdge;
+            _oldBools = GetBoolArray();
         }
 
 		void Start()
@@ -46,12 +44,11 @@ namespace Assets.Scripts.Interactable
 
         void Update()
 		{
-			if (LeftEdge != _wasLeft || RightEdge != _wasRight)
+			if (GetBoolArray() != _oldBools)
 			{
 				_orientation = Orientation.None;
 				DeactiveEdges();
-				_wasLeft = LeftEdge;
-				_wasRight = RightEdge;
+                _oldBools = GetBoolArray();
 			}
 			if (LeftEdge || RightEdge)
 			{
@@ -67,10 +64,10 @@ namespace Assets.Scripts.Interactable
 			}
 		}
 
-		public void Reset()
+		private bool[] GetBoolArray()
 		{
-			_orientation = Orientation.None;
-		}
+			return new bool[] { LeftEdge, IsLeftCorner, IsLeftCornerInverted, IsLeftDropless, RightEdge, IsRightCorner, IsRightCornerInverted, IsRightDropless };
+        }
 
 		private void DeactiveEdges()
 		{
@@ -90,11 +87,15 @@ namespace Assets.Scripts.Interactable
 
 			if (_orientation == Orientation.UprightAntiClockwise)
 			{
-				CreateRightUpright();
+                bool createLeftEdge = IsRightCorner == false || (IsRightCorner && IsRightCornerInverted == false);
+                bool createRightEdge = IsRightCorner == false || (IsRightCorner && IsRightCornerInverted);
+                CreateRightUpright(createLeftEdge, createRightEdge);
 			}
             else if (_orientation == Orientation.UprightClockwise)
             {
-                CreateLeftUpright();
+                bool createLeftEdge = IsLeftCorner == false || (IsLeftCorner && IsRightCornerInverted);
+                bool createRightEdge = IsLeftCorner == false || (IsLeftCorner && IsLeftCornerInverted == false);
+                CreateLeftUpright(createLeftEdge, createRightEdge);
             }
 			else
 			{
@@ -112,61 +113,75 @@ namespace Assets.Scripts.Interactable
 			transform.parent = currentParent;
 		}
 
-		private void CreateLeftUpright()
+		private void CreateLeftUpright(bool createLeftEdge, bool createRightEdge)
 		{
-			if (LeftEdge && _leftEdge == null)
-			{
-				InstantiateUprightObjects();
+            if (LeftEdge)
+            {
+                InstantiateUprightObjects(createLeftEdge, createRightEdge);
 
-				_leftEdge.transform.position = UpsideDownRight(_col);
-				var col = _leftEdge.GetComponent<BoxCollider2D>();
-				col.offset = new Vector2(-1 + col.offset.x, -1 - col.offset.y);
-				_leftEdge.transform.parent = transform;
+                if (_leftEdge != null)
+                {
+                    _leftEdge.transform.position = UpsideDownRight(_col);
+                    var col = _leftEdge.GetComponent<BoxCollider2D>();
+                    col.offset = new Vector2(-1 + col.offset.x, -1 - col.offset.y);
+                    _leftEdge.transform.parent = transform;
+                }
 
-				_rightEdge.transform.position = FlatLeft(_col);
-				var col2 = _rightEdge.GetComponent<BoxCollider2D>();
-				col2.offset = new Vector2(-col2.offset.x, col2.offset.y);
-				_rightEdge.transform.parent = transform;
-			}
+                if (_rightEdge != null)
+                {
+                    _rightEdge.transform.position = FlatLeft(_col);
+                    var col2 = _rightEdge.GetComponent<BoxCollider2D>();
+                    col2.offset = new Vector2(-col2.offset.x, col2.offset.y);
+                    _rightEdge.transform.parent = transform;
+                }
+            }
 		}
 
-		private void CreateRightUpright()
+		private void CreateRightUpright(bool createLeftEdge, bool createRightEdge)
 		{
-			if (RightEdge && _rightEdge == null)
-			{
-				InstantiateUprightObjects();
+            if (RightEdge)
+            {
+                InstantiateUprightObjects(createLeftEdge, createRightEdge);
 
-				_leftEdge.transform.position = FlatRight(_col);
-				var col = _leftEdge.GetComponent<BoxCollider2D>();
-				col.offset = new Vector2(-col.offset.x, col.offset.y);
-				_leftEdge.transform.parent = transform;
+                if (_leftEdge != null)
+                {
+                    _leftEdge.transform.position = FlatRight(_col);
+                    var col = _leftEdge.GetComponent<BoxCollider2D>();
+                    col.offset = new Vector2(-col.offset.x, col.offset.y);
+                    _leftEdge.transform.parent = transform;
+                }
 
-				_rightEdge.transform.position = UpsideDownLeft(_col);
-				var col2 = _rightEdge.GetComponent<BoxCollider2D>();
-				col2.offset = new Vector2(1 + col2.offset.x, -1 - col2.offset.y);
-				_rightEdge.transform.parent = transform;
-			}
+                if (_rightEdge != null)
+                {
+                    _rightEdge.transform.position = UpsideDownLeft(_col);
+                    var col2 = _rightEdge.GetComponent<BoxCollider2D>();
+                    col2.offset = new Vector2(1 + col2.offset.x, -1 - col2.offset.y);
+                    _rightEdge.transform.parent = transform;
+                }
+            }
 		}
 
-		private void InstantiateUprightObjects()
+		private void InstantiateUprightObjects(bool createLeftEdge, bool createRightEdge)
 		{
-			_leftEdge = Instantiate(_leftEdgeObject);
-			_rightEdge = Instantiate(_rightEdgeObject);
+            if (createLeftEdge)
+            {
+			    _leftEdge = Instantiate(_leftEdgeObject);
+                _leftEdge.name += " upright";
+                if (IsLeftDropless)
+                    _leftEdge.name += " dropless";
+                if (createLeftEdge != createRightEdge)
+                    _leftEdge.name += " corner";
+            }
 
-			_leftEdge.name += " upright";
-			_rightEdge.name += " upright";
-
-			if (IsLeftDropless)
-				_leftEdge.name += " dropless";
-
-			if (IsRightDropless)
-				_rightEdge.name += " dropless";
-
-			if ((_orientation == Orientation.UprightAntiClockwise && IsRightCorner) || (_orientation == Orientation.UprightClockwise && IsLeftCorner))
-			{
-				_rightEdge.name += " corner";
-				_leftEdge.name += " corner";
-			}
+            if (createRightEdge)
+            {
+                _rightEdge = Instantiate(_rightEdgeObject);
+                _rightEdge.name += " upright";
+                if (IsRightDropless)
+                    _rightEdge.name += " dropless";
+                if (createLeftEdge != createRightEdge)
+                    _rightEdge.name += " corner";
+            }
 		}
 
 		private void CreateLeftEdge()

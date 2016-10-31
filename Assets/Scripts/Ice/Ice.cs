@@ -186,13 +186,16 @@ namespace Assets.Scripts.Ice
 					if (_polyCollider.OverlapPoint(newPoint))
 						newPoints[i] = transform.InverseTransformPoint(newPoint);
 					else
+                    {
+                        _polyCollider.
+                    }
 						newPoints[i] = transform.InverseTransformPoint(Vector2.Lerp(beforePoint, afterPoint, 0.5f));
 				}
 			}
 			return newPoints;
 		}
 
-		private Vector2[] FlattenAngles()
+        private Vector2[] FlattenAngles()
 		{
 			Vector2[] newPoints = _polyCollider.points;
 			int currentIndex = 0;

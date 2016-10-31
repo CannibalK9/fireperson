@@ -221,7 +221,7 @@ namespace Assets.Scripts.Player
 		{
 			transform.localPosition = Vector3.zero;
 
-			float maxX = ConstantVariables.MaxHorizontalSpeed;
+			float maxX = ConstantVariables.MaxHorizontalSpeed + CurrentClimate.Control/20;
 
 			if (Physics2D.Raycast(Collider.GetTopLeft() + Vector3.up * 0.1f, Vector2.right, Collider.bounds.size.x, Layers.Platforms))
 			{

@@ -92,7 +92,6 @@ namespace Assets.Scripts.Interactable
 				if (IsRightOnCorner)
 					edges.IsRightCorner = false;
 			}
-			edges.Reset();
 		}
 	}
 }
