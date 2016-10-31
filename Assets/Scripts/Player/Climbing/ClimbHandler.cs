@@ -134,40 +134,6 @@ namespace Assets.Scripts.Player.Climbing
 			}
 		}
 
-		private bool IsEdgeUnblocked(Collider2D originalHit, bool isDown = false)
-		{
-			Vector2 origin = _playerCollider.bounds.center;
-			Vector2 edgeCentre = originalHit.bounds.center;
-			Vector2 face = isDown ? originalHit.GetTopFace() : originalHit.transform.gameObject.layer == _leftClimbLayer ? originalHit.GetLeftFace() : originalHit.GetRightFace();
-			Vector2 direction = face - origin;
-
-			RaycastHit2D obstacleHit = Physics2D.Raycast(origin, direction, 10f, Layers.Platforms);
-			Debug.DrawRay(origin, direction, Color.red);
-
-            RaycastHit2D edgeObstructionHit = Physics2D.Raycast(originalHit.GetTopFace() + new Vector3(0, 0.1f), Vector2.up, ConstantVariables.FingerHoldSpace, Layers.Platforms);
-
-            return edgeObstructionHit == false &&
-                (obstacleHit == false
-                || originalHit.transform.parent == obstacleHit.collider.transform
-			    || ClimbCollision.IsCollisionInvalid(new RaycastHit2D[] { obstacleHit }, originalHit.transform) == false);
-		}
-
-		private bool IsUprightAccessible(RaycastHit2D hit)
-		{
-			if (hit.collider.IsUpright() == false)
-				return true;
-
-			Vector2 playerPosition = hit.collider.transform.position - _playerCollider.bounds.center;
-
-			bool onRight = AngleDir(hit.collider.transform.parent.right, playerPosition) < 0;
-			if (hit.collider.transform.parent.rotation.eulerAngles.z > 180)
-			{
-				onRight = !onRight;
-			}
-			return ((hit.collider.transform.gameObject.layer == LayerMask.NameToLayer(Layers.RightClimbSpot) && onRight)
-				|| (hit.collider.transform.gameObject.layer == LayerMask.NameToLayer(Layers.LeftClimbSpot)) && !onRight);
-		}
-
 		public bool CheckLedgeAbove(DirectionFacing direction, out Climb climb, bool retryCheck = true)
 		{
 			climb = Climb.End;
@@ -184,26 +150,13 @@ namespace Assets.Scripts.Player.Climbing
 			var size = new Vector2(checkWidth, 0.01f);
 
 			RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, size, 0, Vector2.up, actualHeight, GetClimbMask());
+			hits = RemoveInvalidColliders(hits);
 
-			IEnumerable<RaycastHit2D> partiallyValidHits = hits.Where(h => h.point.y < _playerCollider.bounds.max.y || SpaceBelowEdge(h.collider));
-
-			var hit = GetValidHit(partiallyValidHits);
+			var hit = hits.FirstOrDefault(h => EdgeValidator.CanJumpToHang(h.collider, _playerCollider.bounds));
 
 			if (hit)
 			{
-				bool belowHeadHeight = hit.point.y < _playerCollider.bounds.max.y;
-
-				if (belowHeadHeight)
-				{
-					if (ShouldStraightClimb() && SpaceAboveEdge(hit.collider))
-					{
-						if (CurrentClimb == Climb.None)
-							CurrentClimb = Climb.Mantle;
-
-						climb = Climb.Mantle;
-					}
-				}
-				else if (hit.collider.IsCorner() || ShouldStraightClimb())
+				if (ShouldStraightClimb(hit.collider))
 				{
 					if (CurrentClimb == Climb.None)
 						CurrentClimb = Climb.Up;
@@ -219,7 +172,22 @@ namespace Assets.Scripts.Player.Climbing
 				}
 			}
 
-			if (climb == Climb.End && _retryCheckAbove && retryCheck)
+			if (climb == Climb.End)
+			{
+				hit = hits.FirstOrDefault(h => h.point.y < _playerCollider.bounds.max.y && EdgeValidator.CanMantle(h.collider, _playerCollider.bounds));
+
+				if (hit)
+				{
+					if (CurrentClimb == Climb.None)
+						CurrentClimb = Climb.Mantle;
+
+					climb = Climb.Mantle;
+				}
+			}
+
+			if (climb != Climb.End)
+				SetClimbingParameters(hit.collider);
+			else if (climb == Climb.End && _retryCheckAbove && retryCheck)
 			{
 				_retryCheckAbove = false;
 				CheckLedgeAbove(direction == DirectionFacing.Left ? DirectionFacing.Right : DirectionFacing.Left, out climb);
@@ -242,23 +210,18 @@ namespace Assets.Scripts.Player.Climbing
             var size = new Vector2(checkWidth, 0.01f);
 
             RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, size, 0, Vector2.up, checkHeight, GetClimbMask());
+			hits = RemoveInvalidColliders(hits);
 
-			IEnumerable<RaycastHit2D> partiallyValidHits = hits.Where(h => SpaceBelowEdge(h.collider));
-
-			var hit = GetValidHit(partiallyValidHits);
+			var hit = hits.FirstOrDefault(h => EdgeValidator.CanJumpToHang(h.collider, _playerCollider.bounds));
 
             if (hit)
             {
+				SetClimbingParameters(hit.collider);
 				_anim.SetBool("inverted", ClimbSide == _motor.GetDirectionFacing());
 				_sameEdge = false;
             }
             return hit;
         }
-
-        public static float AngleDir(Vector2 line, Vector2 point)
-		{
-			return -line.x * point.y + line.y * point.x;
-		}
 
 		public bool CheckLedgeBelow(Climb intendedClimbingState, DirectionFacing direction, out string animation)
 		{
@@ -283,7 +246,7 @@ namespace Assets.Scripts.Player.Climbing
 
 					if (climbableEdges != null)
 					{
-						Orientation orientation = OrientationHelper.GetOrientation(_motor.MovementState.PivotCollider.transform.rotation.eulerAngles.z);
+						Orientation orientation = OrientationHelper.GetOrientation(_motor.MovementState.PivotCollider.transform);
 
 						Collider2D excluded = null;
 						if (orientation == Orientation.Flat)
@@ -311,11 +274,11 @@ namespace Assets.Scripts.Player.Climbing
 			catch (Exception)
 			{ }
 
-            if (edge != null && SpaceAboveEdge(edge))
+            if (edge != null && EdgeValidator.CanJumpToOrFromEdge(edge, _playerCollider.bounds))
 			{
                 canDrop = edge.CanClimbDown();
                 var distance = Vector2.Distance(_motor.GetGroundPivotPosition(), edge.transform.position);
-                nearEdge = distance < checkWidth && IsEdgeUnblocked(edge, true) && SpaceAboveEdge(edge);
+                nearEdge = distance < checkWidth;
 
                 Bounds projectedBounds = new Bounds(
                     new Vector3(
@@ -325,14 +288,14 @@ namespace Assets.Scripts.Player.Climbing
                         edge.transform.position.y + _playerCollider.bounds.extents.y),
                     _playerCollider.bounds.size);
 
-                if (nearEdge && ((down && SpaceOffEdge(edge)) || CheckLedgeAcross(direction, projectedBounds) || canDrop))
+                if (nearEdge && ((down && EdgeValidator.CanClimbDown(edge, _playerCollider.bounds)) || CheckLedgeAcross(direction, projectedBounds) || canDrop))
                 {
                     CurrentClimb = intendedClimbingState;
                     SetClimbingParameters(edge);
                     DistanceToEdge = distance;
                     if (down)
                     {
-                        animation = SpaceBelowEdge(edge) == false
+                        animation = EdgeValidator.CanHang(edge, _playerCollider.bounds) == false
                             ? Animations.HopDown
                             : _motor.Anim.GetBool(PlayerAnimBool.Moving)
                                 ? Animations.RollDown
@@ -408,18 +371,33 @@ namespace Assets.Scripts.Player.Climbing
 			Vector2 castDirection = direction == DirectionFacing.Left ? Vector2.left : Vector2.right;
 
 			RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, size, 0, castDirection, checkLength, GetClimbMask());
+			hits = RemoveInvalidColliders(hits);
 
-			Transform previousClimbParent = _climbParent;
-			RaycastHit2D hit = GetValidHit(hits);
-
-			if (projectedBounds != null)
-				return hit;
+			RaycastHit2D hit = hits.FirstOrDefault(h => h.point.y < bounds.center.y && EdgeValidator.CanJumpToOrFromEdge(h.collider, _playerCollider.bounds));
 
 			if (hit)
 			{
-				_shouldHang = _climbParent == previousClimbParent
-					|| SpaceAboveEdge(hit.collider) == false
-					|| hit.collider.bounds.center.y > bounds.center.y;
+				if (projectedBounds != null)
+					return hit;
+
+				Transform previousClimbParent = _climbParent;
+				_shouldHang = hit.collider.transform.parent == previousClimbParent;
+			}
+			else
+			{
+				hit = hits.FirstOrDefault(h => EdgeValidator.CanJumpToHang(h.collider, _playerCollider.bounds));
+
+				if (hit)
+				{
+					if (projectedBounds != null)
+						return hit;
+					_shouldHang = true;
+				}
+			}
+
+			if (hit)
+			{
+				SetClimbingParameters(hit.collider);
 				_anim.SetBool("shouldHang", _shouldHang);
 				_anim.SetBool("inverted", ClimbSide == direction);
 			}
@@ -436,22 +414,17 @@ namespace Assets.Scripts.Player.Climbing
 
 			RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, size, 0, Vector2.down, 0.1f, GetClimbMask());
 
-			if (hits.Any())
-				Debug.Log("grab");
-
 			int layer = 0;
 			if (direction == DirectionFacing.Left)
 				layer = _rightClimbLayer;
 			else if (direction == DirectionFacing.Right)
 				layer = _leftClimbLayer;
 
-			if (holdingUp == false)
-				hits = hits.Where(h => h.collider.CanClimbDown() == false || h.collider.gameObject.layer == layer).ToArray();
-
-			RaycastHit2D hit = GetValidHit(hits);
+			RaycastHit2D hit = hits.FirstOrDefault(h => (holdingUp || (h.collider.CanClimbDown() == false || h.collider.gameObject.layer == layer)) && EdgeValidator.CanJumpToHang(h.collider, _playerCollider.bounds));
 
 			if (hit)
 			{
+				SetClimbingParameters(hit.collider);
 				_shouldHang = true;
 				CurrentClimb = hit.collider.gameObject.layer == _leftClimbLayer ? Climb.AcrossRight : Climb.AcrossLeft;
 				_motor.ClimbingState = GetClimbingState(true);
@@ -460,26 +433,13 @@ namespace Assets.Scripts.Player.Climbing
 			return hit;
 		}
 
-		private RaycastHit2D GetValidHit(IEnumerable<RaycastHit2D> hits)
+		private RaycastHit2D[] RemoveInvalidColliders(RaycastHit2D[] hits)
 		{
-			var hit = new RaycastHit2D();
-
-			hits = _climbCollider == null
+			var returnedHits = _climbCollider == null
 				? hits
-				: hits.Where(h => h.collider != _climbCollider);
-
-			foreach (RaycastHit2D h in hits)
-			{
-				if (IsEdgeUnblocked(h.collider) && IsUprightAccessible(h) && AvoidSamePlatform(h.collider.transform))
-				{
-					_shouldAvoidSamePlatform = false;
-					hit = h;
-					SetClimbingParameters(hit.collider);
-					return hit;
-				}
-			}
+				: hits.Where(h => h.collider != _climbCollider && AvoidSamePlatform(h.collider.transform)).ToArray();
 			_shouldAvoidSamePlatform = false;
-			return hit;
+			return returnedHits;
 		}
 
 		private bool AvoidSamePlatform(Transform t)
@@ -533,35 +493,11 @@ namespace Assets.Scripts.Player.Climbing
 				: DirectionFacing.Left;
 		}
 
-		private bool ShouldStraightClimb()
+		private bool ShouldStraightClimb(Collider2D col)
 		{
-			return ClimbSide == DirectionFacing.Left
-				? _motor.transform.position.x < _climbCollider.transform.position.x
-				: _motor.transform.position.x > _climbCollider.transform.position.x;
-		}
-
-        private bool SpaceAboveEdge(Collider2D col)
-        {
-			RaycastHit2D hit = Physics2D.Raycast((col.transform.gameObject.layer == _leftClimbLayer ? col.GetTopLeft() : col.GetTopRight()) + new Vector3(0, 0.1f, 0), Vector2.up, _playerCollider.bounds.size.y, Layers.Platforms);
-			return hit == false;
-		}
-
-		private bool SpaceBelowEdge(Collider2D col)
-		{
-			bool isLeft = col.transform.gameObject.layer == _leftClimbLayer;
-			RaycastHit2D[] hits = Physics2D.BoxCastAll((isLeft ? col.GetTopLeft() : col.GetTopRight()) + new Vector3(isLeft ? -_playerCollider.bounds.extents.x : _playerCollider.bounds.extents.x, 0),
-				new Vector2(_playerCollider.bounds.size.x, 0.1f), 0, -col.transform.up, _playerCollider.bounds.size.y, Layers.Platforms);
-
-			return ClimbCollision.IsCollisionInvalid(hits, col.transform) == false;
-		}
-
-		private bool SpaceOffEdge(Collider2D col)
-		{
-			bool isLeft = col.transform.gameObject.layer == _leftClimbLayer;
-			RaycastHit2D[] hits = Physics2D.BoxCastAll((isLeft ? col.GetTopLeft() : col.GetTopRight()) + new Vector3(isLeft ? -_playerCollider.bounds.extents.x : _playerCollider.bounds.extents.x, 0),
-				new Vector2(_playerCollider.bounds.size.x, 0.1f), 0, Vector2.up, _playerCollider.bounds.size.y, Layers.Platforms);
-
-			return ClimbCollision.IsCollisionInvalid(hits, col.transform) == false;
+			return col.gameObject.layer == _leftClimbLayer
+				? _motor.transform.position.x < col.bounds.center.x
+				: _motor.transform.position.x > col.bounds.center.x;
 		}
 
 		public ClimbingState SwitchClimbingState(DirectionFacing direction)
@@ -618,7 +554,7 @@ namespace Assets.Scripts.Player.Climbing
                     break;
 				case Climb.Down:
 					_sameEdge = true;
-					if (NextClimbs.Contains(Climb.Up) && SpaceOffEdge(_climbCollider) && (SpaceAboveEdge(_climbCollider) || CheckLedgeWhileHanging()))
+					if (NextClimbs.Contains(Climb.Up) && (EdgeValidator.CanClimbUp(_climbCollider, _playerCollider.bounds) || CheckLedgeWhileHanging()))
 					{
                         nextClimb = Climb.Up;
                         _motor.Anim.SetBool("sameEdge", _sameEdge);

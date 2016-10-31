@@ -148,7 +148,7 @@ namespace Assets.Scripts.Ice
 			if (Random.value < message.Intensity / 100)
 			{
 				_polyCollider.points = MovePointsInwards(col);
-				_polyCollider.points = FlattenAngles();
+				//_polyCollider.points = FlattenAngles();
 				SetMeshFilterToPolyColliderPoints();
 			}
 		}
@@ -250,7 +250,8 @@ namespace Assets.Scripts.Ice
 					if (col.gameObject.GetComponent<Tether>() == null)
 					{
 						RaycastHit2D hit = Physics2D.Raycast(col.bounds.center, worldPoint - col.bounds.center, 20f, Layers.Platforms);
-						if (hit.transform == transform)
+						Debug.DrawRay(col.bounds.center, worldPoint - col.bounds.center, Color.cyan);
+						if (hit && hit.collider.transform == transform)
 							indices.Add(i);
 					}
 					else

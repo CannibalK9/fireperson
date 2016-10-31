@@ -143,6 +143,7 @@
     <Compile Include="Assets\Scripts\Player\Climbing\Climb.cs" />
     <Compile Include="Assets\Scripts\Player\Climbing\ClimbHandler.cs" />
     <Compile Include="Assets\Scripts\Player\Climbing\ClimbingState.cs" />
+    <Compile Include="Assets\Scripts\Player\Climbing\EdgeValidator.cs" />
     <Compile Include="Assets\Scripts\Player\Config\Ability.cs" />
     <Compile Include="Assets\Scripts\Player\Config\KeyBindings.cs" />
     <Compile Include="Assets\Scripts\Player\Config\PointsText.cs" />

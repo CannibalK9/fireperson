@@ -12,17 +12,21 @@ namespace Assets.Scripts.Interactable
 
 		public GameObject LeftPlatform;
 		public GameObject RightPlatform;
+		public bool LeftPlatformLeftEdge;
+		public bool RightPlatformRightEdge;
 		public bool IsLeftOnCorner;
 		public bool IsRightOnCorner;
 
 		public bool RemainsSolid;
 		public float Mass;
 		private Transform _hinge;
+		private Collider2D _col;
 
 		void Awake()
 		{
 			_ice = GetComponentsInChildren<Ice.Ice>();
 			_hinge = GetComponentsInChildren<Transform>().SingleOrDefault(t => t.name == "hinge");
+			_col = GetComponent<Collider2D>();
 		}
 
 		void Update()
@@ -69,25 +73,26 @@ namespace Assets.Scripts.Interactable
 		private void AddEdges()
 		{
 			if (LeftPlatform != null)
-			{
-				if (IsLeftOnCorner)
-				{
-					LeftPlatform.GetComponent<ClimbableEdges>().IsRightCorner = false;
-					LeftPlatform.GetComponent<ClimbableEdges>().Reset();
-				}
-				else
-					LeftPlatform.GetComponent<ClimbableEdges>().RightEdge = true;
-			}
+				AddEdge(LeftPlatform.GetComponent<ClimbableEdges>(), LeftPlatformLeftEdge);
 			if (RightPlatform != null)
+				AddEdge(RightPlatform.GetComponent<ClimbableEdges>(), RightPlatformRightEdge == false);
+		}
+
+		private void AddEdge(ClimbableEdges edges, bool leftEdge)
+		{
+			if (leftEdge)
 			{
-				if (IsRightOnCorner)
-				{
-					RightPlatform.GetComponent<ClimbableEdges>().IsLeftCorner = false;
-					RightPlatform.GetComponent<ClimbableEdges>().Reset();
-				}
-				else
-					RightPlatform.GetComponent<ClimbableEdges>().LeftEdge = true;
+				edges.LeftEdge = true;
+				if (IsLeftOnCorner)
+					edges.IsLeftCorner = false;
 			}
+			else
+			{
+				edges.RightEdge = true;
+				if (IsRightOnCorner)
+					edges.IsRightCorner = false;
+			}
+			edges.Reset();
 		}
 	}
 }

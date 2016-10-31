@@ -551,7 +551,7 @@ namespace Assets.Scripts.Player
 		public void Hop()
 		{
 			MovementState.MovePivotDown();
-			CancelClimbingState();
+			//CancelClimbingState();
 		}
 
 		public void FlipSprite()

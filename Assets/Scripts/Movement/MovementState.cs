@@ -60,8 +60,7 @@ namespace Assets.Scripts.Movement
 
         public void MovePivotAlongSurface(DirectionTravelling direction, float distance)
         {
-            Orientation o = OrientationHelper.GetOrientation(GetPivotParentRotation());
-            Vector3 v = OrientationHelper.GetSurfaceVectorTowardsRight(o, Pivot.transform.parent);
+            Vector3 v = OrientationHelper.GetSurfaceVectorTowardsRight(Pivot.transform.parent);
 
             if (direction == DirectionTravelling.Left)
                 v = -v;
@@ -74,8 +73,7 @@ namespace Assets.Scripts.Movement
 
 		public void MovePivotDown()
 		{
-			Orientation o = OrientationHelper.GetOrientation(GetPivotParentRotation());
-			Vector3 v = OrientationHelper.GetDownwardVector(o, Pivot.transform.parent);
+			Vector3 v = OrientationHelper.GetDownwardVector(Pivot.transform.parent);
 
 			Vector3 movement = v.normalized * 0.5f;
 
@@ -187,7 +185,7 @@ namespace Assets.Scripts.Movement
 
 		public float GetCornerAngle()
 		{
-			float angle = Mathf.Abs(Vector2.Angle(Vector2.up, CornerCollider.right));
+			float angle = Mathf.Abs(Vector2.Angle(Vector2.up, -OrientationHelper.GetDownwardVector(CornerCollider)));
 
 			if (angle > 180)
 				angle -= 180;

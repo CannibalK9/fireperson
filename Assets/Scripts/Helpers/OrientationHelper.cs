@@ -4,7 +4,12 @@ namespace Assets.Scripts.Helpers
 {
     public static class OrientationHelper
     {
-        public static Orientation GetOrientation(float rotation)
+		public static Orientation GetOrientation(Transform t)
+		{
+			return GetOrientation(t.rotation.eulerAngles.z);
+		}
+
+		public static Orientation GetOrientation(float rotation)
         {
             float slopeLimit = ConstantVariables.DefaultPlayerSlopeLimit;
 			rotation = Mathf.Abs(rotation);
@@ -19,7 +24,12 @@ namespace Assets.Scripts.Helpers
                 return Orientation.UprightClockwise;
         }
 
-        public static Vector3 GetSurfaceVectorTowardsRight(Orientation orientation, Transform trans)
+		public static Vector3 GetSurfaceVectorTowardsRight(Transform trans)
+		{
+			return GetSurfaceVectorTowardsRight(GetOrientation(trans), trans);
+		}
+
+		public static Vector3 GetSurfaceVectorTowardsRight(Orientation orientation, Transform trans)
         {
             switch (orientation)
             {
@@ -35,6 +45,11 @@ namespace Assets.Scripts.Helpers
                     return Vector3.zero;
             }
         }
+
+		public static Vector3 GetDownwardVector(Transform trans)
+		{
+			return GetDownwardVector(GetOrientation(trans), trans);
+		}
 
 		public static Vector3 GetDownwardVector(Orientation orientation, Transform trans)
 		{
