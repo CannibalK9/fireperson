@@ -49,7 +49,7 @@ namespace Assets.Scripts.Denizens
 				_wasSliding = true;
 			}
 
-			//_animator.SetBool(DenizenAnimBool.InSnow, );
+			_animator.SetBool(DenizenAnimBool.InSnow, _controller.MovementState.OnSnow);
 			if (_isSliding == false
 				&& _animator.GetBool(DenizenAnimBool.InSnow) == false
 				&& _isFlashed == false)
@@ -234,7 +234,7 @@ namespace Assets.Scripts.Denizens
 
 		private void HazardHandler(Vector2 hazardRay)
 		{
-			if (ApproachingSnow(hazardRay))
+			if (_controller.MovementState.ApproachingSnow)
 				_animator.SetTrigger(DenizenAnimBool.AtSnow);
 			else if ((_controller.MovementState.RightCollision && DirectionTravelling == DirectionTravelling.Right)
 					|| (_controller.MovementState.LeftCollision && DirectionTravelling == DirectionTravelling.Left))
@@ -247,8 +247,6 @@ namespace Assets.Scripts.Denizens
 			if (CanMove)
 			{
 				DirectionTravelling = DirectionTravelling.None;
-				_normalizedHorizontalSpeed = 0;
-				_velocity.x = 0;
 				_transitioning = true;
 			}
 		}
@@ -301,9 +299,8 @@ namespace Assets.Scripts.Denizens
 
 		private bool ApproachingSnow(Vector2 snowRay)
 		{
-			LayerMask mask = 1 << LayerMask.NameToLayer(Layers.Ice);
-			RaycastHit2D hit = Physics2D.Raycast(snowRay, Vector2.down, 0.1f, mask);
-			if (hit && _hitSnow == false)
+			RaycastHit2D hit = Physics2D.Raycast(snowRay, Vector2.down, 0.1f, Layers.Platforms);
+			if (_hitSnow == false && hit && hit.transform.gameObject.layer == LayerMask.NameToLayer(Layers.Ice))
 			{
 				_hitSnow = true;
 			}
@@ -321,6 +318,9 @@ namespace Assets.Scripts.Denizens
 
 		private void SetVelocity()
 		{
+			if (DirectionTravelling == DirectionTravelling.None && _controller.MovementState.IsGrounded)
+				_normalizedHorizontalSpeed = 0;
+
 			float runspeed = RunSpeed;
 			if (_controller.MovementState.IsOnSlope)
 				RunSpeed *= 3;

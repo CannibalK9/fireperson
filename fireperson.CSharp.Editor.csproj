@@ -112,6 +112,21 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Destructible 2D\Editor\D2dAutoCollider_Editor.cs" />
+    <Compile Include="Assets\Destructible 2D\Editor\D2dCalculateMass_Editor.cs" />
+    <Compile Include="Assets\Destructible 2D\Editor\D2dCollider_Editor.cs" />
+    <Compile Include="Assets\Destructible 2D\Editor\D2dCollisionHandler_Editor.cs" />
+    <Compile Include="Assets\Destructible 2D\Editor\D2dContext.cs" />
+    <Compile Include="Assets\Destructible 2D\Editor\D2dDestroyer_Editor.cs" />
+    <Compile Include="Assets\Destructible 2D\Editor\D2dDestructible_Editor.cs" />
+    <Compile Include="Assets\Destructible 2D\Editor\D2dEdgeCollider_Editor.cs" />
+    <Compile Include="Assets\Destructible 2D\Editor\D2dFixtureGroup_Editor.cs" />
+    <Compile Include="Assets\Destructible 2D\Editor\D2dFixture_Editor.cs" />
+    <Compile Include="Assets\Destructible 2D\Editor\D2dPolygonCollider_Editor.cs" />
+    <Compile Include="Assets\Destructible 2D\Editor\D2dQuadFracturer_Editor.cs" />
+    <Compile Include="Assets\Destructible 2D\Editor\D2dRequirements_Editor.cs" />
+    <Compile Include="Assets\Destructible 2D\Editor\D2dRetainVelocity_Editor.cs" />
+    <Compile Include="Assets\Destructible 2D\Editor\D2dSorter_Editor.cs" />
     <Compile Include="Assets\SpritesAndBones\Scripts\Editor\AlphaNumericSort.cs" />
     <Compile Include="Assets\SpritesAndBones\Scripts\Editor\AnimationCurvesCopier.cs" />
     <Compile Include="Assets\SpritesAndBones\Scripts\Editor\AnimationEventCopier.cs" />
@@ -150,6 +165,10 @@
     <Compile Include="Assets\VLS2D\DLLSource\Editor\ProShader\VLSProShaderEditor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Destructible 2D\Shaders\Default.shader" />
+    <None Include="Assets\Destructible 2D\Shaders\Diffuse.shader" />
+    <None Include="Assets\Destructible 2D\Shaders\Keep Alpha.shader" />
+    <None Include="Assets\Destructible 2D\Shaders\Outline.shader" />
     <None Include="Assets\Fluvio\README.txt" />
     <None Include="Assets\Fluvio\Resources\ComputeShaders\FluidParticleSystem\ComputeShader.cginc" />
     <None Include="Assets\Fluvio\Resources\ComputeShaders\FluidParticleSystem\ComputeShader.compute" />

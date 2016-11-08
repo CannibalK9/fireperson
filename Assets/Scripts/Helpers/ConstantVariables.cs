@@ -8,7 +8,8 @@
 		public static float DefaultPlayerSlopeLimit = 50f;
 		public static float DistanceFromPlayerMultiplier = 5f;
 		public static float MaxHorizontalSpeed = 8f;
-		public static float SquashedSpeed = 4f;
+		public static float SquashedFactor = 0.5f;
+		public static float CrouchedFactor = 0.5f;
 		public static float MaxVerticalSpeed = -15f;
 		public static float DenizenMovementSpeed = 2f;
 		public static float FlashRadius = 3f;

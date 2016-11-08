@@ -1,7 +1,5 @@
 ﻿#define DEBUG_CC2D_RAYS
 using Assets.Scripts.Helpers;
-using Assets.Scripts.Interactable;
-using Assets.Scripts.Player;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -49,16 +47,18 @@ namespace Assets.Scripts.Movement
 			return true;
 		}
 
-		public bool IsCollidingWithNonPivot()
+		public bool IsCollidingWithNonPivot(bool lowerHalf)
 		{
 			float collisionFudge = 0.2f;
 			Bounds bounds = _motor.Collider.bounds;
-			RaycastHit2D[] hits = Physics2D.BoxCastAll(new Vector2(bounds.center.x, bounds.max.y - collisionFudge), new Vector2(bounds.size.x - (collisionFudge * 2), 0.001f), 0, Vector2.down, bounds.size.y - (collisionFudge * 2), Layers.Platforms);
+			float startY = lowerHalf ? bounds.center.y : bounds.max.y;
+			float distance = lowerHalf ? bounds.extents.y : bounds.size.y;
+			RaycastHit2D[] hits = Physics2D.BoxCastAll(new Vector2(bounds.center.x, startY - collisionFudge), new Vector2(bounds.size.x - (collisionFudge * 2), 0.001f), 0, Vector2.down, distance - (collisionFudge * 2), Layers.Platforms);
 
 			return ClimbCollision.IsCollisionInvalid(hits, _motor.MovementState.Pivot.transform);
 		}
 
-		public void BoxCastMove(Vector3 deltaMovement, bool isKinematic)
+		public void BoxCastMove(Vector3 deltaMovement, bool isKinematic, bool isJumping = false)
 		{
 			if (Time.timeSinceLevelLoad < 1)
 				return;
@@ -66,13 +66,13 @@ namespace Assets.Scripts.Movement
             BoxCastSetup(ref deltaMovement, isKinematic);
 			Bounds bounds = _motor.Collider.bounds;
 
-			if (isKinematic == false)
+			if (isKinematic == false && isJumping == false)
 			{
 				List<RaycastHit2D> downHits = Physics2D.BoxCastAll(new Vector2(bounds.center.x, bounds.min.y + 0.5f), new Vector2(bounds.size.x, 0.001f), 0, Vector2.down, 1f, Layers.Platforms).ToList();
 				_downHit = GetDownwardsHit(downHits);
 			}
 
-			if (isKinematic == false && _downHit)
+			if (isKinematic == false && _downHit && isJumping == false)
 			{
 				deltaMovement.y = 0;
 
@@ -160,10 +160,14 @@ namespace Assets.Scripts.Movement
 
 		private bool DirectionCast(Bounds bounds, DirectionTravelling direction)
 		{
-			RaycastHit2D hit = GetDirectionHit(bounds, _motor.MovementState.GetSurfaceDirection(direction));
+			Vector2 dir = direction == DirectionTravelling.Left ? Vector2.left : Vector2.right;
+			RaycastHit2D hit = GetDirectionHit(bounds, dir);
 			
 			if (hit)
 			{
+				if (hit.collider.gameObject.layer == LayerMask.NameToLayer(Layers.Ice))
+					_motor.MovementState.ApproachingSnow = true;
+
 				float lipHeight = bounds.min.y + ConstantVariables.MaxLipHeight;
 				if (hit.point.y > lipHeight)
 				{
@@ -173,8 +177,6 @@ namespace Assets.Scripts.Movement
 						_motor.MovementState.OnRightCollision();
 					return hit;
 				}
-
-				Vector2 dir = direction == DirectionTravelling.Left ? Vector2.left : Vector2.right;
 
 				if (direction == DirectionTravelling.Left)
 				{
@@ -204,7 +206,7 @@ namespace Assets.Scripts.Movement
 
         private bool AtEdge(Bounds bounds, DirectionTravelling direction)
         {
-			if (_motor.MovementState.IsOnSlope)
+			if (_motor.MovementState.IsOnSlope || _downHit.transform.gameObject.layer == LayerMask.NameToLayer(Layers.Ice))
 				return false;
 
             float xOrigin = direction == DirectionTravelling.Right
@@ -264,6 +266,13 @@ namespace Assets.Scripts.Movement
 			foreach (RaycastHit2D hit in hits)
 			{
 				hitAngle = Vector2.Angle(hit.normal, Vector2.up);
+
+				if (hit.collider.gameObject.layer == LayerMask.NameToLayer(Layers.Ice) && hitAngle <= 90)
+				{
+					_motor.MovementState.ApproachingSnow = true;
+					_motor.MovementState.IsGrounded = true;
+					return hit;
+				}
 
 				if (_downHit && _downHit.collider != hit.collider && hitAngle >= _motor.SlopeLimit)
 				{

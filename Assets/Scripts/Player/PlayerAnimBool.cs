@@ -12,5 +12,6 @@
         public static string IsJumping { get { return "isJumping"; } }
         public static string Forward { get { return "forward"; } }
 		public static string Sliding { get { return "sliding"; } }
+		public static string Crouched { get { return "crouched"; } }
 	}
 }

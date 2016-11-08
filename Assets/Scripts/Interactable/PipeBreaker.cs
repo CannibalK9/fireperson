@@ -12,7 +12,6 @@ namespace Assets.Scripts.Interactable
 		{
 			_thisCol = GetComponent<CircleCollider2D>();
 			_fireplace = GetComponent<FirePlace>();
-			_fireplace.IsAccessible = true;
 		}
 
 		void OnTriggerStay2D(Collider2D col)
@@ -21,11 +20,12 @@ namespace Assets.Scripts.Interactable
 			{
 				FirePlace connectedFireplace = col.GetComponent<FirePlace>();
 
-				if (_fireplace.IsAccessible && connectedFireplace.IsAccessible && Vector2.Distance(col.bounds.center, _thisCol.bounds.center) < 0.1f)
+				if (_fireplace.IsAccessible && connectedFireplace.IsAccessible && Vector2.Distance(col.bounds.center, _thisCol.bounds.center) < 0.3f)
 				{
 					_fireplace.Connect(connectedFireplace);
+					connectedFireplace.Connect(_fireplace);
 				}
-				else if (_fireplace.IsAccessible == false && _fireplace.GetConnectedFireplaces().Contains(connectedFireplace) && Vector2.Distance(col.bounds.center, _thisCol.bounds.center) > 0.1f)
+				else if (_fireplace.IsAccessible == false && _fireplace.GetConnectedFireplaces().Contains(connectedFireplace) && Vector2.Distance(col.bounds.center, _thisCol.bounds.center) > 0.3f)
 				{
 					_fireplace.Disconnect(connectedFireplace);
 				}

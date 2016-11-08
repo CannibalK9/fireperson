@@ -2,9 +2,13 @@
 
 namespace Assets.Scripts.Environment
 {
-    public class Weather
+    public class Weather : MonoBehaviour
     {
-        Vector2 WindDirection { get; set; }
-        float WindPower { get; set; }
+		public float WindPower;
+
+		void Update()
+		{
+			WindPower = Random.Range(-5, 5);
+		}
     }
 }

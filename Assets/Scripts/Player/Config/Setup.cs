@@ -48,7 +48,7 @@ namespace Assets.Scripts.Player.Config
 			Steam = AbilityState.IsActive(Ability.Steam);
 			Burn = AbilityState.IsActive(Ability.Burn);
 			Scout = AbilityState.IsActive(Ability.Scout);
-			Tools = AbilityState.IsActive(Ability.Tools);
+			AbilityState.SetActive(Ability.Tools, Tools);
 
 			PlayerPrefs.SetInt(IntVariable.AvailablePoints.ToString(), AvailablePoints);
 			PlayerPrefs.Save();

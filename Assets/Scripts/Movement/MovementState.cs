@@ -13,7 +13,9 @@ namespace Assets.Scripts.Movement
 		public bool RightCollision { get; private set; }
         public bool LeftEdge { get; private set; }
         public bool RightEdge { get; private set; }
-        public GameObject Pivot { get; private set; }
+		public bool ApproachingSnow { get; set; }
+		public bool OnSnow { get; set; }
+		public GameObject Pivot { get; private set; }
 		public Vector3 CurrentAcceleration { get; set; }
 		public ColliderPoint CharacterPoint { get; set; }
 		public ColliderPoint PreviousCharacterPoint { get; set; }
@@ -93,6 +95,8 @@ namespace Assets.Scripts.Movement
 			RightCollision = false;
 			LeftEdge = false;
 			RightEdge = false;
+			ApproachingSnow = false;
+			OnSnow = false;
 			IsOnSlope = false;
 			CurrentAcceleration = currentAcceleration;
             TrappedBetweenSlopes = false;
