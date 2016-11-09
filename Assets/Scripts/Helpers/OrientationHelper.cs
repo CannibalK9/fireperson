@@ -14,58 +14,32 @@ namespace Assets.Scripts.Helpers
             float slopeLimit = ConstantVariables.DefaultPlayerSlopeLimit;
 			rotation = Mathf.Abs(rotation);
 
-            if (rotation < slopeLimit || rotation > 360f - slopeLimit)
+            if (rotation <= 90 - slopeLimit || rotation >= 360f - 90 + slopeLimit)
                 return Orientation.Flat;
-            else if (rotation < 180f + slopeLimit && rotation > 180f - slopeLimit)
+            else if (rotation >= 180f - 90 + slopeLimit && rotation <= 180 + 90 - slopeLimit)
                 return Orientation.UpsideDown;
-            else if (rotation < 180f)
-                return Orientation.UprightAntiClockwise;
-            else
+            else if (rotation >= slopeLimit && rotation <= 180f - slopeLimit)
                 return Orientation.UprightClockwise;
+            else if (rotation >= 180 + slopeLimit && rotation <= 360 - slopeLimit)
+                return Orientation.UprightAntiClockwise;
+            else if (rotation < 90)
+                return Orientation.LeftTilt;
+            else if (rotation < 180)
+                return Orientation.UpsideDownRightTilt;
+            else if (rotation < 270)
+                return Orientation.UpsideDownLeftTilt;
+            else
+                return Orientation.RightTilt;
         }
 
 		public static Vector3 GetSurfaceVectorTowardsRight(Transform trans)
 		{
-			return GetSurfaceVectorTowardsRight(GetOrientation(trans), trans);
+            return trans.right;
 		}
-
-		public static Vector3 GetSurfaceVectorTowardsRight(Orientation orientation, Transform trans)
-        {
-            switch (orientation)
-            {
-                case Orientation.Flat:
-                    return trans.right;
-                case Orientation.UpsideDown:
-                    return -trans.right;
-                case Orientation.UprightAntiClockwise:
-                    return -trans.up;
-                case Orientation.UprightClockwise:
-                    return trans.up;
-                default:
-                    return Vector3.zero;
-            }
-        }
 
 		public static Vector3 GetDownwardVector(Transform trans)
 		{
-			return GetDownwardVector(GetOrientation(trans), trans);
-		}
-
-		public static Vector3 GetDownwardVector(Orientation orientation, Transform trans)
-		{
-			switch (orientation)
-			{
-				case Orientation.Flat:
-					return -trans.up;
-				case Orientation.UpsideDown:
-					return trans.up;
-				case Orientation.UprightAntiClockwise:
-					return -trans.right;
-				case Orientation.UprightClockwise:
-					return trans.right;
-				default:
-					return Vector3.zero;
-			}
+			return -trans.up;
 		}
 	}
 }

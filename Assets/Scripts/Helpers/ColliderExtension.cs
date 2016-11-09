@@ -97,5 +97,15 @@ namespace Assets.Scripts.Helpers
 		{
 			return col.name.Contains("upright");
 		}
-	}
+
+        public static bool IsCorner(this Transform trans)
+        {
+            return trans.name.Contains("corner");
+        }
+
+        public static bool IsUpright(this Transform trans)
+        {
+            return trans.name.Contains("upright");
+        }
+    }
 }

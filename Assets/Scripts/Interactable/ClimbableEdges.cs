@@ -53,13 +53,12 @@ namespace Assets.Scripts.Interactable
 			if (LeftEdge || RightEdge)
 			{
 				Orientation currentOrientation = _orientation;
-				float rotation = transform.rotation.eulerAngles.z;
-                _orientation = OrientationHelper.GetOrientation(rotation);
+                _orientation = OrientationHelper.GetOrientation(transform);
 
 				if (currentOrientation != _orientation)
 				{
 					DeactiveEdges();
-					CreateEdges(rotation);
+					CreateEdges();
 				}
 			}
 		}
@@ -78,7 +77,7 @@ namespace Assets.Scripts.Interactable
 			_rightEdge = null;
 		}
 
-		private void CreateEdges(float rotation)
+		private void CreateEdges()
 		{
 			Quaternion currentRotation = transform.rotation;
 			Transform currentParent = transform.parent;
@@ -112,6 +111,44 @@ namespace Assets.Scripts.Interactable
 			transform.rotation = currentRotation;
 			transform.parent = currentParent;
 		}
+
+        private void CreateLeft(bool isUpright)
+        {
+            _leftEdge = Instantiate(_leftEdgeObject);
+
+            switch (_orientation)
+            {
+                case Orientation.Flat:
+                case Orientation.LeftTilt:
+                case Orientation.RightTilt:
+                case Orientation.UprightClockwise:
+                    if (IsLeftCorner)
+                        _leftEdge.name += " corner";
+                    if (IsLeftDropless)
+                        _leftEdge.name += " dropless";
+                    break;
+                case Orientation.UpsideDown:
+                case Orientation.UpsideDownLeftTilt:
+                case Orientation.UpsideDownRightTilt:
+                case Orientation.UprightAntiClockwise:
+                    if (IsRightCorner)
+                        _leftEdge.name += " corner";
+                    if (IsRightDropless)
+                        _leftEdge.name += " dropless";
+                    break;
+            }
+
+            if (isUpright)
+            {
+                _leftEdge.name += " upright";
+                //rotate accordingly
+            }
+        }
+
+        private void CreateRight(bool isUpright)
+        {
+
+        }
 
 		private void CreateLeftUpright(bool createLeftEdge, bool createRightEdge)
 		{

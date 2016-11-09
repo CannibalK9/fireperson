@@ -4,8 +4,12 @@
 	{
 		None,
 		Flat,
+        LeftTilt,
+        RightTilt,
 		UpsideDown,
-		UprightAntiClockwise,
+        UpsideDownLeftTilt,
+        UpsideDownRightTilt,
+        UprightAntiClockwise,
         UprightClockwise
 	}
 }
