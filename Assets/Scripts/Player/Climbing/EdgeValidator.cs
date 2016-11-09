@@ -14,12 +14,7 @@ namespace Assets.Scripts.Player.Climbing
 			return IsEdgeUnblocked(col, bounds) && IsUprightAccessible(col, bounds) && IsSpaceBelowEdge(col, bounds) && IsHangingSpace(col);
 		}
 
-		public static bool CanClimbUp(Collider2D col, Bounds bounds)
-		{
-			return IsSpaceOffEdge(col, bounds);
-		}
-
-		public static bool CanClimbDown(Collider2D col, Bounds bounds)
+		public static bool CanClimbUpOrDown(Collider2D col, Bounds bounds)
 		{
 			return IsSpaceOffEdge(col, bounds);
 		}
@@ -49,7 +44,7 @@ namespace Assets.Scripts.Player.Climbing
 		{
 			bool isLeft = col.transform.gameObject.layer == _leftClimbLayer;
 			RaycastHit2D[] hits = Physics2D.BoxCastAll((isLeft ? col.GetTopLeft() : col.GetTopRight()) + new Vector3(isLeft ? -bounds.extents.x : bounds.extents.x, 0),
-				new Vector2(bounds.size.x, 0.1f), 0, OrientationHelper.GetDownwardVector(col.transform), bounds.size.y, Layers.Platforms);
+				new Vector2(bounds.size.x - 0.2f, 0.1f), 0, col.IsCorner() ? OrientationHelper.GetDownwardVector(col.transform) : Vector3.down, bounds.size.y, Layers.Platforms);
 
 			return hits.Any(hit => hit.collider.transform != col.transform.parent) == false;
 		}
@@ -88,13 +83,12 @@ namespace Assets.Scripts.Player.Climbing
 			if (col.IsUpright() == false)
 				return true;
 
-			Vector2 playerPosition = col.transform.position - bounds.center;
+			Vector2 playerPosition = col.bounds.center - bounds.center;
 
-			bool onRight = AngleDir(col.transform.parent.right, playerPosition) < 0;
-			if (col.transform.parent.rotation.eulerAngles.z > 180)
-			{
-				onRight = !onRight;
-			}
+			float angleDirection = AngleDir(OrientationHelper.GetDownwardVector(col.transform), playerPosition);
+
+			bool onRight = angleDirection > 0;
+
 			return ((col.transform.gameObject.layer == LayerMask.NameToLayer(Layers.RightClimbSpot) && onRight)
 				|| (col.transform.gameObject.layer == LayerMask.NameToLayer(Layers.LeftClimbSpot)) && !onRight);
 		}

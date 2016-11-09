@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Helpers;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Interactable
@@ -21,6 +22,7 @@ namespace Assets.Scripts.Interactable
 
 		public Collider2D LeftException;
 		public Collider2D RightException;
+		public Collider2D OtherException;
 
 		private GameObject _leftEdge;
 		private GameObject _rightEdge;
@@ -44,7 +46,7 @@ namespace Assets.Scripts.Interactable
 
         void Update()
 		{
-			if (GetBoolArray() != _oldBools)
+			if (GetBoolArray().SequenceEqual(_oldBools) == false)
 			{
 				_orientation = Orientation.None;
 				DeactiveEdges();
@@ -92,7 +94,7 @@ namespace Assets.Scripts.Interactable
 			}
             else if (_orientation == Orientation.UprightClockwise)
             {
-                bool createLeftEdge = IsLeftCorner == false || (IsLeftCorner && IsRightCornerInverted);
+                bool createLeftEdge = IsLeftCorner == false || (IsLeftCorner && IsLeftCornerInverted);
                 bool createRightEdge = IsLeftCorner == false || (IsLeftCorner && IsLeftCornerInverted == false);
                 CreateLeftUpright(createLeftEdge, createRightEdge);
             }

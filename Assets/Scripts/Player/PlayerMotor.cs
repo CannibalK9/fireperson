@@ -17,13 +17,21 @@ namespace Assets.Scripts.Player
 		public float Gravity = -25f;
 		public float RunSpeed = 8f;
 		public float GroundDamping = 1f;
+		public float AirDamping = 10f;
 
-        public AnimationScript Anim { get; private set; }
+		public AnimationScript Anim { get; private set; }
 		public bool MovementAllowed { get; set; }
 		public DirectionFacing ClimbingSide { get { return _climbHandler.ClimbSide; } }
 		public Transform Transform { get; set; }
 		public MovementState MovementState { get; set; }
-		public Collider2D Collider { get; set; }
+		public Collider2D Collider
+		{
+			get
+			{
+				return _isCrouched ? CrouchedCollider : StandingCollider;
+			}
+			set { }
+		}
 		public Rigidbody2D Rigidbody { get; set; }
 		public ClimbingState ClimbingState { get; set; }
 		public Interaction Interaction { get; set; }
@@ -35,25 +43,34 @@ namespace Assets.Scripts.Player
 		private float _normalizedHorizontalSpeed;
 		private bool _wasSliding;
 		private bool _wasGrounded;
+		public BoxCollider2D CrouchedCollider;
+		public BoxCollider2D StandingCollider;
+		private bool _isCrouched;
 
 		void Awake()
 		{
 			Transform = transform.parent.parent;
 			Anim = Transform.GetComponent<AnimationScript>();
-			Collider = Transform.GetComponent<BoxCollider2D>();
 			Rigidbody = Transform.GetComponent<Rigidbody2D>();
-			MovementState = new MovementState(Collider.bounds.extents);
 			MovementAllowed = true;
+
+			StandingCollider = Transform.GetComponent<BoxCollider2D>();
+			CrouchedCollider = Transform.GetComponents<BoxCollider2D>()[1];
+
+			MovementState = new MovementState(StandingCollider.bounds.extents);
 
 			_movement = new MovementHandler(this);
 			_climbHandler = new ClimbHandler(this);
 			Interaction = new Interaction();
 		}
 
-		void FixedUpdate()
+		void Update()
 		{
 			_playerState = HandleMovementInputs();
+		}
 
+		void FixedUpdate()
+		{ 
 			switch (_playerState)
 			{
 				case PlayerState.WaitingForInput:
@@ -80,8 +97,10 @@ namespace Assets.Scripts.Player
 					MoveWithVelocity(0);
 					break;
 				case PlayerState.Jumping:
+                    MoveWithVelocity(0, true);
+					break;
 				default:
-                    MoveWithVelocity(0);
+					MoveWithVelocity(0);
 					break;
             }
 		}
@@ -164,7 +183,7 @@ namespace Assets.Scripts.Player
 					Anim.SetBool(PlayerAnimBool.Falling, true);
 					Anim.SetBool(PlayerAnimBool.Moving, false);
 					Anim.SetBool(PlayerAnimBool.Upright, false);
-
+					_normalizedHorizontalSpeed = 0;
 					return PlayerState.Falling;
 				}
 			}
@@ -214,18 +233,23 @@ namespace Assets.Scripts.Player
 
 		private void SetHorizontalVelocity()
 		{
-			_velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * RunSpeed, ref _velocity.x, Time.fixedDeltaTime * GroundDamping);
+			float damping = MovementState.IsGrounded ? GroundDamping : AirDamping;
+			_velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * RunSpeed, ref _velocity.x, Time.fixedDeltaTime * damping);
 		}
 
-		private void MoveWithVelocity(float gravity)
+		private void MoveWithVelocity(float gravity, bool isJumping = false)
 		{
 			transform.localPosition = Vector3.zero;
 
 			float maxX = ConstantVariables.MaxHorizontalSpeed + CurrentClimate.Control/20;
 
-			if (Physics2D.Raycast(Collider.GetTopLeft() + Vector3.up * 0.1f, Vector2.right, Collider.bounds.size.x, Layers.Platforms))
+			SetCrouched(ShouldCrouch());
+			if (_isCrouched)
+				maxX *= ConstantVariables.CrouchedFactor;
+
+			if (Physics2D.Raycast(Collider.GetTopLeft() + Vector3.up * 0.01f, Vector2.right, Collider.bounds.size.x, Layers.Platforms))
 			{
-				maxX = ConstantVariables.SquashedSpeed;
+				maxX *= ConstantVariables.SquashedFactor;
 				Anim.SetBool(PlayerAnimBool.Squashed, true);
 			}
 			else
@@ -237,8 +261,25 @@ namespace Assets.Scripts.Player
 				_velocity.y = ConstantVariables.MaxVerticalSpeed;
 
 			_velocity.y += gravity * Time.fixedDeltaTime;
-			bool isKinetic = _playerState == PlayerState.Jumping;
-			_movement.BoxCastMove(_velocity * Time.fixedDeltaTime, isKinetic);
+			_movement.BoxCastMove(_velocity * Time.fixedDeltaTime, false, isJumping);
+		}
+
+		private void SetCrouched(bool shouldCrouch)
+		{
+			Anim.SetBool(PlayerAnimBool.Crouched, shouldCrouch);
+			_isCrouched = shouldCrouch;
+			StandingCollider.enabled = !shouldCrouch;
+			CrouchedCollider.enabled = shouldCrouch;
+		}
+
+		private bool ShouldCrouch()
+		{
+			Vector2 origin = Collider.GetBottomCenter() + Vector3.up * (ConstantVariables.MaxLipHeight + 0.1f);
+			Vector2 size = new Vector2(StandingCollider.size.x + 0.4f, 0.01f);
+			float distance = StandingCollider.size.y - ConstantVariables.MaxLipHeight - 0.1f;
+			RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, size, 0, Vector2.up, distance, Layers.Platforms);
+			Debug.DrawLine(origin, origin + (Vector2.up * distance), Color.magenta);
+			return hits.Any() && hits.All(hit => hit.point.y > Collider.bounds.min.y + CrouchedCollider.size.y);
 		}
 
 		private void MoveToClimbingPoint()
@@ -249,7 +290,7 @@ namespace Assets.Scripts.Player
 
 			bool applyRotation = Anim.GetBool(PlayerAnimBool.Corner) && MovementState.CharacterPoint == ColliderPoint.Centre;
 
-			if (_climbHandler.CurrentClimb == Climb.Down && _movement.IsCollidingWithNonPivot())
+			if (_climbHandler.CurrentClimb == Climb.Down && _movement.IsCollidingWithNonPivot(true))
 			{
 				CancelClimbingState();
                 CancelAnimation();
@@ -268,7 +309,7 @@ namespace Assets.Scripts.Player
 
         private void MoveToInteractionPoint()
         {
-			if (_movement.IsCollidingWithNonPivot())
+			if (_movement.IsCollidingWithNonPivot(false))
 			{
 				CancelAnimation();
 				return;
@@ -466,7 +507,7 @@ namespace Assets.Scripts.Player
 
 			Climb climb;
 			string animation = "";
-			if (KeyBindings.GetKey(Controls.Up) && _climbHandler.CheckLedgeAbove(GetDirectionFacing(), out climb, false))
+			if (_isCrouched == false && KeyBindings.GetKey(Controls.Up) && _climbHandler.CheckLedgeAbove(GetDirectionFacing(), out climb, false))
 			{
 				switch (climb)
 				{
@@ -482,10 +523,13 @@ namespace Assets.Scripts.Player
 				}
 			}
 			else if (topOfSlope == false && KeyBindings.GetKey(Controls.Down) && _climbHandler.CheckLedgeBelow(Climb.Down, GetDirectionFacing(), out animation))
+			{
 				Anim.PlayAnimation(animation);
-			else if (topOfSlope == false && KeyBindings.GetKey(Controls.Jump) && _climbHandler.CheckLedgeBelow(Climb.MoveToEdge, GetDirectionFacing(), out animation))
+				SetCrouched(false);
+			}
+			else if (_isCrouched == false && topOfSlope == false && KeyBindings.GetKey(Controls.Jump) && _climbHandler.CheckLedgeBelow(Climb.MoveToEdge, GetDirectionFacing(), out animation))
 				Anim.PlayAnimation(animation);
-			else 
+			else
 				return false;
 
 			Transform.GetComponent<AudioSource>().Play();
@@ -502,7 +546,7 @@ namespace Assets.Scripts.Player
 					Interaction.Point = hit.collider;
 					Interaction.Object = hit.collider.transform.parent;
 
-					var stilt = Interaction.Object.GetComponentInChildren<Stilt>();
+					var stilt = Interaction.Object.GetComponentInParent<Stilt>();
 					if (stilt != null)
 					{
 						return InteractWithStilt(stilt);
@@ -663,17 +707,9 @@ namespace Assets.Scripts.Player
 		{
 			const float checkLength = 2f;
 
-			float xOrigin = direction == DirectionFacing.Right
-				? Collider.bounds.min.x
-				: Collider.bounds.max.x;
-
-			var origin = new Vector2(
-				xOrigin,
-				Collider.bounds.min.y);
-
 			Vector2 castDirection = MovementState.GetSurfaceDirection(direction == DirectionFacing.Left ? DirectionTravelling.Left : DirectionTravelling.Right);
 
-			return Physics2D.BoxCast(origin, Vector2.one, 0, castDirection, checkLength, 1 << LayerMask.NameToLayer(Layers.Interactable));
+			return Physics2D.BoxCast(Collider.bounds.center, new Vector2(0.1f, Collider.bounds.size.y), 0, castDirection, checkLength, 1 << LayerMask.NameToLayer(Layers.Interactable));
 		}
 
 		public bool InteractWithStilt(Stilt stilt)
@@ -726,7 +762,7 @@ namespace Assets.Scripts.Player
 
 		public void SwitchStilt()
 		{
-			var stilt = Interaction.Object.GetComponentInChildren<Stilt>();
+			var stilt = Interaction.Object.GetComponentInParent<Stilt>();
 			stilt.IsExtended = !stilt.IsExtended;
 		}
 

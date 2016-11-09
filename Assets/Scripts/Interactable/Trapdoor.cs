@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Helpers;
+using Destructible2D;
 using PicoGames.VLS2D;
 using System.Linq;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace Assets.Scripts.Interactable
 {
     public class Trapdoor : MonoBehaviour
 	{
-		private Ice.Ice[] _ice;
+		private D2dFixture[] _fixtures;
 		private bool _fallen;
 
 		public GameObject LeftPlatform;
@@ -24,14 +25,14 @@ namespace Assets.Scripts.Interactable
 
 		void Awake()
 		{
-			_ice = GetComponentsInChildren<Ice.Ice>();
+			_fixtures = GetComponentsInChildren<D2dFixture>();
 			_hinge = GetComponentsInChildren<Transform>().SingleOrDefault(t => t.name == "hinge");
 			_col = GetComponent<Collider2D>();
 		}
 
 		void Update()
 		{
-			if (_fallen == false && _ice.Any(i => i.IsAnchored) == false)
+			if (_fallen == false && _fixtures.All(f => f == null))
 			{
 				_fallen = true;
 				CreateFallenTrapdoor();
@@ -41,16 +42,19 @@ namespace Assets.Scripts.Interactable
 
 		private void CreateFallenTrapdoor()
 		{
-			foreach (var ice in _ice)
-			{
-				Destroy(ice.gameObject);
-			}
 			var r = gameObject.AddComponent<Rigidbody2D>();
 			r.mass = Mass;
 
 			if (RemainsSolid == false)
 			{
-				gameObject.layer = LayerMask.NameToLayer(Layers.Background);
+				foreach (var t in GetComponentsInChildren<Transform>())
+				{
+					if (t == transform)
+						t.gameObject.layer = LayerMask.NameToLayer(Layers.Background);
+					else
+						t.gameObject.layer = LayerMask.NameToLayer(Layers.BackgroundIce);
+				}
+
 				gameObject.GetComponent<VLSObstructor>().ClearLocalVertices();
 			}
 

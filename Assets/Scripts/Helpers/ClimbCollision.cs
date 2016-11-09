@@ -14,6 +14,7 @@ namespace Assets.Scripts.Helpers
 				return hits.Any(hit =>
 				hit.collider.transform != t.parent
 				&& hit.collider != climbableEdges.LeftException
+				&& hit.collider != climbableEdges.OtherException
 				&& hit.collider != climbableEdges.RightException);
 			else
 				return hits.Any(hit =>

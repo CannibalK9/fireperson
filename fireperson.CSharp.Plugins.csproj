@@ -119,6 +119,10 @@
     <Compile Include="Assets\Standard Assets\Utility\ParticleSystemDestroyer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Destructible 2D\Shaders\Default.shader" />
+    <None Include="Assets\Destructible 2D\Shaders\Diffuse.shader" />
+    <None Include="Assets\Destructible 2D\Shaders\Keep Alpha.shader" />
+    <None Include="Assets\Destructible 2D\Shaders\Outline.shader" />
     <None Include="Assets\Fluvio\README.txt" />
     <None Include="Assets\Fluvio\Resources\ComputeShaders\FluidParticleSystem\ComputeShader.cginc" />
     <None Include="Assets\Fluvio\Resources\ComputeShaders\FluidParticleSystem\ComputeShader.compute" />
