@@ -62,7 +62,7 @@ namespace Assets.Scripts.Movement
 
         public void MovePivotAlongSurface(DirectionTravelling direction, float distance)
         {
-            Vector3 v = OrientationHelper.GetSurfaceVectorTowardsRight(Pivot.transform.parent);
+            Vector3 v = OrientationHelper.GetSurfaceVectorTowardsRight(Pivot.transform);
 
             if (direction == DirectionTravelling.Left)
                 v = -v;
@@ -75,7 +75,7 @@ namespace Assets.Scripts.Movement
 
 		public void MovePivotDown()
 		{
-			Vector3 v = OrientationHelper.GetDownwardVector(Pivot.transform.parent);
+			Vector3 v = OrientationHelper.GetDownwardVector(Pivot.transform);
 
 			Vector3 movement = v.normalized * 0.5f;
 

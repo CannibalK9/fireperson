@@ -23,13 +23,13 @@ namespace Assets.Scripts.Helpers
             else if (rotation >= 180 + slopeLimit && rotation <= 360 - slopeLimit)
                 return Orientation.UprightAntiClockwise;
             else if (rotation < 90)
-                return Orientation.LeftTilt;
-            else if (rotation < 180)
-                return Orientation.UpsideDownRightTilt;
-            else if (rotation < 270)
-                return Orientation.UpsideDownLeftTilt;
-            else
                 return Orientation.RightTilt;
+            else if (rotation < 180)
+                return Orientation.UpsideDownLeftTilt;
+            else if (rotation < 270)
+                return Orientation.UpsideDownRightTilt;
+            else
+                return Orientation.LeftTilt;
         }
 
 		public static Vector3 GetSurfaceVectorTowardsRight(Transform trans)
