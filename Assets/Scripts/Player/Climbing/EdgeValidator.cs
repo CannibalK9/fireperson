@@ -16,7 +16,7 @@ namespace Assets.Scripts.Player.Climbing
 
 		public static bool CanClimbUpOrDown(Collider2D col, Bounds bounds)
 		{
-			return IsSpaceOffEdge(col, bounds);
+			return IsSpaceOffEdge(col, bounds) && IsSpaceAboveEdge(col, bounds);
 		}
 
 		public static bool CanHang(Collider2D col, Bounds bounds)
@@ -26,7 +26,7 @@ namespace Assets.Scripts.Player.Climbing
 
 		public static bool CanJumpToOrFromEdge(Collider2D col, Bounds bounds)
 		{
-			return IsEdgeUnblocked(col, bounds) && IsSpaceAboveEdge(col, bounds);
+			return IsEdgeUnblocked(col, bounds, false) && IsSpaceAboveEdge(col, bounds) && IsSpaceOffEdge(col, bounds);
 		}
 
 		public static bool CanMantle(Collider2D col, Bounds bounds)
@@ -58,7 +58,7 @@ namespace Assets.Scripts.Player.Climbing
 			return ClimbCollision.IsCollisionInvalid(hits, col.transform) == false;
 		}
 
-		private static bool IsEdgeUnblocked(Collider2D originalHit, Bounds bounds)
+		private static bool IsEdgeUnblocked(Collider2D originalHit, Bounds bounds, bool allowExceptions = true)
 		{
 			Vector2 origin = bounds.center;
 			Vector2 edgeCentre = originalHit.bounds.center;
@@ -68,10 +68,13 @@ namespace Assets.Scripts.Player.Climbing
 			RaycastHit2D obstacleHit = Physics2D.Raycast(origin, direction, 10f, Layers.Platforms);
 			Debug.DrawRay(origin, direction, Color.red);
 
-			return obstacleHit == false
-				|| originalHit.transform.parent == obstacleHit.collider.transform
-				|| ClimbCollision.IsCollisionInvalid(new RaycastHit2D[] { obstacleHit }, originalHit.transform) == false;
-		}
+            return allowExceptions
+                ? obstacleHit == false
+                    || originalHit.transform.parent == obstacleHit.collider.transform
+                    || ClimbCollision.IsCollisionInvalid(new RaycastHit2D[] { obstacleHit }, originalHit.transform) == false
+                : obstacleHit == false
+                    || originalHit.transform.parent == obstacleHit.collider.transform;
+        }
 
 		private static bool IsHangingSpace(Collider2D originalHit)
 		{

@@ -507,7 +507,7 @@ namespace Assets.Scripts.Player
 
 			Climb climb;
 			string animation = "";
-			if (_isCrouched == false && KeyBindings.GetKey(Controls.Up) && _climbHandler.CheckLedgeAbove(GetDirectionFacing(), out climb, false))
+			if (_isCrouched == false && KeyBindings.GetKey(Controls.Up) && _climbHandler.CheckLedgeAbove(GetDirectionFacing(), out climb, true))
 			{
 				switch (climb)
 				{

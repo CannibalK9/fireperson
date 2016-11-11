@@ -371,12 +371,22 @@ namespace Assets.Scripts.Player.Climbing
 				? (Bounds) projectedBounds
 				: _motor.Collider.bounds;
 
-			const float checkLength = 6f;
+			float checkLength = 6f;
 			const float maxHeightAbove = 1f;
 			const float maxHeightBelow = 2f;
+            const float spaceInFront = 2f;
+
 			float checkDepth = bounds.size.y + maxHeightAbove + maxHeightBelow;
 
-			float x = direction == DirectionFacing.Left ? bounds.min.x : bounds.max.x;
+            float x;
+            if (_climbCollider == null || _climbCollider.CanClimbDown())
+            {
+                x = direction == DirectionFacing.Left ? bounds.min.x - spaceInFront : bounds.max.x + spaceInFront;
+                checkLength -= spaceInFront;
+            }
+            else
+                x = direction == DirectionFacing.Left ? bounds.min.x : bounds.max.x;
+
 			float y = bounds.center.y - maxHeightBelow + maxHeightAbove;
 
 			var origin = new Vector2(x, y);
@@ -623,6 +633,11 @@ namespace Assets.Scripts.Player.Climbing
 
 			return GetClimbingState(recalculate);
 		}
+
+        private bool CanVault()
+        {
+            return _climbCollider.IsUpright() && _climbCollider.IsCorner() == false;
+        }
 
         private void MovePivotAlongSurface()
         {
