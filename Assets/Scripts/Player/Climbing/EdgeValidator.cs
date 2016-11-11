@@ -11,7 +11,7 @@ namespace Assets.Scripts.Player.Climbing
 
 		public static bool CanJumpToHang(Collider2D col, Bounds bounds)
 		{
-			return IsEdgeUnblocked(col, bounds) && IsUprightAccessible(col, bounds) && IsSpaceBelowEdge(col, bounds) && IsHangingSpace(col);
+			return IsEdgeUnblocked(col, bounds, false) && IsUprightAccessible(col, bounds) && IsSpaceBelowEdge(col, bounds) && IsHangingSpace(col);
 		}
 
 		public static bool CanClimbUpOrDown(Collider2D col, Bounds bounds)
@@ -26,12 +26,12 @@ namespace Assets.Scripts.Player.Climbing
 
 		public static bool CanJumpToOrFromEdge(Collider2D col, Bounds bounds)
 		{
-			return IsEdgeUnblocked(col, bounds, false) && IsSpaceAboveEdge(col, bounds) && IsSpaceOffEdge(col, bounds);
+			return IsEdgeUnblocked(col, bounds, true, false) && IsSpaceAboveEdge(col, bounds) && IsSpaceOffEdge(col, bounds);
 		}
 
 		public static bool CanMantle(Collider2D col, Bounds bounds)
 		{
-			return IsUprightAccessible(col, bounds) && IsEdgeUnblocked(col, bounds) && IsSpaceAboveEdge(col, bounds);
+			return IsUprightAccessible(col, bounds) && IsEdgeUnblocked(col, bounds, true) && IsSpaceAboveEdge(col, bounds);
 		}
 
 		private static bool IsSpaceAboveEdge(Collider2D col, Bounds bounds)
@@ -58,22 +58,32 @@ namespace Assets.Scripts.Player.Climbing
 			return ClimbCollision.IsCollisionInvalid(hits, col.transform) == false;
 		}
 
-		private static bool IsEdgeUnblocked(Collider2D originalHit, Bounds bounds, bool allowExceptions = true)
+		private static bool IsEdgeUnblocked(Collider2D originalHit, Bounds bounds, bool above, bool allowExceptions = true)
 		{
-			Vector2 origin = bounds.center;
-			Vector2 edgeCentre = originalHit.bounds.center;
-			Vector2 face = originalHit.GetTopFace();
-			Vector2 direction = face - origin;
+            float offset = above ? bounds.extents.y : -bounds.extents.y;
+            Vector2 origin = bounds.center;
+            Vector2 target = originalHit.GetTopFace() + new Vector3(0, offset);
+			Vector2 direction = target - origin;
 
-			RaycastHit2D obstacleHit = Physics2D.Raycast(origin, direction, 10f, Layers.Platforms);
+			RaycastHit2D[] obstacleHits = Physics2D.BoxCastAll(origin, new Vector2(0.01f, bounds.size.y - 0.1f), 0, direction, Vector2.Distance(origin, target), Layers.Platforms);
 			Debug.DrawRay(origin, direction, Color.red);
 
-            return allowExceptions
-                ? obstacleHit == false
-                    || originalHit.transform.parent == obstacleHit.collider.transform
-                    || ClimbCollision.IsCollisionInvalid(new RaycastHit2D[] { obstacleHit }, originalHit.transform) == false
-                : obstacleHit == false
-                    || originalHit.transform.parent == obstacleHit.collider.transform;
+            foreach (var hit in obstacleHits)
+            {
+                if (allowExceptions)
+                {
+                    if (originalHit.transform.parent == hit.collider.transform
+                    || ClimbCollision.IsCollisionInvalid(new RaycastHit2D[] { hit }, originalHit.transform) == false)
+                        continue;
+                    else
+                        return false;
+                }
+                else if (originalHit.transform.parent == hit.collider.transform)
+                    continue;
+                else
+                    return false;
+            }
+            return true;
         }
 
 		private static bool IsHangingSpace(Collider2D originalHit)
