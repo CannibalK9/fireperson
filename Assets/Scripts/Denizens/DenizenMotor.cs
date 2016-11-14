@@ -338,11 +338,12 @@ namespace Assets.Scripts.Denizens
 			if (_velocity.y < ConstantVariables.MaxVerticalSpeed)
 				_velocity.y = ConstantVariables.MaxVerticalSpeed;
 			RunSpeed = runspeed;
+			_controller.Movement.SetMovementCollisions(_velocity * Time.fixedDeltaTime, false);
 		}
 
 		private void MoveWithVelocity()
 		{
-			_controller.Movement.BoxCastMove(_velocity * Time.deltaTime, false);
+			_controller.Movement.BoxCastMove();
 			if (_controller.MovementState.IsGrounded == false && _animator.GetBool(DenizenAnimBool.Falling) == false)
 				_animator.Play(Animator.StringToHash(Animations.Falling));
 

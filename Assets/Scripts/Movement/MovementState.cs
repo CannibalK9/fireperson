@@ -102,6 +102,11 @@ namespace Assets.Scripts.Movement
             TrappedBetweenSlopes = false;
 		}
 
+		public void OnGroundHit()
+		{
+			CurrentAcceleration = new Vector2(CurrentAcceleration.x, 0);
+		}
+
 		public void OnLeftCollision()
 		{
 			if (CurrentAcceleration.x < 0)
@@ -173,35 +178,17 @@ namespace Assets.Scripts.Movement
 
 		private Vector3 GetPivotPositionWhenCorner(ColliderPoint targetPoint)
 		{
-			CornerCollider = Pivot.transform.parent;
+			CornerCollider = PivotCollider.transform;
 
-			Vector3 vAcross = CornerCollider.up;
-			Vector3 vDown = CornerCollider.right;
-
-			if (vDown.y > 0)
-				vDown = -vDown;
-
-			if ((vAcross.x > 0 && targetPoint == ColliderPoint.TopLeft) || (vAcross.x < 0 && targetPoint == ColliderPoint.TopRight))
-				vAcross = -vAcross;
+			Vector3 vAcross = targetPoint == ColliderPoint.TopRight ? CornerCollider.right : -CornerCollider.right;
+			Vector3 vDown = -CornerCollider.up;
 
 			return PivotCollider.GetPoint(targetPoint) + (vAcross.normalized * _colliderDimensions.x) + (vDown.normalized * _colliderDimensions.y);
 		}
 
 		public float GetCornerAngle()
 		{
-			float angle = Mathf.Abs(Vector2.Angle(Vector2.up, -OrientationHelper.GetDownwardVector(CornerCollider)));
-
-			if (angle > 180)
-				angle -= 180;
-
-			Vector3 vDown = CornerCollider.right;
-
-			if (vDown.y > 0)
-				vDown = -vDown;
-
-			return vDown.x < 0
-				? -angle
-				: angle;
+			return CornerCollider.rotation.eulerAngles.z;
 		}
 
 		public void UpdatePivotToTarget()

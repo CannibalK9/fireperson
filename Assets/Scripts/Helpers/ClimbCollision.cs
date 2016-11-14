@@ -8,14 +8,17 @@ namespace Assets.Scripts.Helpers
 	{
 		public static bool IsCollisionInvalid(RaycastHit2D[] hits, Transform t)
 		{
-			ClimbableEdges climbableEdges = t.parent.GetComponent<ClimbableEdges>();
+			Transform parent = t.parent;
+			ClimbableEdges climbableEdges = parent.GetComponent<ClimbableEdges>();
 
 			if (climbableEdges != null)
+			{
 				return hits.Any(hit =>
-				hit.collider.transform != t.parent
-				&& hit.collider != climbableEdges.LeftException
+				hit.collider.transform != parent
 				&& hit.collider != climbableEdges.OtherException
+				&& hit.collider != climbableEdges.LeftException
 				&& hit.collider != climbableEdges.RightException);
+			}
 			else
 				return hits.Any(hit =>
 					hit.collider.transform != t);

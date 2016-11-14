@@ -12,7 +12,9 @@ namespace Assets.Scripts.Movement
 		private RaycastHit2D _downHit;
 		private ColliderPoint _previousColliderPoint;
 		private float _angle;
-		private bool _lip;
+		private RaycastHit2D _lipHit;
+		private bool _leftHit = false;
+		private bool _rightHit = false;
 
 		public MovementHandler(IMotor motor)
 		{
@@ -35,9 +37,9 @@ namespace Assets.Scripts.Movement
 			if (applyRotation)
 			{
 				float angle = _motor.MovementState.GetCornerAngle();
-				//float rotation = Mathf.Lerp(fullRotation, 0, distance);
+				float rotation = Mathf.Lerp(angle, 0, distance);
 				if (_angle != angle)
-					_motor.Transform.rotation = Quaternion.Euler(0,0, angle);
+					_motor.Transform.rotation = Quaternion.Euler(0,0, rotation);
 
 				_angle = angle;
 			}
@@ -58,12 +60,9 @@ namespace Assets.Scripts.Movement
 			return ClimbCollision.IsCollisionInvalid(hits, _motor.MovementState.Pivot.transform);
 		}
 
-		public void BoxCastMove(Vector3 deltaMovement, bool isKinematic, bool isJumping = false)
+		public void SetMovementCollisions(Vector3 deltaMovement, bool isKinematic, bool isJumping = false)
 		{
-			if (Time.timeSinceLevelLoad < 1)
-				return;
-
-            BoxCastSetup(ref deltaMovement, isKinematic);
+			BoxCastSetup(deltaMovement, isKinematic);
 			Bounds bounds = _motor.Collider.bounds;
 
 			if (isKinematic == false && isJumping == false)
@@ -74,11 +73,21 @@ namespace Assets.Scripts.Movement
 
 			if (isKinematic == false && _downHit && isJumping == false)
 			{
-				deltaMovement.y = 0;
+				_motor.MovementState.OnGroundHit();
+				_leftHit = _motor.MovementState.CurrentAcceleration.x > 0 ? false : DirectionCast(bounds, DirectionTravelling.Left);
+				_rightHit = _motor.MovementState.CurrentAcceleration.x < 0 ? false : DirectionCast(bounds, DirectionTravelling.Right);
+			}
+		}
 
-				bool leftHit = _motor.MovementState.CurrentAcceleration.x > 0 ? false : DirectionCast(bounds, DirectionTravelling.Left);
-				bool rightHit = _motor.MovementState.CurrentAcceleration.x < 0 ? false : DirectionCast(bounds, DirectionTravelling.Right);
+		public void BoxCastMove()
+		{
+			if (Time.timeSinceLevelLoad < 1)
+				return;
 
+			Bounds bounds = _motor.Collider.bounds;
+
+			if (_downHit)
+			{
 				ColliderPoint hitLocation;
 
 				float n = _downHit.normal.x;
@@ -90,7 +99,8 @@ namespace Assets.Scripts.Movement
 				else
 					hitLocation = ColliderPoint.BottomRight;
 
-                _motor.MovementState.CharacterPoint = hitLocation;
+				_motor.MovementState.CharacterPoint = hitLocation;
+
 				Vector3 offset = _motor.Collider.GetPoint(hitLocation);
 
 				float x = hitLocation == ColliderPoint.BottomFace ? bounds.center.x : _downHit.point.x;
@@ -107,39 +117,44 @@ namespace Assets.Scripts.Movement
 				}
 
 				_motor.MovementState.TrappedBetweenSlopes = _motor.MovementState.IsOnSlope
-					&& ((leftHit && _downHit.normal.x < 0)
-						|| (rightHit && _downHit.normal.x > 0));
+					&& ((_leftHit && _downHit.normal.x < 0)
+						|| (_rightHit && _downHit.normal.x > 0));
 
-				if (_downHit.collider != _motor.MovementState.PivotCollider || leftHit || rightHit || hitLocation != _previousColliderPoint || Vector2.Distance(_motor.MovementState.Pivot.transform.position, bounds.center) > 10f)
+				bool reset = false;
+				if (_motor.MovementState.Pivot.transform.parent == null || Vector2.Distance(_motor.MovementState.Pivot.transform.localPosition, _motor.MovementState.Pivot.transform.parent.InverseTransformPoint(pivotPosition)) > 0.01f)//  _downHit.collider != _motor.MovementState.PivotCollider || leftHit || rightHit || hitLocation != _previousColliderPoint || Vector2.Distance(_motor.MovementState.Pivot.transform.position, bounds.center) > 10f)
 				{
 					_motor.MovementState.SetPivotPoint(_downHit.collider, pivotPosition, _downHit.normal);
+					reset = true;
 				}              
 				_previousColliderPoint = hitLocation;
 
-                if (_motor.MovementState.TrappedBetweenSlopes == false)
+                if (_motor.MovementState.TrappedBetweenSlopes == false && _leftHit == false && _rightHit == false && reset == false)
                 {
-                    _motor.MovementState.Pivot.transform.Translate(MoveAlongSurface(), Space.World);
-
-                    pivotPosition = _motor.MovementState.Pivot.transform.position + bounds.center - offset;
-                    Vector2 newPosition = Vector3.MoveTowards(bounds.center, pivotPosition, 100f);
-					if (_lip)
-						_motor.Transform.position = newPosition;
+					if (_lipHit)
+					{
+						_motor.MovementState.SetPivotPoint(_lipHit.collider, _lipHit.point, _lipHit.normal);
+						_motor.Transform.position = _motor.MovementState.Pivot.transform.position + _motor.Transform.position - offset;
+					}
 					else
-						_motor.Rigidbody.MovePosition(newPosition);
-					DrawRay(newPosition, _downHit.normal, Color.green);
+					{
+						_motor.MovementState.Pivot.transform.Translate(MoveAlongSurface(), Space.World);
+						_motor.Rigidbody.MovePosition(_motor.MovementState.Pivot.transform.position + _motor.Transform.position - offset);
+					}
                 }
 			}
 			else
 			{
 				_motor.MovementState.PivotCollider = null;
-				_motor.Transform.Translate(deltaMovement, Space.World);
+				_motor.Transform.Translate(_motor.MovementState.CurrentAcceleration, Space.World);
 			}
 		}
 
-        private void BoxCastSetup(ref Vector3 deltaMovement, bool isKinematic)
+        private void BoxCastSetup(Vector3 deltaMovement, bool isKinematic)
         {
             _angle = 0;
-            _lip = false;
+			_lipHit = new RaycastHit2D();
+			_leftHit = false;
+			_rightHit = false;
 
             if (Mathf.Abs(deltaMovement.x) < 0.05f)
                 deltaMovement.x = 0;
@@ -180,24 +195,25 @@ namespace Assets.Scripts.Movement
 
 				if (direction == DirectionTravelling.Left)
 				{
-					RaycastHit2D lipCast = Physics2D.Raycast(new Vector2(bounds.min.x, lipHeight), dir, 2, Layers.Platforms);
-					if (ActualSidewaysCollision(lipCast))
+					//special player crouch check/set
+					RaycastHit2D lipHit = Physics2D.Raycast(new Vector2(bounds.min.x - 0.1f, bounds.max.y), Vector2.down, bounds.size.y, Layers.Platforms);
+					if (ActualSidewaysCollision(lipHit, lipHeight))
 						_motor.MovementState.OnLeftCollision();
 					else
 					{
 						hit = new RaycastHit2D();
-						_lip = true;
+						_lipHit = lipHit;
 					}
 				}
 				else
 				{
-					RaycastHit2D lipCast = Physics2D.Raycast(new Vector2(bounds.max.x, lipHeight), dir, 2, Layers.Platforms);
-					if (ActualSidewaysCollision(lipCast))
+					RaycastHit2D lipHit = Physics2D.Raycast(new Vector2(bounds.max.x + 0.1f, bounds.max.y), Vector2.down, bounds.size.y, Layers.Platforms);
+					if (ActualSidewaysCollision(lipHit, lipHeight))
 						_motor.MovementState.OnRightCollision();
 					else
 					{
 						hit = new RaycastHit2D();
-						_lip = true;
+						_lipHit = lipHit;
 					}
 				}
 			}
@@ -236,9 +252,9 @@ namespace Assets.Scripts.Movement
             return atEdge;
         }
 
-        private bool ActualSidewaysCollision(RaycastHit2D lipCast)
+        private bool ActualSidewaysCollision(RaycastHit2D lipCast, float lipHeight)
 		{
-			return lipCast && (lipCast.collider == _downHit.collider || Vector2.Angle(lipCast.normal, Vector2.up) > _motor.SlopeLimit);
+			return lipCast && (lipCast.collider == _downHit.collider || lipCast.point.y > lipHeight || Vector2.Angle(lipCast.normal, Vector2.up) > _motor.SlopeLimit);
 		}
 
 		private RaycastHit2D GetDirectionHit(Bounds bounds, Vector2 direction)

@@ -89,7 +89,7 @@ namespace Assets.Scripts.Ice
 			if (_timer == 0 && col.gameObject.layer == LayerMask.NameToLayer(Layers.Heat))
 			{
 				_timer += Time.deltaTime;
-				_nextMelt = 1 - (col.gameObject.GetComponent<HeatHandler>().HeatMessage.Intensity / 100);
+				_nextMelt = 0.25f;// 1 - (col.gameObject.GetComponent<HeatHandler>().HeatMessage.Intensity / 100);
 				OnMelt(col);
 			}
 		}
@@ -127,7 +127,7 @@ namespace Assets.Scripts.Ice
 			foreach (var point in points)
 			{
 				Instantiate(_steam, point, new Quaternion());
-				D2dDestructible.StampAll(point, Vector2.one, 0, _stampTex, 1, 1 << LayerMask.NameToLayer(Layers.Ice) | 1 << LayerMask.NameToLayer(Layers.BackgroundIce));
+				D2dDestructible.StampAll(point, Vector2.one * col.gameObject.GetComponent<HeatHandler>().HeatMessage.Intensity / 100, 0, _stampTex, 1, 1 << LayerMask.NameToLayer(Layers.Ice) | 1 << LayerMask.NameToLayer(Layers.BackgroundIce));
 			}
 		}
 	}

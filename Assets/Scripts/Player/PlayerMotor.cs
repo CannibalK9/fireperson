@@ -74,13 +74,16 @@ namespace Assets.Scripts.Player
 			switch (_playerState)
 			{
 				case PlayerState.WaitingForInput:
-					SetHorizontalVelocity();
 					MoveWithVelocity(0);
+					AcceptMovementInput();
+					SetHorizontalVelocity();
+					_movement.BoxCastMove();
 					break;
 				case PlayerState.Sliding:
 					SetSliding();
 					SetHorizontalVelocity();
 					MoveWithVelocity(0);
+					_movement.BoxCastMove();
 					break;
 				case PlayerState.Climbing:
 					MoveToClimbingPoint();
@@ -91,16 +94,22 @@ namespace Assets.Scripts.Player
 				case PlayerState.Falling:
 					SetHorizontalVelocity();
 					MoveWithVelocity(Gravity);
+					_movement.BoxCastMove();
+					TryGrab();
 					break;
 				case PlayerState.Static:
 					CancelVelocity();
 					MoveWithVelocity(0);
+					_movement.BoxCastMove();
 					break;
 				case PlayerState.Jumping:
-                    MoveWithVelocity(0, true);
+                    MoveWithVelocity(0);
+					_movement.BoxCastMove();
+					TryGrab();
 					break;
 				default:
 					MoveWithVelocity(0);
+					_movement.BoxCastMove();
 					break;
             }
 		}
@@ -131,17 +140,14 @@ namespace Assets.Scripts.Player
 
 			if (_climbHandler.CurrentClimb == Climb.Jump)
 			{
-				if (TryGrab())
-					return SetMotorToClimbState();
-				else
-					return PlayerState.Jumping;
+				return PlayerState.Jumping;
 			}
 			else if (MovementState.IsGrounded)
 			{
 				if (_wasGrounded == false)
 				{
 					_wasGrounded = true;
-					return WaitForInput();
+					return PlayerState.WaitingForInput;
 				}
 				else if (Interaction.IsInteracting)
 					return PlayerState.Interacting;
@@ -164,39 +170,28 @@ namespace Assets.Scripts.Player
 					return PlayerState.Static;
 				else
 				{
-					return WaitForInput();
+					return PlayerState.WaitingForInput;
 				}
 			}
 			else
 			{
 				_wasGrounded = false;
 
-				if (TryGrab())
-				{
-					_wasGrounded = true;
-					return SetMotorToClimbState();
-				}
-				else
-				{
-					if (Anim.GetBool(PlayerAnimBool.Falling) == false)
-						Anim.PlayAnimation(Animations.Falling);
-					Anim.SetBool(PlayerAnimBool.Falling, true);
-					Anim.SetBool(PlayerAnimBool.Moving, false);
-					Anim.SetBool(PlayerAnimBool.Upright, false);
-					_normalizedHorizontalSpeed = 0;
-					return PlayerState.Falling;
-				}
+				if (Anim.GetBool(PlayerAnimBool.Falling) == false)
+					Anim.PlayAnimation(Animations.Falling);
+				Anim.SetBool(PlayerAnimBool.Falling, true);
+				Anim.SetBool(PlayerAnimBool.Moving, false);
+				Anim.SetBool(PlayerAnimBool.Upright, false);
+				_normalizedHorizontalSpeed = 0;
+				return PlayerState.Falling;
 			}
 		}
 
-		private PlayerState WaitForInput()
+		private void AcceptMovementInput()
 		{
+			MovementInput();
 			Anim.SetBool(PlayerAnimBool.Falling, false);
 			Anim.SetBool(PlayerAnimBool.Moving, _normalizedHorizontalSpeed != 0);
-
-			MovementInput();
-
-			return PlayerState.WaitingForInput;
 		}
 
 		private void SetSliding()
@@ -237,7 +232,7 @@ namespace Assets.Scripts.Player
 			_velocity.x = Mathf.SmoothDamp(_velocity.x, _normalizedHorizontalSpeed * RunSpeed, ref _velocity.x, Time.fixedDeltaTime * damping);
 		}
 
-		private void MoveWithVelocity(float gravity, bool isJumping = false)
+		private void MoveWithVelocity(float gravity)
 		{
 			transform.localPosition = Vector3.zero;
 
@@ -261,7 +256,7 @@ namespace Assets.Scripts.Player
 				_velocity.y = ConstantVariables.MaxVerticalSpeed;
 
 			_velocity.y += gravity * Time.fixedDeltaTime;
-			_movement.BoxCastMove(_velocity * Time.fixedDeltaTime, false, isJumping);
+			_movement.SetMovementCollisions(_velocity * Time.fixedDeltaTime, false);
 		}
 
 		private void SetCrouched(bool shouldCrouch)
@@ -275,11 +270,14 @@ namespace Assets.Scripts.Player
 		private bool ShouldCrouch()
 		{
 			Vector2 origin = Collider.GetBottomCenter() + Vector3.up * (ConstantVariables.MaxLipHeight + 0.1f);
-			Vector2 size = new Vector2(StandingCollider.size.x + 0.4f, 0.01f);
+			Vector2 size = new Vector2(StandingCollider.size.x + 0.2f, 0.01f);
 			float distance = StandingCollider.size.y - ConstantVariables.MaxLipHeight - 0.1f;
 			RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, size, 0, Vector2.up, distance, Layers.Platforms);
 			Debug.DrawLine(origin, origin + (Vector2.up * distance), Color.magenta);
-			return hits.Any() && hits.All(hit => hit.point.y > Collider.bounds.min.y + CrouchedCollider.size.y);
+			bool shouldCrouch = hits.Any();// && hits.All(hit => hit.point.y > Collider.bounds.min.y + CrouchedCollider.size.y);
+			if (shouldCrouch == false)
+				Debug.Log("not crouched");
+			return shouldCrouch;
 		}
 
 		private void MoveToClimbingPoint()
@@ -459,8 +457,9 @@ namespace Assets.Scripts.Player
 			}
 		}
 
-		private bool TryGrab() //forward is not being set correctly, all else seems to work!
+		private void TryGrab() //forward is not being set correctly, all else seems to work!
 		{
+			bool grabbing = false;
 			DirectionFacing directionFacing = GetDirectionFacing();
 			if (KeyBindings.GetKey(Controls.Left))
 			{
@@ -470,7 +469,7 @@ namespace Assets.Scripts.Player
 				{
 					MovementState.IsGrounded = true;
 					MovementAllowed = true;
-					return true;
+					grabbing = true;
 				}
 			}
 			else if (KeyBindings.GetKey(Controls.Right))
@@ -481,7 +480,7 @@ namespace Assets.Scripts.Player
 				{
 					MovementState.IsGrounded = true;
 					MovementAllowed = true;
-					return true;
+					grabbing = true;
 				}
 			}
 			else
@@ -492,11 +491,13 @@ namespace Assets.Scripts.Player
 					MovementAllowed = true;
 					Anim.SetBool(PlayerAnimBool.IsGrabbing, true);
 					Anim.SetBool(PlayerAnimBool.Inverted, (ClimbingState.PivotCollider.gameObject.layer == LayerMask.NameToLayer(Layers.RightClimbSpot)) == (directionFacing == DirectionFacing.Right));
-					return true;
+					grabbing = true;
 				}
 			}
-			Anim.SetBool(PlayerAnimBool.IsGrabbing, false);
-			return false;
+			Anim.SetBool(PlayerAnimBool.IsGrabbing, grabbing);
+			_wasGrounded = grabbing;
+			if (grabbing)
+				SetMotorToClimbState();
 		}
 
 		private bool TryClimb()
@@ -595,7 +596,7 @@ namespace Assets.Scripts.Player
 		public void Hop()
 		{
 			MovementState.MovePivotDown();
-			//CancelClimbingState();
+			_climbHandler.CurrentClimb = Climb.Jump;
 		}
 
 		public void FlipSprite()
