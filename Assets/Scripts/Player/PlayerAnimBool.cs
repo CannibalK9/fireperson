@@ -7,7 +7,8 @@
         public static string Upright { get { return "upright"; } }
         public static string Squashed { get { return "squashed"; } }
         public static string Corner { get { return "corner"; } }
-        public static string IsGrabbing { get { return "isGrabbing"; } }
+		public static string OnCorner { get { return "onCorner"; } }
+		public static string IsGrabbing { get { return "isGrabbing"; } }
         public static string Inverted { get { return "inverted"; } }
         public static string IsJumping { get { return "isJumping"; } }
         public static string Forward { get { return "forward"; } }

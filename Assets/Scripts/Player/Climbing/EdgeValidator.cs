@@ -26,12 +26,21 @@ namespace Assets.Scripts.Player.Climbing
 
 		public static bool CanJumpToOrFromEdge(Collider2D col, Vector2 playerCentre, BoxCollider2D playerCol)
 		{
-			return IsEdgeUnblocked(col, playerCentre, playerCol, true, false);
+			return IsEdgeUnblocked(col, playerCentre, playerCol, true, false) && IsEdgeLip(col) == false;
 		}
 
 		public static bool CanMantle(Collider2D col, Vector2 playerCentre, BoxCollider2D playerCol)
 		{
 			return IsUprightAccessible(col, playerCentre, playerCol) && IsEdgeUnblocked(col, playerCentre, playerCol, true);
+		}
+
+		private static bool IsEdgeLip(Collider2D col)
+		{
+			bool isLeft = col.transform.gameObject.layer == _leftClimbLayer;
+			RaycastHit2D hit = Physics2D.Raycast((isLeft ? col.GetTopLeft() : col.GetTopRight()) + new Vector3(isLeft ? -0.1f : 0.1f, 0),
+				OrientationHelper.GetDownwardVector(col.transform), ConstantVariables.MaxLipHeight, Layers.Platforms);
+
+			return hit;
 		}
 
 		private static bool IsSpaceAboveEdge(Collider2D col, BoxCollider2D playerCol)

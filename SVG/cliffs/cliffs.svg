@@ -23,6 +23,26 @@
   <defs
      id="defs3550">
     <linearGradient
+       id="linearGradient4232"
+       inkscape:collect="always">
+      <stop
+         id="stop4234"
+         offset="0"
+         style="stop-color:#a5a5a5;stop-opacity:1" />
+      <stop
+         style="stop-color:#a3a3a3;stop-opacity:1"
+         offset="0.37559545"
+         id="stop4238" />
+      <stop
+         id="stop4240"
+         offset="0.54310721"
+         style="stop-color:#878787;stop-opacity:1" />
+      <stop
+         id="stop4236"
+         offset="1"
+         style="stop-color:#767676;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient
        inkscape:collect="always"
        id="linearGradient4386">
       <stop
@@ -295,6 +315,16 @@
          result="composite2"
          id="feComposite6176" />
     </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4232"
+       id="linearGradient4230"
+       x1="946.72375"
+       y1="-7102.5205"
+       x2="933.66547"
+       y2="-6673.7739"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1,0,0,0.94414282,0,-370.75971)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -303,12 +333,12 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.64980191"
-     inkscape:cx="712.51907"
-     inkscape:cy="7875.1627"
+     inkscape:zoom="0.32490096"
+     inkscape:cx="1057.1266"
+     inkscape:cy="7719.5707"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
-     showgrid="false"
+     showgrid="true"
      units="px"
      gridtolerance="10"
      inkscape:window-width="1366"
@@ -339,6 +369,26 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,7139.6378)">
+    <rect
+       style="opacity:0;fill:#a5a5a5;fill-opacity:1;stroke:none;"
+       id="rect4247"
+       width="1024"
+       height="1024"
+       x="0"
+       y="-7139.6377"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Cliffs\L11.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:0;fill:#a5a5a5;fill-opacity:1;stroke:none"
+       id="rect4247-9"
+       width="1024"
+       height="1024"
+       x="1024"
+       y="-7139.6377"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Cliffs\L12.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <g
        id="g4202-7-6"
        style="fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:2"
@@ -404,7 +454,7 @@
     </g>
     <g
        id="g4202"
-       style="fill:url(#linearGradient4200);stroke:none;stroke-width:2;fill-opacity:1;filter:url(#filter6160)"
+       style="fill:url(#linearGradient4200);stroke:none;stroke-width:2;fill-opacity:1;"
        transform="translate(501,0)"
        inkscape:export-filename="C:\code\fireperson\Assets\Materials\Cliffs\Left0.png"
        inkscape:export-xdpi="90.009872"
@@ -414,7 +464,7 @@
          inkscape:connector-curvature="0"
          id="path4204"
          d="m -500,-3947.6378 0,-3122.0197 992.34013,-35.1866 177.95752,-34.1102 251.14136,26.5805 -79.3346,60.59 -88.24736,110.1518 3.7252,156.2042 -93.81311,22.3551 -11.33963,42.6155 -68.38402,11.0347 -52.28225,31.2728 -34.09521,26.4174 8.23488,4.8792 17.0279,0.083 -15.62049,2.5316 -45.10778,-2.3664 -91.31661,8.7735 -42.31995,-32.1903 -111.58764,-22.1109 -78.44249,-9.3481 19.38721,52.75 134.8836,1.0778 22.58749,46.2379 179.73601,-18.0781 -26.8853,62.7411 10.44364,59.8305 -61.1179,37.4485 c 0,0 32.86841,49.0668 45.40725,79.298 l 9.32748,32.3454 15.0214,21.9202 -56.84526,9.4736 14.16319,124.764 61.3377,12.5293 124.96349,-20.6656 -13.56,64.6096 -23.10844,76.6968 -9.85321,45.1326 -5.74131,137.1766 219.6223,350.2154 -202.58649,1578.3393 z"
-         style="fill:url(#linearGradient4200);fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1" />
+         style="fill:url(#linearGradient4200);fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1;" />
     </g>
     <rect
        style="opacity:1;fill:#a05a2c;fill-opacity:1;fill-rule:nonzero;stroke:none"
@@ -532,5 +582,11 @@
        inkscape:export-filename="C:\code\fireperson\Assets\Materials\Cliffs\Left0_loose.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <path
+       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;baseline-shift:baseline;text-anchor:start;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:url(#linearGradient4230);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       d="m 883.35033,-7074.8451 c 0,0 -8.80806,298.4883 -11.54198,437.208 l 93.41863,-7.2649 31.48012,-434.1774 z"
+       id="rect3408"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc" />
   </g>
 </svg>

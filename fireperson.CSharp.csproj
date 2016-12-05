@@ -233,6 +233,7 @@
     <Compile Include="Assets\Scripts\Player\PlayerMotor.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerState.cs" />
     <Compile Include="Assets\Scripts\Rendering\FlipWithParent.cs" />
+    <Compile Include="Assets\Scripts\Rendering\Mesh2DColliderMaker.cs" />
     <Compile Include="Assets\Scripts\Rendering\MeshSortingOrder.cs" />
     <Compile Include="Assets\Scripts\Rendering\ParticleSystemAutoDestroy.cs" />
     <Compile Include="Assets\Scripts\Rendering\SpriteTiler.cs" />

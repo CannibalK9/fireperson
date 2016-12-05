@@ -1,4 +1,7 @@
 ﻿using Assets.Scripts.Helpers;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Movement
@@ -207,6 +210,24 @@ namespace Assets.Scripts.Movement
 		public void UnsetPivot()
 		{
 			PivotCollider = null;
+		}
+
+		public bool IsUpright()
+		{
+			if (Pivot.transform.parent == null)
+				return false;
+
+			IEnumerable<BoxCollider2D> edges = Pivot.transform.parent.GetComponentsInChildren<BoxCollider2D>().Where(e => e.transform != Pivot.transform.parent);
+			if (edges.Count() == 2)
+			{
+				foreach (var edge in edges)
+				{
+					if (edge.IsUpright() == false)
+						return false;
+				}
+				return true;
+			}
+			return false;
 		}
 	}
 }

@@ -250,13 +250,15 @@ namespace Assets.Scripts.Player
 			else
 				Anim.SetBool(PlayerAnimBool.Squashed, false);
 
+			Anim.SetBool(PlayerAnimBool.Upright, MovementState.IsUpright());
+
 			if (Mathf.Abs(_velocity.x * _normalizedHorizontalSpeed) > maxX)
 				_velocity.x = maxX * _normalizedHorizontalSpeed;
 			if (_velocity.y < ConstantVariables.MaxVerticalSpeed)
 				_velocity.y = ConstantVariables.MaxVerticalSpeed;
 
 			_velocity.y += gravity * Time.fixedDeltaTime;
-			_movement.SetMovementCollisions(_velocity * Time.fixedDeltaTime, false);
+			_movement.SetMovementCollisions(_velocity * Time.fixedDeltaTime, _playerState == PlayerState.Jumping);
 		}
 
 		private void SetCrouched(bool shouldCrouch)
@@ -275,8 +277,6 @@ namespace Assets.Scripts.Player
 			RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, size, 0, Vector2.up, distance, Layers.Platforms);
 			Debug.DrawLine(origin, origin + (Vector2.up * distance), Color.magenta);
 			bool shouldCrouch = hits.Any();// && hits.All(hit => hit.point.y > Collider.bounds.min.y + CrouchedCollider.size.y);
-			if (shouldCrouch == false)
-				Debug.Log("not crouched");
 			return shouldCrouch;
 		}
 

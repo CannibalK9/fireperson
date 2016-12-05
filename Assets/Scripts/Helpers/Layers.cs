@@ -19,6 +19,11 @@ namespace Assets.Scripts.Helpers
 			get { return "PL"; }
 		}
 
+		public static string Cliffs
+		{
+			get { return "Cliffs"; }
+		}
+
 		public static string OutdoorWood
 		{
 			get { return "OutdoorWood"; }
@@ -105,7 +110,8 @@ namespace Assets.Scripts.Helpers
                     | 1 << LayerMask.NameToLayer(Layers.IndoorWood)
 					| 1 << LayerMask.NameToLayer(Layers.OutdoorMetal)
 					| 1 << LayerMask.NameToLayer(Layers.OutdoorWood)
-					| 1 << LayerMask.NameToLayer(Layers.Ice); }
+					| 1 << LayerMask.NameToLayer(Layers.Ice)
+					| 1 << LayerMask.NameToLayer(Layers.Cliffs); }
         }
 	}
 }

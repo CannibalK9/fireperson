@@ -496,15 +496,14 @@ namespace Assets.Scripts.Player.Climbing
 		private void SetClimbingParameters(Collider2D col)
 		{
 			if (_climbCollider != null)
-				_anim.SetBool("onCorner", _climbCollider.IsUpright());
+				_anim.SetBool(PlayerAnimBool.OnCorner, _climbCollider.IsUpright());
 
 			_climbCollider = col;
 			_climbParent = col.transform.parent;
 			_climbLayer = col.gameObject.layer;
 			ClimbSide = GetClimbingSide(col);
-			_anim.SetBool("falling", true);
-			_anim.SetBool("corner", col.IsUpright());
-			_anim.SetBool("upright", col.IsUpright() && col.IsCorner() == false);
+			_anim.SetBool(PlayerAnimBool.Falling, true);
+			_anim.SetBool(PlayerAnimBool.Corner, col.IsUpright());
 		}
 
 		private DirectionFacing GetClimbingSide(Collider2D col)
