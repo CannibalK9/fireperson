@@ -37,7 +37,7 @@ namespace Assets.Scripts.Player.Climbing
 		private static bool IsEdgeLip(Collider2D col)
 		{
 			bool isLeft = col.transform.gameObject.layer == _leftClimbLayer;
-			RaycastHit2D hit = Physics2D.Raycast((isLeft ? col.GetTopLeft() : col.GetTopRight()) + new Vector3(isLeft ? -0.1f : 0.1f, 0),
+			RaycastHit2D hit = Physics2D.Raycast((isLeft ? col.GetTopLeft() : col.GetTopRight()) + new Vector3(isLeft ? -0.3f : 0.3f, 0),
 				OrientationHelper.GetDownwardVector(col.transform), ConstantVariables.MaxLipHeight, Layers.Platforms);
 
 			return hit;

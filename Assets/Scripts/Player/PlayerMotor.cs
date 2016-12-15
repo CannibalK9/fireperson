@@ -90,6 +90,7 @@ namespace Assets.Scripts.Player
 					break;
 				case PlayerState.Interacting:
                     MoveToInteractionPoint();
+					_movement.BoxCastMove();
 					break;
 				case PlayerState.Falling:
 					SetHorizontalVelocity();
@@ -114,6 +115,11 @@ namespace Assets.Scripts.Player
             }
 		}
 
+		public bool IsMoving()
+		{
+			return _normalizedHorizontalSpeed != 0;
+		}
+
 		private PlayerState HandleMovementInputs()
 		{
 			if (MovementState.IsOnSlope)
@@ -122,6 +128,7 @@ namespace Assets.Scripts.Player
 				{
 					MovementState.WasOnSlope = true;
 					MovementState.IsGrounded = true;
+					_wasGrounded = true;
 					MovementState.IsOnSlope = false;
 					_wasSliding = false;
 					Anim.SetBool(PlayerAnimBool.Sliding, false);
@@ -239,10 +246,10 @@ namespace Assets.Scripts.Player
 			float maxX = ConstantVariables.MaxHorizontalSpeed + CurrentClimate.Control/20;
 
 			SetCrouched(ShouldCrouch());
-			if (_isCrouched)
+			if (_isCrouched && MovementState.IsGrounded)
 				maxX *= ConstantVariables.CrouchedFactor;
 
-			if (Physics2D.Raycast(Collider.GetTopLeft() + Vector3.up * 0.01f, Vector2.right, Collider.bounds.size.x, Layers.Platforms))
+			if (MovementState.IsGrounded && Physics2D.Raycast(Collider.GetTopLeft() + Vector3.up * 0.01f, Vector2.right, Collider.bounds.size.x, Layers.Platforms))
 			{
 				maxX *= ConstantVariables.SquashedFactor;
 				Anim.SetBool(PlayerAnimBool.Squashed, true);
@@ -250,7 +257,7 @@ namespace Assets.Scripts.Player
 			else
 				Anim.SetBool(PlayerAnimBool.Squashed, false);
 
-			Anim.SetBool(PlayerAnimBool.Upright, MovementState.IsUpright());
+			Anim.SetBool(PlayerAnimBool.Upright, MovementState.IsGrounded && MovementState.IsUpright());
 
 			if (Mathf.Abs(_velocity.x * _normalizedHorizontalSpeed) > maxX)
 				_velocity.x = maxX * _normalizedHorizontalSpeed;
@@ -275,8 +282,7 @@ namespace Assets.Scripts.Player
 			Vector2 size = new Vector2(StandingCollider.size.x + 0.2f, 0.01f);
 			float distance = StandingCollider.size.y - ConstantVariables.MaxLipHeight - 0.1f;
 			RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, size, 0, Vector2.up, distance, Layers.Platforms);
-			Debug.DrawLine(origin, origin + (Vector2.up * distance), Color.magenta);
-			bool shouldCrouch = hits.Any();// && hits.All(hit => hit.point.y > Collider.bounds.min.y + CrouchedCollider.size.y);
+			bool shouldCrouch = hits.Any();
 			return shouldCrouch;
 		}
 
@@ -457,7 +463,7 @@ namespace Assets.Scripts.Player
 			}
 		}
 
-		private void TryGrab() //forward is not being set correctly, all else seems to work!
+		private void TryGrab()
 		{
 			bool grabbing = false;
 			DirectionFacing directionFacing = GetDirectionFacing();
@@ -523,7 +529,7 @@ namespace Assets.Scripts.Player
 						break;
 				}
 			}
-			else if (topOfSlope == false && KeyBindings.GetKey(Controls.Down) && _climbHandler.CheckLedgeBelow(Climb.Down, GetDirectionFacing(), out animation))
+			else if (MovementState.IsOnSlope == false && KeyBindings.GetKey(Controls.Down) && _climbHandler.CheckLedgeBelow(Climb.Down, GetDirectionFacing(), out animation))
 			{
 				Anim.PlayAnimation(animation);
 				SetCrouched(false);
@@ -590,7 +596,7 @@ namespace Assets.Scripts.Player
 			else
 				_normalizedHorizontalSpeed = GetDirectionFacing() == DirectionFacing.Left ? 1 : -1;
 
-			_velocity.x = _normalizedHorizontalSpeed * 20;
+			_velocity.x = _normalizedHorizontalSpeed * 30;
 		}
 
 		public void Hop()

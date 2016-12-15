@@ -28,21 +28,33 @@ namespace Assets.Scripts.Player
 
 		void Update()
 		{
-			if (_animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Idle) 
-                || (_animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Falling) && _animator.GetBool("isGrabbing") == false))
+			if (_animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Idle)
+				|| _animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Falling)
+				|| PlayerMotor.IsMoving())
 			{
-				_isHanging = false;
-				_isJumping = false;
-				_animator.ResetTrigger("climbUp");
-				_animator.ResetTrigger("transitionDown");
-				_animator.ResetTrigger("transitionAcross");
-				_animator.ResetTrigger("flipUp");
+				Reset();
 				PlayerMotor.CancelClimbingState();
 				InteractionComplete();
 			}
 
 			if (_isHanging)
 				TryHangingInputWithoutAudio();
+		}
+
+		public bool IsInTransition()
+		{
+			return _animator.IsInTransition(0);
+		}
+
+		public void Reset()
+		{
+			_isHanging = false;
+			_isJumping = false;
+			_animator.ResetTrigger("climbUp");
+			_animator.ResetTrigger("transitionDown");
+			_animator.ResetTrigger("transitionAcross");
+			_animator.ResetTrigger("flipUp");
+			_animator.ResetTrigger("mantle");
 		}
 
 		public void SetBool(string boolName, bool value)

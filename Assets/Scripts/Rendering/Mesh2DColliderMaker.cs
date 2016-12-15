@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 namespace Assets.Scripts.Rendering
 {
@@ -73,7 +74,7 @@ namespace Assets.Scripts.Rendering
 				var faceVert2 = verts[tris[i + 1]];
 				var faceVert3 = verts[tris[i + 2]];
 
-				if (faceVert1.z != 0 || faceVert2.z != 0 || faceVert3.z != 0)
+				if (Math.Round(faceVert1.z, 3) != 0 || Math.Round(faceVert2.z, 3) != 0 || Math.Round(faceVert3.z, 3) != 0)
 					continue;
 
 				Edge2D[] faceEdges;

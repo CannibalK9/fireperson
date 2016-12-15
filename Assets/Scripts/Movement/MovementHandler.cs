@@ -160,6 +160,16 @@ namespace Assets.Scripts.Movement
 			}
 			else
 			{
+				float rotation = _motor.Transform.rotation.eulerAngles.z;
+
+				if (rotation != 0)
+				{
+					if (rotation < 180)
+						_motor.Transform.Rotate(Vector3.forward, -rotation / 2);
+					else
+						_motor.Transform.Rotate(Vector3.forward, (360 - rotation) / 2);
+				}
+
 				_motor.MovementState.PivotCollider = null;
 				_motor.Transform.Translate(_motor.MovementState.CurrentAcceleration, Space.World);
 			}
@@ -212,7 +222,7 @@ namespace Assets.Scripts.Movement
 				if (direction == DirectionTravelling.Left)
 				{
 					//special player crouch check/set
-					RaycastHit2D lipHit = Physics2D.Raycast(new Vector2(bounds.min.x - 0.1f, bounds.max.y), Vector2.down, bounds.size.y, Layers.Platforms);
+					RaycastHit2D lipHit = Physics2D.Raycast(new Vector2(bounds.min.x - 0.3f, bounds.max.y), Vector2.down, bounds.size.y, Layers.Platforms);
 					if (ActualSidewaysCollision(lipHit, lipHeight))
 						_motor.MovementState.OnLeftCollision();
 					else
@@ -223,7 +233,7 @@ namespace Assets.Scripts.Movement
 				}
 				else
 				{
-					RaycastHit2D lipHit = Physics2D.Raycast(new Vector2(bounds.max.x + 0.1f, bounds.max.y), Vector2.down, bounds.size.y, Layers.Platforms);
+					RaycastHit2D lipHit = Physics2D.Raycast(new Vector2(bounds.max.x + 0.3f, bounds.max.y), Vector2.down, bounds.size.y, Layers.Platforms);
 					if (ActualSidewaysCollision(lipHit, lipHeight))
 						_motor.MovementState.OnRightCollision();
 					else

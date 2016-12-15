@@ -173,7 +173,8 @@ namespace Assets.Scripts.Player.Climbing
 
 			if (climb == Climb.End)
 			{
-				hit = hits.FirstOrDefault(h => h.point.y <= bounds.max.y && EdgeValidator.CanMantle(h.collider, bounds.center, _motor.CrouchedCollider));
+				int layer = direction == DirectionFacing.Left ? _rightClimbLayer : _leftClimbLayer;
+				hit = hits.FirstOrDefault(h => h.collider.gameObject.layer == layer && h.point.y <= bounds.max.y && EdgeValidator.CanMantle(h.collider, bounds.center, _motor.CrouchedCollider));
 
 				if (hit)
 				{
@@ -284,7 +285,10 @@ namespace Assets.Scripts.Player.Climbing
 			{ }
 
 			Bounds bounds = _motor.Collider.bounds;
-            if (edge != null && EdgeValidator.CanJumpToOrFromEdge(edge, bounds.center, _motor.CrouchedCollider))
+			bool facingEdge = (_motor.MovementState.LeftEdge && direction == DirectionFacing.Left)
+				|| (_motor.MovementState.RightEdge && direction == DirectionFacing.Right);
+
+			if (edge != null && (facingEdge || EdgeValidator.CanJumpToOrFromEdge(edge, bounds.center, _motor.CrouchedCollider)))
 			{
                 canDrop = edge.CanClimbDown();
                 var distance = Vector2.Distance(_motor.GetGroundPivotPosition(), edge.transform.position);
@@ -324,7 +328,18 @@ namespace Assets.Scripts.Player.Climbing
                 }
             }
 
-            bool downhill = _motor.MovementState.NormalDirection == direction && Vector2.Angle(Vector2.up, _motor.MovementState.Normal) > 20f;
+			if (edge == null && down && facingEdge)
+			{
+				CurrentClimb = intendedClimbingState;
+				_climbCollider = _motor.MovementState.PivotCollider;
+				_motor.MovementState.JumpInPlace();
+				_motor.Anim.SwitchClimbingState();
+				animation = Animations.HopDown;
+				_exception = null;
+				return true;
+			}
+
+			bool downhill = _motor.MovementState.NormalDirection == direction && Vector2.Angle(Vector2.up, _motor.MovementState.Normal) > 20f;
 
             if (downhill && down == false)
             {

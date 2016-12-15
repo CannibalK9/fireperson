@@ -22,7 +22,7 @@ namespace Assets.Scripts.Rendering
 
 		void Update()
 		{
-			float y = Mathf.Repeat(Time.time * ScrollSpeed + _startOffset, 0.8f);
+			float y = Mathf.Repeat(Time.time * ScrollSpeed + _startOffset, 1f);
 			Vector2 offset = new Vector2(savedOffset.x, y);
 			_renderer.material.SetTextureOffset("_MainTex", offset);
 		}

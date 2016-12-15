@@ -159,7 +159,8 @@
     <Compile Include="Assets\Scripts\Environment\BuildingSway.cs" />
     <Compile Include="Assets\Scripts\Environment\Cloud.cs" />
     <Compile Include="Assets\Scripts\Environment\CloudSpawner.cs" />
-    <Compile Include="Assets\Scripts\Environment\Weather.cs" />
+    <Compile Include="Assets\Scripts\Environment\DayNight.cs" />
+    <Compile Include="Assets\Scripts\Environment\Wind.cs" />
     <Compile Include="Assets\Scripts\Fire\Fire.cs" />
     <Compile Include="Assets\Scripts\Heat\BoxHeater.cs" />
     <Compile Include="Assets\Scripts\Heat\CircleHeater.cs" />
@@ -200,6 +201,7 @@
     <Compile Include="Assets\Scripts\Misc\ParallaxBackground.cs" />
     <Compile Include="Assets\Scripts\Misc\ParallaxCamera.cs" />
     <Compile Include="Assets\Scripts\Misc\ParallaxLayer.cs" />
+    <Compile Include="Assets\Scripts\Misc\Singleton.cs" />
     <Compile Include="Assets\Scripts\Misc\SmoothCamera2D.cs" />
     <Compile Include="Assets\Scripts\Movement\CharacterRaycastOrigins.cs" />
     <Compile Include="Assets\Scripts\Movement\CollisionState.cs" />
