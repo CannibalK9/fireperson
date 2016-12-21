@@ -335,8 +335,8 @@ namespace Assets.Scripts.Denizens
 
 			if (Mathf.Abs(_velocity.x * _normalizedHorizontalSpeed) > RunSpeed)
 				_velocity.x = RunSpeed * _normalizedHorizontalSpeed;
-			if (_velocity.y < ConstantVariables.MaxVerticalSpeed)
-				_velocity.y = ConstantVariables.MaxVerticalSpeed;
+			if (_velocity.y < ConstantVariables.MinVerticalSpeed)
+				_velocity.y = ConstantVariables.MinVerticalSpeed;
 			RunSpeed = runspeed;
 			_controller.Movement.SetMovementCollisions(_velocity * Time.fixedDeltaTime, false);
 		}

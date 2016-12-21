@@ -40,13 +40,17 @@ namespace Assets.Scripts.Rendering
 
 		void Update()
 		{
-			if (_positionX != (float)Math.Round(transform.localPosition.x, 2) || _positionY != (float)Math.Round(transform.localPosition.y, 2))
+			float xRound = (float)Math.Round(transform.localPosition.x, 2);
+			float yRound = (float)Math.Round(transform.localPosition.y, 2);
+			float rotRound = (float)Math.Round(transform.localRotation.eulerAngles.z, 2);
+
+			if (rotRound % 90 == 0 && (_positionX != xRound || _positionY != yRound))
 			{
-				PositionX = (float)Math.Round(transform.localPosition.x, 2);
-				PositionY = (float)Math.Round(transform.localPosition.y, 2);
+				PositionX = xRound;
+				PositionY = yRound;
 			}
 
-			if (transform.localRotation.eulerAngles.z % 90 == 0 && (_positionX != PositionX || _positionY != PositionY))
+			if (rotRound % 90 == 0 && (_positionX != PositionX || _positionY != PositionY))
 			{
 				float roundedX = _positionX < PositionX
 					? Mathf.Ceil(PositionX * 4)

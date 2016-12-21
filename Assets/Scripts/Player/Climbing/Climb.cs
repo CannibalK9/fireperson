@@ -3,17 +3,14 @@
 	public enum Climb
 	{
 		None,
+		Prep,
 		Up,
 		Flip,
 		Mantle,
 		Down,
 		AcrossLeft,
 		AcrossRight,
-		SwingLeft,
-		SwingRight,
-		MoveToEdge,
 		Jump,
-		Anchor,
-		End
+		Hang
 	}
 }

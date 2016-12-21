@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Interactable;
-using Destructible2D;
 using UnityEngine;
 
 namespace Assets.Scripts.Heat

@@ -11,10 +11,9 @@ namespace Assets.Scripts.Player
 		public PlayerController PlayerController;
         public SmoothCamera2D CameraScript;
 		private Animator _animator;
-		private bool _recalculate;
 		private bool _shouldFlip;
 		private bool _isHanging;
-		private bool _isJumping;
+		private bool _ignoreMovement;
 
 		void Awake()
 		{
@@ -28,33 +27,28 @@ namespace Assets.Scripts.Player
 
 		void Update()
 		{
-			if (_animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Idle)
-				|| _animator.GetCurrentAnimatorStateInfo(0).IsName(Animations.Falling)
-				|| PlayerMotor.IsMoving())
+			if (PlayerMotor.IsMoving())
 			{
 				Reset();
-				PlayerMotor.CancelClimbingState();
-				InteractionComplete();
 			}
 
 			if (_isHanging)
 				TryHangingInputWithoutAudio();
 		}
 
-		public bool IsInTransition()
+		private void Reset()
 		{
-			return _animator.IsInTransition(0);
-		}
-
-		public void Reset()
-		{
+			_animator.speed = 1;
 			_isHanging = false;
-			_isJumping = false;
 			_animator.ResetTrigger("climbUp");
 			_animator.ResetTrigger("transitionDown");
 			_animator.ResetTrigger("transitionAcross");
 			_animator.ResetTrigger("flipUp");
 			_animator.ResetTrigger("mantle");
+			_animator.ResetTrigger("stopClimbing");
+
+			PlayerMotor.CancelClimbingState();
+			InteractionComplete();
 		}
 
 		public void SetBool(string boolName, bool value)
@@ -84,8 +78,19 @@ namespace Assets.Scripts.Player
 
 		public void SwitchClimbingState()
 		{
-			ClimbingState nextState = PlayerMotor.SwitchClimbingState();
-			SetupNextState(nextState);
+			SwitchClimbingState(false);
+		}
+
+		public void SwitchClimbingStateIgnoreUp()
+		{
+			SwitchClimbingState(true);
+		}
+
+		private void SwitchClimbingState(bool ignoreUp)
+		{
+			_ignoreMovement = false;
+			Climb nextClimb = PlayerMotor.SwitchClimbingState(ignoreUp);
+			SetupNextState(nextClimb);
 			_shouldFlip = true;
 		}
 
@@ -96,14 +101,15 @@ namespace Assets.Scripts.Player
 
 		private void TryHangingInputWithoutAudio()
 		{
-			ClimbingState nextState;
+			Climb nextClimb;
 			_animator.speed = 1;
-			if (PlayerMotor.TryHangingInput(out nextState))
+			_isHanging = true;
+			if (PlayerMotor.TryHangingInput(out nextClimb))
 			{
 				_isHanging = false;
-				if (nextState.Climb == Climb.End)
-					nextState.Climb = Climb.Down;
-				SetupNextState(nextState);
+				if (nextClimb == Climb.None)
+					nextClimb = Climb.Down;
+				SetupNextState(nextClimb);
 			}
 		}
 
@@ -112,20 +118,11 @@ namespace Assets.Scripts.Player
 			_isHanging = true;
 		}
 
-		private void SetupNextState(ClimbingState nextState)
+		private void SetupNextState(Climb nextClimb)
 		{
 			_animator.speed = 1;
 
-			_recalculate = nextState.Recalculate;
-			if (_recalculate)
-			{
-				PlayerMotor.MovementAllowed = false;
-			}
-
-			_isJumping = nextState.Climb == Climb.Jump;
-			SetBool(PlayerAnimBool.IsJumping, _isJumping);
-
-			switch (nextState.Climb)
+			switch (nextClimb)
 			{
 				case Climb.Up:
 					_animator.SetTrigger("climbUp");
@@ -144,6 +141,10 @@ namespace Assets.Scripts.Player
 				case Climb.Jump:
 					_animator.SetTrigger("transitionAcross");
 					break;
+				case Climb.None:
+				case Climb.Hang:
+					_animator.SetTrigger("stopClimbing");
+					break;
 			}
 		}
 
@@ -156,57 +157,35 @@ namespace Assets.Scripts.Player
 		{
 			if (PlayerMotor.ClimbingSide == PlayerMotor.GetDirectionFacing())
 				PlayerMotor.FlipSprite();
+			SetBool(PlayerAnimBool.Forward, true);
 		}
 
 		private void FlipSpriteAwayFromEdge()
 		{
 			if (PlayerMotor.ClimbingSide != PlayerMotor.GetDirectionFacing())
 				PlayerMotor.FlipSprite();
+			SetBool(PlayerAnimBool.Forward, true);
 		}
 
 		private void FlipSprite()
 		{
 			if (_shouldFlip)
 				PlayerMotor.FlipSprite();
+			SetBool(PlayerAnimBool.Forward, true);
 		}
 
 		public void FlipSpriteRight()
 		{
 			if (PlayerMotor.GetDirectionFacing() == DirectionFacing.Left)
 				PlayerMotor.FlipSprite();
+			SetBool(PlayerAnimBool.Forward, true);
 		}
 
 		public void FlipSpriteLeft()
 		{
 			if (PlayerMotor.GetDirectionFacing() == DirectionFacing.Right)
 				PlayerMotor.FlipSprite();
-		}
-
-        private void FlipIfNoCorner()
-        {
-            if (GetBool("onCorner") == false)
-                PlayerMotor.FlipSprite();
-        }
-
-        private void AllowMovement()
-		{
-			var a = PlayerMotor.Transform.GetComponent<AudioSource>();
-			AudioSource.PlayClipAtPoint(a.clip, PlayerMotor.Transform.position);
-
-			if (_isJumping)
-			{
-				_animator.speed = 1;
-				if (_animator.GetBool(PlayerAnimBool.Forward))
-					PlayerMotor.SetJumpingVelocity(true);
-				else
-					PlayerMotor.SetJumpingVelocity(false);
-			}
-			else
-			{
-				if (_recalculate)
-					_animator.speed = PlayerMotor.GetClimbingAnimationSpeed();
-				PlayerMotor.MovementAllowed = true;
-			}
+			SetBool(PlayerAnimBool.Forward, true);
 		}
 
 		private void Hop()
@@ -219,17 +198,36 @@ namespace Assets.Scripts.Player
 		{
 			_animator.speed = 1;
 			PlayerMotor.MoveHorizontally();
-			PlayerMotor.UpdateClimbingSpeed(0.75f);
 		}
 
 		private void MoveVertically()
 		{
-			var a = PlayerMotor.Transform.GetComponent<AudioSource>();
-			AudioSource.PlayClipAtPoint(a.clip, PlayerMotor.Transform.position);
-
 			_animator.speed = 1;
-			PlayerMotor.MoveVertically();
-			PlayerMotor.UpdateClimbingSpeed(0.75f);
+			if (_ignoreMovement == false)
+				PlayerMotor.MoveVertically();
+		}
+
+		private void IgnoreMovement()
+		{
+			_ignoreMovement = true;
+		}
+
+		private void MoveToNextPivotPoint()
+		{
+			bool isJumping = PlayerMotor.IsJumping();
+			SetBool(PlayerAnimBool.IsJumping, isJumping);
+			if (isJumping)
+			{
+				_animator.speed = 1;
+				if (_animator.GetBool(PlayerAnimBool.Forward))
+					PlayerMotor.SetJumpingVelocity(true);
+				else
+					PlayerMotor.SetJumpingVelocity(false);
+			}
+			else
+			{
+				_animator.speed = PlayerMotor.MoveToNextPivotPoint();
+			}
 		}
 
 		private void SwitchStilt()

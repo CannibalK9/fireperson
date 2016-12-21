@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.Helpers;
-using System.Collections;
+using Assets.Scripts.Player.Climbing;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -37,7 +37,7 @@ namespace Assets.Scripts.Movement
 					return Normal.x > 0 ? DirectionFacing.Right : DirectionFacing.Left;
 			}
 		}
-		private bool _updatePivot;
+		public bool UpdatePivot { get; set; }
 		private Vector2 _colliderDimensions;
 
 		public MovementState()
@@ -72,7 +72,7 @@ namespace Assets.Scripts.Movement
 
 			Vector3 movement = v.normalized * distance;
 
-			_updatePivot = false;
+			UpdatePivot = false;
 			Pivot.transform.Translate(movement, Space.World);
         }
 
@@ -82,7 +82,7 @@ namespace Assets.Scripts.Movement
 
 			Vector3 movement = v.normalized * 0.5f;
 
-			_updatePivot = false;
+			UpdatePivot = false;
 			Pivot.transform.Translate(movement, Space.World);
 		}
 
@@ -154,14 +154,14 @@ namespace Assets.Scripts.Movement
 				PreviousCharacterPoint = characterPoint;
 				TargetPoint = targetPoint;
 				Pivot.transform.position = GetPivotPositionWhenCorner(targetPoint);
-				_updatePivot = false;
+				UpdatePivot = false;
 			}
 			else
 			{
 				CharacterPoint = characterPoint;
 				TargetPoint = targetPoint;
 				Pivot.transform.position = PivotCollider.GetPoint(TargetPoint);
-				_updatePivot = true;
+				UpdatePivot = true;
 			}
 		}
 
@@ -179,6 +179,11 @@ namespace Assets.Scripts.Movement
 			Normal = normal;
 		}
 
+		public void SetNewPivot(ClimbingState climbingState)
+		{
+			SetPivotCollider(climbingState.PivotCollider, climbingState.PivotPosition, climbingState.PlayerPosition);
+		}
+
 		private Vector3 GetPivotPositionWhenCorner(ColliderPoint targetPoint)
 		{
 			CornerCollider = PivotCollider.transform;
@@ -194,17 +199,24 @@ namespace Assets.Scripts.Movement
 			return CornerCollider.rotation.eulerAngles.z;
 		}
 
-		public void UpdatePivotToTarget()
+		public void UpdatePivotToTarget(bool forceOffEdge = false)
 		{
-			if (PivotCollider != null && _updatePivot)
+			if (PivotCollider != null && UpdatePivot)
 			{
-				Pivot.transform.position = PivotCollider.GetPoint(TargetPoint);
+				Vector2 position = PivotCollider.GetPoint(TargetPoint);
+				Pivot.transform.position = position;
+
+				if (CharacterPoint == ColliderPoint.BottomLeft || CharacterPoint == ColliderPoint.BottomRight)
+				{
+					float edgeAmount = forceOffEdge ? -0.2f : 0.2f;
+					MovePivotAlongSurface(CharacterPoint == ColliderPoint.BottomLeft ? DirectionTravelling.Left : DirectionTravelling.Right, edgeAmount);
+				}
 			}
 		}
 
 		public void JumpInPlace()
 		{
-			_updatePivot = false;
+			UpdatePivot = false;
 		}
 
 		public void UnsetPivot()

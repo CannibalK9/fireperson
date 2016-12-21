@@ -11,7 +11,7 @@ namespace Assets.Scripts.Player.Climbing
 
 		public static bool CanJumpToHang(Collider2D col, Vector2 playerCentre, BoxCollider2D playerCol)
 		{
-			return IsEdgeUnblocked(col, playerCentre, playerCol, false) && IsUprightAccessible(col, playerCentre, playerCol) && IsHangingSpace(col);
+			return CanHang(col, playerCol) && IsEdgeUnblocked(col, playerCentre, playerCol, false) && IsEdgeLip(col) == false && IsUprightAccessible(col, playerCentre, playerCol) && IsHangingSpace(col);
 		}
 
 		public static bool CanClimbUpOrDown(Collider2D col, BoxCollider2D playerCol)

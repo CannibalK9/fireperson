@@ -23,13 +23,13 @@ namespace Assets.Scripts.Movement
 			_motor = motor;
 		}
 
-		public bool MoveLinearly(float speed, bool applyRotation = false)
+		public bool MoveLinearly(float speed, bool applyRotation = false, bool forceOffEdge = false)
 		{
 			if (_motor.MovementState.PivotCollider == null)
 				return false;
 
 			IgnorePlatforms(true);
-			_motor.MovementState.UpdatePivotToTarget();
+			_motor.MovementState.UpdatePivotToTarget(forceOffEdge);
 
 			float distance;
 			Vector2 characterPoint = _motor.Collider.GetPoint(_motor.MovementState.CharacterPoint);
@@ -349,7 +349,11 @@ namespace Assets.Scripts.Movement
 			speed = Mathf.Abs(_motor.MovementState.CurrentAcceleration.x);
 
 			Vector3 direction = _motor.MovementState.GetSurfaceDirection(moveRight ? DirectionTravelling.Right : DirectionTravelling.Left);
-			return direction.normalized * speed;
+			bool isGoingUpSteepSlope = direction.y > 0 && Vector2.Angle(direction, moveRight ? Vector2.right : Vector2.left) > _motor.SlopeLimit + 10;
+
+			return isGoingUpSteepSlope
+				? Vector3.zero
+				: direction.normalized * speed;
 		}
 
 		private Vector3 MoveTowardsPivot(out float distance, float speed, Vector3 offset)

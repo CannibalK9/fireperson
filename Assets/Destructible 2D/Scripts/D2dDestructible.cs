@@ -713,21 +713,21 @@ namespace Destructible2D
 
 		public static void SliceAll(Vector2 startPos, Vector2 endPos, float thickness, Texture2D stampTex, float hardness, int layerMask = -1)
 		{
-			StampAll(CalculateSliceMatrix(startPos, endPos, thickness), stampTex, hardness, layerMask);
+			StampAll((startPos + endPos) / 2.0f, CalculateSliceMatrix(startPos, endPos, thickness), stampTex, hardness, layerMask);
 		}
 
 		public static void StampAll(Vector2 position, Vector2 size, float angle, Texture2D stampTex, float hardness, int layerMask = -1)
 		{
-			StampAll(CalculateStampMatrix(position, size, angle), stampTex, hardness, layerMask);
+			StampAll(position, CalculateStampMatrix(position, size, angle), stampTex, hardness, layerMask);
 		}
 
-		public static void StampAll(Matrix4x4 matrix, Texture2D stampTex, float hardness, int layerMask = -1)
+		public static void StampAll(Vector2 position, Matrix4x4 matrix, Texture2D stampTex, float hardness, int layerMask = -1)
 		{
 			for (var i = AllDestructibles.Count - 1; i >= 0; i--)
 			{
 				var destructible = AllDestructibles[i];
 
-				if (destructible != null && destructible.Indestructible == false)
+				if (destructible != null && Vector2.Distance(position, destructible.transform.position) < 10 && destructible.Indestructible == false)
 				{
 					var mask = 1 << destructible.gameObject.layer;
 

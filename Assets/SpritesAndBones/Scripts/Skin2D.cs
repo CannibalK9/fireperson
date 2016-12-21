@@ -140,24 +140,24 @@ public class Skin2D : MonoBehaviour {
 
 		// Ensure there is a reference material for the renderer
 		if (referenceMaterial == null) {
-			if (SkinnedMeshRenderer.sharedMaterial != null) {
-				if (SkinnedMeshRenderer.sharedMaterial.name.Contains(" (Instance)")) {
-					string materialName = SkinnedMeshRenderer.sharedMaterial.name.Replace(" (Instance)", "");
-					Material material = AssetDatabase.LoadAssetAtPath("Assets/Materials/" + materialName + ".mat", typeof(Material)) as Material;
-					referenceMaterial = material;
-				} 
-				else {
+			if (SkinnedMeshRenderer.sharedMaterial == null) {
+				//if (SkinnedMeshRenderer.sharedMaterial.name.Contains(" (Instance)")) {
+				//	string materialName = SkinnedMeshRenderer.sharedMaterial.name.Replace(" (Instance)", "");
+				//	//Material material = AssetDatabase.LoadAssetAtPath("Assets/Materials/" + materialName + ".mat", typeof(Material)) as Material;
+				//	//referenceMaterial = material;
+				//} 
+				//else {
 					referenceMaterial = SkinnedMeshRenderer.sharedMaterial;
-				}
+				//}
 			}
 		}
-		else {
-			if (referenceMaterial.name.Contains(" (Instance)")) {
-				string materialName = referenceMaterial.name.Replace(" (Instance)", "");
-				Material material = AssetDatabase.LoadAssetAtPath("Assets/Materials/" + materialName + ".mat", typeof(Material)) as Material;
-				referenceMaterial = material;
-			}
-		}
+		//else {
+		//	if (referenceMaterial.name.Contains(" (Instance)")) {
+		//		string materialName = referenceMaterial.name.Replace(" (Instance)", "");
+		//		Material material = AssetDatabase.LoadAssetAtPath("Assets/Materials/" + materialName + ".mat", typeof(Material)) as Material;
+		//		referenceMaterial = material;
+		//	}
+		//}
 
 		// Make sure the renderer is using a material if it is nullified
 		if (SkinnedMeshRenderer.sharedMaterial == null) {

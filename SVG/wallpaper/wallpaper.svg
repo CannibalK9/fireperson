@@ -780,17 +780,17 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7071068"
-     inkscape:cx="168.08284"
-     inkscape:cy="992.01236"
+     inkscape:cx="245.15748"
+     inkscape:cy="965.1423"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      units="px"
-     inkscape:window-width="984"
-     inkscape:window-height="645"
-     inkscape:window-x="366"
-     inkscape:window-y="44"
-     inkscape:window-maximized="0"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
      showguides="false"
      objecttolerance="7"
      gridtolerance="10">
@@ -926,7 +926,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3728)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#37c837;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 122.97086,520.66422 c 0,0 -15.05471,20.4941 -25.93275,23.23248 -7.81901,1.96832 -23.41265,-6.11309 -23.41265,-6.11309 0,0 10.81126,-19.74876 20.0034,-23.02332 9.45762,-3.36912 29.342,5.90393 29.342,5.90393 z"
@@ -934,7 +937,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3720)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#225500;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 60.316363,544.05464 c 0,0 -16.934747,5.75049 -24.021983,-1.12704 -5.094217,-4.94348 -10.131429,-25.77734 -10.131429,-25.77734 0,0 14.307804,-8.72847 20.706446,-3.79486 6.583442,5.0761 13.446966,30.69924 13.446966,30.69924 z"
@@ -942,7 +948,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3716)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#00aa00;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 124.46447,435.37319 c 0,0 -6.53529,23.77137 -13.74453,29.79116 -5.18192,4.32695 -17.990415,1.85805 -17.990415,1.85805 0,0 3.656476,-21.72152 9.550485,-27.69624 6.06425,-6.14728 22.18446,-3.95297 22.18446,-3.95297 z"
@@ -950,7 +959,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3712)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#55d400;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 87.199468,624.71554 c 0,0 -22.2713,12.77445 -32.97959,8.27272 -7.69699,-3.2358 -17.69125,-23.34932 -17.69125,-23.34932 0,0 18.23808,-14.89789 27.71528,-12.18671 9.75092,2.78948 22.95556,27.26331 22.95556,27.26331 z"
@@ -958,7 +970,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3708)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#44aa00;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 0,604.13201 c 0,0 11.081297,-30.06714 20.913527,-36.28527 7.067288,-4.46951 22.977473,2.04311 22.977473,2.04311 0,0 -7.196985,28.05631 -15.360134,34.54488 C 20.131949,611.1107 0,604.13201 0,604.13201 Z"
@@ -966,7 +981,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3704)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#55d400;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 25.171011,481.13773 c 0,0 -17.8802215,-0.3892 -22.1873568,-9.27616 -3.09591638,-6.38782 -0.7027074,-27.68796 -0.7027074,-27.68796 0,0 16.4304122,-3.30772 20.7554412,3.51703 4.449941,7.02187 2.134623,33.44709 2.134623,33.44709 z"
@@ -974,7 +992,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3684)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#338000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 75.171001,426.83195 c 0,0 -7.990702,16.00008 -17.865914,16.09767 -7.098176,0.0702 -25.334207,-11.19352 -25.334207,-11.19352 0,0 4.028751,-16.26864 12.047076,-17.26342 8.249902,-1.02352 31.153045,12.35927 31.153045,12.35927 z"
@@ -982,7 +1003,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3680)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#37c837;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 32.633055,558.07172 c 0,0 -13.07799,4.3346 -18.551163,-0.84954 -3.934049,-3.72629 -7.8240748,-19.43041 -7.8240748,-19.43041 0,0 11.0493128,-6.57934 15.9907138,-2.86049 5.084114,3.82626 10.384524,23.14044 10.384524,23.14044 z"
@@ -990,7 +1014,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3676)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#55d400;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 207.11656,447.12512 c 0,0 -15.05471,20.4941 -25.93275,23.23248 -7.81901,1.96832 -23.41265,-6.11309 -23.41265,-6.11309 0,0 10.81126,-19.74876 20.0034,-23.02332 9.45762,-3.36912 29.342,5.90393 29.342,5.90393 z"
@@ -998,7 +1025,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3672)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#338000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 154.58606,500.40094 c 0,0 -23.6927,11.91011 -35.27833,9.64652 -8.32762,-1.62704 -19.430591,-15.6845 -19.430591,-15.6845 0,0 19.321261,-13.08388 29.551751,-12.03614 10.52594,1.07801 25.15717,18.07412 25.15717,18.07412 z"
@@ -1006,7 +1036,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3668)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#00aa00;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 136.73861,590.41805 c 0,0 -17.19004,-6.09964 -21.84181,-15.11082 -3.34364,-6.47713 -2.28337,-23.97434 -2.28337,-23.97434 0,0 15.58325,2.46129 20.13238,9.70951 4.68051,7.45757 3.9928,29.37565 3.9928,29.37565 z"
@@ -1014,7 +1047,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3664)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#00aa00;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 97.5047,645.27328 c 0,0 -15.05471,16.65305 -25.93275,18.8782 -7.81901,1.59941 -23.412653,-4.96736 -23.412653,-4.96736 0,0 10.811263,-16.04741 20.003403,-18.70825 9.45762,-2.73767 29.342,4.79741 29.342,4.79741 z"
@@ -1022,7 +1058,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3660)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#338000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 105.90979,596.5053 c 0,0 -25.422203,0.60348 -34.236297,-6.33498 -6.335471,-4.98729 -9.465258,-22.26951 -9.465258,-22.26951 0,0 22.239492,-3.50741 30.448002,1.76882 8.445563,5.42863 13.253553,26.83567 13.253553,26.83567 z"
@@ -1030,7 +1069,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3656)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#37c837;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 143.25474,610.94167 c 0,0 -11.66254,22.59729 -21.97812,27.00404 -7.41471,3.16753 -24.080784,-2.37439 -24.080784,-2.37439 0,0 7.587984,-21.19715 16.154524,-25.86968 8.81396,-4.80747 29.90438,1.24003 29.90438,1.24003 z"
@@ -1038,7 +1080,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3652)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#225500;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 182.72822,507.21792 c 0,0 -11.81876,20.4941 -20.35861,23.23248 -6.13834,1.96832 -18.38019,-6.11309 -18.38019,-6.11309 0,0 8.48742,-19.74876 15.70375,-23.02332 7.42474,-3.36912 23.03505,5.90393 23.03505,5.90393 z"
@@ -1046,7 +1091,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3648)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#225500;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 159.02299,421.91232 c 0,0 -10.30865,14.73253 -17.75734,16.70106 -5.35403,1.41496 -16.03171,-4.3945 -16.03171,-4.3945 0,0 7.40296,-14.19673 13.69724,-16.5507 6.47607,-2.42195 20.09181,4.24414 20.09181,4.24414 z"
@@ -1054,7 +1102,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3644)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#338000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 255.18951,488.53593 c 0,0 -12.68168,15.21267 -21.84505,17.24535 -6.58652,1.46107 -19.72218,-4.53771 -19.72218,-4.53771 0,0 9.10711,-14.6594 16.85032,-17.09009 7.96684,-2.50088 24.71691,4.38245 24.71691,4.38245 z"
@@ -1062,7 +1113,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3640)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#37c837;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 254.97182,420.03812 c 0,0 -5.24749,19.09749 -12.74766,24.74076 -5.39103,4.05633 -19.83161,4.03266 -19.83161,4.03266 0,0 2.22251,-17.11426 8.26515,-22.53201 6.21716,-5.57422 24.31412,-6.24141 24.31412,-6.24141 z"
@@ -1070,7 +1124,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3636)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#00aa00;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 218.0664,476.86867 c 0,0 -10.30865,15.21267 -17.75734,17.24535 -5.35404,1.46107 -16.03172,-4.53771 -16.03172,-4.53771 0,0 7.40297,-14.6594 13.69725,-17.09009 6.47606,-2.50088 20.09181,4.38245 20.09181,4.38245 z"
@@ -1078,7 +1135,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3632)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#55d400;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 170.1052,572.09964 c 0,0 -16.85102,-4.10212 -21.90431,-10.21716 -3.63223,-4.39542 -3.79063,-16.29581 -3.79063,-16.29581 0,0 15.07031,1.6324 19.90728,6.54895 4.97666,5.05855 5.78766,19.96402 5.78766,19.96402 z"
@@ -1086,7 +1146,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3628)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#44aa00;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 210.99533,586.14508 c 0,0 -14.40752,18.57359 -24.81792,21.05535 -7.48288,1.78386 -22.40616,-5.54022 -22.40616,-5.54022 0,0 10.34649,-17.89809 19.14347,-20.86579 9.05104,-3.05339 28.08061,5.35066 28.08061,5.35066 z"
@@ -1094,7 +1157,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3624)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#225500;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 195.43898,633.70473 c 0,0 -11.17157,10.41137 -19.24378,11.8025 -5.80221,0.99994 -17.3737,-3.10555 -17.3737,-3.10555 0,0 8.02265,-10.03271 14.84382,-11.69624 7.01816,-1.71157 21.77366,2.99929 21.77366,2.99929 z"
@@ -1102,7 +1168,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3620)"
-       transform="matrix(1.2431474,0.9193908,-1.1375377,1.5381131,1076.6775,-895.16693)" />
+       transform="matrix(1.2431474,0.9193908,-1.1375377,1.5381131,1076.6775,-895.16693)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#37c837;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 243.22752,554.02223 c 0,0 -17.91731,-8.4392 -22.19338,-16.79469 -3.07358,-6.00584 -0.57828,-20.22921 -0.57828,-20.22921 0,0 16.48118,5.11939 20.78456,12.00026 4.42766,7.0796 1.9871,25.02364 1.9871,25.02364 z"
@@ -1110,7 +1179,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3616)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#225500;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 236.43173,558.41896 c 0,0 -5.87501,18.09169 -11.89921,22.54341 -4.33012,3.19985 -14.73561,1.00575 -14.73561,1.00575 0,0 3.47742,-16.58571 8.42639,-21.03358 5.0919,-4.57631 18.20843,-2.51558 18.20843,-2.51558 z"
@@ -1118,7 +1190,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3612)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#00aa00;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 253.06819,637.62226 c 0,0 -8.79854,13.77227 -15.15608,15.61249 -4.56972,1.32273 -13.68323,-4.10806 -13.68323,-4.10806 0,0 6.3185,-13.27139 11.69074,-15.47194 5.52738,-2.26408 17.14857,3.96751 17.14857,3.96751 z"
@@ -1126,7 +1201,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3608)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#338000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 250.89809,597.21899 c 0,0 -2.39532,16.16639 -7.44394,20.44613 -3.62888,3.07623 -14.16652,1.84839 -14.16652,1.84839 0,0 0.33713,-14.69489 4.33926,-18.90041 4.1177,-4.32695 17.2712,-3.39411 17.2712,-3.39411 z"
@@ -1134,7 +1212,10 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc"
        clip-path="url(#clipPath3604)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#447821;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 34.858218,665.50465 c 0.01175,-11.15621 1.409507,-30.65855 3.699701,-50.59152 2.292575,-19.95369 5.458425,-40.14907 8.948484,-52.75983 0.883189,-3.19126 2.88793,-5.82645 5.764774,-8.32078 2.934276,-2.54413 6.51709,-4.72983 10.463505,-7.13792 3.833989,-2.3395 7.983687,-4.87418 11.504038,-7.92043 3.563773,-3.08382 6.653364,-6.83006 8.323625,-11.68611 4.635948,-13.47838 8.453474,-33.76373 11.114243,-54.41739 2.665096,-20.68725 4.193873,-41.9499 4.18163,-57.44915 l -0.0023,-2.85822 -5.716437,0.005 0.0023,2.85822 c 0.012,15.1886 -1.492208,36.20183 -4.134778,56.71423 -2.646897,20.54597 -6.411723,40.38401 -10.850277,53.2885 -1.242957,3.61373 -3.581727,6.54902 -6.657245,9.2126 -3.118807,2.70107 -6.819589,4.97983 -10.742393,7.37351 -3.810105,2.32492 -7.891741,4.79297 -11.223181,7.67595 -3.389284,2.93304 -6.253148,6.49929 -7.536848,11.13774 -3.620418,13.08179 -6.818508,33.61627 -9.118217,53.63206 -2.302091,20.03651 -3.724957,39.74325 -3.737061,51.238 l -0.003,2.85822 5.716435,0.006 0.003,-2.85822 z"
@@ -1144,7 +1225,10 @@
        inkscape:original-d="M 32,665.50164 C 32.02385,642.85068 37.641254,587.08348 44.751733,561.39093 49.085497,545.73156 75.033107,543.09797 80.859537,526.15841 89.934037,499.77555 96.02424,445.91163 96,415.22378"
        inkscape:path-effect="#path-effect3417"
        clip-path="url(#clipPath3724)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#447821;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 162.85844,665.50464 c 0.0117,-11.1562 1.40948,-30.65854 3.69968,-50.59151 2.29259,-19.95369 5.45845,-40.14907 8.94851,-52.75983 0.88319,-3.19126 2.88793,-5.82645 5.76477,-8.32078 2.93428,-2.54413 6.51709,-4.72983 10.46351,-7.13792 3.83398,-2.3395 7.98368,-4.87418 11.50403,-7.92043 3.56378,-3.08382 6.65337,-6.83006 8.32363,-11.68611 4.63595,-13.47839 8.45347,-33.76375 11.11424,-54.41741 2.66509,-20.68725 4.19387,-41.9499 4.18163,-57.44915 l -0.002,-2.85822 -5.71644,0.005 0.002,2.85822 c 0.012,15.1886 -1.4922,36.20183 -4.13477,56.71423 -2.6469,20.54598 -6.41173,40.38402 -10.85028,53.28852 -1.24296,3.61373 -3.58173,6.54902 -6.65724,9.2126 -3.11881,2.70107 -6.81959,4.97983 -10.7424,7.37351 -3.8101,2.32492 -7.89174,4.79297 -11.22318,7.67595 -3.38928,2.93304 -6.25314,6.49929 -7.53684,11.13774 -3.62042,13.08179 -6.81853,33.61627 -9.11824,53.63206 -2.3021,20.03651 -3.72497,39.74325 -3.73705,51.23801 l -0.003,2.85821 5.71643,0.006 0.003,-2.85822 z"
@@ -1154,7 +1238,10 @@
        inkscape:original-d="m 160.00022,665.50164 c 0.0238,-22.65096 5.64126,-78.41816 12.75174,-104.11071 4.33376,-15.65937 30.28137,-18.29296 36.1078,-35.23252 9.0745,-26.38288 15.1647,-80.2468 15.14046,-110.93465"
        inkscape:path-effect="#path-effect3417-4-4"
        clip-path="url(#clipPath3696)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#447821;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 98.858436,665.50464 c 0.01172,-11.1562 1.409484,-30.65854 3.699684,-50.59151 2.29259,-19.95369 5.45845,-40.14907 8.94851,-52.75983 0.88319,-3.19126 2.88793,-5.82645 5.76477,-8.32078 2.93428,-2.54413 6.51709,-4.72983 10.46351,-7.13792 3.83398,-2.3395 7.98368,-4.87418 11.50403,-7.92043 3.56378,-3.08382 6.65337,-6.83006 8.32363,-11.68611 4.63595,-13.47839 8.45347,-33.76374 11.11424,-54.4174 2.66509,-20.68725 4.19387,-41.9499 4.18163,-57.44915 l -0.002,-2.85822 -5.71644,0.005 0.002,2.85822 c 0.012,15.1886 -1.4922,36.20183 -4.13477,56.71423 -2.6469,20.54598 -6.41173,40.38402 -10.85028,53.28851 -1.24296,3.61373 -3.58173,6.54902 -6.65724,9.2126 -3.11881,2.70107 -6.81959,4.97983 -10.7424,7.37351 -3.8101,2.32492 -7.89174,4.79297 -11.22318,7.67595 -3.38928,2.93304 -6.25314,6.49929 -7.53684,11.13774 -3.62042,13.08179 -6.818526,33.61627 -9.118244,53.63206 -2.302099,20.03651 -3.724968,39.74325 -3.737046,51.23801 l -0.003,2.85821 5.716436,0.006 0.003,-2.85822 z"
@@ -1164,7 +1251,10 @@
        inkscape:original-d="m 96.000218,665.50164 c 0.0238,-22.65096 5.641262,-78.41816 12.751742,-104.11071 4.33376,-15.65937 30.28137,-18.29296 36.1078,-35.23252 9.0745,-26.38287 15.1647,-80.24679 15.14046,-110.93464"
        inkscape:path-effect="#path-effect3417-4"
        clip-path="url(#clipPath3700)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#447821;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 226.85844,665.50464 c 0.0117,-11.1562 1.40948,-30.65854 3.69968,-50.59151 2.29259,-19.95369 5.45845,-40.14907 8.94851,-52.75983 0.88319,-3.19126 2.88793,-5.82645 5.76477,-8.32078 2.93428,-2.54413 6.51709,-4.72983 10.46351,-7.13792 3.83398,-2.3395 7.98368,-4.87418 11.50403,-7.92043 3.56378,-3.08382 6.65337,-6.83006 8.32363,-11.68611 4.63595,-13.4784 8.45347,-33.76376 11.11424,-54.41742 2.66509,-20.68725 4.19387,-41.9499 4.18163,-57.44915 l -0.002,-2.85822 -5.71644,0.005 0.002,2.85822 c 0.012,15.1886 -1.4922,36.20183 -4.13477,56.71423 -2.6469,20.54598 -6.41173,40.38403 -10.85028,53.28853 -1.24296,3.61373 -3.58173,6.54902 -6.65724,9.2126 -3.11881,2.70107 -6.81959,4.97983 -10.7424,7.37351 -3.8101,2.32492 -7.89174,4.79297 -11.22318,7.67595 -3.38928,2.93304 -6.25314,6.49929 -7.53684,11.13774 -3.62042,13.08179 -6.81853,33.61627 -9.11824,53.63206 -2.3021,20.03651 -3.72497,39.74325 -3.73705,51.23801 l -0.003,2.85821 5.71643,0.006 0.003,-2.85822 z"
@@ -1174,7 +1264,10 @@
        inkscape:original-d="m 224.00022,665.50164 c 0.0238,-22.65096 5.64126,-78.41816 12.75174,-104.11071 4.33376,-15.65937 30.28137,-18.29296 36.1078,-35.23252 9.0745,-26.38289 15.1647,-80.24681 15.14046,-110.93466"
        inkscape:path-effect="#path-effect3417-4-4-8"
        clip-path="url(#clipPath3692)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <path
        style="fill:#447821;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m -29.419562,665.50465 c 0.01175,-11.15621 1.409507,-30.65855 3.699701,-50.59152 2.292575,-19.95369 5.458425,-40.14907 8.948484,-52.75983 0.883189,-3.19126 2.88793,-5.82645 5.764774,-8.32078 2.9342757,-2.54413 6.5170902,-4.72983 10.46350491,-7.13792 3.83398939,-2.3395 7.98368729,-4.87418 11.50403809,-7.92043 3.563773,-3.08382 6.653364,-6.83006 8.323625,-11.68611 4.635948,-13.47839 8.453474,-33.76374 11.114243,-54.4174 2.665096,-20.68725 4.193873,-41.9499 4.18163,-57.44915 l -0.0023,-2.85822 -5.716437,0.005 0.0023,2.85822 c 0.012,15.1886 -1.492208,36.20183 -4.134778,56.71423 -2.646897,20.54598 -6.411723,40.38402 -10.850277,53.28851 -1.242957,3.61373 -3.581727,6.54902 -6.6572449,9.2126 -3.1188075,2.70107 -6.81958902,4.97983 -10.7423935,7.37351 -3.8101043,2.32492 -7.8917406,4.79297 -11.2231806,7.67595 -3.389284,2.93304 -6.253148,6.49929 -7.536848,11.13774 -3.620418,13.08179 -6.818508,33.61627 -9.118217,53.63206 -2.302091,20.03651 -3.724957,39.74325 -3.737061,51.238 l -0.003,2.85822 5.716435,0.006 0.003,-2.85822 z"
@@ -1184,7 +1277,10 @@
        inkscape:original-d="m -32.27778,665.50164 c 0.02385,-22.65096 5.641254,-78.41816 12.751733,-104.11071 4.333764,-15.65937 30.281374,-18.29296 36.107804,-35.23252 9.0745,-26.38287 15.164703,-80.24679 15.140463,-110.93464"
        inkscape:path-effect="#path-effect3417-7"
        clip-path="url(#clipPath3688)"
-       transform="matrix(1,0,0,1.0000044,384,-384.00296)" />
+       transform="matrix(1,0,0,1.0000044,384,-384.00296)"
+       inkscape:export-filename="C:\code\fireperson\Assets\Materials\Wallpaper\leafy.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
     <rect
        style="opacity:1;fill:#ffeeaa;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter5275-2)"
        id="rect4381-6"

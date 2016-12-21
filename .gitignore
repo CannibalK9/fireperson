@@ -3,5 +3,7 @@ Temp
 Library
 Assets/CC/*
 Assets/PC2D/*
-/out
+Build
+/*
+*suo/out
 Ignore*

@@ -24,6 +24,7 @@ namespace Assets.Scripts.CameraHandler
 			Height = 16;
 		}
 
+		[ExecuteInEditMode]
 		void Update()
 		{
 			Vector3 point = transform.position;
